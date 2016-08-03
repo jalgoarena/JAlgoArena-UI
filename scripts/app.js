@@ -1,6 +1,10 @@
 'use strict';
 
+
+
 var main = function() {
+
+    var serverUrl = 'http://jalgoarena.herokuapp.com';
 
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/tomorrow_night_eighties");
@@ -13,10 +17,11 @@ var main = function() {
         var problemId = e.currentTarget.id;
         $('#' + problemId).addClass('active');
 
+
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: 'http://jalgoarena.herokuapp.com/problems/' + problemId,
+            url: serverUrl + '/problems/' + problemId,
             crossDomain: true
         }).done(function (problem) {
             $('#problem-title').text(problem.title);
@@ -27,7 +32,7 @@ var main = function() {
             $.ajax({
                 type: "GET",
                 dataType: 'text',
-                url: 'http://jalgoarena.herokuapp.com/problems/' + problemId + '/skeletonCode',
+                url: serverUrl + '/problems/' + problemId + '/skeletonCode',
                 crossDomain: true
             }).done(function (skeletonCode) {
                 editor.setValue(skeletonCode, 1);
@@ -38,7 +43,7 @@ var main = function() {
     $.ajax({
         type: "GET",
         dataType: 'json',
-        url: 'http://jalgoarena.herokuapp.com/problems/',
+        url: serverUrl + '/problems/',
         crossDomain: true
     }).done(function (problems) {
 
@@ -66,11 +71,17 @@ var main = function() {
             data: sourceCode,
             processData: false,
             contentType: 'text/plain',
-            url: 'http://jalgoarena.herokuapp.com/problems/' + problemId + '/solution',
-            crossDomain: true,
+            url: serverUrl + '/problems/' + problemId + '/solution',
+            crossDomain: true
         }).done(function (result) {
-            console.log(sourceCode);
-            $('#output').text(JSON.stringify(result));
+
+            if (result.status_code === 'ACCEPTED') {
+                $('#output').html('<div class="alert alert-success" role="alert">All test cases passed!</div>');
+            } else if (result.status_code !== 'WRONG_ANSWER') {
+                $('#output').html('<div class="alert alert-danger" role="alert">' + result.error_message + '</div>');
+            } else {
+                $('#output').html('<div class="alert alert-warning" role="alert">Wrong answer!</div>');
+            }
         });
     });
 };
