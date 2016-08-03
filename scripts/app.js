@@ -78,7 +78,7 @@ var main = function() {
 
             switch (result.status_code) {
                 case 'ACCEPTED':
-                    $output.html('<div class="alert alert-success" role="alert">All test cases passed!</div>');
+                    $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
                     break;
                 case 'WRONG_ANSWER':
                     $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
@@ -110,8 +110,6 @@ var main = function() {
                     $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
                     break;
             }
-
-            $output.focus();
         });
     });
 };
