@@ -1,0 +1,21 @@
+{
+  "name": "jalgoarena",
+  "homepage": "https://github.com/spolnik/JAlgoArena-UI",
+  "authors": [
+    "Jacek Spólnik <jacek.spolnik@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "ace": "^1.2.4"
+  }
+}
