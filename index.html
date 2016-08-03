@@ -30,9 +30,8 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Leaderboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
             </ul>
         </div>
     </div>
@@ -71,23 +70,23 @@
             </div>
 
             <div class="row">
-                <button type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Run</button>
+                <a href="#end-of-output" type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Submit</a>
             </div>
 
             <div class="row output">
                 <div class="panel panel-default">
                     <div class="panel-body" id="output">
-                        Output
                     </div>
                 </div>
             </div>
+            <div id="end-of-output"></div>
         </div>
     </div>
 </div>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="bower_components/ace/build/src/ace.js"></script>
+<script src="bower_components/ace-builds/src-min/ace.js"></script>
 <script src="scripts/app.js"></script>
 </body>
 </html>

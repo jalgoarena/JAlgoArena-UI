@@ -104,3 +104,7 @@ div#editor {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+#submit-code {
+    width: 200px;
+}
