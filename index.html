@@ -13,12 +13,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <style type="text/css" media="screen">
-        #editor {
-            height: 256px;
-        }
-    </style>
 </head>
 <body>
 
@@ -35,14 +29,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Leaderboard</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="#">Help</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
         </div>
     </div>
 </nav>
@@ -57,23 +48,34 @@
             <h1 class="page-header" id="problem-title">Problem title</h1>
 
             <div class="row">
-                <div id="problem-description">That is the place for problem description</div>
+                <p id="problem-description" class="lead">That is the place for problem description</p>
+            </div>
+            <div class="row">
+                <p class="lead">
+                    <Strong>Input</Strong>
+                </p>
+                <p id="problem-example-input" ></p>
+                <p class="lead">
+                    <Strong>Output</Strong>
+                </p>
+                <p id="problem-example-output" ></p>
             </div>
 
             <div class="row">
-                <div id="editor" class="col-md-6">public class Solution {
+                <div id="editor">public class Solution {
     public static void main(String[] args) {
         // put your code here
     }
 }
                 </div>
-                <div id="output" class="col-md-6">
-                    Output
-                </div>
             </div>
 
             <div class="row">
-                <button type="button" class="btn btn-success" id="submit-code">Submit</button>
+                <button type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Run</button>
+            </div>
+
+            <div id="output">
+                Output
             </div>
         </div>
     </div>

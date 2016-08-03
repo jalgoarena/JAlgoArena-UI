@@ -3,7 +3,7 @@
 var main = function() {
 
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/chrome");
+    editor.setTheme("ace/theme/tomorrow_night_eighties");
     editor.getSession().setMode("ace/mode/java");
 
     var $problems = $('#problems');
@@ -21,6 +21,8 @@ var main = function() {
         }).done(function (problem) {
             $('#problem-title').text(problem.title);
             $('#problem-description').text(problem.description);
+            $('#problem-example-input').text(problem.example.input);
+            $('#problem-example-output').text(problem.example.output);
 
             $.ajax({
                 type: "GET",

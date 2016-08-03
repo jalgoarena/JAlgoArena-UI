@@ -4,9 +4,13 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-    padding-top: 50px;
+    padding-top: 70px;
 }
 
+body, p, button {
+    font-family: "Whitney SSm A", "Whitney SSm B", "Avenir", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Ubuntu", sans-serif;
+    font-weight: normal;
+}
 
 /*
  * Global add-ons
@@ -67,11 +71,6 @@ body {
     background-color: #428bca;
 }
 
-
-/*
- * Main content
- */
-
 .main {
     padding: 20px;
 }
@@ -85,26 +84,6 @@ body {
     margin-top: 0;
 }
 
-
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-    margin-bottom: 30px;
-    text-align: center;
-}
-.placeholders h4 {
-    margin-bottom: 0;
-}
-.placeholder {
-    margin-bottom: 20px;
-}
-.placeholder img {
-    display: inline-block;
-    border-radius: 50%;
-}
-
 .img {
     display: inline-block;
 }
@@ -113,4 +92,10 @@ body {
     display: inline-block;
     height: 35px;
     margin-top: -5px;
+}
+
+div#editor {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 350px;
 }
