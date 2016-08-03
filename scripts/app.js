@@ -9,7 +9,9 @@ var main = function() {
     var $problems = $('#problems');
 
     $problems.on('click', '.problem', function (e) {
+        $('.problem.active').removeClass('active');
         var problemId = e.currentTarget.id;
+        $('#' + problemId).addClass('active');
 
         $.ajax({
             type: "GET",
@@ -51,6 +53,23 @@ var main = function() {
         });
 
         $problems.children().first().click();
+    });
+
+    $('#submit-code').click(function () {
+        var problemId = $('.problem.active').attr('id');
+        var sourceCode = editor.getValue();
+
+        $.ajax({
+            type: "POST",
+            data: sourceCode,
+            processData: false,
+            contentType: 'text/plain',
+            url: 'http://jalgoarena.herokuapp.com/problems/' + problemId + '/solution',
+            crossDomain: true,
+        }).done(function (result) {
+            console.log(sourceCode);
+            $('#output').text(JSON.stringify(result));
+        });
     });
 };
 
