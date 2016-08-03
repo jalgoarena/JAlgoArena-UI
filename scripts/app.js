@@ -2,6 +2,10 @@
 
 var main = function() {
 
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/java");
+
     var $problems = $('#problems');
 
     $problems.on('click', '.problem', function (e) {
@@ -15,6 +19,15 @@ var main = function() {
         }).done(function (problem) {
             $('#problem-title').text(problem.title);
             $('#problem-description').text(problem.description);
+
+            $.ajax({
+                type: "GET",
+                dataType: 'text',
+                url: 'http://jalgoarena.herokuapp.com/problems/' + problemId + '/skeletonCode',
+                crossDomain: true
+            }).done(function (skeletonCode) {
+                editor.setValue(skeletonCode, 1);
+            });
         });
     });
 
