@@ -4,7 +4,7 @@
 
 var main = function() {
 
-    var serverUrl = 'http://jalgoarena.herokuapp.com';
+    var serverUrl = 'https://jalgoarena.herokuapp.com';
 
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/tomorrow_night_eighties");
