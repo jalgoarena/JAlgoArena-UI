@@ -84,14 +84,16 @@ body, p, button {
     margin-top: 0;
 }
 
-.img {
-    display: inline-block;
-}
-
 .logo {
     display: inline-block;
     height: 35px;
     margin-top: -5px;
+}
+
+.footer-logo {
+    display: inline-block;
+    height: 50px;
+    margin-right: 10px;
 }
 
 div#editor {
@@ -102,7 +104,9 @@ div#editor {
 
 .output {
     margin-top: 10px;
-    margin-bottom: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    padding: 0 10px 10px;
 }
 
 #submit-code {
