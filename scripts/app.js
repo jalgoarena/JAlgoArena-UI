@@ -11,7 +11,7 @@ var main = function() {
     var $problems = $('#problems');
 
     $problems.on('click', '.problem', function (e) {
-        $('#output').html('');
+        $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
         $('.problem.active').removeClass('active');
         var problemId = e.currentTarget.id;
         $('#' + problemId).addClass('active');
@@ -27,6 +27,8 @@ var main = function() {
             $('#problem-description').text(problem.description);
             $('#problem-example-input').text(problem.example.input);
             $('#problem-example-output').text(problem.example.output);
+            $('#problem-example-time-limit').text(problem.time_limit);
+            $('#problem-example-memory-limit').text(problem.memory_limit);
 
             $.ajax({
                 type: "GET",
@@ -79,11 +81,20 @@ var main = function() {
             switch (result.status_code) {
                 case 'ACCEPTED':
                     $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
+
+                    result.testcase_results.forEach(function(testCasePassed, i) {
+                        $output.append(
+                            '<div class="col-md-3">' +
+                            '<span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') +
+                            ' text-' + (testCasePassed ? 'success' : 'danger') +
+                            '" aria-hidden="true"></span> Test Case #' + (i + 1)  +
+                            '</div>');
+                    });
                     break;
                 case 'WRONG_ANSWER':
                     $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
-                    result.testcase_results.forEach(function(testCasePassed, i) {
 
+                    result.testcase_results.forEach(function(testCasePassed, i) {
                         $output.append(
                             '<div class="col-md-3">' +
                                 '<span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') +
@@ -94,9 +105,8 @@ var main = function() {
 
                     break;
                 case 'COMPILE_ERROR':
-                    $output.html(
-                        '<div class="alert alert-danger" role="alert">Compilation Error: ' + result.error_message + '</div>'
-                    );
+                    $output.html('<h2 class="text-danger text-center">Compilation Error</h2>');
+                    $output.append('<p>' + result.error_message + '</p>');
                     break;
                 case 'RUNTIME_ERROR':
                     $output.html(
@@ -104,7 +114,7 @@ var main = function() {
                     );
                     break;
                 case 'TIME_LIMIT_EXCEEDED':
-                    $output.html('<div class="alert alert-danger" role="alert">Time Limit Exceeded!</div>');
+                    $output.html('<h2 class="text-danger text-center">Time Limit Exceeded</h2>');
                     break;
                 case 'MEMORY_LIMIT_EXCEEDED':
                     $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');

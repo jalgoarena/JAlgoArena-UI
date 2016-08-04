@@ -40,6 +40,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
+            <h4 class="text-center">Problems</h4>
             <ul class="nav nav-sidebar" id="problems">
             </ul>
         </div>
@@ -51,11 +52,11 @@
             </div>
             <div class="row">
                 <p class="lead">
-                    <Strong>Input</Strong>
+                    <Strong>Example Input</Strong>
                 </p>
                 <p id="problem-example-input" ></p>
                 <p class="lead">
-                    <Strong>Output</Strong>
+                    <Strong>Example Output</Strong>
                 </p>
                 <p id="problem-example-output" ></p>
             </div>
@@ -68,21 +69,24 @@
 }
                 </div>
             </div>
-
             <div class="row">
                 <a href="#end-of-output" type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Submit</a>
+                <span>Time Limit is <span class="text-success" id="problem-example-time-limit"></span> seconds.</span><br>
+                <span>Memory Limit is <span class="text-success" id="problem-example-memory-limit"></span> kilobytes.</span>
             </div>
 
-            <div class="row output">
-                <div class="panel panel-default">
-                    <div class="panel-body" id="output">
-                    </div>
-                </div>
-            </div>
-            <div id="end-of-output"></div>
+            <div class="output row" id="output"></div>
         </div>
     </div>
 </div>
+<footer class="footer">
+    <div id="end-of-output">
+        <hr />
+    </div>
+    <div class="col-md-offset-6 col-md-6">
+        <img src="img/logo.png" class="img-responsive footer-logo">
+    </div>
+</footer>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
