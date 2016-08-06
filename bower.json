@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "ace": "^1.2.4"
+    "ace": "^1.2.4",
+    "spin.js": "^2.3.2"
   }
 }
