@@ -16,10 +16,11 @@
 </head>
 <body>
 
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -37,53 +38,72 @@
     </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <h4 class="text-center">Problems</h4>
-            <ul class="nav nav-sidebar" id="problems">
-            </ul>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Problems</h3>
+                <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+            </div>
+            <div class="panel-body"><div id="problems"></div></div>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header" id="problem-title">Problem title</h1>
+    </div>
+    <div class="row">
+        <h1 class="page-header" id="problem-title">Problem title</h1>
 
-            <div class="row">
-                <p id="problem-description" class="lead">That is the place for problem description</p>
-            </div>
-            <div class="row">
-                <p class="lead">
-                    <Strong>Example Input</Strong>
-                </p>
-                <p id="problem-example-input" ></p>
-                <p class="lead">
-                    <Strong>Example Output</Strong>
-                </p>
-                <p id="problem-example-output" ></p>
-            </div>
+        <div>
+            <p id="problem-description" class="lead">That is the place for problem description</p>
+        </div>
+        <div>
+            <p class="lead">
+                <Strong>Example</Strong>
+            </p>
+            <p><code id="problem-example-input"></code> -> <code id="problem-example-output"></code></p>
+        </div>
+        <div id="editor">public class Solution {
+            public static void main(String[] args) {
+            // put your code here
+            }
+            }
+        </div>
+        <div>
+            <a href="#end-of-output" type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span
+                    class="glyphicon glyphicon-flash" aria-hidden="true"></span> Submit</a>
+            <span>Time Limit is <span class="text-success"
+                                      id="problem-example-time-limit"></span> seconds.</span><br>
+            <span>Memory Limit is <span class="text-success"
+                                        id="problem-example-memory-limit"></span> kilobytes.</span>
+        </div>
+    </div>
+    <div class="output row" id="output"></div>
 
-            <div class="row">
-                <div id="editor">public class Solution {
-    public static void main(String[] args) {
-        // put your code here
-    }
-}
+    <div id="Searching_Modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false"
+         data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: center">
+                    <h3>Submission In Progress</h3>
+                </div>
+                <div class="modal-body" >
+                    <div style="height:200px">
+                        <span id="searching_spinner_center" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
+                    </div>
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                    <div class="col-md-offset-4 col-md-8">
+                        <img src="img/logo.png" class="img-responsive footer-logo">
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <a href="#end-of-output" type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Submit</a>
-                <span>Time Limit is <span class="text-success" id="problem-example-time-limit"></span> seconds.</span><br>
-                <span>Memory Limit is <span class="text-success" id="problem-example-memory-limit"></span> kilobytes.</span>
-            </div>
-
-            <div class="output row" id="output"></div>
         </div>
     </div>
 </div>
+
 <footer class="footer">
     <div id="end-of-output">
-        <hr />
+        <hr/>
     </div>
-    <div class="col-md-offset-6 col-md-6">
+    <div class="col-md-offset-5 col-md-7">
         <img src="img/logo.png" class="img-responsive footer-logo">
     </div>
 </footer>
@@ -91,6 +111,7 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/ace-builds/src-min/ace.js"></script>
+<script src="bower_components/spin.js/spin.min.js"></script>
 <script src="scripts/app.js"></script>
 </body>
 </html>

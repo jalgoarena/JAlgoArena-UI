@@ -8,6 +8,28 @@ var main = function() {
     editor.setTheme("ace/theme/tomorrow_night_eighties");
     editor.getSession().setMode("ace/mode/java");
 
+    var opts = {
+        lines: 13, // The number of lines to draw
+        length: 20, // The length of each line
+        width: 10, // The line thickness
+        radius: 30, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 0, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#000', // #rgb or #rrggbb or array of colors
+        speed: 1, // Rounds per second
+        trail: 60, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: 'auto', // Top position relative to parent in px
+        left:'auto' // Left position relative to parent in px
+    };
+
+    var target = document.getElementById('searching_spinner_center');
+    var spinner = new Spinner(opts).spin(target);
+
     var $problems = $('#problems');
 
     var updateProblem = function (problem, problemId) {
@@ -45,16 +67,11 @@ var main = function() {
     });
 
     var updateProblems = function (problems) {
-        var first = true;
+
         problems.forEach(function (problem) {
-            if (first) {
-                $problems.append(
-                    '<li class="active problem" id="' + problem + '"><a href="#">' + problem + '<span class="sr-only">(current)</span></a></li>'
-                );
-                first = false;
-            } else {
-                $problems.append('<li class="problem" id="' + problem + '"><a href="#">' + problem + '</a></li>')
-            }
+            $problems.append(
+                '<div class="col-md-3 problem" id="' + problem + '"><a href="#" class="btn btn-default btn-block">' + problem + '</a></div>'
+            );
         });
 
         $problems.children().first().click();
@@ -111,9 +128,13 @@ var main = function() {
                 $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
                 break;
         }
+
+        $('#Searching_Modal').modal('hide');
     };
 
     $('#submit-code').click(function () {
+        $('#Searching_Modal').modal('show');
+
         var problemId = $('.problem.active').attr('id');
         var sourceCode = editor.getValue();
 
@@ -125,6 +146,19 @@ var main = function() {
             url: serverUrl + '/problems/' + problemId + '/solution',
             crossDomain: true
         }).done(processSubmission);
+    });
+
+    $(document).on('click', '.panel-heading span.clickable', function(e){
+        var $this = $(this);
+        if(!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        } else {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        }
     });
 };
 
