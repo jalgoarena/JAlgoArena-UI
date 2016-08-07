@@ -1,3 +1,10 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
+deploy:
+  provider: heroku
+  api_key:
+    secure: Gjj54vxO6v8F40155QumSlTJ4UKwiwkpvPyVLP89koxuuHozQlj6/weW0+Di+wQlGziSDDi465RaeS78cH06FOu4gy1gFGuiRDesvM86LarfE8tl4c61t5TzCdRK9gw9uEa6CfSwBBex8nqsvBnFWvbo8P0VI/kBHaZJZSR12yBk34kW8evlx7BHWHPbLupsY2kN3H1o4i3uznDKLRONVIaSe8DhjB+VmuDCnKA0i89vh48RS/WiZ7RuvOvWZi2Qa2dQuZS/xEgJKjrxk2Pz0tPq98VTfgw9SzPmeXGJZT+54bbRuwKpbYVlzhVcY5nMPkrnqLRFeKk1DTpaxYqsCR9TvziYrqO2ZFMIGKmjVIbMHy48GJI+hSeqGAJU1lt/5NK6/z+dEjyAEXNSGcn6j7FoTdeFiw95OAz0TvzBBu+eM8Z6hOdgyLhJRzqc8rPrwcVYoUv6bELcBcngU6JzSOsTnMZzRXPcATG4BVMKsqdu2iIHbcnxj2Mx+/5K+heSJQIERL9lKY83dd4o70QAJJY21fxtfaNkBapXrHtgfLrEADiDHPKKW1sz/ns8P8TI2YzEXNtE4u/rCkHGPFWdN7umqdG0bglvNVT6wNePIuw5QnzUNLx4A2Ib2+eJcXnaoRX2cWGFV2FeOxnQzYbmhSPSsINPSKfe+SJr5l/gQp8=
+  app: jalgoarena-ui
+  on:
+    repo: spolnik/JAlgoArena-UI
