@@ -1,33 +1,31 @@
 import React from 'react';
 
+import ProblemTitle from './ProblemTitle.jsx';
+import ProblemDescription from './ProblemDescription.jsx';
+import ExampleInputAndOutput from './ExampleInputAndOutput.jsx';
+import CodeEditor from './CodeEditor.jsx';
+import SubmissionPanel from './SubmissionPanel.jsx';
+
 export default class SubmissionDetails extends React.Component {
     render() {
         return <div className="row">
-            <h1 className="page-header" id="problem-title">Problem title</h1>
-            <div>
-                <p id="problem-description" className="lead">That is the place for problem description</p>
-            </div>
-            <div>
-                <p className="lead">
-                    <strong>Example</strong>
-                </p>
-                <p><code id="problem-example-input"> </code> -> <code id="problem-example-output"> </code></p>
-            </div>
-            <div id="editor">{`public class Solution {
-                    public static void main(String[] args) {
-                    // put your code here
-                }
-                }`}
-            </div>
-            <div>
-                <a href="#end-of-output" type="button" className="btn btn-success btn-lg pull-right"
-                   id="submit-code">
-                    <span className="glyphicon glyphicon-flash" aria-hidden={true}> </span> Submit</a>
-                <span>Time Limit is <span className="text-success"
-                                          id="problem-example-time-limit"> </span> seconds.</span><br />
-                <span>Memory Limit is <span className="text-success"
-                                            id="problem-example-memory-limit"> </span> kilobytes.</span>
-            </div>
+            <ProblemTitle title="Check Permutations"/>
+            <ProblemDescription description="Given two strings, write a method to decide if one is a permutation of other." />
+            <ExampleInputAndOutput input='"abc", "cba"' output="true" />
+            <CodeEditor sourceCode={`import java.util.*;
+import org.algohub.engine.type.*;
+
+public class Solution {
+    /**
+     * @param str1 first string to be checked for permutation match
+     * @param str2 second string to be checked for permutation match
+     * @return  Indicate if one string is a permutation of another
+     */
+    public boolean permutation(String str1, String str2) {
+        // Write your code here
+    }
+}`} />
+            <SubmissionPanel timeLimit="1" memoryLimit="32" />
         </div>;
     }
 }

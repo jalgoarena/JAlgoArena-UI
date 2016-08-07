@@ -71,10 +71,6 @@
 
 	var serverUrl = 'https://jalgoarena.herokuapp.com';
 
-	var editor = ace.edit("editor");
-	editor.setTheme("ace/theme/tomorrow_night_eighties");
-	editor.getSession().setMode("ace/mode/java");
-
 	var $problems = $('#problems');
 
 	function updateProblem(problem, problemId) {
@@ -91,6 +87,7 @@
 	        url: serverUrl + '/problems/' + problemId + '/skeletonCode',
 	        crossDomain: true
 	    }).done(function (skeletonCode) {
+	        var editor = ace.edit("editor");
 	        editor.setValue(skeletonCode, 1);
 	    });
 	}
@@ -169,6 +166,7 @@
 	    $('#SubmissionInProgressSpinner').modal('show');
 
 	    var problemId = $('.problem.active').attr('id');
+	    var editor = ace.edit("editor");
 	    var sourceCode = editor.getValue();
 
 	    $.ajax({
@@ -21597,11 +21595,11 @@
 
 	var _Output2 = _interopRequireDefault(_Output);
 
-	var _SubmissionInProgressSpinner = __webpack_require__(182);
+	var _SubmissionInProgressSpinner = __webpack_require__(179);
 
 	var _SubmissionInProgressSpinner2 = _interopRequireDefault(_SubmissionInProgressSpinner);
 
-	var _SubmissionDetails = __webpack_require__(180);
+	var _SubmissionDetails = __webpack_require__(181);
 
 	var _SubmissionDetails2 = _interopRequireDefault(_SubmissionDetails);
 
@@ -21762,11 +21760,10 @@
 	exports.default = Output;
 
 /***/ },
-/* 179 */,
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -21778,6 +21775,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _spin = __webpack_require__(180);
+
+	var _spin2 = _interopRequireDefault(_spin);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21786,119 +21787,83 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SubmissionDetails = function (_React$Component) {
-	    _inherits(SubmissionDetails, _React$Component);
+	var SubmissionInProgressSpinner = function (_React$Component) {
+	    _inherits(SubmissionInProgressSpinner, _React$Component);
 
-	    function SubmissionDetails() {
-	        _classCallCheck(this, SubmissionDetails);
+	    function SubmissionInProgressSpinner() {
+	        _classCallCheck(this, SubmissionInProgressSpinner);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionDetails).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionInProgressSpinner).apply(this, arguments));
 	    }
 
-	    _createClass(SubmissionDetails, [{
-	        key: "render",
+	    _createClass(SubmissionInProgressSpinner, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var opts = {
+	                lines: 13,
+	                length: 20,
+	                width: 10,
+	                radius: 30,
+	                trail: 60
+	            };
+
+	            var target = document.getElementById('searching_spinner_center');
+	            new _spin2.default(opts).spin(target);
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                "div",
-	                { className: "row" },
+	                'div',
+	                { id: 'SubmissionInProgressSpinner', className: 'modal fade', tabIndex: '-1', role: 'dialog',
+	                    'data-keyboard': 'false',
+	                    'data-backdrop': 'static' },
 	                _react2.default.createElement(
-	                    "h1",
-	                    { className: "page-header", id: "problem-title" },
-	                    "Problem title"
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
+	                    'div',
+	                    { className: 'modal-dialog' },
 	                    _react2.default.createElement(
-	                        "p",
-	                        { id: "problem-description", className: "lead" },
-	                        "That is the place for problem description"
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
-	                    _react2.default.createElement(
-	                        "p",
-	                        { className: "lead" },
+	                        'div',
+	                        { className: 'modal-content' },
 	                        _react2.default.createElement(
-	                            "strong",
-	                            null,
-	                            "Example"
+	                            'div',
+	                            { className: 'modal-header' },
+	                            _react2.default.createElement(
+	                                'h3',
+	                                null,
+	                                'Submission In Progress'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'modal-body' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { id: 'searching_spinner_center' },
+	                                ' '
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'modal-footer' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'col-md-offset-4 col-md-8' },
+	                                _react2.default.createElement('img', { src: 'img/logo.png', className: 'img-responsive footer-logo' })
+	                            )
 	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "p",
-	                        null,
-	                        _react2.default.createElement(
-	                            "code",
-	                            { id: "problem-example-input" },
-	                            " "
-	                        ),
-	                        " -> ",
-	                        _react2.default.createElement(
-	                            "code",
-	                            { id: "problem-example-output" },
-	                            " "
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { id: "editor" },
-	                    "public class Solution {\n                    public static void main(String[] args) {\n                    // put your code here\n                }\n                }"
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
-	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "#end-of-output", type: "button", className: "btn btn-success btn-lg pull-right",
-	                            id: "submit-code" },
-	                        _react2.default.createElement(
-	                            "span",
-	                            { className: "glyphicon glyphicon-flash", "aria-hidden": true },
-	                            " "
-	                        ),
-	                        " Submit"
-	                    ),
-	                    _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        "Time Limit is ",
-	                        _react2.default.createElement(
-	                            "span",
-	                            { className: "text-success",
-	                                id: "problem-example-time-limit" },
-	                            " "
-	                        ),
-	                        " seconds."
-	                    ),
-	                    _react2.default.createElement("br", null),
-	                    _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        "Memory Limit is ",
-	                        _react2.default.createElement(
-	                            "span",
-	                            { className: "text-success",
-	                                id: "problem-example-memory-limit" },
-	                            " "
-	                        ),
-	                        " kilobytes."
 	                    )
 	                )
 	            );
 	        }
 	    }]);
 
-	    return SubmissionDetails;
+	    return SubmissionInProgressSpinner;
 	}(_react2.default.Component);
 
-	exports.default = SubmissionDetails;
+	exports.default = SubmissionInProgressSpinner;
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -22281,7 +22246,7 @@
 
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22296,9 +22261,25 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _spin = __webpack_require__(181);
+	var _ProblemTitle = __webpack_require__(182);
 
-	var _spin2 = _interopRequireDefault(_spin);
+	var _ProblemTitle2 = _interopRequireDefault(_ProblemTitle);
+
+	var _ProblemDescription = __webpack_require__(183);
+
+	var _ProblemDescription2 = _interopRequireDefault(_ProblemDescription);
+
+	var _ExampleInputAndOutput = __webpack_require__(184);
+
+	var _ExampleInputAndOutput2 = _interopRequireDefault(_ExampleInputAndOutput);
+
+	var _CodeEditor = __webpack_require__(185);
+
+	var _CodeEditor2 = _interopRequireDefault(_CodeEditor);
+
+	var _SubmissionPanel = __webpack_require__(186);
+
+	var _SubmissionPanel2 = _interopRequireDefault(_SubmissionPanel);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22308,80 +22289,348 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SubmissionInProgressSpinner = function (_React$Component) {
-	    _inherits(SubmissionInProgressSpinner, _React$Component);
+	var SubmissionDetails = function (_React$Component) {
+	    _inherits(SubmissionDetails, _React$Component);
 
-	    function SubmissionInProgressSpinner() {
-	        _classCallCheck(this, SubmissionInProgressSpinner);
+	    function SubmissionDetails() {
+	        _classCallCheck(this, SubmissionDetails);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionInProgressSpinner).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionDetails).apply(this, arguments));
 	    }
 
-	    _createClass(SubmissionInProgressSpinner, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var opts = {
-	                lines: 13,
-	                length: 20,
-	                width: 10,
-	                radius: 30,
-	                trail: 60
-	            };
-
-	            var target = document.getElementById('searching_spinner_center');
-	            new _spin2.default(opts).spin(target);
-	        }
-	    }, {
+	    _createClass(SubmissionDetails, [{
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { id: 'SubmissionInProgressSpinner', className: 'modal fade', tabIndex: '-1', role: 'dialog',
-	                    'data-keyboard': 'false',
-	                    'data-backdrop': 'static' },
+	                { className: 'row' },
+	                _react2.default.createElement(_ProblemTitle2.default, { title: 'Check Permutations' }),
+	                _react2.default.createElement(_ProblemDescription2.default, { description: 'Given two strings, write a method to decide if one is a permutation of other.' }),
+	                _react2.default.createElement(_ExampleInputAndOutput2.default, { input: '"abc", "cba"', output: 'true' }),
+	                _react2.default.createElement(_CodeEditor2.default, { sourceCode: 'import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}' }),
+	                _react2.default.createElement(_SubmissionPanel2.default, { timeLimit: '1', memoryLimit: '32' })
+	            );
+	        }
+	    }]);
+
+	    return SubmissionDetails;
+	}(_react2.default.Component);
+
+	exports.default = SubmissionDetails;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ProblemTitle = function (_React$Component) {
+	    _inherits(ProblemTitle, _React$Component);
+
+	    function ProblemTitle() {
+	        _classCallCheck(this, ProblemTitle);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ProblemTitle).apply(this, arguments));
+	    }
+
+	    _createClass(ProblemTitle, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "h1",
+	                { className: "page-header", id: "problem-title" },
+	                this.props.title
+	            );
+	        }
+	    }]);
+
+	    return ProblemTitle;
+	}(_react2.default.Component);
+
+	exports.default = ProblemTitle;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ProblemDescription = function (_React$Component) {
+	    _inherits(ProblemDescription, _React$Component);
+
+	    function ProblemDescription() {
+	        _classCallCheck(this, ProblemDescription);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ProblemDescription).apply(this, arguments));
+	    }
+
+	    _createClass(ProblemDescription, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                null,
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'modal-dialog' },
+	                    "p",
+	                    { id: "problem-description", className: "lead" },
+	                    this.props.description
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ProblemDescription;
+	}(_react2.default.Component);
+
+	exports.default = ProblemDescription;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ExampleInputAndOutput = function (_React$Component) {
+	    _inherits(ExampleInputAndOutput, _React$Component);
+
+	    function ExampleInputAndOutput() {
+	        _classCallCheck(this, ExampleInputAndOutput);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ExampleInputAndOutput).apply(this, arguments));
+	    }
+
+	    _createClass(ExampleInputAndOutput, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "p",
+	                    { className: "lead" },
 	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'modal-content' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-header' },
-	                            _react2.default.createElement(
-	                                'h3',
-	                                null,
-	                                'Submission In Progress'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-body' },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { id: 'searching_spinner_center' },
-	                                ' '
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-footer' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'col-md-offset-4 col-md-8' },
-	                                _react2.default.createElement('img', { src: 'img/logo.png', className: 'img-responsive footer-logo' })
-	                            )
-	                        )
+	                        "strong",
+	                        null,
+	                        "Example"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "p",
+	                    null,
+	                    _react2.default.createElement(
+	                        "code",
+	                        { id: "problem-example-input" },
+	                        this.props.input
+	                    ),
+	                    "->",
+	                    _react2.default.createElement(
+	                        "code",
+	                        { id: "problem-example-output" },
+	                        this.props.output
 	                    )
 	                )
 	            );
 	        }
 	    }]);
 
-	    return SubmissionInProgressSpinner;
+	    return ExampleInputAndOutput;
 	}(_react2.default.Component);
 
-	exports.default = SubmissionInProgressSpinner;
+	exports.default = ExampleInputAndOutput;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CodeEditor = function (_React$Component) {
+	    _inherits(CodeEditor, _React$Component);
+
+	    function CodeEditor() {
+	        _classCallCheck(this, CodeEditor);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(CodeEditor).apply(this, arguments));
+	    }
+
+	    _createClass(CodeEditor, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            var editor = ace.edit("editor");
+	            editor.setTheme("ace/theme/tomorrow_night_eighties");
+	            editor.getSession().setMode("ace/mode/java");
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { id: "editor" },
+	                this.props.sourceCode
+	            );
+	        }
+	    }]);
+
+	    return CodeEditor;
+	}(_react2.default.Component);
+
+	exports.default = CodeEditor;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SubmissionPanel = function (_React$Component) {
+	    _inherits(SubmissionPanel, _React$Component);
+
+	    function SubmissionPanel() {
+	        _classCallCheck(this, SubmissionPanel);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionPanel).apply(this, arguments));
+	    }
+
+	    _createClass(SubmissionPanel, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "a",
+	                    { href: "#end-of-output", type: "button", className: "btn btn-success btn-lg pull-right",
+	                        id: "submit-code" },
+	                    _react2.default.createElement(
+	                        "span",
+	                        { className: "glyphicon glyphicon-flash", "aria-hidden": true },
+	                        " "
+	                    ),
+	                    " Submit"
+	                ),
+	                _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    "Time Limit is ",
+	                    _react2.default.createElement(
+	                        "span",
+	                        { className: "text-success",
+	                            id: "problem-example-time-limit" },
+	                        this.props.timeLimit
+	                    ),
+	                    " seconds."
+	                ),
+	                _react2.default.createElement("br", null),
+	                _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    "Memory Limit is ",
+	                    _react2.default.createElement(
+	                        "span",
+	                        { className: "text-success",
+	                            id: "problem-example-memory-limit" },
+	                        this.props.memoryLimit
+	                    ),
+	                    " kilobytes."
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SubmissionPanel;
+	}(_react2.default.Component);
+
+	exports.default = SubmissionPanel;
 
 /***/ }
 /******/ ]);

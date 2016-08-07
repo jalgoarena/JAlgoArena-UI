@@ -6,12 +6,6 @@ ReactDOM.render(<AlgoArena />, document.getElementById('app'));
 
 const serverUrl = 'https://jalgoarena.herokuapp.com';
 
-let editor = ace.edit("editor");
-editor.setTheme("ace/theme/tomorrow_night_eighties");
-editor.getSession().setMode("ace/mode/java");
-
-
-
 let $problems = $('#problems');
 
 function updateProblem(problem, problemId) {
@@ -28,6 +22,7 @@ function updateProblem(problem, problemId) {
         url: `${serverUrl}/problems/${problemId}/skeletonCode`,
         crossDomain: true
     }).done(function (skeletonCode) {
+        let editor = ace.edit("editor");
         editor.setValue(skeletonCode, 1);
     });
 }
@@ -126,6 +121,7 @@ $('#submit-code').click(() => {
     $('#SubmissionInProgressSpinner').modal('show');
 
     let problemId = $('.problem.active').attr('id');
+    let editor = ace.edit("editor");
     let sourceCode = editor.getValue();
 
     $.ajax({
