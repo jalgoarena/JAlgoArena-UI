@@ -109,22 +109,6 @@
 	    });
 	});
 
-	function updateProblems(problems) {
-
-	    problems.forEach(function (problem) {
-	        return $problems.append('<div class="col-md-3 problem" id="' + problem + '">\n                <a href="#" class="btn btn-default btn-block">' + problem + '</a>\n            </div>');
-	    });
-
-	    $problems.children().first().click();
-	}
-
-	$.ajax({
-	    type: "GET",
-	    dataType: 'json',
-	    url: serverUrl + '/problems/',
-	    crossDomain: true
-	}).done(updateProblems);
-
 	function processSubmission(result) {
 	    var $output = $('#output');
 
@@ -177,20 +161,6 @@
 	        url: serverUrl + '/problems/' + problemId + '/solution',
 	        crossDomain: true
 	    }).done(processSubmission);
-	});
-
-	$(document).on('click', '.panel-heading span.clickable', function () {
-	    var $this = $(undefined);
-
-	    if (!$this.hasClass('panel-collapsed')) {
-	        $this.parents('.panel').find('.panel-body').slideUp();
-	        $this.addClass('panel-collapsed');
-	        $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-	    } else {
-	        $this.parents('.panel').find('.panel-body').slideDown();
-	        $this.removeClass('panel-collapsed');
-	        $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-	    }
 	});
 
 /***/ },
@@ -21623,12 +21593,22 @@
 	    _createClass(AlgoArena, [{
 	        key: 'render',
 	        value: function render() {
+	            var serverUrl = 'https://jalgoarena.herokuapp.com';
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'container' },
-	                _react2.default.createElement(_Problems2.default, null),
+	                _react2.default.createElement(_Problems2.default, { serverUrl: serverUrl }),
 	                _react2.default.createElement(_SubmissionDetails2.default, null),
-	                _react2.default.createElement(_Output2.default, null),
+	                _react2.default.createElement(
+	                    _Output2.default,
+	                    null,
+	                    _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-info text-center' },
+	                        'Submit your code to see results'
+	                    )
+	                ),
 	                _react2.default.createElement(_SubmissionInProgressSpinner2.default, null)
 	            );
 	        }
@@ -21643,7 +21623,7 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -21666,43 +21646,98 @@
 	var Problems = function (_React$Component) {
 	    _inherits(Problems, _React$Component);
 
-	    function Problems() {
+	    function Problems(props) {
 	        _classCallCheck(this, Problems);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Problems).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Problems).call(this, props));
+
+	        _this.state = { problems: [] };
+	        return _this;
 	    }
 
 	    _createClass(Problems, [{
-	        key: "render",
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            $.ajax({
+	                type: "GET",
+	                dataType: 'json',
+	                cache: 'false',
+	                url: this.props.serverUrl + '/problems/',
+	                crossDomain: true,
+	                success: function success(problems) {
+	                    _this2.setState({ problems: problems });
+	                    $('#problems').children().first().click();
+	                    _this2.toggle();
+	                },
+	                error: function error(xhr, status, err) {
+	                    console.error(_this2.props.url, status, err.toString());
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'toggle',
+	        value: function toggle() {
+	            var $this = $('.panel-heading span.clickable');
+
+	            if (!$this.hasClass('panel-collapsed')) {
+	                $this.parents('.panel').find('.panel-body').slideUp();
+	                $this.addClass('panel-collapsed');
+	                $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+	            } else {
+	                $this.parents('.panel').find('.panel-body').slideDown();
+	                $this.removeClass('panel-collapsed');
+	                $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+	            }
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "row" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "panel panel-success" },
+	            var problemNodes = this.state.problems.map(function (problemId) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-md-3 problem', id: problemId },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "panel-heading" },
+	                        'a',
+	                        { href: '#', className: 'btn btn-default btn-block' },
+	                        problemId
+	                    )
+	                );
+	            });
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'row' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-success' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading' },
 	                        _react2.default.createElement(
-	                            "h3",
-	                            { className: "panel-title" },
-	                            "Problems"
+	                            'h3',
+	                            { className: 'panel-title' },
+	                            'Problems'
 	                        ),
 	                        _react2.default.createElement(
-	                            "span",
-	                            { className: "pull-right clickable" },
+	                            'span',
+	                            { className: 'pull-right clickable', onClick: this.toggle },
 	                            _react2.default.createElement(
-	                                "i",
-	                                { className: "glyphicon glyphicon-chevron-up" },
-	                                " "
+	                                'i',
+	                                { className: 'glyphicon glyphicon-chevron-up' },
+	                                ' '
 	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "panel-body" },
-	                        _react2.default.createElement("div", { id: "problems" })
+	                        'div',
+	                        { className: 'panel-body' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { id: 'problems' },
+	                            problemNodes
+	                        )
 	                    )
 	                )
 	            );
@@ -21750,7 +21785,11 @@
 	    _createClass(Output, [{
 	        key: "render",
 	        value: function render() {
-	            return _react2.default.createElement("div", { className: "output row", id: "output" });
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "output row", id: "output" },
+	                this.props.children
+	            );
 	        }
 	    }]);
 

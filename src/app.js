@@ -44,26 +44,6 @@ $problems.on('click', '.problem', (e) => {
     });
 });
 
-function updateProblems(problems) {
-
-    problems.forEach((problem) =>
-        $problems.append(
-            `<div class="col-md-3 problem" id="${problem}">
-                <a href="#" class="btn btn-default btn-block">${problem}</a>
-            </div>`
-        )
-    );
-
-    $problems.children().first().click();
-}
-
-$.ajax({
-    type: "GET",
-    dataType: 'json',
-    url: `${serverUrl}/problems/`,
-    crossDomain: true
-}).done(updateProblems);
-
 function processSubmission(result) {
     let $output = $('#output');
 
@@ -132,18 +112,4 @@ $('#submit-code').click(() => {
         url: `${serverUrl}/problems/${problemId}/solution`,
         crossDomain: true
     }).done(processSubmission);
-});
-
-$(document).on('click', '.panel-heading span.clickable', () => {
-    let $this = $(this);
-
-    if(!$this.hasClass('panel-collapsed')) {
-        $this.parents('.panel').find('.panel-body').slideUp();
-        $this.addClass('panel-collapsed');
-        $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-    } else {
-        $this.parents('.panel').find('.panel-body').slideDown();
-        $this.removeClass('panel-collapsed');
-        $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-    }
 });

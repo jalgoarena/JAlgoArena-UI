@@ -54,3 +54,7 @@ div#editor {
 .modal-body {
     height: 200px;
 }
+
+.problem.active > .btn {
+    background-color: #dff0d8;
+}

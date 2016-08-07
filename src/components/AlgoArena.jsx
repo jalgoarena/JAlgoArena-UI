@@ -7,10 +7,14 @@ import SubmissionDetails from './SubmissionDetails.jsx';
 
 export default class AlgoArena extends React.Component {
     render() {
+        const serverUrl = 'https://jalgoarena.herokuapp.com';
+
         return <div className="container">
-            <Problems />
+            <Problems serverUrl={serverUrl} />
             <SubmissionDetails />
-            <Output />
+            <Output>
+                <h2 className="text-info text-center">Submit your code to see results</h2>
+            </Output>
             <SubmissionInProgressSpinner />
         </div>
     }
