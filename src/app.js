@@ -1,5 +1,12 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import AlgoArena from './components/AlgoArena.jsx';
+
+ReactDOM.render(<AlgoArena />, document.getElementById('app'));
+
 const serverUrl = 'https://jalgoarena.herokuapp.com';
-const editor = ace.edit("editor");
+
+let editor = ace.edit("editor");
 editor.setTheme("ace/theme/tomorrow_night_eighties");
 editor.getSession().setMode("ace/mode/java");
 
@@ -45,7 +52,7 @@ function updateProblem(problem, problemId) {
     });
 }
 
-$problems.on('click', '.problem', function (e) {
+$problems.on('click', '.problem', (e) => {
     $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
     $('.problem.active').removeClass('active');
 
@@ -133,9 +140,9 @@ function processSubmission(result) {
     }
 
     $('#Searching_Modal').modal('hide');
-};
+}
 
-$('#submit-code').click(function () {
+$('#submit-code').click(() => {
     $('#Searching_Modal').modal('show');
 
     let problemId = $('.problem.active').attr('id');

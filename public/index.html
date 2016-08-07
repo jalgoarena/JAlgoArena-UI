@@ -39,66 +39,7 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="row">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">Problems</h3>
-                <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
-            </div>
-            <div class="panel-body"><div id="problems"></div></div>
-        </div>
-    </div>
-    <div class="row">
-        <h1 class="page-header" id="problem-title">Problem title</h1>
-
-        <div>
-            <p id="problem-description" class="lead">That is the place for problem description</p>
-        </div>
-        <div>
-            <p class="lead">
-                <Strong>Example</Strong>
-            </p>
-            <p><code id="problem-example-input"></code> -> <code id="problem-example-output"></code></p>
-        </div>
-        <div id="editor">public class Solution {
-            public static void main(String[] args) {
-            // put your code here
-            }
-            }
-        </div>
-        <div>
-            <a href="#end-of-output" type="button" class="btn btn-success btn-lg pull-right" id="submit-code"><span
-                    class="glyphicon glyphicon-flash" aria-hidden="true"></span> Submit</a>
-            <span>Time Limit is <span class="text-success"
-                                      id="problem-example-time-limit"></span> seconds.</span><br>
-            <span>Memory Limit is <span class="text-success"
-                                        id="problem-example-memory-limit"></span> kilobytes.</span>
-        </div>
-    </div>
-    <div class="output row" id="output"></div>
-
-    <div id="Searching_Modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false"
-         data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="text-align: center">
-                    <h3>Submission In Progress</h3>
-                </div>
-                <div class="modal-body" >
-                    <div style="height:200px">
-                        <span id="searching_spinner_center" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
-                    </div>
-                </div>
-                <div class="modal-footer" style="text-align: center">
-                    <div class="col-md-offset-4 col-md-8">
-                        <img src="img/logo.png" class="img-responsive footer-logo">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="app"></div>
 
 <footer class="footer">
     <div id="end-of-output">
