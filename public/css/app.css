@@ -55,6 +55,6 @@ div#editor {
     height: 200px;
 }
 
-.problem.active > .btn {
+.btn.active {
     background-color: #dff0d8;
 }

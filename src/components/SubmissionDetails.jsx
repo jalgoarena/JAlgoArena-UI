@@ -25,7 +25,7 @@ public class Solution {
         // Write your code here
     }
 }`} />
-            <SubmissionPanel timeLimit="1" memoryLimit="32" />
+            <SubmissionPanel timeLimit="1" memoryLimit="32" serverUrl={this.props.serverUrl} />
         </div>;
     }
 }

@@ -69,100 +69,6 @@
 
 	_reactDom2.default.render(_react2.default.createElement(_AlgoArena2.default, null), document.getElementById('app'));
 
-	var serverUrl = 'https://jalgoarena.herokuapp.com';
-
-	var $problems = $('#problems');
-
-	function updateProblem(problem, problemId) {
-	    $('#problem-title').text(problem.title);
-	    $('#problem-description').text(problem.description);
-	    $('#problem-example-input').text(problem.example.input);
-	    $('#problem-example-output').text(problem.example.output);
-	    $('#problem-example-time-limit').text(problem.time_limit);
-	    $('#problem-example-memory-limit').text(problem.memory_limit);
-
-	    $.ajax({
-	        type: "GET",
-	        dataType: 'text',
-	        url: serverUrl + '/problems/' + problemId + '/skeletonCode',
-	        crossDomain: true
-	    }).done(function (skeletonCode) {
-	        var editor = ace.edit("editor");
-	        editor.setValue(skeletonCode, 1);
-	    });
-	}
-
-	$problems.on('click', '.problem', function (e) {
-	    $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
-	    $('.problem.active').removeClass('active');
-
-	    var problemId = e.currentTarget.id;
-	    $('#' + problemId).addClass('active');
-
-	    $.ajax({
-	        type: "GET",
-	        dataType: 'json',
-	        url: serverUrl + '/problems/' + problemId,
-	        crossDomain: true
-	    }).done(function (problem) {
-	        updateProblem(problem, problemId);
-	    });
-	});
-
-	function processSubmission(result) {
-	    var $output = $('#output');
-
-	    switch (result.status_code) {
-	        case 'ACCEPTED':
-	            $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
-
-	            result.testcase_results.forEach(function (testCasePassed, i) {
-	                return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                                text-' + (testCasePassed ? 'success' : 'danger') + '" \n                                aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
-	            });
-	            break;
-	        case 'WRONG_ANSWER':
-	            $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
-
-	            result.testcase_results.forEach(function (testCasePassed, i) {
-	                return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                              text-' + (testCasePassed ? 'success' : 'danger') + '" \n                              aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
-	            });
-
-	            break;
-	        case 'COMPILE_ERROR':
-	            $output.html('<h2 class="text-danger text-center">Compilation Error</h2>');
-	            $output.append('<p>' + result.error_message + '</p>');
-	            break;
-	        case 'RUNTIME_ERROR':
-	            $output.html('<div class="alert alert-danger" role="alert">Runtime Error: ' + result.error_message + '</div>');
-	            break;
-	        case 'TIME_LIMIT_EXCEEDED':
-	            $output.html('<h2 class="text-danger text-center">Time Limit Exceeded</h2>');
-	            break;
-	        case 'MEMORY_LIMIT_EXCEEDED':
-	            $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
-	            break;
-	    }
-
-	    $('#SubmissionInProgressSpinner').modal('hide');
-	}
-
-	$('#submit-code').click(function () {
-	    $('#SubmissionInProgressSpinner').modal('show');
-
-	    var problemId = $('.problem.active').attr('id');
-	    var editor = ace.edit("editor");
-	    var sourceCode = editor.getValue();
-
-	    $.ajax({
-	        type: "POST",
-	        data: sourceCode,
-	        processData: false,
-	        contentType: 'text/plain',
-	        url: serverUrl + '/problems/' + problemId + '/solution',
-	        crossDomain: true
-	    }).done(processSubmission);
-	});
-
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
@@ -21599,7 +21505,7 @@
 	                'div',
 	                { className: 'container' },
 	                _react2.default.createElement(_Problems2.default, { serverUrl: serverUrl }),
-	                _react2.default.createElement(_SubmissionDetails2.default, null),
+	                _react2.default.createElement(_SubmissionDetails2.default, { serverUrl: serverUrl }),
 	                _react2.default.createElement(
 	                    _Output2.default,
 	                    null,
@@ -21668,7 +21574,9 @@
 	                crossDomain: true,
 	                success: function success(problems) {
 	                    _this2.setState({ problems: problems });
-	                    $('#problems').children().first().click();
+	                    var $firstProblem = $('#problems').children().first();
+	                    $firstProblem.click();
+	                    $firstProblem.children().first().addClass('active');
 	                    _this2.toggle();
 	                },
 	                error: function error(xhr, status, err) {
@@ -21692,15 +21600,54 @@
 	            }
 	        }
 	    }, {
+	        key: 'updateProblem',
+	        value: function updateProblem(e) {
+	            function updateProblem(problem, problemId) {
+	                $('#problem-title').text(problem.title);
+	                $('#problem-description').text(problem.description);
+	                $('#problem-example-input').text(problem.example.input);
+	                $('#problem-example-output').text(problem.example.output);
+	                $('#problem-example-time-limit').text(problem.time_limit);
+	                $('#problem-example-memory-limit').text(problem.memory_limit);
+
+	                $.ajax({
+	                    type: "GET",
+	                    dataType: 'text',
+	                    url: this.props.serverUrl + '/problems/' + problemId + '/skeletonCode',
+	                    crossDomain: true
+	                }).done(function (skeletonCode) {
+	                    var editor = ace.edit("editor");
+	                    editor.setValue(skeletonCode, 1);
+	                });
+	            }
+
+	            $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
+	            $('.btn.active').removeClass('active');
+
+	            var problemId = e.target.id;
+	            $('#' + problemId).addClass('active');
+
+	            $.ajax({
+	                type: "GET",
+	                dataType: 'json',
+	                url: this.props.serverUrl + '/problems/' + problemId,
+	                crossDomain: true
+	            }).done(function (problem) {
+	                updateProblem(problem, problemId);
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
+
 	            var problemNodes = this.state.problems.map(function (problemId) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'col-md-3 problem', id: problemId },
+	                    { className: 'col-md-3 problem' },
 	                    _react2.default.createElement(
 	                        'a',
-	                        { href: '#', className: 'btn btn-default btn-block' },
+	                        { href: '#', id: problemId, className: 'btn btn-default btn-block', onClick: _this3.updateProblem.bind(_this3) },
 	                        problemId
 	                    )
 	                );
@@ -22347,7 +22294,7 @@
 	                _react2.default.createElement(_ProblemDescription2.default, { description: 'Given two strings, write a method to decide if one is a permutation of other.' }),
 	                _react2.default.createElement(_ExampleInputAndOutput2.default, { input: '"abc", "cba"', output: 'true' }),
 	                _react2.default.createElement(_CodeEditor2.default, { sourceCode: 'import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}' }),
-	                _react2.default.createElement(_SubmissionPanel2.default, { timeLimit: '1', memoryLimit: '32' })
+	                _react2.default.createElement(_SubmissionPanel2.default, { timeLimit: '1', memoryLimit: '32', serverUrl: this.props.serverUrl })
 	            );
 	        }
 	    }]);
@@ -22591,7 +22538,7 @@
 /* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -22621,46 +22568,101 @@
 	    }
 
 	    _createClass(SubmissionPanel, [{
-	        key: "render",
+	        key: 'submitCode',
+	        value: function submitCode() {
+	            $('#SubmissionInProgressSpinner').modal('show');
+
+	            var problemId = $('.btn.active').attr('id');
+	            var editor = ace.edit("editor");
+	            var sourceCode = editor.getValue();
+
+	            $.ajax({
+	                type: "POST",
+	                data: sourceCode,
+	                processData: false,
+	                contentType: 'text/plain',
+	                url: this.props.serverUrl + '/problems/' + problemId + '/solution',
+	                crossDomain: true
+	            }).done(processSubmission);
+
+	            function processSubmission(result) {
+	                var $output = $('#output');
+
+	                switch (result.status_code) {
+	                    case 'ACCEPTED':
+	                        $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
+
+	                        result.testcase_results.forEach(function (testCasePassed, i) {
+	                            return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                                text-' + (testCasePassed ? 'success' : 'danger') + '" \n                                aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
+	                        });
+	                        break;
+	                    case 'WRONG_ANSWER':
+	                        $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
+
+	                        result.testcase_results.forEach(function (testCasePassed, i) {
+	                            return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                              text-' + (testCasePassed ? 'success' : 'danger') + '" \n                              aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
+	                        });
+
+	                        break;
+	                    case 'COMPILE_ERROR':
+	                        $output.html('<h2 class="text-danger text-center">Compilation Error</h2>');
+	                        $output.append('<p>' + result.error_message + '</p>');
+	                        break;
+	                    case 'RUNTIME_ERROR':
+	                        $output.html('<div class="alert alert-danger" role="alert">Runtime Error: ' + result.error_message + '</div>');
+	                        break;
+	                    case 'TIME_LIMIT_EXCEEDED':
+	                        $output.html('<h2 class="text-danger text-center">Time Limit Exceeded</h2>');
+	                        break;
+	                    case 'MEMORY_LIMIT_EXCEEDED':
+	                        $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
+	                        break;
+	                }
+
+	                $('#SubmissionInProgressSpinner').modal('hide');
+	            }
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                "div",
+	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    "a",
-	                    { href: "#end-of-output", type: "button", className: "btn btn-success btn-lg pull-right",
-	                        id: "submit-code" },
+	                    'a',
+	                    { href: '#end-of-output', type: 'button', className: 'btn btn-success btn-lg pull-right',
+	                        id: 'submit-code', onClick: this.submitCode.bind(this) },
 	                    _react2.default.createElement(
-	                        "span",
-	                        { className: "glyphicon glyphicon-flash", "aria-hidden": true },
-	                        " "
+	                        'span',
+	                        { className: 'glyphicon glyphicon-flash', 'aria-hidden': true },
+	                        ' '
 	                    ),
-	                    " Submit"
+	                    ' Submit'
 	                ),
 	                _react2.default.createElement(
-	                    "span",
+	                    'span',
 	                    null,
-	                    "Time Limit is ",
+	                    'Time Limit is ',
 	                    _react2.default.createElement(
-	                        "span",
-	                        { className: "text-success",
-	                            id: "problem-example-time-limit" },
+	                        'span',
+	                        { className: 'text-success',
+	                            id: 'problem-example-time-limit' },
 	                        this.props.timeLimit
 	                    ),
-	                    " seconds."
+	                    ' seconds.'
 	                ),
-	                _react2.default.createElement("br", null),
+	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
-	                    "span",
+	                    'span',
 	                    null,
-	                    "Memory Limit is ",
+	                    'Memory Limit is ',
 	                    _react2.default.createElement(
-	                        "span",
-	                        { className: "text-success",
-	                            id: "problem-example-memory-limit" },
+	                        'span',
+	                        { className: 'text-success',
+	                            id: 'problem-example-memory-limit' },
 	                        this.props.memoryLimit
 	                    ),
-	                    " kilobytes."
+	                    ' kilobytes.'
 	                )
 	            );
 	        }

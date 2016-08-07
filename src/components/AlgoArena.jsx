@@ -11,7 +11,7 @@ export default class AlgoArena extends React.Component {
 
         return <div className="container">
             <Problems serverUrl={serverUrl} />
-            <SubmissionDetails />
+            <SubmissionDetails serverUrl={serverUrl} />
             <Output>
                 <h2 className="text-info text-center">Submit your code to see results</h2>
             </Output>
