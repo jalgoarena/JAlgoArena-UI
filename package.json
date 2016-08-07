@@ -23,7 +23,8 @@
     "express": "^4.14.0",
     "opbeat": "^3.14.0",
     "react": "^15.3.0",
-    "react-dom": "^15.3.0"
+    "react-dom": "^15.3.0",
+    "spin.js": "^2.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
