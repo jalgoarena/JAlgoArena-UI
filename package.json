@@ -1,0 +1,25 @@
+{
+  "name": "jalgoarena",
+  "version": "1.0.0",
+  "description": "JAlgoArena UI",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo 'not implemented yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spolnik/JAlgoArena-UI.git"
+  },
+  "keywords": [
+    "JAlgoArena"
+  ],
+  "author": "Jacek Spólnik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spolnik/JAlgoArena-UI/issues"
+  },
+  "homepage": "https://github.com/spolnik/JAlgoArena-UI#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
