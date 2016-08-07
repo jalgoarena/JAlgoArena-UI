@@ -38,39 +38,11 @@ export default class Problems extends React.Component {
         }
     }
     updateProblem(e) {
-        function updateProblem(problem, problemId) {
-            $('#problem-title').text(problem.title);
-            $('#problem-description').text(problem.description);
-            $('#problem-example-input').text(problem.example.input);
-            $('#problem-example-output').text(problem.example.output);
-            $('#problem-example-time-limit').text(problem.time_limit);
-            $('#problem-example-memory-limit').text(problem.memory_limit);
-
-            $.ajax({
-                type: "GET",
-                dataType: 'text',
-                url: `${this.props.serverUrl}/problems/${problemId}/skeletonCode`,
-                crossDomain: true
-            }).done(function (skeletonCode) {
-                let editor = ace.edit("editor");
-                editor.setValue(skeletonCode, 1);
-            });
-        }
-
-        $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
-        $('.btn.active').removeClass('active');
-
         let problemId = e.target.id;
+        $('.btn.active').removeClass('active');
         $(`#${problemId}`).addClass('active');
 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: `${this.props.serverUrl}/problems/${problemId}`,
-            crossDomain: true
-        }).done(function (problem) {
-            updateProblem(problem, problemId);
-        });
+        this.props.onProblemChanged(problemId);
     }
     render() {
         let problemNodes = this.state.problems.map((problemId) => {

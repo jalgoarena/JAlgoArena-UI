@@ -21490,22 +21490,106 @@
 	var AlgoArena = function (_React$Component) {
 	    _inherits(AlgoArena, _React$Component);
 
-	    function AlgoArena() {
+	    function AlgoArena(props) {
 	        _classCallCheck(this, AlgoArena);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(AlgoArena).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AlgoArena).call(this, props));
+
+	        _this.serverUrl = 'https://jalgoarena.herokuapp.com';
+	        return _this;
 	    }
 
 	    _createClass(AlgoArena, [{
+	        key: 'onCodeSubmitted',
+	        value: function onCodeSubmitted() {
+	            $('#SubmissionInProgressSpinner').modal('show');
+	        }
+	    }, {
+	        key: 'processSubmission',
+	        value: function processSubmission(result) {
+	            var $output = $('#output');
+
+	            switch (result.status_code) {
+	                case 'ACCEPTED':
+	                    $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
+
+	                    result.testcase_results.forEach(function (testCasePassed, i) {
+	                        return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                                text-' + (testCasePassed ? 'success' : 'danger') + '" \n                                aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
+	                    });
+	                    break;
+	                case 'WRONG_ANSWER':
+	                    $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
+
+	                    result.testcase_results.forEach(function (testCasePassed, i) {
+	                        return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                              text-' + (testCasePassed ? 'success' : 'danger') + '" \n                              aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
+	                    });
+
+	                    break;
+	                case 'COMPILE_ERROR':
+	                    $output.html('<h2 class="text-danger text-center">Compilation Error</h2>');
+	                    $output.append('<p>' + result.error_message + '</p>');
+	                    break;
+	                case 'RUNTIME_ERROR':
+	                    $output.html('<div class="alert alert-danger" role="alert">Runtime Error: ' + result.error_message + '</div>');
+	                    break;
+	                case 'TIME_LIMIT_EXCEEDED':
+	                    $output.html('<h2 class="text-danger text-center">Time Limit Exceeded</h2>');
+	                    break;
+	                case 'MEMORY_LIMIT_EXCEEDED':
+	                    $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
+	                    break;
+	            }
+
+	            $('#SubmissionInProgressSpinner').modal('hide');
+	        }
+	    }, {
+	        key: 'updateCurrentProblem',
+	        value: function updateCurrentProblem(problemId) {
+	            function updateProblem(problem, problemId) {
+	                $('#problem-title').text(problem.title);
+	                $('#problem-description').text(problem.description);
+	                $('#problem-example-input').text(problem.example.input);
+	                $('#problem-example-output').text(problem.example.output);
+	                $('#problem-example-time-limit').text(problem.time_limit);
+	                $('#problem-example-memory-limit').text(problem.memory_limit);
+
+	                $.ajax({
+	                    type: "GET",
+	                    dataType: 'text',
+	                    url: this.serverUrl + '/problems/' + problemId + '/skeletonCode',
+	                    crossDomain: true
+	                }).done(function (skeletonCode) {
+	                    var editor = ace.edit("editor");
+	                    editor.setValue(skeletonCode, 1);
+	                });
+	            }
+
+	            $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
+
+	            $.ajax({
+	                type: "GET",
+	                dataType: 'json',
+	                url: this.serverUrl + '/problems/' + problemId,
+	                crossDomain: true
+	            }).done(function (problem) {
+	                updateProblem(problem, problemId);
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var serverUrl = 'https://jalgoarena.herokuapp.com';
-
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'container' },
-	                _react2.default.createElement(_Problems2.default, { serverUrl: serverUrl }),
-	                _react2.default.createElement(_SubmissionDetails2.default, { serverUrl: serverUrl }),
+	                _react2.default.createElement(_Problems2.default, {
+	                    serverUrl: this.serverUrl,
+	                    onProblemChanged: this.updateCurrentProblem.bind(this)
+	                }),
+	                _react2.default.createElement(_SubmissionDetails2.default, {
+	                    serverUrl: this.serverUrl,
+	                    onCodeSubmitted: this.onCodeSubmitted.bind(this),
+	                    onResultReceived: this.processSubmission.bind(this)
+	                }),
 	                _react2.default.createElement(
 	                    _Output2.default,
 	                    null,
@@ -21602,39 +21686,11 @@
 	    }, {
 	        key: 'updateProblem',
 	        value: function updateProblem(e) {
-	            function updateProblem(problem, problemId) {
-	                $('#problem-title').text(problem.title);
-	                $('#problem-description').text(problem.description);
-	                $('#problem-example-input').text(problem.example.input);
-	                $('#problem-example-output').text(problem.example.output);
-	                $('#problem-example-time-limit').text(problem.time_limit);
-	                $('#problem-example-memory-limit').text(problem.memory_limit);
-
-	                $.ajax({
-	                    type: "GET",
-	                    dataType: 'text',
-	                    url: this.props.serverUrl + '/problems/' + problemId + '/skeletonCode',
-	                    crossDomain: true
-	                }).done(function (skeletonCode) {
-	                    var editor = ace.edit("editor");
-	                    editor.setValue(skeletonCode, 1);
-	                });
-	            }
-
-	            $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
-	            $('.btn.active').removeClass('active');
-
 	            var problemId = e.target.id;
+	            $('.btn.active').removeClass('active');
 	            $('#' + problemId).addClass('active');
 
-	            $.ajax({
-	                type: "GET",
-	                dataType: 'json',
-	                url: this.props.serverUrl + '/problems/' + problemId,
-	                crossDomain: true
-	            }).done(function (problem) {
-	                updateProblem(problem, problemId);
-	            });
+	            this.props.onProblemChanged(problemId);
 	        }
 	    }, {
 	        key: 'render',
@@ -22294,7 +22350,13 @@
 	                _react2.default.createElement(_ProblemDescription2.default, { description: 'Given two strings, write a method to decide if one is a permutation of other.' }),
 	                _react2.default.createElement(_ExampleInputAndOutput2.default, { input: '"abc", "cba"', output: 'true' }),
 	                _react2.default.createElement(_CodeEditor2.default, { sourceCode: 'import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}' }),
-	                _react2.default.createElement(_SubmissionPanel2.default, { timeLimit: '1', memoryLimit: '32', serverUrl: this.props.serverUrl })
+	                _react2.default.createElement(_SubmissionPanel2.default, {
+	                    timeLimit: '1',
+	                    memoryLimit: '32',
+	                    serverUrl: this.props.serverUrl,
+	                    onCodeSubmitted: this.props.onCodeSubmitted,
+	                    onResultReceived: this.props.onResultReceived
+	                })
 	            );
 	        }
 	    }]);
@@ -22570,7 +22632,7 @@
 	    _createClass(SubmissionPanel, [{
 	        key: 'submitCode',
 	        value: function submitCode() {
-	            $('#SubmissionInProgressSpinner').modal('show');
+	            this.props.onCodeSubmitted();
 
 	            var problemId = $('.btn.active').attr('id');
 	            var editor = ace.edit("editor");
@@ -22583,44 +22645,7 @@
 	                contentType: 'text/plain',
 	                url: this.props.serverUrl + '/problems/' + problemId + '/solution',
 	                crossDomain: true
-	            }).done(processSubmission);
-
-	            function processSubmission(result) {
-	                var $output = $('#output');
-
-	                switch (result.status_code) {
-	                    case 'ACCEPTED':
-	                        $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
-
-	                        result.testcase_results.forEach(function (testCasePassed, i) {
-	                            return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                                text-' + (testCasePassed ? 'success' : 'danger') + '" \n                                aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
-	                        });
-	                        break;
-	                    case 'WRONG_ANSWER':
-	                        $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
-
-	                        result.testcase_results.forEach(function (testCasePassed, i) {
-	                            return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                              text-' + (testCasePassed ? 'success' : 'danger') + '" \n                              aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
-	                        });
-
-	                        break;
-	                    case 'COMPILE_ERROR':
-	                        $output.html('<h2 class="text-danger text-center">Compilation Error</h2>');
-	                        $output.append('<p>' + result.error_message + '</p>');
-	                        break;
-	                    case 'RUNTIME_ERROR':
-	                        $output.html('<div class="alert alert-danger" role="alert">Runtime Error: ' + result.error_message + '</div>');
-	                        break;
-	                    case 'TIME_LIMIT_EXCEEDED':
-	                        $output.html('<h2 class="text-danger text-center">Time Limit Exceeded</h2>');
-	                        break;
-	                    case 'MEMORY_LIMIT_EXCEEDED':
-	                        $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
-	                        break;
-	                }
-
-	                $('#SubmissionInProgressSpinner').modal('hide');
-	            }
+	            }).done(this.props.onResultReceived);
 	        }
 	    }, {
 	        key: 'render',

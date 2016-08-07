@@ -25,7 +25,13 @@ public class Solution {
         // Write your code here
     }
 }`} />
-            <SubmissionPanel timeLimit="1" memoryLimit="32" serverUrl={this.props.serverUrl} />
+            <SubmissionPanel
+                timeLimit="1"
+                memoryLimit="32"
+                serverUrl={this.props.serverUrl}
+                onCodeSubmitted={this.props.onCodeSubmitted}
+                onResultReceived={this.props.onResultReceived}
+            />
         </div>;
     }
 }
