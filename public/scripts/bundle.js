@@ -21791,9 +21791,8 @@
 	    }, {
 	        key: 'processSubmission',
 	        value: function processSubmission(result) {
-	            this.setState({ result: result });
-
 	            $('#SubmissionInProgressSpinner').modal('hide');
+	            this.setState({ result: result });
 	        }
 	    }, {
 	        key: 'updateCurrentProblem',
@@ -21819,15 +21818,7 @@
 	                    onCodeSubmitted: this.onCodeSubmitted.bind(this),
 	                    onResultReceived: this.processSubmission.bind(this)
 	                }),
-	                _react2.default.createElement(
-	                    _Output2.default,
-	                    { result: this.state.result },
-	                    _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-info text-center' },
-	                        'Submit your code to see results'
-	                    )
-	                ),
+	                _react2.default.createElement(_Output2.default, { result: this.state.result }),
 	                _react2.default.createElement(_SubmissionInProgressSpinner2.default, null)
 	            );
 	        }

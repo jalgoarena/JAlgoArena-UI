@@ -28,9 +28,8 @@ export default class AlgoArena extends React.Component {
         $('#SubmissionInProgressSpinner').modal('show');
     }
     processSubmission(result) {
-        this.setState({result: result});
-
         $('#SubmissionInProgressSpinner').modal('hide');
+        this.setState({result: result});
     }
     updateCurrentProblem(problem) {
         this.setState({currentProblem: problem, result: {status_code: "WAITING"}});
@@ -50,9 +49,7 @@ export default class AlgoArena extends React.Component {
                 onCodeSubmitted={this.onCodeSubmitted.bind(this)}
                 onResultReceived={this.processSubmission.bind(this)}
             />
-            <Output result={this.state.result}>
-                <h2 className="text-info text-center">Submit your code to see results</h2>
-            </Output>
+            <Output result={this.state.result} />
             <SubmissionInProgressSpinner />
         </div>
     }
