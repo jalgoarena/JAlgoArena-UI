@@ -8,6 +8,12 @@ export default class CodeEditor extends React.Component {
 
     }
     render() {
-        return <div id="editor">{this.props.sourceCode}</div>;
+        const editorStyle = {
+            marginTop: 10,
+            marginBottom: 10,
+            height: 350,
+        };
+
+        return <div style={editorStyle} id="editor">{this.props.sourceCode}</div>;
     }
 }

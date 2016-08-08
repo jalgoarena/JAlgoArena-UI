@@ -22053,9 +22053,16 @@
 	    _createClass(Output, [{
 	        key: "render",
 	        value: function render() {
+	            var outputStyle = {
+	                marginTop: 30,
+	                borderRadius: 10,
+	                border: "1px solid black",
+	                padding: "0 10px 10px"
+	            };
+
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "output row", id: "output" },
+	                { className: "row output", style: outputStyle, id: "output" },
 	                this.props.children
 	            );
 	        }
@@ -33220,9 +33227,15 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var editorStyle = {
+	                marginTop: 10,
+	                marginBottom: 10,
+	                height: 350
+	            };
+
 	            return _react2.default.createElement(
 	                "div",
-	                { id: "editor" },
+	                { style: editorStyle, id: "editor" },
 	                this.props.sourceCode
 	            );
 	        }
