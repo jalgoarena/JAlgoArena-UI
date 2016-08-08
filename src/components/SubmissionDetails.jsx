@@ -9,9 +9,11 @@ import SubmissionPanel from './SubmissionPanel.jsx';
 export default class SubmissionDetails extends React.Component {
     render() {
         return <div className="row">
-            <ProblemTitle title="Check Permutations"/>
-            <ProblemDescription description="Given two strings, write a method to decide if one is a permutation of other." />
-            <ExampleInputAndOutput input='"abc", "cba"' output="true" />
+            <ProblemTitle title={this.props.problem.title}/>
+            <ProblemDescription description={this.props.problem.description} />
+            <ExampleInputAndOutput
+                input={this.props.problem.example.input}
+                output={this.props.problem.example.output} />
             <CodeEditor sourceCode={`import java.util.*;
 import org.algohub.engine.type.*;
 
@@ -26,8 +28,8 @@ public class Solution {
     }
 }`} />
             <SubmissionPanel
-                timeLimit="1"
-                memoryLimit="32"
+                timeLimit={this.props.problem.time_limit}
+                memoryLimit={this.props.problem.memory_limit}
                 serverUrl={this.props.serverUrl}
                 onCodeSubmitted={this.props.onCodeSubmitted}
                 onResultReceived={this.props.onResultReceived}

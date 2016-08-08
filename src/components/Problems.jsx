@@ -39,16 +39,18 @@ export default class Problems extends React.Component {
     }
     updateProblem(e) {
         let problemId = e.target.id;
+        let problem = this.state.problems.find((problem) => problem.id === problemId);
+
         $('.btn.active').removeClass('active');
         $(`#${problemId}`).addClass('active');
 
-        this.props.onProblemChanged(problemId);
+        this.props.onProblemChanged(problem);
     }
     render() {
-        let problemNodes = this.state.problems.map((problemId) => {
+        let problemNodes = this.state.problems.map((problem) => {
             return (
                 <div className="col-md-3 problem">
-                    <a href="#" id={problemId} className="btn btn-default btn-block" onClick={this.updateProblem.bind(this)}>{problemId}</a>
+                    <a href="#" id={problem.id} className="btn btn-default btn-block" onClick={this.updateProblem.bind(this)}>{problem.id}</a>
                 </div>
             );
         });

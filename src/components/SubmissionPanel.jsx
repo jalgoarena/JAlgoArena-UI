@@ -13,7 +13,7 @@ export default class SubmissionPanel extends React.Component {
             data: sourceCode,
             processData: false,
             contentType: 'text/plain',
-            url: `${this.props.serverUrl}/problems/${problemId}/solution`,
+            url: `${this.props.serverUrl}/problems/${problemId}/submit`,
             crossDomain: true
         }).done(this.props.onResultReceived);
     }

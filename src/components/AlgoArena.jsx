@@ -9,6 +9,19 @@ export default class AlgoArena extends React.Component {
     constructor(props) {
         super(props);
         this.serverUrl = 'https://jalgoarena.herokuapp.com';
+        this.state = {
+            currentProblem: {
+                "id": "check-perm",
+                "title": "Check Permutations",
+                "description": "Given two strings, write a method to decide if one is a permutation of other.",
+                "time_limit": 1,
+                "memory_limit": 32,
+                "example": {
+                    "input": "\"abc\", \"cba\"",
+                    "output": "true"
+                }
+            }
+        }
     }
     onCodeSubmitted() {
         $('#SubmissionInProgressSpinner').modal('show');
@@ -65,36 +78,13 @@ export default class AlgoArena extends React.Component {
 
         $('#SubmissionInProgressSpinner').modal('hide');
     }
-    updateCurrentProblem(problemId) {
-        function updateProblem(problem, problemId) {
-            $('#problem-title').text(problem.title);
-            $('#problem-description').text(problem.description);
-            $('#problem-example-input').text(problem.example.input);
-            $('#problem-example-output').text(problem.example.output);
-            $('#problem-example-time-limit').text(problem.time_limit);
-            $('#problem-example-memory-limit').text(problem.memory_limit);
-
-            $.ajax({
-                type: "GET",
-                dataType: 'text',
-                url: `${this.serverUrl}/problems/${problemId}/skeletonCode`,
-                crossDomain: true
-            }).done(function (skeletonCode) {
-                let editor = ace.edit("editor");
-                editor.setValue(skeletonCode, 1);
-            });
-        }
-
+    updateCurrentProblem(problem) {
         $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: `${this.serverUrl}/problems/${problemId}`,
-            crossDomain: true
-        }).done(function (problem) {
-            updateProblem(problem, problemId);
-        });
+        this.setState({currentProblem: problem});
+
+        let editor = ace.edit("editor");
+        editor.setValue(problem.skeleton_code, 1);
     }
     render() {
         return <div className="container">
@@ -103,6 +93,7 @@ export default class AlgoArena extends React.Component {
                 onProblemChanged={this.updateCurrentProblem.bind(this)}
             />
             <SubmissionDetails
+                problem={this.state.currentProblem}
                 serverUrl={this.serverUrl}
                 onCodeSubmitted={this.onCodeSubmitted.bind(this)}
                 onResultReceived={this.processSubmission.bind(this)}
