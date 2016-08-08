@@ -21,7 +21,7 @@ export default class AlgoArena extends React.Component {
                     "output": "true"
                 }
             },
-            result: {"status_code": "WAITING"}
+            result: {status_code: "WAITING"}
         }
     }
     onCodeSubmitted() {
@@ -33,9 +33,7 @@ export default class AlgoArena extends React.Component {
         $('#SubmissionInProgressSpinner').modal('hide');
     }
     updateCurrentProblem(problem) {
-        $('#output').html('<h2 class="text-info text-center">Submit your code to see results</h2>');
-
-        this.setState({currentProblem: problem});
+        this.setState({currentProblem: problem, result: {status_code: "WAITING"}});
 
         let editor = ace.edit("editor");
         editor.setValue(problem.skeleton_code, 1);
