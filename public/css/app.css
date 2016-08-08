@@ -3,6 +3,10 @@ body, p, button {
     font-weight: normal;
 }
 
+.navbar-default {
+    background-color: white;
+}
+
 .logo {
     display: inline-block;
     height: 35px;
