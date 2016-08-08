@@ -21777,7 +21777,8 @@
 	                    "input": "\"abc\", \"cba\"",
 	                    "output": "true"
 	                }
-	            }
+	            },
+	            result: { "status_code": "WAITING" }
 	        };
 	        return _this;
 	    }
@@ -21790,38 +21791,7 @@
 	    }, {
 	        key: 'processSubmission',
 	        value: function processSubmission(result) {
-	            var $output = $('#output');
-
-	            switch (result.status_code) {
-	                case 'ACCEPTED':
-	                    $output.html('<h2 class="text-success text-center">All test cases passed, congratulations!</h2>');
-
-	                    result.testcase_results.forEach(function (testCasePassed, i) {
-	                        return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                                text-' + (testCasePassed ? 'success' : 'danger') + '" \n                                aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
-	                    });
-	                    break;
-	                case 'WRONG_ANSWER':
-	                    $output.html('<h2 class="text-danger text-center">Wrong Answer</h2>');
-
-	                    result.testcase_results.forEach(function (testCasePassed, i) {
-	                        return $output.append('<div class="col-md-3">\n                        <span class="glyphicon glyphicon-' + (testCasePassed ? 'ok' : 'remove') + ' \n                              text-' + (testCasePassed ? 'success' : 'danger') + '" \n                              aria-hidden="true">\n                        </span> Test Case #' + (i + 1) + '\n                    </div>');
-	                    });
-
-	                    break;
-	                case 'COMPILE_ERROR':
-	                    $output.html('<h2 class="text-danger text-center">Compilation Error</h2>');
-	                    $output.append('<p>' + result.error_message + '</p>');
-	                    break;
-	                case 'RUNTIME_ERROR':
-	                    $output.html('<div class="alert alert-danger" role="alert">Runtime Error: ' + result.error_message + '</div>');
-	                    break;
-	                case 'TIME_LIMIT_EXCEEDED':
-	                    $output.html('<h2 class="text-danger text-center">Time Limit Exceeded</h2>');
-	                    break;
-	                case 'MEMORY_LIMIT_EXCEEDED':
-	                    $output.html('<div class="alert alert-danger" role="alert">Memory Limit Exceeded!</div>');
-	                    break;
-	            }
+	            this.setState({ result: result });
 
 	            $('#SubmissionInProgressSpinner').modal('hide');
 	        }
@@ -21853,7 +21823,7 @@
 	                }),
 	                _react2.default.createElement(
 	                    _Output2.default,
-	                    null,
+	                    { result: this.state.result },
 	                    _react2.default.createElement(
 	                        'h2',
 	                        { className: 'text-info text-center' },
@@ -22021,7 +21991,7 @@
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -22051,8 +22021,101 @@
 	    }
 
 	    _createClass(Output, [{
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
+	            var header = void 0;
+	            var testCaseNodes = void 0;
+	            var errorMessage = void 0;
+
+	            var result = this.props.result;
+
+	            switch (result.status_code) {
+	                case 'WAITING':
+	                    header = _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-info text-center' },
+	                        'Submit your code to see results'
+	                    );
+	                    break;
+	                case 'ACCEPTED':
+	                    header = _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-success text-center' },
+	                        'All test cases passed, congratulations!'
+	                    );
+
+	                    testCaseNodes = result.testcase_results.map(function (result, i) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-3' },
+	                            _react2.default.createElement('span', { className: "glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger'),
+	                                'aria-hidden': 'true' }),
+	                            ' Test Case #',
+	                            i + 1
+	                        );
+	                    });
+	                    break;
+	                case 'WRONG_ANSWER':
+	                    header = _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-danger text-center' },
+	                        'Wrong Answer'
+	                    );
+
+	                    testCaseNodes = result.testcase_results.map(function (result, i) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-3' },
+	                            _react2.default.createElement('span', { className: "glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger'),
+	                                'aria-hidden': 'true' }),
+	                            ' Test Case #',
+	                            i + 1
+	                        );
+	                    });
+
+	                    break;
+	                case 'COMPILE_ERROR':
+	                    header = _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-danger text-center' },
+	                        'Compilation Error'
+	                    );
+	                    errorMessage = _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        '$',
+	                        result.error_message
+	                    );
+	                    break;
+	                case 'RUNTIME_ERROR':
+	                    header = _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-danger text-center' },
+	                        'Runtime Error'
+	                    );
+	                    errorMessage = _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        '$',
+	                        result.error_message
+	                    );
+	                    break;
+	                case 'TIME_LIMIT_EXCEEDED':
+	                    header = _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-danger text-center' },
+	                        'Time Limit Exceeded'
+	                    );
+	                    break;
+	                case 'MEMORY_LIMIT_EXCEEDED':
+	                    header = _react2.default.createElement(
+	                        'div',
+	                        { className: 'alert alert-danger', role: 'alert' },
+	                        'Memory Limit Exceeded!'
+	                    );
+	                    break;
+	            }
+
 	            var outputStyle = {
 	                marginTop: 30,
 	                borderRadius: 10,
@@ -22061,9 +22124,11 @@
 	            };
 
 	            return _react2.default.createElement(
-	                "div",
-	                { className: "row output", style: outputStyle, id: "output" },
-	                this.props.children
+	                'div',
+	                { className: 'row output', style: outputStyle, id: 'output' },
+	                header,
+	                testCaseNodes,
+	                errorMessage
 	            );
 	        }
 	    }]);
