@@ -30,6 +30,7 @@ public class Solution {
             <SubmissionPanel
                 timeLimit={this.props.problem.time_limit}
                 memoryLimit={this.props.problem.memory_limit}
+                problemId={this.props.problem.id}
                 serverUrl={this.props.serverUrl}
                 onCodeSubmitted={this.props.onCodeSubmitted}
                 onResultReceived={this.props.onResultReceived}
