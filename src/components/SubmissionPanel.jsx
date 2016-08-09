@@ -4,7 +4,6 @@ export default class SubmissionPanel extends React.Component {
     submitCode() {
         this.props.onCodeSubmitted();
 
-        let problemId = $('.btn.active').attr('id');
         let editor = ace.edit("editor");
         let sourceCode = editor.getValue();
 
@@ -13,7 +12,7 @@ export default class SubmissionPanel extends React.Component {
             data: sourceCode,
             processData: false,
             contentType: 'text/plain',
-            url: `${this.props.serverUrl}/problems/${problemId}/submit`,
+            url: `${this.props.serverUrl}/problems/${this.props.problemId}/submit`,
             crossDomain: true
         }).done(this.props.onResultReceived);
     }
