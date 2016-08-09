@@ -22703,12 +22703,8 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'p',
-	                    { id: 'problem-description', className: 'lead' },
-	                    _react2.default.createElement(_reactRemarkable2.default, { source: this.props.description })
-	                )
+	                { id: 'problem-description', className: 'lead' },
+	                _react2.default.createElement(_reactRemarkable2.default, { source: this.props.description })
 	            );
 	        }
 	    }]);
@@ -33154,7 +33150,7 @@
 /* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -33165,6 +33161,18 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _SubmitButton = __webpack_require__(264);
+
+	var _SubmitButton2 = _interopRequireDefault(_SubmitButton);
+
+	var _MemoryLimit = __webpack_require__(265);
+
+	var _MemoryLimit2 = _interopRequireDefault(_MemoryLimit);
+
+	var _TimeLimit = __webpack_require__(266);
+
+	var _TimeLimit2 = _interopRequireDefault(_TimeLimit);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33184,68 +33192,20 @@
 	    }
 
 	    _createClass(SubmissionPanel, [{
-	        key: "submitCode",
-	        value: function submitCode() {
-	            var editor = ace.edit("editor");
-	            var sourceCode = editor.getValue();
-
-	            this.props.onCodeSubmitted(sourceCode);
-
-	            $.ajax({
-	                type: "POST",
-	                data: sourceCode,
-	                processData: false,
-	                contentType: 'text/plain',
-	                url: this.props.serverUrl + "/problems/" + this.props.problemId + "/submit",
-	                crossDomain: true
-	            }).done(this.props.onResultReceived);
-	        }
-	    }, {
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
-	            var submitButtonStyle = {
-	                width: 200
-	            };
-
 	            return _react2.default.createElement(
-	                "div",
+	                'div',
 	                null,
-	                _react2.default.createElement(
-	                    "a",
-	                    { href: "#end-of-output", type: "button", className: "btn btn-success btn-lg pull-right",
-	                        onClick: this.submitCode.bind(this), style: submitButtonStyle },
-	                    _react2.default.createElement(
-	                        "span",
-	                        { className: "glyphicon glyphicon-flash", "aria-hidden": true },
-	                        " "
-	                    ),
-	                    " Submit"
-	                ),
-	                _react2.default.createElement(
-	                    "span",
-	                    null,
-	                    "Time Limit is ",
-	                    _react2.default.createElement(
-	                        "span",
-	                        { className: "text-success",
-	                            id: "problem-example-time-limit" },
-	                        this.props.timeLimit
-	                    ),
-	                    " seconds."
-	                ),
-	                _react2.default.createElement("br", null),
-	                _react2.default.createElement(
-	                    "span",
-	                    null,
-	                    "Memory Limit is ",
-	                    _react2.default.createElement(
-	                        "span",
-	                        { className: "text-success",
-	                            id: "problem-example-memory-limit" },
-	                        this.props.memoryLimit
-	                    ),
-	                    " kilobytes."
-	                )
+	                _react2.default.createElement(_SubmitButton2.default, {
+	                    onCodeSubmitted: this.props.onCodeSubmitted,
+	                    onResultReceived: this.props.onResultReceived,
+	                    serverUrl: this.props.serverUrl,
+	                    problemId: this.props.problemId
+	                }),
+	                _react2.default.createElement(_TimeLimit2.default, { timeLimit: this.props.timeLimit }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(_MemoryLimit2.default, { memoryLimit: this.props.memoryLimit })
 	            );
 	        }
 	    }]);
@@ -55824,6 +55784,195 @@
 
 	exports['default'] = Remarkable;
 	module.exports = exports['default'];
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SubmitButton = function (_React$Component) {
+	    _inherits(SubmitButton, _React$Component);
+
+	    function SubmitButton() {
+	        _classCallCheck(this, SubmitButton);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitButton).apply(this, arguments));
+	    }
+
+	    _createClass(SubmitButton, [{
+	        key: "submitCode",
+	        value: function submitCode() {
+	            var editor = ace.edit("editor");
+	            var sourceCode = editor.getValue();
+
+	            this.props.onCodeSubmitted(sourceCode);
+
+	            $.ajax({
+	                type: "POST",
+	                data: sourceCode,
+	                processData: false,
+	                contentType: 'text/plain',
+	                url: this.props.serverUrl + "/problems/" + this.props.problemId + "/submit",
+	                crossDomain: true
+	            }).done(this.props.onResultReceived);
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var submitButtonStyle = {
+	                width: 200
+	            };
+
+	            return _react2.default.createElement(
+	                "a",
+	                { href: "#end-of-output",
+	                    type: "button",
+	                    className: "btn btn-success btn-lg pull-right",
+	                    onClick: this.submitCode.bind(this),
+	                    style: submitButtonStyle },
+	                _react2.default.createElement(
+	                    "span",
+	                    { className: "glyphicon glyphicon-flash", "aria-hidden": true },
+	                    " "
+	                ),
+	                " Submit"
+	            );
+	        }
+	    }]);
+
+	    return SubmitButton;
+	}(_react2.default.Component);
+
+	exports.default = SubmitButton;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MemoryLimit = function (_React$Component) {
+	    _inherits(MemoryLimit, _React$Component);
+
+	    function MemoryLimit() {
+	        _classCallCheck(this, MemoryLimit);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(MemoryLimit).apply(this, arguments));
+	    }
+
+	    _createClass(MemoryLimit, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "span",
+	                null,
+	                "Memory Limit is",
+	                _react2.default.createElement(
+	                    "span",
+	                    { className: "text-success", id: "problem-example-memory-limit" },
+	                    this.props.memoryLimit
+	                ),
+	                " kilobytes."
+	            );
+	        }
+	    }]);
+
+	    return MemoryLimit;
+	}(_react2.default.Component);
+
+	exports.default = MemoryLimit;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TimeLimit = function (_React$Component) {
+	    _inherits(TimeLimit, _React$Component);
+
+	    function TimeLimit() {
+	        _classCallCheck(this, TimeLimit);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TimeLimit).apply(this, arguments));
+	    }
+
+	    _createClass(TimeLimit, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "span",
+	                null,
+	                "Time Limit is",
+	                _react2.default.createElement(
+	                    "span",
+	                    { className: "text-success", id: "problem-example-time-limit" },
+	                    this.props.timeLimit
+	                ),
+	                " seconds."
+	            );
+	        }
+	    }]);
+
+	    return TimeLimit;
+	}(_react2.default.Component);
+
+	exports.default = TimeLimit;
 
 /***/ }
 /******/ ]);
