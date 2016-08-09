@@ -21752,9 +21752,9 @@
 
 	var _Output2 = _interopRequireDefault(_Output);
 
-	var _SubmissionInProgressSpinner = __webpack_require__(182);
+	var _SubmissionInProgress = __webpack_require__(251);
 
-	var _SubmissionInProgressSpinner2 = _interopRequireDefault(_SubmissionInProgressSpinner);
+	var _SubmissionInProgress2 = _interopRequireDefault(_SubmissionInProgress);
 
 	var _SubmissionDetails = __webpack_require__(184);
 
@@ -21830,7 +21830,7 @@
 	                    onResultReceived: this.processSubmission.bind(this)
 	                }),
 	                _react2.default.createElement(_Output2.default, { result: this.state.result }),
-	                _react2.default.createElement(_SubmissionInProgressSpinner2.default, null)
+	                _react2.default.createElement(_SubmissionInProgress2.default, null)
 	            );
 	        }
 	    }]);
@@ -22143,129 +22143,7 @@
 	exports.default = Output;
 
 /***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _spin = __webpack_require__(183);
-
-	var _spin2 = _interopRequireDefault(_spin);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SubmissionInProgressSpinner = function (_React$Component) {
-	    _inherits(SubmissionInProgressSpinner, _React$Component);
-
-	    function SubmissionInProgressSpinner() {
-	        _classCallCheck(this, SubmissionInProgressSpinner);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionInProgressSpinner).apply(this, arguments));
-	    }
-
-	    _createClass(SubmissionInProgressSpinner, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var opts = {
-	                lines: 13,
-	                length: 20,
-	                width: 10,
-	                radius: 30,
-	                trail: 60
-	            };
-
-	            var target = document.getElementById('searching_spinner_center');
-	            new _spin2.default(opts).spin(target);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var logoStyle = {
-	                height: 50,
-	                marginBottom: 15
-	            };
-
-	            var searchingSpinnerCenterStyle = {
-	                position: "absolute",
-	                display: "block",
-	                top: "50%",
-	                left: "50%"
-	            };
-
-	            var modalTextCenterStyle = {
-	                textAlign: "center"
-	            };
-
-	            var modalBodyStyle = {
-	                height: 200
-	            };
-
-	            return _react2.default.createElement(
-	                'div',
-	                { id: 'SubmissionInProgressSpinner', className: 'modal fade', tabIndex: '-1', role: 'dialog',
-	                    'data-keyboard': 'false',
-	                    'data-backdrop': 'static' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'modal-dialog' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'modal-content' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-header', style: modalTextCenterStyle },
-	                            _react2.default.createElement(
-	                                'h3',
-	                                null,
-	                                'Submission In Progress'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-body', style: modalBodyStyle },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { id: 'searching_spinner_center', style: searchingSpinnerCenterStyle },
-	                                ' '
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-footer', style: modalTextCenterStyle },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'col-md-offset-4 col-md-8' },
-	                                _react2.default.createElement('img', { src: 'img/logo.png', className: 'img-responsive', style: logoStyle })
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return SubmissionInProgressSpinner;
-	}(_react2.default.Component);
-
-	exports.default = SubmissionInProgressSpinner;
-
-/***/ },
+/* 182 */,
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -33440,6 +33318,171 @@
 	}(_react2.default.Component);
 
 	exports.default = SubmissionPanel;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactSpin = __webpack_require__(252);
+
+	var _reactSpin2 = _interopRequireDefault(_reactSpin);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SubmissionInProgress = function (_React$Component) {
+	    _inherits(SubmissionInProgress, _React$Component);
+
+	    function SubmissionInProgress() {
+	        _classCallCheck(this, SubmissionInProgress);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionInProgress).apply(this, arguments));
+	    }
+
+	    _createClass(SubmissionInProgress, [{
+	        key: 'render',
+	        value: function render() {
+	            var opts = {
+	                lines: 13,
+	                length: 20,
+	                width: 10,
+	                radius: 30,
+	                trail: 60
+	            };
+
+	            var logoStyle = {
+	                height: 50,
+	                marginBottom: 15
+	            };
+
+	            var searchingSpinnerCenterStyle = {
+	                position: "absolute",
+	                display: "block",
+	                top: "50%",
+	                left: "50%"
+	            };
+
+	            var modalTextCenterStyle = {
+	                textAlign: "center"
+	            };
+
+	            var modalBodyStyle = {
+	                height: 200
+	            };
+
+	            return _react2.default.createElement(
+	                'div',
+	                { id: 'SubmissionInProgressSpinner', className: 'modal fade', tabIndex: '-1', role: 'dialog',
+	                    'data-keyboard': 'false',
+	                    'data-backdrop': 'static' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'modal-dialog' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'modal-content' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'modal-header', style: modalTextCenterStyle },
+	                            _react2.default.createElement(
+	                                'h3',
+	                                null,
+	                                'Submission In Progress'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'modal-body', style: modalBodyStyle },
+	                            _react2.default.createElement(_reactSpin2.default, { config: opts, stopped: false, style: searchingSpinnerCenterStyle })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'modal-footer', style: modalTextCenterStyle },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'col-md-offset-4 col-md-8' },
+	                                _react2.default.createElement('img', { src: 'img/logo.png', className: 'img-responsive', style: logoStyle })
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SubmissionInProgress;
+	}(_react2.default.Component);
+
+	exports.default = SubmissionInProgress;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _spin = __webpack_require__(183);
+
+	var _spin2 = _interopRequireDefault(_spin);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var ReactSpinner = _react2.default.createClass({
+	  displayName: 'ReactSpinner',
+
+	  propTypes: {
+	    config: _react2.default.PropTypes.object,
+	    stopped: _react2.default.PropTypes.bool
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.spinner = new _spin2.default(this.props.config);
+	    if (!this.props.stopped) {
+	      this.spinner.spin(this.refs.container);
+	    }
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	    if (newProps.stopped === true && !this.props.stopped) {
+	      this.spinner.stop();
+	    } else if (!newProps.stopped && this.props.stopped === true) {
+	      this.spinner.spin(this.refs.container);
+	    }
+	  },
+
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.spinner.stop();
+	  },
+
+	  render: function render() {
+	    return _react2.default.createElement('span', { ref: 'container' });
+	  }
+	});
+
+	exports.default = ReactSpinner;
 
 /***/ }
 /******/ ]);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Problems from './Problems.jsx';
 import Output from './Output.jsx';
-import SubmissionInProgressSpinner from './SubmissionInProgressSpinner.jsx';
+import SubmissionInProgress from './SubmissionInProgress.jsx';
 import SubmissionDetails from './SubmissionDetails.jsx';
 
 export default class AlgoArena extends React.Component {
@@ -50,7 +50,7 @@ export default class AlgoArena extends React.Component {
                 onResultReceived={this.processSubmission.bind(this)}
             />
             <Output result={this.state.result} />
-            <SubmissionInProgressSpinner />
+            <SubmissionInProgress />
         </div>
     }
 }

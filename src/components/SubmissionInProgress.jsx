@@ -1,8 +1,8 @@
 import React from 'react';
-import Spinner from 'spin.js';
+import Spinner from 'react-spin';
 
-export default class SubmissionInProgressSpinner extends React.Component {
-    componentDidMount() {
+export default class SubmissionInProgress extends React.Component {
+    render() {
         const opts = {
             lines: 13,
             length: 20,
@@ -11,11 +11,6 @@ export default class SubmissionInProgressSpinner extends React.Component {
             trail: 60
         };
 
-        let target = document.getElementById('searching_spinner_center');
-        new Spinner(opts).spin(target);
-    }
-
-    render() {
         const logoStyle = {
             height: 50,
             marginBottom: 15
@@ -45,7 +40,7 @@ export default class SubmissionInProgressSpinner extends React.Component {
                         <h3>Submission In Progress</h3>
                     </div>
                     <div className="modal-body" style={modalBodyStyle}>
-                        <span id="searching_spinner_center" style={searchingSpinnerCenterStyle}> </span>
+                        <Spinner config={opts} stopped={false} style={searchingSpinnerCenterStyle} />
                     </div>
                     <div className="modal-footer" style={modalTextCenterStyle}>
                         <div className="col-md-offset-4 col-md-8">
