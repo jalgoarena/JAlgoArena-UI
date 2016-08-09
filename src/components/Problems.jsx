@@ -14,9 +14,9 @@ export default class Problems extends React.Component {
             crossDomain: true,
             success: (problems) => {
                 this.setState({problems: problems});
-                var $firstProblem = $('#problems').children().first();
+                let $firstProblem = $('#check-perm');
                 $firstProblem.click();
-                $firstProblem.children().first().addClass('active');
+                $firstProblem.addClass('active');
                 this.toggle();
             },
             error: (xhr, status, err) => {
