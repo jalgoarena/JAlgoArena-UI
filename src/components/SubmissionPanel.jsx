@@ -2,10 +2,10 @@ import React from 'react';
 
 export default class SubmissionPanel extends React.Component {
     submitCode() {
-        this.props.onCodeSubmitted();
-
         let editor = ace.edit("editor");
         let sourceCode = editor.getValue();
+
+        this.props.onCodeSubmitted(sourceCode);
 
         $.ajax({
             type: "POST",

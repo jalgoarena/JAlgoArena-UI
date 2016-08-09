@@ -21,21 +21,24 @@ export default class AlgoArena extends React.Component {
                 }
             },
             result: {status_code: "WAITING"},
-            serverUrl: 'https://jalgoarena.herokuapp.com'
+            serverUrl: 'https://jalgoarena.herokuapp.com',
+            sourceCode: "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n",
         }
     }
-    onCodeSubmitted() {
+    onCodeSubmitted(sourceCode) {
         $('#SubmissionInProgressSpinner').modal('show');
+        this.setState({sourceCode: sourceCode});
     }
     processSubmission(result) {
         $('#SubmissionInProgressSpinner').modal('hide');
         this.setState({result: result});
     }
     updateCurrentProblem(problem) {
-        this.setState({currentProblem: problem, result: {status_code: "WAITING"}});
-
-        let editor = ace.edit("editor");
-        editor.setValue(problem.skeleton_code, 1);
+        this.setState({
+            currentProblem: problem,
+            result: {status_code: "WAITING"},
+            sourceCode: problem.skeleton_code
+        });
     }
     render() {
         return <div className="container">
@@ -46,6 +49,7 @@ export default class AlgoArena extends React.Component {
             <SubmissionDetails
                 problem={this.state.currentProblem}
                 serverUrl={this.state.serverUrl}
+                sourceCode={this.state.sourceCode}
                 onCodeSubmitted={this.onCodeSubmitted.bind(this)}
                 onResultReceived={this.processSubmission.bind(this)}
             />
