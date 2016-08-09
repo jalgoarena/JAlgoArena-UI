@@ -47,6 +47,10 @@ export default class Problems extends React.Component {
         this.props.onProblemChanged(problem);
     }
     render() {
+        const clickableStyle = {
+            cursor: "pointer"
+        };
+
         let problemNodes = this.state.problems.map((problem) => {
             return (
                 <div className="col-md-3 problem">
@@ -59,7 +63,7 @@ export default class Problems extends React.Component {
             <div className="panel panel-success">
                 <div className="panel-heading">
                     <h3 className="panel-title">Problems</h3>
-                    <span className="pull-right clickable" onClick={this.toggle}><i className="glyphicon glyphicon-chevron-up"> </i></span>
+                    <span className="pull-right clickable" style={clickableStyle} onClick={this.toggle}><i className="glyphicon glyphicon-chevron-up"> </i></span>
                 </div>
                 <div className="panel-body"><div id="problems">
                     {problemNodes}

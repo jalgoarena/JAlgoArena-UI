@@ -8,7 +8,6 @@ import SubmissionDetails from './SubmissionDetails.jsx';
 export default class AlgoArena extends React.Component {
     constructor(props) {
         super(props);
-        this.serverUrl = 'https://jalgoarena.herokuapp.com';
         this.state = {
             currentProblem: {
                 "id": "check-perm",
@@ -21,7 +20,8 @@ export default class AlgoArena extends React.Component {
                     "output": "true"
                 }
             },
-            result: {status_code: "WAITING"}
+            result: {status_code: "WAITING"},
+            serverUrl: 'https://jalgoarena.herokuapp.com'
         }
     }
     onCodeSubmitted() {
@@ -40,12 +40,12 @@ export default class AlgoArena extends React.Component {
     render() {
         return <div className="container">
             <Problems
-                serverUrl={this.serverUrl}
+                serverUrl={this.state.serverUrl}
                 onProblemChanged={this.updateCurrentProblem.bind(this)}
             />
             <SubmissionDetails
                 problem={this.state.currentProblem}
-                serverUrl={this.serverUrl}
+                serverUrl={this.state.serverUrl}
                 onCodeSubmitted={this.onCodeSubmitted.bind(this)}
                 onResultReceived={this.processSubmission.bind(this)}
             />

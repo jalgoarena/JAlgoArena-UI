@@ -17,9 +17,13 @@ export default class SubmissionPanel extends React.Component {
         }).done(this.props.onResultReceived);
     }
     render() {
+        const submitButtonStyle = {
+            width: 200
+        };
+
         return <div>
             <a href="#end-of-output" type="button" className="btn btn-success btn-lg pull-right"
-               id="submit-code" onClick={this.submitCode.bind(this)}>
+               onClick={this.submitCode.bind(this)} style={submitButtonStyle}>
                 <span className="glyphicon glyphicon-flash" aria-hidden={true}> </span> Submit</a>
             <span>Time Limit is <span className="text-success"
                                       id="problem-example-time-limit">{this.props.timeLimit}</span> seconds.</span><br />

@@ -16,20 +16,40 @@ export default class SubmissionInProgressSpinner extends React.Component {
     }
 
     render() {
+        const logoStyle = {
+            height: 50,
+            marginBottom: 15
+        };
+
+        const searchingSpinnerCenterStyle = {
+            position: "absolute",
+            display: "block",
+            top: "50%",
+            left: "50%"
+        };
+
+        const modalTextCenterStyle = {
+            textAlign: "center"
+        };
+
+        const modalBodyStyle = {
+            height: 200
+        };
+
         return <div id="SubmissionInProgressSpinner" className="modal fade" tabIndex="-1" role="dialog"
                     data-keyboard="false"
                     data-backdrop="static">
             <div className="modal-dialog">
                 <div className="modal-content">
-                    <div className="modal-header">
+                    <div className="modal-header" style={modalTextCenterStyle}>
                         <h3>Submission In Progress</h3>
                     </div>
-                    <div className="modal-body">
-                        <span id="searching_spinner_center"> </span>
+                    <div className="modal-body" style={modalBodyStyle}>
+                        <span id="searching_spinner_center" style={searchingSpinnerCenterStyle}> </span>
                     </div>
-                    <div className="modal-footer">
+                    <div className="modal-footer" style={modalTextCenterStyle}>
                         <div className="col-md-offset-4 col-md-8">
-                            <img src="img/logo.png" className="img-responsive footer-logo"/>
+                            <img src="img/logo.png" className="img-responsive" style={logoStyle} />
                         </div>
                     </div>
                 </div>

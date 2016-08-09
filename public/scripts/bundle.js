@@ -21546,6 +21546,12 @@
 	    _createClass(Menu, [{
 	        key: "render",
 	        value: function render() {
+	            var logoStyle = {
+	                display: "inline-block",
+	                height: 35,
+	                marginTop: -5
+	            };
+
 	            return _react2.default.createElement(
 	                "nav",
 	                { className: "navbar navbar-default navbar-fixed-top" },
@@ -21583,7 +21589,7 @@
 	                        _react2.default.createElement(
 	                            "a",
 	                            { className: "navbar-brand", href: "#" },
-	                            _react2.default.createElement("img", { src: "img/logo.png", className: "logo" })
+	                            _react2.default.createElement("img", { src: "img/logo.png", style: logoStyle })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -21682,6 +21688,11 @@
 	    _createClass(Footer, [{
 	        key: "render",
 	        value: function render() {
+	            var footerLogoStyle = {
+	                height: 50,
+	                marginBottom: 15
+	            };
+
 	            return _react2.default.createElement(
 	                "footer",
 	                { className: "footer" },
@@ -21699,13 +21710,13 @@
 	                        _react2.default.createElement(
 	                            "span",
 	                            null,
-	                            "Copyright © Jacek Spólnik 2016. All rights reserved."
+	                            "© Jacek Spólnik 2016"
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "col-md-7" },
-	                        _react2.default.createElement("img", { src: "img/logo.png", className: "img-responsive footer-logo" })
+	                        _react2.default.createElement("img", { src: "img/logo.png", className: "img-responsive", style: footerLogoStyle })
 	                    )
 	                )
 	            );
@@ -21765,7 +21776,6 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AlgoArena).call(this, props));
 
-	        _this.serverUrl = 'https://jalgoarena.herokuapp.com';
 	        _this.state = {
 	            currentProblem: {
 	                "id": "check-perm",
@@ -21778,7 +21788,8 @@
 	                    "output": "true"
 	                }
 	            },
-	            result: { status_code: "WAITING" }
+	            result: { status_code: "WAITING" },
+	            serverUrl: 'https://jalgoarena.herokuapp.com'
 	        };
 	        return _this;
 	    }
@@ -21809,12 +21820,12 @@
 	                'div',
 	                { className: 'container' },
 	                _react2.default.createElement(_Problems2.default, {
-	                    serverUrl: this.serverUrl,
+	                    serverUrl: this.state.serverUrl,
 	                    onProblemChanged: this.updateCurrentProblem.bind(this)
 	                }),
 	                _react2.default.createElement(_SubmissionDetails2.default, {
 	                    problem: this.state.currentProblem,
-	                    serverUrl: this.serverUrl,
+	                    serverUrl: this.state.serverUrl,
 	                    onCodeSubmitted: this.onCodeSubmitted.bind(this),
 	                    onResultReceived: this.processSubmission.bind(this)
 	                }),
@@ -21878,9 +21889,9 @@
 	                crossDomain: true,
 	                success: function success(problems) {
 	                    _this2.setState({ problems: problems });
-	                    var $firstProblem = $('#problems').children().first();
+	                    var $firstProblem = $('#check-perm');
 	                    $firstProblem.click();
-	                    $firstProblem.children().first().addClass('active');
+	                    $firstProblem.addClass('active');
 	                    _this2.toggle();
 	                },
 	                error: function error(xhr, status, err) {
@@ -21921,6 +21932,10 @@
 	        value: function render() {
 	            var _this3 = this;
 
+	            var clickableStyle = {
+	                cursor: "pointer"
+	            };
+
 	            var problemNodes = this.state.problems.map(function (problem) {
 	                return _react2.default.createElement(
 	                    'div',
@@ -21949,7 +21964,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'span',
-	                            { className: 'pull-right clickable', onClick: this.toggle },
+	                            { className: 'pull-right clickable', style: clickableStyle, onClick: this.toggle },
 	                            _react2.default.createElement(
 	                                'i',
 	                                { className: 'glyphicon glyphicon-chevron-up' },
@@ -22181,6 +22196,26 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var logoStyle = {
+	                height: 50,
+	                marginBottom: 15
+	            };
+
+	            var searchingSpinnerCenterStyle = {
+	                position: "absolute",
+	                display: "block",
+	                top: "50%",
+	                left: "50%"
+	            };
+
+	            var modalTextCenterStyle = {
+	                textAlign: "center"
+	            };
+
+	            var modalBodyStyle = {
+	                height: 200
+	            };
+
 	            return _react2.default.createElement(
 	                'div',
 	                { id: 'SubmissionInProgressSpinner', className: 'modal fade', tabIndex: '-1', role: 'dialog',
@@ -22194,7 +22229,7 @@
 	                        { className: 'modal-content' },
 	                        _react2.default.createElement(
 	                            'div',
-	                            { className: 'modal-header' },
+	                            { className: 'modal-header', style: modalTextCenterStyle },
 	                            _react2.default.createElement(
 	                                'h3',
 	                                null,
@@ -22203,20 +22238,20 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { className: 'modal-body' },
+	                            { className: 'modal-body', style: modalBodyStyle },
 	                            _react2.default.createElement(
 	                                'span',
-	                                { id: 'searching_spinner_center' },
+	                                { id: 'searching_spinner_center', style: searchingSpinnerCenterStyle },
 	                                ' '
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { className: 'modal-footer' },
+	                            { className: 'modal-footer', style: modalTextCenterStyle },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'col-md-offset-4 col-md-8' },
-	                                _react2.default.createElement('img', { src: 'img/logo.png', className: 'img-responsive footer-logo' })
+	                                _react2.default.createElement('img', { src: 'img/logo.png', className: 'img-responsive', style: logoStyle })
 	                            )
 	                        )
 	                    )
@@ -22681,6 +22716,7 @@
 	                _react2.default.createElement(_SubmissionPanel2.default, {
 	                    timeLimit: this.props.problem.time_limit,
 	                    memoryLimit: this.props.problem.memory_limit,
+	                    problemId: this.props.problem.id,
 	                    serverUrl: this.props.serverUrl,
 	                    onCodeSubmitted: this.props.onCodeSubmitted,
 	                    onResultReceived: this.props.onResultReceived
@@ -33304,7 +33340,7 @@
 /* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -33334,11 +33370,10 @@
 	    }
 
 	    _createClass(SubmissionPanel, [{
-	        key: 'submitCode',
+	        key: "submitCode",
 	        value: function submitCode() {
 	            this.props.onCodeSubmitted();
 
-	            var problemId = $('.btn.active').attr('id');
 	            var editor = ace.edit("editor");
 	            var sourceCode = editor.getValue();
 
@@ -33347,51 +33382,55 @@
 	                data: sourceCode,
 	                processData: false,
 	                contentType: 'text/plain',
-	                url: this.props.serverUrl + '/problems/' + problemId + '/submit',
+	                url: this.props.serverUrl + "/problems/" + this.props.problemId + "/submit",
 	                crossDomain: true
 	            }).done(this.props.onResultReceived);
 	        }
 	    }, {
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
+	            var submitButtonStyle = {
+	                width: 200
+	            };
+
 	            return _react2.default.createElement(
-	                'div',
+	                "div",
 	                null,
 	                _react2.default.createElement(
-	                    'a',
-	                    { href: '#end-of-output', type: 'button', className: 'btn btn-success btn-lg pull-right',
-	                        id: 'submit-code', onClick: this.submitCode.bind(this) },
+	                    "a",
+	                    { href: "#end-of-output", type: "button", className: "btn btn-success btn-lg pull-right",
+	                        onClick: this.submitCode.bind(this), style: submitButtonStyle },
 	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'glyphicon glyphicon-flash', 'aria-hidden': true },
-	                        ' '
+	                        "span",
+	                        { className: "glyphicon glyphicon-flash", "aria-hidden": true },
+	                        " "
 	                    ),
-	                    ' Submit'
+	                    " Submit"
 	                ),
 	                _react2.default.createElement(
-	                    'span',
+	                    "span",
 	                    null,
-	                    'Time Limit is ',
+	                    "Time Limit is ",
 	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'text-success',
-	                            id: 'problem-example-time-limit' },
+	                        "span",
+	                        { className: "text-success",
+	                            id: "problem-example-time-limit" },
 	                        this.props.timeLimit
 	                    ),
-	                    ' seconds.'
+	                    " seconds."
 	                ),
-	                _react2.default.createElement('br', null),
+	                _react2.default.createElement("br", null),
 	                _react2.default.createElement(
-	                    'span',
+	                    "span",
 	                    null,
-	                    'Memory Limit is ',
+	                    "Memory Limit is ",
 	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'text-success',
-	                            id: 'problem-example-memory-limit' },
+	                        "span",
+	                        { className: "text-success",
+	                            id: "problem-example-memory-limit" },
 	                        this.props.memoryLimit
 	                    ),
-	                    ' kilobytes.'
+	                    " kilobytes."
 	                )
 	            );
 	        }

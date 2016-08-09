@@ -3,6 +3,12 @@ import React from "react";
 
 export default class Menu extends React.Component {
     render() {
+        const logoStyle =  {
+            display: "inline-block",
+            height: 35,
+            marginTop: -5
+        };
+
         return <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
                 <div className="navbar-header">
@@ -13,7 +19,7 @@ export default class Menu extends React.Component {
                         <span className="icon-bar"> </span>
                         <span className="icon-bar"> </span>
                     </button>
-                    <a className="navbar-brand" href="#"><img src="img/logo.png" className="logo" /></a>
+                    <a className="navbar-brand" href="#"><img src="img/logo.png" style={logoStyle} /></a>
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">
