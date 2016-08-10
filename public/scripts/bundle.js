@@ -21483,6 +21483,10 @@
 	
 	var _problem2 = _interopRequireDefault(_problem);
 	
+	var _problems = __webpack_require__(332);
+	
+	var _problems2 = _interopRequireDefault(_problems);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createElement(
@@ -21492,6 +21496,7 @@
 	        _reactRouter.Route,
 	        { component: _layout2.default },
 	        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _AlgoArena2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/problems', component: _problems2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/leaderboard', component: _leaderboard2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/profile', component: _profile2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/problem/:id', component: _problem2.default })
@@ -21656,7 +21661,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    _reactRouter.Link,
-	                                    { activeStyle: activeStyle, to: "/" },
+	                                    { activeStyle: activeStyle, to: "/problems" },
 	                                    _react2.default.createElement(
 	                                        "span",
 	                                        { className: "glyphicon glyphicon-fire", "aria-hidden": "true" },
@@ -61860,6 +61865,173 @@
 	                }),
 	                _react2.default.createElement(_Output2.default, { result: this.state.result }),
 	                _react2.default.createElement(_SubmissionInProgress2.default, null)
+	            );
+	        }
+	    }]);
+	
+	    return Problem;
+	}(_react2.default.Component);
+	
+	exports.default = Problem;
+
+/***/ },
+/* 332 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Problem = __webpack_require__(333);
+	
+	var _Problem2 = _interopRequireDefault(_Problem);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Problems = function (_React$Component) {
+	    _inherits(Problems, _React$Component);
+	
+	    function Problems(props) {
+	        _classCallCheck(this, Problems);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Problems).call(this, props));
+	
+	        _this.state = {
+	            serverUrl: 'https://jalgoarena.herokuapp.com',
+	            problems: []
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Problems, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            $.ajax({
+	                type: "GET",
+	                dataType: 'json',
+	                cache: 'false',
+	                url: this.state.serverUrl + '/problems/',
+	                crossDomain: true,
+	                success: function success(problems) {
+	                    _this2.setState({ problems: problems });
+	                },
+	                error: function error(xhr, status, err) {
+	                    console.error(_this2.props.url, status, err.toString());
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var problemNodes = this.state.problems.map(function (problem) {
+	                return _react2.default.createElement(_Problem2.default, {
+	                    title: problem.title,
+	                    timeLimit: problem.time_limit,
+	                    memoryLimit: problem.memory_limit,
+	                    id: problem.id
+	                });
+	            });
+	
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                problemNodes
+	            );
+	        }
+	    }]);
+	
+	    return Problems;
+	}(_react2.default.Component);
+	
+	exports.default = Problems;
+
+/***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(179);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Problem = function (_React$Component) {
+	    _inherits(Problem, _React$Component);
+	
+	    function Problem() {
+	        _classCallCheck(this, Problem);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Problem).apply(this, arguments));
+	    }
+	
+	    _createClass(Problem, [{
+	        key: 'render',
+	        value: function render() {
+	            var problemStyle = {
+	                margin: "20px 20px 0px",
+	                borderRadius: 5,
+	                border: "1px solid #c2c7d0",
+	                padding: "1em 2em 1em"
+	            };
+	
+	            return _react2.default.createElement(
+	                'div',
+	                { style: problemStyle, className: 'col-md-5' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        { className: 'text-success' },
+	                        this.props.title
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/problem/" + this.props.id, className: 'btn btn-success pull-right' },
+	                        'Solve Problem'
+	                    ),
+	                    'Time Limit: ',
+	                    this.props.timeLimit,
+	                    _react2.default.createElement('br', null),
+	                    'Memory Limit: ',
+	                    this.props.memoryLimit
+	                )
 	            );
 	        }
 	    }]);
