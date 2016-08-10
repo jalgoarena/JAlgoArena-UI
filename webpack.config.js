@@ -1,11 +1,12 @@
 module.exports = {
     entry: [
-        "./src/app.jsx"
+        "./src/index.js"
     ],
     output: {
-        filename: "./public/scripts/bundle.js"
+        filename: "./public/scripts/bundle.js",
+        sourceMapFilename: "public/scripts/bundle.map"
     },
-
+    devtool: '#source-map',
     module: {
         loaders: [
             {

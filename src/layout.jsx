@@ -9,7 +9,8 @@ export default class Layout extends React.Component {
     render() {
         return <div>
             <Menu />
-            <AlgoArena />
+            { this.props.children }
+            {/*{ React.cloneElement(this.props.children, this.state) }*/}
             <Footer />
         </div>;
     }
