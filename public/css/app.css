@@ -19,3 +19,18 @@ body, p, button {
 .btn.active {
     background-color: #dff0d8;
 }
+
+hr.star-light:after {
+    background-color: #18BC9C;
+    color: white;
+}
+
+hr.star-light:after {
+    content: "\f005";
+    font-family: FontAwesome;
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    font-size: 2em;
+    padding: 0 .25em;
+}

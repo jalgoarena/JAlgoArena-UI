@@ -32,7 +32,7 @@ export default class Problem extends React.Component {
             url: `${this.state.serverUrl}/problems/${this.props.params.id}`,
             crossDomain: true,
             success: (problem) => {
-                this.setState({problem: problem});
+                this.setState({problem: problem, sourceCode: problem.skeleton_code});
             },
             error: (xhr, status, err) => {
                 console.error(this.props.url, status, err.toString());

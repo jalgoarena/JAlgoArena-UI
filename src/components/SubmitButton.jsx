@@ -23,12 +23,12 @@ export default class SubmitButton extends React.Component {
             width: 200
         };
 
-        return <a href="#end-of-output"
+        return <button
                   type="button"
                   className="btn btn-success btn-lg pull-right"
                   onClick={this.submitCode.bind(this)}
                   style={submitButtonStyle}>
             <span className="glyphicon glyphicon-flash" aria-hidden={true}> </span> Submit
-        </a>;
+        </button>;
     }
 }
