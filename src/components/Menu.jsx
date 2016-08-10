@@ -10,6 +10,10 @@ export default class Menu extends React.Component {
             marginTop: -5
         };
 
+        const activeStyle = {
+            color: "#3c763d"
+        };
+
         return <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
                 <div className="navbar-header">
@@ -24,9 +28,9 @@ export default class Menu extends React.Component {
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">
-                        <li><Link to="/"><span className="glyphicon glyphicon-fire" aria-hidden="true"> </span> Problems</Link></li>
-                        <li><Link to="/leaderboard"><span className="glyphicon glyphicon-globe" aria-hidden="true"> </span> Leaderboard</Link></li>
-                        <li><Link to="/profile"><span className="glyphicon glyphicon-user" aria-hidden="true"> </span> Profile</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/"><span className="glyphicon glyphicon-fire" aria-hidden="true"> </span> Problems</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/leaderboard"><span className="glyphicon glyphicon-globe" aria-hidden="true"> </span> Leaderboard</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/profile"><span className="glyphicon glyphicon-user" aria-hidden="true"> </span> Profile</Link></li>
                     </ul>
                 </div>
             </div>
