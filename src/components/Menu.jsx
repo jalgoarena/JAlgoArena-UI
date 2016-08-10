@@ -1,5 +1,6 @@
 "use strict";
 import React from "react";
+import {Link} from "react-router";
 
 export default class Menu extends React.Component {
     render() {
@@ -23,9 +24,9 @@ export default class Menu extends React.Component {
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">
-                        <li><a href="#"><span className="glyphicon glyphicon-globe" aria-hidden="true"> </span> Leaderboard</a></li>
-                        <li><a href="#"><span className="glyphicon glyphicon-cog" aria-hidden="true"> </span> Settings</a></li>
-                        <li><a href="#"><span className="glyphicon glyphicon-user" aria-hidden="true"> </span> Profile</a></li>
+                        <li><Link to="/"><span className="glyphicon glyphicon-fire" aria-hidden="true"> </span> Problems</Link></li>
+                        <li><Link to="/leaderboard"><span className="glyphicon glyphicon-globe" aria-hidden="true"> </span> Leaderboard</Link></li>
+                        <li><Link to="/profile"><span className="glyphicon glyphicon-user" aria-hidden="true"> </span> Profile</Link></li>
                     </ul>
                 </div>
             </div>

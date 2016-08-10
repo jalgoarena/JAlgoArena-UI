@@ -5,12 +5,41 @@ var opbeat = require('opbeat').start({
 });
 
 var express = require('express');
+var path = require('path');
 var app = express();
 
-app.set('port', (process.env.PORT || 3000));
-
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public'), {
+    dofiles: 'ignore',
+    indes: false
+}));
 app.use(opbeat.middleware.express());
+
+/**
+ * Always serve the same HTML file for all requests
+ */
+app.get('*', function(req, res, next) {
+    console.log('Request: [GET]', req.originalUrl);
+    res.sendFile(path.resolve(path.join(__dirname, 'public'), 'index.html'));
+    next();
+});
+
+
+/**
+ * Error Handling
+ */
+app.use(function(req, res, next) {
+    console.log('404');
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use(function(err, req, res, next) {
+    res.sendStatus(err.status || 500);
+    next();
+});
+
+app.set('port', (process.env.PORT || 3000));
 
 app.listen(app.get('port'), function() {
     console.log('JAlgoArena UI running on port ' + app.get('port'));
