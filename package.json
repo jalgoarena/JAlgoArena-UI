@@ -4,6 +4,9 @@
   "description": "JAlgoArena UI",
   "main": "server.js",
   "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "webpack-dev-server --hot --progress --colors",
+    "start:prod": "webpack --progress --colors && node server.js",
     "test": "echo 'not implemented yet'"
   },
   "repository": {
@@ -21,7 +24,9 @@
   "homepage": "https://github.com/spolnik/JAlgoArena-UI#readme",
   "dependencies": {
     "brace": "^0.8.0",
+    "compression": "^1.6.2",
     "express": "^4.14.0",
+    "if-env": "^1.0.0",
     "opbeat": "^3.14.0",
     "react": "^15.3.0",
     "react-ace": "^3.5.0",
@@ -36,6 +41,8 @@
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1"
+    "babel-preset-react": "^6.11.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }
