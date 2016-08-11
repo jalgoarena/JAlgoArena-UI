@@ -28,7 +28,7 @@ export default class SubmitButton extends React.Component {
                   className="btn btn-success btn-lg pull-right"
                   onClick={this.submitCode.bind(this)}
                   style={submitButtonStyle}>
-            <span className="glyphicon glyphicon-flash" aria-hidden={true}> </span> Submit
+            <i className="fa fa-send"> </i> Submit
         </button>;
     }
 }

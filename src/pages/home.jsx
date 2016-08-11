@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 export default class Home extends React.Component {
     render() {
@@ -18,7 +19,7 @@ export default class Home extends React.Component {
             color: "white",
             marginTop: -20,
             marginBottom: -20,
-            paddingTop: 100,
+            paddingTop: 60,
             paddingBottom: 50
         };
 
@@ -41,12 +42,15 @@ export default class Home extends React.Component {
         return <div className="container-fluid" style={containerStyle}>
             <div className="row">
                 <div className="col-lg-12">
-                    <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle} />
-                        <div className="intro-text">
-                            <span className="name" style={introTextNameStyle}>Start to solve your first problem</span>
-                            <hr className="star-light" style={starLightStyle} />
-                            <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Hacker</span>
-                        </div>
+                    <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle}/>
+                    <div className="intro-text">
+                        <span className="name" style={introTextNameStyle}>Start to solve your first problem</span>
+                        <hr className="star-light" style={starLightStyle}/>
+                        <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Hacker</span>
+                    </div>
+                    <Link to="/problems" className="btn btn-lg btn-outline">
+                        <i className="fa fa-bars"> </i>  Learn More
+                    </Link>
                 </div>
             </div>
         </div>;

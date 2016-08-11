@@ -21663,8 +21663,8 @@
 	                                    _reactRouter.Link,
 	                                    { activeStyle: activeStyle, to: "/" },
 	                                    _react2.default.createElement(
-	                                        "span",
-	                                        { className: "glyphicon glyphicon-home", "aria-hidden": "true" },
+	                                        "i",
+	                                        { className: "fa fa-home fa-lg" },
 	                                        " "
 	                                    ),
 	                                    " Home"
@@ -21677,8 +21677,8 @@
 	                                    _reactRouter.Link,
 	                                    { activeStyle: activeStyle, to: "/problems" },
 	                                    _react2.default.createElement(
-	                                        "span",
-	                                        { className: "glyphicon glyphicon-fire", "aria-hidden": "true" },
+	                                        "i",
+	                                        { className: "fa fa-lightbulb-o fa-lg" },
 	                                        " "
 	                                    ),
 	                                    " Problems"
@@ -21691,8 +21691,8 @@
 	                                    _reactRouter.Link,
 	                                    { activeStyle: activeStyle, to: "/leaderboard" },
 	                                    _react2.default.createElement(
-	                                        "span",
-	                                        { className: "glyphicon glyphicon-globe", "aria-hidden": "true" },
+	                                        "i",
+	                                        { className: "fa fa-trophy fa-lg" },
 	                                        " "
 	                                    ),
 	                                    " Leaderboard"
@@ -21705,8 +21705,8 @@
 	                                    _reactRouter.Link,
 	                                    { activeStyle: activeStyle, to: "/profile" },
 	                                    _react2.default.createElement(
-	                                        "span",
-	                                        { className: "glyphicon glyphicon-user", "aria-hidden": "true" },
+	                                        "i",
+	                                        { className: "fa fa-user fa-lg" },
 	                                        " "
 	                                    ),
 	                                    " Profile"
@@ -27400,7 +27400,12 @@
 	                        _react2.default.createElement(
 	                            "span",
 	                            null,
-	                            "© Jacek Spólnik 2016"
+	                            _react2.default.createElement(
+	                                "i",
+	                                { className: "fa fa-copyright" },
+	                                " "
+	                            ),
+	                            " Jacek Spólnik 2016"
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -61495,8 +61500,8 @@
 	                    onClick: this.submitCode.bind(this),
 	                    style: submitButtonStyle },
 	                _react2.default.createElement(
-	                    "span",
-	                    { className: "glyphicon glyphicon-flash", "aria-hidden": true },
+	                    "i",
+	                    { className: "fa fa-send" },
 	                    " "
 	                ),
 	                " Submit"
@@ -61792,7 +61797,7 @@
 /* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -61803,6 +61808,8 @@
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(179);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -61822,7 +61829,7 @@
 	    }
 	
 	    _createClass(Home, [{
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
 	            var starLightStyle = {
 	                padding: 0,
@@ -61840,7 +61847,7 @@
 	                color: "white",
 	                marginTop: -20,
 	                marginBottom: -20,
-	                paddingTop: 100,
+	                paddingTop: 60,
 	                paddingBottom: 50
 	            };
 	
@@ -61861,29 +61868,39 @@
 	            };
 	
 	            return _react2.default.createElement(
-	                "div",
-	                { className: "container-fluid", style: containerStyle },
+	                'div',
+	                { className: 'container-fluid', style: containerStyle },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "row" },
+	                    'div',
+	                    { className: 'row' },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "col-lg-12" },
-	                        _react2.default.createElement("img", { className: "img-responsive", src: "../img/profile.png", alt: "", style: imgStyle }),
+	                        'div',
+	                        { className: 'col-lg-12' },
+	                        _react2.default.createElement('img', { className: 'img-responsive', src: '../img/profile.png', alt: '', style: imgStyle }),
 	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "intro-text" },
+	                            'div',
+	                            { className: 'intro-text' },
 	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "name", style: introTextNameStyle },
-	                                "Start to solve your first problem"
+	                                'span',
+	                                { className: 'name', style: introTextNameStyle },
+	                                'Start to solve your first problem'
 	                            ),
-	                            _react2.default.createElement("hr", { className: "star-light", style: starLightStyle }),
+	                            _react2.default.createElement('hr', { className: 'star-light', style: starLightStyle }),
 	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "skills", style: introTextSkillsStyle },
-	                                "Software Engineer - Problem Solver - Hacker"
+	                                'span',
+	                                { className: 'skills', style: introTextSkillsStyle },
+	                                'Software Engineer - Problem Solver - Hacker'
 	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: '/problems', className: 'btn btn-lg btn-outline' },
+	                            _react2.default.createElement(
+	                                'i',
+	                                { className: 'fa fa-bars' },
+	                                ' '
+	                            ),
+	                            '  Learn More'
 	                        )
 	                    )
 	                )

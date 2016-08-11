@@ -28,10 +28,10 @@ export default class Menu extends React.Component {
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">
-                        <li><Link activeStyle={activeStyle} to="/"><span className="glyphicon glyphicon-home" aria-hidden="true"> </span> Home</Link></li>
-                        <li><Link activeStyle={activeStyle} to="/problems"><span className="glyphicon glyphicon-fire" aria-hidden="true"> </span> Problems</Link></li>
-                        <li><Link activeStyle={activeStyle} to="/leaderboard"><span className="glyphicon glyphicon-globe" aria-hidden="true"> </span> Leaderboard</Link></li>
-                        <li><Link activeStyle={activeStyle} to="/profile"><span className="glyphicon glyphicon-user" aria-hidden="true"> </span> Profile</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/"><i className="fa fa-home fa-lg"> </i> Home</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/problems"><i className="fa fa-lightbulb-o fa-lg"> </i> Problems</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/leaderboard"><i className="fa fa-trophy fa-lg"> </i> Leaderboard</Link></li>
+                        <li><Link activeStyle={activeStyle} to="/profile"><i className="fa fa-user fa-lg"> </i> Profile</Link></li>
                     </ul>
                 </div>
             </div>

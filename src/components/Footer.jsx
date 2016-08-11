@@ -16,7 +16,7 @@ export default class Footer extends React.Component {
                 <div className="container">
 
                     <div className="col-md-5">
-                        <span>© Jacek Spólnik 2016</span>
+                        <span><i className="fa fa-copyright"> </i> Jacek Spólnik 2016</span>
                     </div>
                     <div className="col-md-7">
                         <img src="img/logo.png" className="img-responsive" style={footerLogoStyle}/>

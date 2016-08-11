@@ -16,10 +16,6 @@ body, p, button {
     font-size: 15px;
 }
 
-.btn.active {
-    background-color: #dff0d8;
-}
-
 hr.star-light:after {
     background-color: #18BC9C;
     color: white;
@@ -33,4 +29,23 @@ hr.star-light:after {
     top: -.8em;
     font-size: 2em;
     padding: 0 .25em;
+}
+
+.btn-outline {
+    color: #fff;
+    font-size: 20px;
+    border: 2px solid #fff;
+    background: 0 0;
+    transition: all .3s ease-in-out;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+    color: #18BC9C;
+    background: white;
+    border: solid 2px white;
 }
