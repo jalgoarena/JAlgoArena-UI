@@ -27628,7 +27628,6 @@
 	            $.ajax({
 	                type: "GET",
 	                dataType: 'json',
-	                cache: 'false',
 	                url: this.state.serverUrl + '/problems/' + this.props.params.id,
 	                crossDomain: true,
 	                success: function success(problem) {
@@ -61837,7 +61836,6 @@
 	            $.ajax({
 	                type: "GET",
 	                dataType: 'json',
-	                cache: 'false',
 	                url: this.state.serverUrl + '/problems/',
 	                crossDomain: true,
 	                success: function success(problems) {
