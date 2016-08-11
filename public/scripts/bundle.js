@@ -62004,8 +62004,12 @@
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            '$',
-	                            this.props.errorMessage
+	                            _react2.default.createElement(
+	                                'code',
+	                                null,
+	                                '$',
+	                                this.props.errorMessage
+	                            )
 	                        )
 	                    );
 	                case 'RUNTIME_ERROR':
@@ -62020,8 +62024,12 @@
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            '$',
-	                            this.props.errorMessage
+	                            _react2.default.createElement(
+	                                'code',
+	                                null,
+	                                '$',
+	                                this.props.errorMessage
+	                            )
 	                        )
 	                    );
 	                case 'TIME_LIMIT_EXCEEDED':
