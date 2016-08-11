@@ -46,7 +46,7 @@ export default class Home extends React.Component {
                     <div className="intro-text">
                         <span className="name" style={introTextNameStyle}>Start to solve your first problem</span>
                         <hr className="star-light" style={starLightStyle}/>
-                        <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Hacker</span>
+                        <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Java Hacker</span>
                     </div>
                     <Link to="/problems" className="btn btn-lg btn-outline">
                         <i className="fa fa-bars"> </i>  Learn More

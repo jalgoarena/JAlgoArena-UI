@@ -27663,6 +27663,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _SubmissionResult = __webpack_require__(334);
+	
+	var _SubmissionResult2 = _interopRequireDefault(_SubmissionResult);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27683,99 +27687,6 @@
 	    _createClass(Output, [{
 	        key: 'render',
 	        value: function render() {
-	            var header = void 0;
-	            var testCaseNodes = void 0;
-	            var errorMessage = void 0;
-	
-	            var result = this.props.result;
-	
-	            switch (result.status_code) {
-	                case 'WAITING':
-	                    header = _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-info text-center' },
-	                        'Submit your code to see results'
-	                    );
-	                    break;
-	                case 'ACCEPTED':
-	                    header = _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-success text-center' },
-	                        'All test cases passed, congratulations!'
-	                    );
-	
-	                    testCaseNodes = result.testcase_results.map(function (result, i) {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'col-md-3' },
-	                            _react2.default.createElement('span', { className: "glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger'),
-	                                'aria-hidden': 'true' }),
-	                            ' Test Case #',
-	                            i + 1
-	                        );
-	                    });
-	                    break;
-	                case 'WRONG_ANSWER':
-	                    header = _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-danger text-center' },
-	                        'Wrong Answer'
-	                    );
-	
-	                    testCaseNodes = result.testcase_results.map(function (result, i) {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'col-md-3' },
-	                            _react2.default.createElement('span', { className: "glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger'),
-	                                'aria-hidden': 'true' }),
-	                            ' Test Case #',
-	                            i + 1
-	                        );
-	                    });
-	
-	                    break;
-	                case 'COMPILE_ERROR':
-	                    header = _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-danger text-center' },
-	                        'Compilation Error'
-	                    );
-	                    errorMessage = _react2.default.createElement(
-	                        'p',
-	                        null,
-	                        '$',
-	                        result.error_message
-	                    );
-	                    break;
-	                case 'RUNTIME_ERROR':
-	                    header = _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-danger text-center' },
-	                        'Runtime Error'
-	                    );
-	                    errorMessage = _react2.default.createElement(
-	                        'p',
-	                        null,
-	                        '$',
-	                        result.error_message
-	                    );
-	                    break;
-	                case 'TIME_LIMIT_EXCEEDED':
-	                    header = _react2.default.createElement(
-	                        'h2',
-	                        { className: 'text-danger text-center' },
-	                        'Time Limit Exceeded'
-	                    );
-	                    break;
-	                case 'MEMORY_LIMIT_EXCEEDED':
-	                    header = _react2.default.createElement(
-	                        'div',
-	                        { className: 'alert alert-danger', role: 'alert' },
-	                        'Memory Limit Exceeded!'
-	                    );
-	                    break;
-	            }
-	
 	            var outputStyle = {
 	                marginTop: 30,
 	                borderRadius: 10,
@@ -27786,9 +27697,13 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'row output', style: outputStyle, id: 'output' },
-	                header,
-	                testCaseNodes,
-	                errorMessage
+	                _react2.default.createElement(_SubmissionResult2.default, {
+	                    statusCode: this.props.result.status_code,
+	                    elapsedTime: this.props.result.elapsed_time,
+	                    consumedMemory: this.props.result.consumed_memory,
+	                    testcaseResults: this.props.result.testcase_results,
+	                    errorMessage: this.props.result.error_message
+	                })
 	            );
 	        }
 	    }]);
@@ -61776,7 +61691,12 @@
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
 	                        { to: "/problem/" + this.props.id, className: 'btn btn-success pull-right' },
-	                        'Solve Problem'
+	                        _react2.default.createElement(
+	                            'i',
+	                            { className: 'fa fa-bars' },
+	                            ' '
+	                        ),
+	                        ' Solve Problem'
 	                    ),
 	                    'Time Limit: ',
 	                    this.props.timeLimit,
@@ -61889,7 +61809,7 @@
 	                            _react2.default.createElement(
 	                                'span',
 	                                { className: 'skills', style: introTextSkillsStyle },
-	                                'Software Engineer - Problem Solver - Hacker'
+	                                'Software Engineer - Problem Solver - Java Hacker'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -61912,6 +61832,225 @@
 	}(_react2.default.Component);
 	
 	exports.default = Home;
+
+/***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TimeAndMemoryReport = function (_React$Component) {
+	    _inherits(TimeAndMemoryReport, _React$Component);
+	
+	    function TimeAndMemoryReport() {
+	        _classCallCheck(this, TimeAndMemoryReport);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TimeAndMemoryReport).apply(this, arguments));
+	    }
+	
+	    _createClass(TimeAndMemoryReport, [{
+	        key: "render",
+	        value: function render() {
+	            var timeAndMemoryReportStyle = {
+	                marginTop: 3
+	            };
+	
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "col-md-12 text-center", style: timeAndMemoryReportStyle },
+	                _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    _react2.default.createElement(
+	                        "i",
+	                        { className: "fa fa-clock-o", "aria-hidden": "true" },
+	                        " "
+	                    ),
+	                    " ",
+	                    Math.round(this.props.elapsedTime) + " ms",
+	                    " | ",
+	                    _react2.default.createElement(
+	                        "i",
+	                        { className: "fa fa-database", "aria-hidden": "true" },
+	                        " "
+	                    ),
+	                    " ",
+	                    this.props.consumedMemory + " kb"
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return TimeAndMemoryReport;
+	}(_react2.default.Component);
+	
+	exports.default = TimeAndMemoryReport;
+
+/***/ },
+/* 334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _TimeAndMemoryReport = __webpack_require__(333);
+	
+	var _TimeAndMemoryReport2 = _interopRequireDefault(_TimeAndMemoryReport);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SubmissionResult = function (_React$Component) {
+	    _inherits(SubmissionResult, _React$Component);
+	
+	    function SubmissionResult() {
+	        _classCallCheck(this, SubmissionResult);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionResult).apply(this, arguments));
+	    }
+	
+	    _createClass(SubmissionResult, [{
+	        key: 'render',
+	        value: function render() {
+	            switch (this.props.statusCode) {
+	                case 'WAITING':
+	                    return _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-info text-center' },
+	                        'Submit your code to see results'
+	                    );
+	                case 'ACCEPTED':
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'h2',
+	                            { className: 'text-success text-center' },
+	                            'All test cases passed, congratulations!'
+	                        ),
+	                        this.props.testcaseResults.map(function (result, i) {
+	                            return _react2.default.createElement(
+	                                'div',
+	                                { className: 'col-md-3' },
+	                                _react2.default.createElement('span', { className: "glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger'),
+	                                    'aria-hidden': 'true' }),
+	                                ' Test Case #',
+	                                i + 1
+	                            );
+	                        }),
+	                        _react2.default.createElement(_TimeAndMemoryReport2.default, { elapsedTime: this.props.elapsedTime, consumedMemory: this.props.consumedMemory })
+	                    );
+	                case 'WRONG_ANSWER':
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'h2',
+	                            { className: 'text-danger text-center' },
+	                            'Wrong Answer'
+	                        ),
+	                        this.props.testcaseResults.map(function (result, i) {
+	                            return _react2.default.createElement(
+	                                'div',
+	                                { className: 'col-md-3' },
+	                                _react2.default.createElement('span', { className: "glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger'),
+	                                    'aria-hidden': 'true' }),
+	                                ' Test Case #',
+	                                i + 1
+	                            );
+	                        })
+	                    );
+	                case 'COMPILE_ERROR':
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'h2',
+	                            { className: 'text-danger text-center' },
+	                            'Compilation Error'
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            '$',
+	                            this.props.errorMessage
+	                        )
+	                    );
+	                case 'RUNTIME_ERROR':
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'h2',
+	                            { className: 'text-danger text-center' },
+	                            'Runtime Error'
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            '$',
+	                            this.props.errorMessage
+	                        )
+	                    );
+	                case 'TIME_LIMIT_EXCEEDED':
+	                    return _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-danger text-center' },
+	                        'Time Limit Exceeded'
+	                    );
+	                case 'MEMORY_LIMIT_EXCEEDED':
+	                    return _react2.default.createElement(
+	                        'div',
+	                        { className: 'alert alert-danger', role: 'alert' },
+	                        'Memory Limit Exceeded!'
+	                    );
+	                default:
+	                    return _react2.default.createElement(
+	                        'h2',
+	                        { className: 'text-danger text-center' },
+	                        'Unsupported status code: ',
+	                        this.props.statusCode
+	                    );
+	            }
+	        }
+	    }]);
+	
+	    return SubmissionResult;
+	}(_react2.default.Component);
+	
+	exports.default = SubmissionResult;
 
 /***/ }
 /******/ ]);

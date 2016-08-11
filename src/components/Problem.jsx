@@ -15,7 +15,7 @@ export default class Problem extends React.Component {
                 <h4 className="text-success">{this.props.title}</h4>
             </div>
             <div className="row">
-                <Link to={"/problem/" + this.props.id} className="btn btn-success pull-right">Solve Problem</Link>
+                <Link to={"/problem/" + this.props.id} className="btn btn-success pull-right"><i className="fa fa-bars"> </i> Solve Problem</Link>
                 Time Limit: {this.props.timeLimit}<br />
                 Memory Limit: {this.props.memoryLimit}
             </div>

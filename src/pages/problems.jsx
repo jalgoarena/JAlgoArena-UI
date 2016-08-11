@@ -9,6 +9,7 @@ export default class Problems extends React.Component {
             problems: []
         };
     }
+
     componentDidMount() {
         $.ajax({
             type: "GET",
@@ -24,6 +25,7 @@ export default class Problems extends React.Component {
             }
         });
     }
+
     render() {
         let problemNodes = this.state.problems.map((problem) => {
             return <Problem
