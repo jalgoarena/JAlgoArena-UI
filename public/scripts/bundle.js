@@ -62002,14 +62002,9 @@
 	                            'Compilation Error'
 	                        ),
 	                        _react2.default.createElement(
-	                            'p',
+	                            'pre',
 	                            null,
-	                            _react2.default.createElement(
-	                                'code',
-	                                null,
-	                                '$',
-	                                this.props.errorMessage
-	                            )
+	                            this.props.errorMessage
 	                        )
 	                    );
 	                case 'RUNTIME_ERROR':
@@ -62022,14 +62017,9 @@
 	                            'Runtime Error'
 	                        ),
 	                        _react2.default.createElement(
-	                            'p',
+	                            'pre',
 	                            null,
-	                            _react2.default.createElement(
-	                                'code',
-	                                null,
-	                                '$',
-	                                this.props.errorMessage
-	                            )
+	                            this.props.errorMessage
 	                        )
 	                    );
 	                case 'TIME_LIMIT_EXCEEDED':

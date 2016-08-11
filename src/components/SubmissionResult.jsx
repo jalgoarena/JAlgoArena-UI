@@ -32,12 +32,12 @@ export default class SubmissionResult extends React.Component {
             case 'COMPILE_ERROR':
                 return <div>
                     <h2 className="text-danger text-center">Compilation Error</h2>
-                    <p><code>${this.props.errorMessage}</code></p>
+                    <pre>{this.props.errorMessage}</pre>
                 </div>;
             case 'RUNTIME_ERROR':
                 return <div>
                     <h2 className="text-danger text-center">Runtime Error</h2>
-                    <p><code>${this.props.errorMessage}</code></p>
+                    <pre>{this.props.errorMessage}</pre>
                 </div>;
             case 'TIME_LIMIT_EXCEEDED':
                 return <h2 className="text-danger text-center">Time Limit Exceeded</h2>;
