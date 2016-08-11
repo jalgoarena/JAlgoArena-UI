@@ -28,7 +28,6 @@ export default class Problem extends React.Component {
         $.ajax({
             type: "GET",
             dataType: 'json',
-            cache: 'false',
             url: `${this.state.serverUrl}/problems/${this.props.params.id}`,
             crossDomain: true,
             success: (problem) => {
