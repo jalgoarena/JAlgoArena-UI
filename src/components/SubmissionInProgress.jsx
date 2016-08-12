@@ -44,7 +44,7 @@ export default class SubmissionInProgress extends React.Component {
                     </div>
                     <div className="modal-footer" style={modalTextCenterStyle}>
                         <div className="col-md-offset-4 col-md-8">
-                            <img src="img/logo.png" className="img-responsive" style={logoStyle} />
+                            <img src="../img/logo.png" className="img-responsive" style={logoStyle} />
                         </div>
                     </div>
                 </div>

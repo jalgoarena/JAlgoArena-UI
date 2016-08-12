@@ -6,7 +6,7 @@ module.exports = {
     ],
     output: {
         filename: "./public/dist/bundle.js",
-        sourceMapFilename: "public/dist/bundle.map"
+        sourceMapFilename: "./public/dist/bundle.map"
     },
     devServer: {
         inline: true,

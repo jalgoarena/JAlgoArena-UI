@@ -24,7 +24,7 @@ export default class Menu extends React.Component {
                         <span className="icon-bar"> </span>
                         <span className="icon-bar"> </span>
                     </button>
-                    <a className="navbar-brand" href="#"><img src="img/logo.png" style={logoStyle} /></a>
+                    <a className="navbar-brand" href="/"><img src="img/logo.png" style={logoStyle} /></a>
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">

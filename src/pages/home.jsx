@@ -30,7 +30,7 @@ export default class Home extends React.Component {
 
         const introTextNameStyle = {
             display: "block",
-            fontWeight: "700",
+            fontWeight: "500",
             fontSize: "3em"
         };
 

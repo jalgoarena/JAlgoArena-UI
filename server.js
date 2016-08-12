@@ -5,11 +5,14 @@ var opbeat = require('opbeat').start({
 });
 
 var express = require('express');
+var morgan = require('morgan');
 var path = require('path');
 var compression = require('compression');
 
 var app = express();
+
 app.use(compression());
+app.use(morgan('tiny'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(opbeat.middleware.express());
