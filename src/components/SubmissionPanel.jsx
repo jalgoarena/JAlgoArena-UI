@@ -6,7 +6,7 @@ import TimeLimit from './TimeLimit.jsx';
 export default class SubmissionPanel extends React.Component {
     render() {
         return <div>
-            <SubmitButton onCodeSubmitted={this.props.onCodeSubmitted}/>
+            <SubmitButton problemId={this.props.problemId}/>
             <TimeLimit timeLimit={this.props.timeLimit} />
             <br />
             <MemoryLimit memoryLimit={this.props.memoryLimit} />

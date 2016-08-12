@@ -2,6 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import {SourceCodeStore} from "../stores/sourceCode.js";
+import {SubmissionActions} from "../actions/submission.js";
 
 const SubmitButton = React.createClass({
     mixins: [
@@ -9,8 +10,13 @@ const SubmitButton = React.createClass({
             SourceCodeStore, 'onChangedSourceCode'
         )
     ],
+    getInitialState() {
+        return {
+            sourceCode: null
+        }
+    },
     submitCode: function () {
-        this.props.onCodeSubmitted(this.state.sourceCode);
+        SubmissionActions.SendSubmission(this.state.sourceCode, this.props.problemId);
     },
     onChangedSourceCode: function (sourceCode) {
         this.setState({sourceCode: sourceCode});

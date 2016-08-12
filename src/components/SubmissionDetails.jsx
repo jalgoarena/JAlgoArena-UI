@@ -6,7 +6,23 @@ import ExampleInputAndOutput from './ExampleInputAndOutput.jsx';
 import AceCodeEditor from './AceCodeEditor.jsx';
 import SubmissionPanel from './SubmissionPanel.jsx';
 
-export default class SubmissionDetails extends React.Component {
+const SubmissionDetails = React.createClass({
+    getInitialProps: function () {
+        return {
+            problem: {
+                "id": "check-perm",
+                "title": "Check Permutations",
+                "description": "Given two strings, write a method to decide if one is a permutation of other.",
+                "time_limit": 1,
+                "memory_limit": 32,
+                "example": {
+                    "input": "\"abc\", \"cba\"",
+                    "output": "true"
+                },
+                "skeleton_code": "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n",
+            }
+        }
+    },
     render() {
         return <div className="row">
             <ProblemTitle title={this.props.problem.title}/>
@@ -14,12 +30,14 @@ export default class SubmissionDetails extends React.Component {
             <ExampleInputAndOutput
                 input={this.props.problem.example.input}
                 output={this.props.problem.example.output} />
-            <AceCodeEditor sourceCode={this.props.sourceCode || this.props.problem.skeleton_code} />
+            <AceCodeEditor sourceCode={this.props.problem.skeleton_code} />
             <SubmissionPanel
                 timeLimit={this.props.problem.time_limit}
                 memoryLimit={this.props.problem.memory_limit}
-                onCodeSubmitted={this.props.onCodeSubmitted}
+                problemId={this.props.problem.id}
             />
         </div>;
     }
-}
+});
+
+module.exports = SubmissionDetails;

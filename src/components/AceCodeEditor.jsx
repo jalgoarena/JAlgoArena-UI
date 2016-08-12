@@ -8,6 +8,9 @@ import 'brace/theme/tomorrow_night_eighties';
 import {SourceCodeActions} from '../actions/sourceCode.js';
 
 export default class AceCodeEditor extends React.Component {
+    componentDidMount() {
+        SourceCodeActions.ChangeSourceCode(this.props.sourceCode);
+    }
     render() {
         const editorStyle = {
             marginTop: 10,
