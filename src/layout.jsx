@@ -3,7 +3,7 @@
 import React from "react";
 import Menu from "./components/Menu.jsx";
 import Footer from "./components/Footer.jsx";
-import {Actions} from "./actions/problems.js";
+import {ProblemActions} from "./actions/problems.js";
 import {ProblemStore} from "./stores/problems.js";
 import Reflux from 'reflux';
 
@@ -28,7 +28,7 @@ const Layout = React.createClass({
       }]};
     },
     componentDidMount: function() {
-        Actions.FetchProblems();
+        ProblemActions.FetchProblems();
     },
     render: function() {
         return <div>

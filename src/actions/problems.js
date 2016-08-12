@@ -1,5 +1,5 @@
 import Reflux from 'reflux';
 
-export const Actions = {
+export const ProblemActions = {
     FetchProblems: Reflux.createAction("FetchProblems")
 };
