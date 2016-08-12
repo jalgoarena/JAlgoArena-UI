@@ -10,7 +10,7 @@ export default class SubmissionResult extends React.Component {
                 return <div>
                     <h2 className="text-success text-center">All test cases passed, congratulations!</h2>
                     {this.props.testcaseResults.map((result, i) =>
-                        <div className="col-md-3">
+                        <div className="col-md-3" key={i}>
                             <span className={"glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger')}
                                   aria-hidden="true">
                             </span> Test Case #{i + 1}
@@ -22,7 +22,7 @@ export default class SubmissionResult extends React.Component {
                 return <div>
                     <h2 className="text-danger text-center">Wrong Answer</h2>
                     {this.props.testcaseResults.map((result, i) =>
-                        <div className="col-md-3">
+                        <div className="col-md-3" key={i}>
                             <span className={"glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger')}
                                   aria-hidden="true">
                             </span> Test Case #{i + 1}

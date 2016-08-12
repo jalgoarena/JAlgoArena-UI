@@ -10,7 +10,7 @@ export default class Problem extends React.Component {
             padding: "1em 2em 1em"
         };
 
-        return <div style={problemStyle} className="col-md-5">
+        return <div style={problemStyle} className="col-md-5" key={this.props.id}>
             <div className="row">
                 <h4 className="text-success">{this.props.title}</h4>
             </div>
