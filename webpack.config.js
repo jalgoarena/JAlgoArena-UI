@@ -5,8 +5,8 @@ module.exports = {
         "./src/index.js"
     ],
     output: {
-        filename: "./public/scripts/bundle.js",
-        sourceMapFilename: "public/scripts/bundle.map"
+        filename: "./public/dist/bundle.js",
+        sourceMapFilename: "public/dist/bundle.map"
     },
     devServer: {
         inline: true,
@@ -14,7 +14,7 @@ module.exports = {
         port: 3000
     },
     devtool: '#source-map',
-    plugins: process.env.NODE_ENV === 'production' ? [
+    plugins: process.env.NODE_ENV === 'heroku' ? [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin()
