@@ -8,7 +8,7 @@ export default class Problem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            problem: {
+            defaultProblem: {
                 "id": "check-perm",
                 "title": "Check Permutations",
                 "description": "Given two strings, write a method to decide if one is a permutation of other.",
@@ -17,26 +17,13 @@ export default class Problem extends React.Component {
                 "example": {
                     "input": "\"abc\", \"cba\"",
                     "output": "true"
-                }
+                },
+                "skeleton_code": "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n",
             },
             result: {status_code: "WAITING"},
             serverUrl: 'https://jalgoarena.herokuapp.com',
-            sourceCode: "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n",
+            sourceCode: null
         }
-    }
-    componentDidMount() {
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: `${this.state.serverUrl}/problems/${this.props.params.id}`,
-            crossDomain: true,
-            success: (problem) => {
-                this.setState({problem: problem, sourceCode: problem.skeleton_code});
-            },
-            error: (xhr, status, err) => {
-                console.error(this.props.url, status, err.toString());
-            }
-        });
     }
     onCodeSubmitted(sourceCode) {
         $('#SubmissionInProgressSpinner').modal('show');
@@ -47,9 +34,11 @@ export default class Problem extends React.Component {
         this.setState({result: result});
     }
     render() {
+        const problem = this.props.problems.find((problem) => problem.id === this.props.params.id);
+
         return <div className="container">
             <SubmissionDetails
-                problem={this.state.problem}
+                problem={problem || this.state.defaultProblem}
                 serverUrl={this.state.serverUrl}
                 sourceCode={this.state.sourceCode}
                 onCodeSubmitted={this.onCodeSubmitted.bind(this)}

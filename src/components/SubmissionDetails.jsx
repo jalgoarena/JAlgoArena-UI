@@ -14,7 +14,7 @@ export default class SubmissionDetails extends React.Component {
             <ExampleInputAndOutput
                 input={this.props.problem.example.input}
                 output={this.props.problem.example.output} />
-            <AceCodeEditor sourceCode={this.props.sourceCode} />
+            <AceCodeEditor sourceCode={this.props.sourceCode || this.props.problem.skeleton_code} />
             <SubmissionPanel
                 timeLimit={this.props.problem.time_limit}
                 memoryLimit={this.props.problem.memory_limit}
