@@ -3,19 +3,7 @@ import React from 'react';
 export default class SubmitButton extends React.Component {
 
     submitCode() {
-        let editor = ace.edit("editor");
-        let sourceCode = editor.getValue();
-
-        this.props.onCodeSubmitted(sourceCode);
-
-        $.ajax({
-            type: "POST",
-            data: sourceCode,
-            processData: false,
-            contentType: 'text/plain',
-            url: `${this.props.serverUrl}/problems/${this.props.problemId}/submit`,
-            crossDomain: true
-        }).done(this.props.onResultReceived);
+        this.props.onCodeSubmitted();
     }
 
     render() {

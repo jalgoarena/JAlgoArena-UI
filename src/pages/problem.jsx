@@ -21,28 +21,37 @@ export default class Problem extends React.Component {
                 "skeleton_code": "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n",
             },
             result: {status_code: "WAITING"},
-            serverUrl: 'https://jalgoarena.herokuapp.com',
             sourceCode: null
         }
     }
-    onCodeSubmitted(sourceCode) {
+    onCodeSubmitted() {
+        let editor = ace.edit("editor");
+        let sourceCode = editor.getValue();
+
         $('#SubmissionInProgressSpinner').modal('show');
-        this.setState({sourceCode: sourceCode});
+
+        $.ajax({
+            type: "POST",
+            data: sourceCode,
+            processData: false,
+            contentType: 'text/plain',
+            url: `https://jalgoarena.herokuapp.com/problems/${this.props.params.id}/submit`,
+            crossDomain: true
+        }).done((data) => {
+            $('#SubmissionInProgressSpinner').modal('hide');
+            this.setState({sourceCode: sourceCode, result: data});
+        });
     }
-    processSubmission(result) {
-        $('#SubmissionInProgressSpinner').modal('hide');
-        this.setState({result: result});
-    }
+
     render() {
-        const problem = this.props.problems.find((problem) => problem.id === this.props.params.id);
+        let problem = this.props.problems.find((problem) => problem.id === this.props.params.id)
+            || this.state.defaultProblem;
 
         return <div className="container">
             <SubmissionDetails
-                problem={problem || this.state.defaultProblem}
-                serverUrl={this.state.serverUrl}
-                sourceCode={this.state.sourceCode}
+                problem={problem}
+                sourceCode={this.state.sourceCode || problem.skeleton_code}
                 onCodeSubmitted={this.onCodeSubmitted.bind(this)}
-                onResultReceived={this.processSubmission.bind(this)}
             />
             <Output result={this.state.result} />
             <SubmissionInProgress />
