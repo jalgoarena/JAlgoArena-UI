@@ -7,7 +7,9 @@ import {LoadingInProgressActions} from "../actions/loadingInProgress.js";
 
 export default class Problems extends React.Component {
     componentWillMount() {
-        LoadingInProgressActions.LoadingInProgress('Downloading Problems');
+        if (!this.props.problems) {
+            LoadingInProgressActions.LoadingInProgress('Downloading Problems');
+        }
     }
     render() {
         let problems = this.props.problems || [];
