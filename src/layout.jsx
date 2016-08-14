@@ -16,30 +16,9 @@ const Layout = React.createClass({
             SubmissionStore, 'onSendSubmission'
         )
     ],
-    getInitialState: function() {
-      return {problems: [{
-          "id": "check-perm",
-          "title": "Check Permutations",
-          "description": "Given two strings, write a method to decide if one is a permutation of other.",
-          "time_limit": 1,
-          "memory_limit": 32,
-          "example": {
-              "input": "\"abc\", \"cba\"",
-              "output": "true"
-          },
-          "skeleton_code": "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n"
-      }],
-          result: {
-              status_code: "WAITING",
-              error_message: "",
-              elapsed_time: 0,
-              consumed_memory: 0,
-              testcase_results: []
-          }
-      };
-    },
     componentDidMount: function() {
         ProblemActions.FetchProblems();
+        this.setState({result: {status_code: 'WAITING'}});
     },
     render: function() {
         return <div>

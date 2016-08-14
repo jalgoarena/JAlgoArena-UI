@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {Grid} from 'react-bootstrap';
 
 export default class Home extends React.Component {
     render() {
@@ -39,7 +40,7 @@ export default class Home extends React.Component {
             fontWeight: "300"
         };
 
-        return <div className="container-fluid" style={containerStyle}>
+        return <Grid fluid={true} style={containerStyle}>
             <div className="row">
                 <div className="col-lg-12">
                     <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle}/>
@@ -53,6 +54,6 @@ export default class Home extends React.Component {
                     </Link>
                 </div>
             </div>
-        </div>;
+        </Grid>;
     }
 }

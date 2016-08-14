@@ -1,8 +1,13 @@
 import React from 'react';
 import Problem from '../components/Problem.jsx';
+import {Grid} from 'react-bootstrap';
 
 export default class Problems extends React.Component {
     render() {
+        if (!this.props.problems) {
+            return null;
+        }
+
         let problemNodes = this.props.problems.map((problem, idx) => {
             return <Problem
                 title={problem.title}
@@ -13,8 +18,6 @@ export default class Problems extends React.Component {
             />;
         });
 
-        return <div className="container">
-            {problemNodes}
-        </div>;
+        return <Grid>{problemNodes}</Grid>;
     }
 }

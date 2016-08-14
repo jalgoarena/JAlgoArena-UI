@@ -1,4 +1,5 @@
 import React from 'react';
+import {Grid} from 'react-bootstrap';
 
 import Output from '../components/Output.jsx';
 import SubmissionInProgress from '../components/SubmissionInProgress.jsx';
@@ -6,14 +7,17 @@ import SubmissionDetails from '../components/SubmissionDetails.jsx';
 
 const Problem = React.createClass({
     render: function() {
-        let problem = this.props.problems.find((problem) => problem.id === this.props.params.id)
-            || this.props.problems[0];
+        if (!this.props.problems) {
+            return null;
+        }
 
-        return <div className="container">
+        let problem = this.props.problems.find((problem) => problem.id === this.props.params.id);
+
+        return <Grid>
             <SubmissionDetails problem={problem}/>
             <Output result={this.props.result}/>
             <SubmissionInProgress />
-        </div>;
+        </Grid>;
     }
 });
 
