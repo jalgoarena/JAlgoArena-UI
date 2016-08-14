@@ -5,11 +5,11 @@ import AceEditor from 'react-ace';
 import 'brace/mode/java';
 import 'brace/theme/tomorrow_night_eighties';
 
-import {SourceCodeActions} from '../actions/sourceCode.js';
+import {SubmissionActions} from '../actions/submission.js';
 
 export default class AceCodeEditor extends React.Component {
     componentDidMount() {
-        SourceCodeActions.ChangeSourceCode(this.props.sourceCode);
+        SubmissionActions.ChangeSourceCode(this.props.sourceCode);
     }
     render() {
         const editorStyle = {
@@ -23,7 +23,7 @@ export default class AceCodeEditor extends React.Component {
                 theme="tomorrow_night_eighties"
                 name="editor"
                 value={this.props.sourceCode}
-                onChange={SourceCodeActions.ChangeSourceCode}
+                onChange={SubmissionActions.ChangeSourceCode}
                 height="350px"
                 width="100%"
                 editorProps={{$blockScrolling: true}}

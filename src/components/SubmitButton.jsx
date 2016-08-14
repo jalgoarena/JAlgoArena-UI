@@ -1,27 +1,12 @@
 import React from 'react';
-import Reflux from 'reflux';
 
-import {SourceCodeStore} from "../stores/sourceCode.js";
 import {SubmissionActions} from "../actions/submission.js";
 
-const SubmitButton = React.createClass({
-    mixins: [
-        Reflux.listenTo(
-            SourceCodeStore, 'onChangedSourceCode'
-        )
-    ],
-    getInitialState() {
-        return {
-            sourceCode: null
-        }
-    },
-    submitCode: function () {
-        SubmissionActions.SendSubmission(this.state.sourceCode, this.props.problemId);
-    },
-    onChangedSourceCode: function (sourceCode) {
-        this.setState({sourceCode: sourceCode});
-    },
-    render: function() {
+export default class SubmitButton extends React.Component {
+    submitCode() {
+        SubmissionActions.SendSubmission(this.props.problemId);
+    }
+    render() {
         const submitButtonStyle = {
             width: 200
         };
@@ -34,6 +19,4 @@ const SubmitButton = React.createClass({
             <i className="fa fa-send"> </i> Submit
         </button>;
     }
-});
-
-module.exports = SubmitButton;
+}
