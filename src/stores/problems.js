@@ -8,7 +8,7 @@ export const ProblemStore = Reflux.createStore({
     },
     onFetchProblems() {
         Request
-            .get('http://localhost:8080/problems')
+            .get('https://jalgoarena.herokuapp.com/problems')
             .set('Accept', 'application/json')
             .end((err, res) =>
                 this.trigger(res.body)
