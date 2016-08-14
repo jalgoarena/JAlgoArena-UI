@@ -5,20 +5,26 @@ import Output from '../components/Output.jsx';
 import SubmissionInProgress from '../components/SubmissionInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
 
-const Problem = React.createClass({
-    render: function() {
+export default class Problem extends React.Component{
+    render() {
         if (!this.props.problems) {
             return null;
         }
 
         let problem = this.props.problems.find((problem) => problem.id === this.props.params.id);
 
-        return <Grid>
-            <SubmissionDetails problem={problem}/>
+        if (!problem) {
+            return null;
+        }
+
+        const gridStyle = {
+            margin: "0 25px"
+        };
+
+        return <Grid style={gridStyle}>
+            <SubmissionDetails problem={problem} sourceCode={this.props.sourceCode} />
             <Output result={this.props.result}/>
             <SubmissionInProgress />
         </Grid>;
     }
-});
-
-module.exports = Problem;
+}

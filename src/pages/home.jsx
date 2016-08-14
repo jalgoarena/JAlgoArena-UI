@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Grid} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 export default class Home extends React.Component {
     render() {
@@ -41,8 +41,8 @@ export default class Home extends React.Component {
         };
 
         return <Grid fluid={true} style={containerStyle}>
-            <div className="row">
-                <div className="col-lg-12">
+            <Row>
+                <Col lg={12}>
                     <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle}/>
                     <div className="intro-text">
                         <span className="name" style={introTextNameStyle}>Start to solve your first problem</span>
@@ -52,8 +52,8 @@ export default class Home extends React.Component {
                     <Link to="/problems" className="btn btn-lg btn-outline">
                         <i className="fa fa-bars"> </i>  Learn More
                     </Link>
-                </div>
-            </div>
+                </Col>
+            </Row>
         </Grid>;
     }
 }

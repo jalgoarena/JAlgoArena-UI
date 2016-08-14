@@ -30,8 +30,8 @@ const Layout = React.createClass({
     onFetchProblems: function(data) {
         this.setState({problems: data});
     },
-    onSendSubmission: function (result) {
-        this.setState({result: result});
+    onSendSubmission: function (result, sourceCode) {
+        this.setState({result, sourceCode});
     }
 });
 

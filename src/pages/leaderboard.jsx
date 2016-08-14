@@ -1,9 +1,12 @@
 import React from 'react';
+import {Grid} from 'react-bootstrap';
 
 export default class Leaderboard extends React.Component {
     render() {
-        return <div className="text-success text-center">
-            <h1>TODO - WORK IN PROGRESS</h1>
-        </div>;
+        return <Grid>
+            <div className="text-danger text-center">
+                <h1>TODO - WORK IN PROGRESS</h1>
+            </div>
+        </Grid>;
     }
 }

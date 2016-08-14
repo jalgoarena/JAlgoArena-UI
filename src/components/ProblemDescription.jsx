@@ -3,7 +3,7 @@ import Markdown from 'react-remarkable';
 
 export default class ProblemDescription extends React.Component {
     render() {
-        return <div id="problem-description" className="lead">
+        return <div className="lead">
             <Markdown source={this.props.description}/>
         </div>;
     }

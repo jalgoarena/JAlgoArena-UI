@@ -7,9 +7,9 @@ export default class ExampleInputAndOutput extends React.Component {
                 <strong>Example</strong>
             </p>
             <p>
-                <code id="problem-example-input">{this.props.input}</code>
+                <code>{this.props.input}</code>
                     ->
-                <code id="problem-example-output">{this.props.output}</code>
+                <code>{this.props.output}</code>
             </p>
         </div>;
     }

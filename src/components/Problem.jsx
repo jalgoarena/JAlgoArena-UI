@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {Row, Col} from 'react-bootstrap';
 
 export default class Problem extends React.Component {
     render() {
@@ -10,15 +11,15 @@ export default class Problem extends React.Component {
             padding: "1em 2em 1em"
         };
 
-        return <div style={problemStyle} className="col-md-5" key={this.props.id}>
-            <div className="row">
+        return <Col md={5} style={problemStyle}>
+            <Row>
                 <h4 className="text-success">{this.props.title}</h4>
-            </div>
-            <div className="row">
+            </Row>
+            <Row>
                 <Link to={"/problem/" + this.props.id} className="btn btn-success pull-right"><i className="fa fa-bars"> </i> Solve Problem</Link>
                 Time Limit: {this.props.timeLimit}<br />
                 Memory Limit: {this.props.memoryLimit}
-            </div>
-        </div>
+            </Row>
+        </Col>
     }
 }

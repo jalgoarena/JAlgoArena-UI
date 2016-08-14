@@ -21,7 +21,7 @@ export const SubmissionStore = Reflux.createStore({
             .set('Accept', 'application/json')
             .set('Content-Type', 'text/plain')
             .end((err, res) => {
-                this.trigger(res.body);
+                this.trigger(res.body, _sourceCode);
                 $('#SubmissionInProgressSpinner').modal('hide');
             });
     }
