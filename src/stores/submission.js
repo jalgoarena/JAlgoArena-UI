@@ -13,8 +13,6 @@ export const SubmissionStore = Reflux.createStore({
         _sourceCode = sourceCode;
     },
     onSendSubmission(problemId) {
-        $('#SubmissionInProgressSpinner').modal('show');
-
         Request
             .post(`https://jalgoarena.herokuapp.com/problems/${problemId}/submit`)
             .send(_sourceCode)
@@ -22,7 +20,6 @@ export const SubmissionStore = Reflux.createStore({
             .set('Content-Type', 'text/plain')
             .end((err, res) => {
                 this.trigger(res.body, _sourceCode);
-                $('#SubmissionInProgressSpinner').modal('hide');
             });
     }
 });

@@ -49,3 +49,10 @@ hr.star-light:after {
     background: white;
     border: solid 2px white;
 }
+
+.modal-container {
+    position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+    position: absolute;
+}

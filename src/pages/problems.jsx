@@ -1,14 +1,18 @@
 import React from 'react';
-import Problem from '../components/Problem.jsx';
 import {Grid} from 'react-bootstrap';
 
-export default class Problems extends React.Component {
-    render() {
-        if (!this.props.problems) {
-            return null;
-        }
+import Problem from '../components/Problem.jsx';
+import SubmissionInProgress from "../components/SubmissionInProgress.jsx";
+import {LoadingInProgressActions} from "../actions/loadingInProgress.js";
 
-        let problemNodes = this.props.problems.map((problem, idx) => {
+export default class Problems extends React.Component {
+    componentWillMount() {
+        LoadingInProgressActions.LoadingInProgress('Downloading Problems');
+    }
+    render() {
+        let problems = this.props.problems || [];
+
+        let problemNodes = problems.map((problem, idx) => {
             return <Problem
                 title={problem.title}
                 timeLimit={problem.time_limit}
@@ -18,6 +22,9 @@ export default class Problems extends React.Component {
             />;
         });
 
-        return <Grid>{problemNodes}</Grid>;
+        return <Grid>
+            <SubmissionInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
+            {problemNodes}
+        </Grid>;
     }
 }

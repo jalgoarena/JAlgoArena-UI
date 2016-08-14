@@ -1,7 +1,7 @@
 "use strict";
 import React from "react";
 import {Link} from "react-router";
-import {Navbar, Nav, NavItem} from "react-bootstrap";
+import {Navbar, Nav} from "react-bootstrap";
 
 export default class Menu extends React.Component {
     render() {
@@ -21,7 +21,7 @@ export default class Menu extends React.Component {
                 <a className="navbar-brand" href="/"><img src="img/logo.png" style={logoStyle} /></a>
             </Navbar.Header>
             <Navbar.Collapse>
-                <Nav role="navigation" eventKey={0} pullRight>
+                <Nav role="navigation" pullRight>
                     <li><Link activeStyle={activeStyle} to="/"><i className="fa fa-home fa-lg"> </i> Home</Link></li>
                     <li><Link activeStyle={activeStyle} to="/problems"><i className="fa fa-lightbulb-o fa-lg"> </i> Problems</Link></li>
                     <li><Link activeStyle={activeStyle} to="/leaderboard"><i className="fa fa-trophy fa-lg"> </i> Leaderboard</Link></li>
