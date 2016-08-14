@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-bootstrap';
 
 import {SubmissionActions} from "../actions/submission.js";
 
@@ -11,12 +12,13 @@ export default class SubmitButton extends React.Component {
             width: 200
         };
 
-        return <button
-            type="button"
-            className="btn btn-success btn-lg pull-right"
+        return <Button
+            bsStyle="success"
+            bsSize="large"
+            className="pull-right"
             onClick={() => this.submitCode()}
             style={submitButtonStyle}>
             <i className="fa fa-send"> </i> Submit
-        </button>;
+        </Button>;
     }
 }

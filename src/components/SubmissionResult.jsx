@@ -1,9 +1,10 @@
 import React from 'react';
 
 import TimeAndMemoryReport from './TimeAndMemoryReport.jsx';
+import SubmissionFailed from './SubmissionFailed.jsx';
 
-const SubmissionResult = React.createClass({
-    render: function () {
+export default class SubmissionResult extends React.Component {
+    render() {
         if (!this.props.result) {
             return null;
         }
@@ -27,7 +28,7 @@ const SubmissionResult = React.createClass({
                 </div>;
             case 'WRONG_ANSWER':
                 return <div>
-                    <h2 className="text-danger text-center">Wrong Answer</h2>
+                    <SubmissionFailed>Wrong Answer</SubmissionFailed>
                     {this.props.result.testcase_results.map((result, i) =>
                         <div className="col-md-3" key={i}>
                             <span
@@ -39,23 +40,20 @@ const SubmissionResult = React.createClass({
                 </div>;
             case 'COMPILE_ERROR':
                 return <div>
-                    <h2 className="text-danger text-center">Compilation Error</h2>
+                    <SubmissionFailed>Compilation Error</SubmissionFailed>
                     <pre>{this.props.result.error_message}</pre>
                 </div>;
             case 'RUNTIME_ERROR':
                 return <div>
-                    <h2 className="text-danger text-center">Runtime Error</h2>
+                    <SubmissionFailed>Runtime Error</SubmissionFailed>
                     <pre>{this.props.result.error_message}</pre>
                 </div>;
-            case 'TIME_LIMIT_EXCEEDED':
-                return <h2 className="text-danger text-center">Time Limit Exceeded</h2>;
             case 'MEMORY_LIMIT_EXCEEDED':
-                return <div className="alert alert-danger" role="alert">Memory Limit Exceeded!</div>;
+                return <SubmissionFailed>Memory Limit Exceeded!</SubmissionFailed>;
+            case 'TIME_LIMIT_EXCEEDED':
+                return <SubmissionFailed>Time Limit Exceeded</SubmissionFailed>;
             default:
-                return <h2 className="text-danger text-center">Unsupported status
-                    code: {this.props.result.status_code}</h2>;
+                return <SubmissionFailed>Unsupported status code: {this.props.result.status_code}</SubmissionFailed>;
         }
     }
-});
-
-module.exports = SubmissionResult;
+}

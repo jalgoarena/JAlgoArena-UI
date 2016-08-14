@@ -1,4 +1,6 @@
 import React from 'react';
+import {Row} from 'react-bootstrap';
+
 import SubmissionResult from './SubmissionResult.jsx';
 
 export default class Output extends React.Component {
@@ -10,8 +12,8 @@ export default class Output extends React.Component {
             padding: "0 10px 10px",
         };
 
-        return <div className="row output" style={outputStyle} id="output">
+        return <Row style={outputStyle}>
             <SubmissionResult result={this.props.result}/>
-        </div>;
+        </Row>;
     }
 }

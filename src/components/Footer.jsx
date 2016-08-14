@@ -1,5 +1,5 @@
-"use strict";
 import React from "react";
+import {Grid, Col} from 'react-bootstrap';
 
 export default class Footer extends React.Component {
     render() {
@@ -10,18 +10,15 @@ export default class Footer extends React.Component {
 
         return (
             <footer className="footer">
-                <div id="end-of-output">
-                    <hr/>
-                </div>
-                <div className="container">
-
-                    <div className="col-md-5">
+                <hr/>
+                <Grid>
+                    <Col md={5}>
                         <span><i className="fa fa-copyright"> </i> Jacek Spólnik 2016</span>
-                    </div>
-                    <div className="col-md-7">
+                    </Col>
+                    <Col md={7}>
                         <img src="img/logo.png" className="img-responsive" style={footerLogoStyle}/>
-                    </div>
-                </div>
+                    </Col>
+                </Grid>
             </footer>
         );
     }

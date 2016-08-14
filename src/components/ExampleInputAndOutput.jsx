@@ -8,7 +8,7 @@ export default class ExampleInputAndOutput extends React.Component {
             </p>
             <p>
                 <code>{this.props.input}</code>
-                    ->
+                ->
                 <code>{this.props.output}</code>
             </p>
         </div>;
