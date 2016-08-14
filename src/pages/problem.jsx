@@ -17,11 +17,7 @@ export default class Problem extends React.Component{
             return null;
         }
 
-        const gridStyle = {
-            margin: "0 25px"
-        };
-
-        return <Grid style={gridStyle}>
+        return <Grid>
             <SubmissionDetails problem={problem} sourceCode={this.props.sourceCode} />
             <Output result={this.props.result}/>
             <SubmissionInProgress />
