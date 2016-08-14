@@ -16,7 +16,7 @@ export const SubmissionStore = Reflux.createStore({
         $('#SubmissionInProgressSpinner').modal('show');
 
         Request
-            .post(`https://jalgoarena.herokuapp.com/problems/${problemId}/submit`)
+            .post(`http://localhost:8080/problems/${problemId}/submit`)
             .send(_sourceCode)
             .set('Accept', 'application/json')
             .set('Content-Type', 'text/plain')

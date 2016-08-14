@@ -14,7 +14,7 @@ export default class SubmitButton extends React.Component {
         return <button
             type="button"
             className="btn btn-success btn-lg pull-right"
-            onClick={this.submitCode}
+            onClick={() => this.submitCode()}
             style={submitButtonStyle}>
             <i className="fa fa-send"> </i> Submit
         </button>;

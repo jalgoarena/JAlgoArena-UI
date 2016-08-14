@@ -11,7 +11,7 @@ export default class Output extends React.Component {
         };
 
         return <div className="row output" style={outputStyle} id="output">
-            <SubmissionResult />
+            <SubmissionResult result={this.props.result}/>
         </div>;
     }
 }

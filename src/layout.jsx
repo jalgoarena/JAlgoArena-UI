@@ -1,16 +1,19 @@
-"use strict";
-
 import React from "react";
+import Reflux from 'reflux';
+
 import Menu from "./components/Menu.jsx";
 import Footer from "./components/Footer.jsx";
 import {ProblemActions} from "./actions/problems.js";
 import {ProblemStore} from "./stores/problems.js";
-import Reflux from 'reflux';
+import {SubmissionStore} from "./stores/submission.js";
 
 const Layout = React.createClass({
     mixins: [
         Reflux.listenTo(
             ProblemStore, 'onFetchProblems'
+        ),
+        Reflux.listenTo(
+            SubmissionStore, 'onSendSubmission'
         )
     ],
     getInitialState: function() {
@@ -25,7 +28,15 @@ const Layout = React.createClass({
               "output": "true"
           },
           "skeleton_code": "import java.util.*;\nimport org.algohub.engine.type.*;\n\npublic class Solution {\n    /**\n     * @param str1 first string to be checked for permutation match\n     * @param str2 second string to be checked for permutation match\n     * @return  Indicate if one string is a permutation of another\n     */\n    public boolean permutation(String str1, String str2) {\n        // Write your code here\n    }\n}\n"
-      }]};
+      }],
+          result: {
+              status_code: "WAITING",
+              error_message: "",
+              elapsed_time: 0,
+              consumed_memory: 0,
+              testcase_results: []
+          }
+      };
     },
     componentDidMount: function() {
         ProblemActions.FetchProblems();
@@ -39,6 +50,9 @@ const Layout = React.createClass({
     },
     onFetchProblems: function(data) {
         this.setState({problems: data});
+    },
+    onSendSubmission: function (result) {
+        this.setState({result: result});
     }
 });
 
