@@ -4,10 +4,14 @@
   "description": "JAlgoArena UI",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:dev": "webpack-dev-server --hot --progress --colors",
-    "start:prod": "./node_modules/.bin/webpack --progress --colors && node server.js",
-    "test": "echo 'not implemented yet'"
+    "test": "echo \"Error: no test specified\"",
+    "prestart": "npm run build",
+    "start": "node server.prod.js",
+    "dev": "node server.dev.js",
+    "prebuild": "rimraf public",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config --progress webpack.config.prod.js",
+    "predeploy": "npm run build",
+    "deploy": "echo Ready to deploy. Commit your changes and run git push heroku master"
   },
   "repository": {
     "type": "git",
@@ -25,12 +29,15 @@
   "dependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
+    "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",
     "brace": "^0.8.0",
     "compression": "^1.6.2",
+    "cp-file": "^3.2.0",
+    "envs": "^0.1.6",
     "express": "^4.14.0",
-    "if-env": "^1.0.0",
+    "express-error-handler": "^1.1.0",
     "morgan": "^1.7.0",
     "opbeat": "^3.14.0",
     "react": "^15.3.0",
@@ -42,9 +49,17 @@
     "react-spin": "^0.6.2",
     "reflux": "^0.4.1",
     "remarkable": "^1.6.2",
+    "rimraf": "^2.5.4",
+    "serve-static": "^1.11.1",
     "spin.js": "^2.3.2",
     "superagent": "^2.1.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "react-transform-catch-errors": "^1.0.2",
+    "react-transform-hmr": "^1.0.4",
+    "redbox-react": "^1.3.0",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2"
   }
 }

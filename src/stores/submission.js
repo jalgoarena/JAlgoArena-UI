@@ -8,6 +8,10 @@ export const SubmissionStore = Reflux.createStore({
     init() {
         this.listenTo(SubmissionActions.SendSubmission, this.onSendSubmission);
         this.listenTo(SubmissionActions.ChangeSourceCode, this.onChangeSourceCode);
+        this.listenTo(SubmissionActions.ResetSourceCode, this.onResetSourceCode);
+    },
+    onResetSourceCode() {
+        this.trigger({ status_code: 'WAITING'}, null);
     },
     onChangeSourceCode(sourceCode) {
         _sourceCode = sourceCode;

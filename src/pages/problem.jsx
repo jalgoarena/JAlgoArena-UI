@@ -4,8 +4,12 @@ import {Grid} from 'react-bootstrap';
 import Output from '../components/Output.jsx';
 import SubmissionInProgress from '../components/SubmissionInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
+import {SubmissionActions} from "../actions/submission.js";
 
 export default class Problem extends React.Component{
+    componentDidMount() {
+        SubmissionActions.ResetSourceCode();
+    }
     render() {
         if (!this.props.problems) {
             return null;

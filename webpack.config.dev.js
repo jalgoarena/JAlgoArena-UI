@@ -1,24 +1,30 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
     entry: [
-        "./src/index.js"
+        'webpack-hot-middleware/client',
+        "./src/index"
     ],
     output: {
-        filename: "./public/dist/bundle.js",
-        sourceMapFilename: "./public/dist/bundle.map"
+        path: path.join(__dirname, 'public'),
+        filename: "bundle.js",
+        publicPath: '/assets/'
     },
     devServer: {
         inline: true,
         contentBase: './public',
         port: 3000
     },
-    devtool: '#source-map',
-    plugins: process.env.NODE_ENV === 'heroku' ? [
+    devtool: 'cheap-module-eval-source-map',
+    plugins: process.env.NODE_ENV === 'production' ? [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin()
-    ] : [],
+    ] : [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ],
     module: {
         loaders: [
             {
@@ -26,10 +32,13 @@ module.exports = {
                 query: {
                     presets: ['es2015', 'react']
                 },
-                include: /src/,
+                include: path.join(__dirname, 'src'),
                 exclude: /node_modules/,
                 test: /\.jsx?$/
             }
         ]
+    },
+    resolve: {
+        extensions: ['', '.js', '.jsx']
     }
 };
