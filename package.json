@@ -9,7 +9,7 @@
     "start": "node server.prod.js",
     "dev": "node server.dev.js",
     "prebuild": "rimraf public",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config --progress webpack.config.prod.js",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
     "predeploy": "npm run build",
     "deploy": "echo Ready to deploy. Commit your changes and run git push heroku master"
   },
