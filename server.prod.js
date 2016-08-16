@@ -6,7 +6,7 @@ var opbeat = require('opbeat').start({
 
 var path = require('path');
 var express = require('express');
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 var host = process.env.HOST || '0.0.0.0';
 var app = express();
 var http = require('http');
@@ -35,7 +35,7 @@ cpFile('assets/img/profile.png', 'public/assets/img/profile.png').then(function 
     console.log('Copied profile.png');
 });
 
-app.use(compression());
+// app.use(compression());
 app.use(morgan('tiny'));
 app.use(opbeat.middleware.express());
 

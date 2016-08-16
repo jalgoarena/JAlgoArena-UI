@@ -7,8 +7,10 @@ import {ProblemActions} from "./actions/problems.js";
 import {ProblemStore} from "./stores/problems.js";
 import {SubmissionStore} from "./stores/submission.js";
 import {LoadingInProgressStore} from "./stores/loadingInProgress.js";
+import store from './stores';
+import DevTools from './devtools';
 
-const Layout = React.createClass({
+export const Layout = React.createClass({
     mixins: [
         Reflux.listenTo(
             ProblemStore, 'onFetchProblems'
@@ -27,6 +29,7 @@ const Layout = React.createClass({
     render: function() {
         return <div>
             <Menu />
+            <DevTools store={store}  />
             { React.cloneElement(this.props.children, this.state) }
             <Footer />
         </div>;
@@ -41,5 +44,3 @@ const Layout = React.createClass({
         this.setState({showModal: true, modalTitle: title});
     }
 });
-
-module.exports = Layout;
