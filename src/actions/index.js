@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 
 export const SUBMISSION_RESULT_RECEIVED = 'SUBMISSION_RESULT_RECEIVED';
 export function sendSubmission(sourceCode, problemId) {
-
+    console.log(sourceCode);
     const options = {
         headers: {
             'Accept': 'application/json',
@@ -30,14 +30,14 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export function showModal(title) {
     return {
         type: SHOW_MODAL,
-        title,
-        showModal: true
+        title
     };
 }
+
+export const HIDE_MODAL = 'HIDE_MODAL';
 export function hideModal() {
     return {
-        type: SHOW_MODAL,
-        showModal: false
+        type: HIDE_MODAL
     }
 }
 

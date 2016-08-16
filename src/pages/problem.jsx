@@ -5,10 +5,13 @@ import Output from '../components/Output.jsx';
 import SubmissionInProgress from '../components/SubmissionInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
 import {SubmissionActions} from "../actions/submission.js";
+import store from '../stores';
+import {resetSourceCode} from '../actions';
 
 export default class Problem extends React.Component{
     componentDidMount() {
         SubmissionActions.ResetSourceCode();
+        store.dispatch(resetSourceCode());
     }
     render() {
         if (!this.props.problems) {

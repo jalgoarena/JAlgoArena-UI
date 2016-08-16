@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router';
 import {Row, Col} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
+import {Button} from 'react-bootstrap';
 
 export default class Problem extends React.Component {
     render() {
@@ -16,7 +17,10 @@ export default class Problem extends React.Component {
                 <h4 className="text-success">{this.props.title}</h4>
             </Row>
             <Row>
-                <Link to={"/problem/" + this.props.id} className="btn btn-success pull-right"><i className="fa fa-bars"> </i> Solve Problem</Link>
+                <LinkContainer to={{pathname: "/problem/" + this.props.id}}>
+                    <Button  bsStyle="success" className="pull-right"><i className="fa fa-bars"> </i> Solve Problem</Button>
+                </LinkContainer>
+
                 Time Limit: {this.props.timeLimit}<br />
                 Memory Limit: {this.props.memoryLimit}
             </Row>

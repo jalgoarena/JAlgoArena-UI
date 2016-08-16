@@ -5,14 +5,16 @@ import {
     FETCH_PROBLEMS,
     RESET_SOURCE_CODE,
     SUBMISSION_RESULT_RECEIVED,
-    SHOW_MODAL
+    SHOW_MODAL,
+    HIDE_MODAL
 } from '../actions';
 
 const jalgoArenaApp = combineReducers({
     sourceCode,
     problems,
     result,
-    showModal
+    showModal,
+    modalTitle
 });
 
 function sourceCode(state = null, action) {
@@ -47,7 +49,20 @@ function result(state = { status_code: 'WAITING' }, action) {
 function showModal(state = { showModal: false }, action) {
     switch (action.type) {
         case SHOW_MODAL:
-            return action.showModal;
+            return true;
+        case HIDE_MODAL:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function modalTitle(state = "", action) {
+    switch (action.type) {
+        case SHOW_MODAL:
+            return action.title;
+        case HIDE_MODAL:
+            return "";
         default:
             return state;
     }
