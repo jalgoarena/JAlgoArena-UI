@@ -9,13 +9,13 @@ const TestCaseResult = ({passed, id}) => {
                 <FontAwesome name="check"/>
             </span> Test Case #{id}
         </Col>;
-    } else {
-        return <Col md={3}>
-            <span className="text-danger">
-                <FontAwesome name="times"/>
-            </span> Test Case #{id}
-        </Col>;
     }
+
+    return <Col md={3}>
+        <span className="text-danger">
+            <FontAwesome name="times"/>
+        </span> Test Case #{id}
+    </Col>;
 };
 
 export default TestCaseResult;

@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch';
 
 export const SUBMISSION_RESULT_RECEIVED = 'SUBMISSION_RESULT_RECEIVED';
 export function sendSubmission(sourceCode, problemId) {
-    console.log(sourceCode);
     const options = {
         headers: {
             'Accept': 'application/json',
@@ -43,7 +42,25 @@ export function hideModal() {
 
 export const FETCH_PROBLEMS = 'FETCH_PROBLEMS';
 export function fetchProblems() {
-    //TODO: use fetch to take asynchronously data
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`http://localhost:8080/problems`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setProblems(json)))
+    };
+}
+
+function setProblems(problems) {
+    return {
+        type: FETCH_PROBLEMS,
+        problems
+    }
 }
 
 export const CHANGE_SOURCE_CODE = 'CHANGE_SOURCE_CODE';
