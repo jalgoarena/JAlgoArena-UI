@@ -6,7 +6,7 @@ import Output from '../components/Output.jsx';
 import WorkInProgress from '../components/WorkInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
 import store from '../stores';
-import {setCurrentProblem, sendSubmission, showModal} from '../actions';
+import {setCurrentProblem, sendSubmission, showModal, changeSourceCode} from '../actions';
 
 class Problem extends React.Component{
     componentDidMount() {
@@ -24,6 +24,7 @@ class Problem extends React.Component{
                 problem={this.props.problem}
                 sourceCode={this.props.sourceCode}
                 onSubmit={this.props.onSubmit}
+                onSourceCodeChanged={this.props.onSourceCodeChanged}
             />
             <Output result={this.props.result}/>
             <WorkInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
@@ -50,6 +51,9 @@ const mapDispatchToProps = (dispatch) => {
         onSubmit: (sourceCode, problemId) => {
             dispatch(showModal("Submission in progress"));
             dispatch(sendSubmission(sourceCode, problemId));
+        },
+        onSourceCodeChanged: (sourceCode) => {
+            dispatch(changeSourceCode(sourceCode))
         }
     }
 };

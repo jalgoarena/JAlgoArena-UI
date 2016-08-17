@@ -6,14 +6,17 @@ import ExampleInputAndOutput from './ExampleInputAndOutput.jsx';
 import AceCodeEditor from './AceCodeEditor.jsx';
 import SubmissionPanel from './SubmissionPanel.jsx';
 
-const SubmissionDetails = ({problem, sourceCode, onSubmit}) => (
+const SubmissionDetails = ({problem, sourceCode, onSubmit, onSourceCodeChanged}) => (
     <Row>
         <PageHeader>{problem.title}</PageHeader>
         <ProblemDescription description={problem.description} />
         <ExampleInputAndOutput
             input={problem.example.input}
             output={problem.example.output} />
-        <AceCodeEditor sourceCode={sourceCode || problem.skeleton_code} />
+        <AceCodeEditor
+            sourceCode={sourceCode || problem.skeleton_code}
+            onSourceCodeChanged={onSourceCodeChanged}
+        />
         <SubmissionPanel
             timeLimit={problem.time_limit}
             memoryLimit={problem.memory_limit}
