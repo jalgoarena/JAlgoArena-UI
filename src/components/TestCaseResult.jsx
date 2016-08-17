@@ -1,20 +1,21 @@
 import React from 'react';
+import {Col} from 'react-bootstrap';
 import FontAwesome from './FontAwesome';
 
-export default class TestCaseResult extends React.Component {
-    render() {
-        if (this.props.passed) {
-            return <div className="col-md-3">
-                <span className="text-success">
-                    <FontAwesome name="check"/>
-                </span> Test Case #{this.props.id}
-            </div>;
-        } else {
-            return <div className="col-md-3">
-                <span className="text-danger">
-                    <FontAwesome name="times"/>
-                </span> Test Case #{this.props.id}
-            </div>;
-        }
+const TestCaseResult = ({passed, id}) => {
+    if (passed) {
+        return <Col md={3}>
+            <span className="text-success">
+                <FontAwesome name="check"/>
+            </span> Test Case #{id}
+        </Col>;
+    } else {
+        return <Col md={3}>
+            <span className="text-danger">
+                <FontAwesome name="times"/>
+            </span> Test Case #{id}
+        </Col>;
     }
-}
+};
+
+export default TestCaseResult;

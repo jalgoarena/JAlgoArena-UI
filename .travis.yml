@@ -8,3 +8,7 @@ deploy:
   app: jalgoarena-ui
   on:
     repo: spolnik/JAlgoArena-UI
+
+branches:
+  only:
+  - master
