@@ -10,7 +10,9 @@ import {setCurrentProblem} from '../actions';
 
 class Problem extends React.Component{
     componentDidMount() {
-        store.dispatch(setCurrentProblem(this.props.params.id));
+        if (store.getState().currentProblemId !== this.props.params.id) {
+            store.dispatch(setCurrentProblem(this.props.params.id));
+        }
     }
     render() {
         if (!this.props.problem) {

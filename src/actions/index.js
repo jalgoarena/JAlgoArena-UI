@@ -33,13 +33,6 @@ export function showModal(title) {
     };
 }
 
-export const HIDE_MODAL = 'HIDE_MODAL';
-export function hideModal() {
-    return {
-        type: HIDE_MODAL
-    }
-}
-
 export const FETCH_PROBLEMS = 'FETCH_PROBLEMS';
 export function fetchProblems() {
     const options = {
@@ -68,13 +61,6 @@ export function changeSourceCode(newValue) {
     return {
         type: CHANGE_SOURCE_CODE,
         sourceCode: newValue
-    }
-}
-
-export const RESET_SOURCE_CODE = 'RESET_SOURCE_CODE';
-export function resetSourceCode() {
-    return {
-        type: RESET_SOURCE_CODE
     }
 }
 

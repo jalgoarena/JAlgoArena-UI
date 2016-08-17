@@ -9,7 +9,6 @@ import {fetchProblems} from "./actions";
 export const Layout = React.createClass({
     componentDidMount: function() {
         store.dispatch(fetchProblems());
-        this.setState({result: {status_code: 'WAITING'}, showModal: false});
     },
     render: function() {
         return <div>
