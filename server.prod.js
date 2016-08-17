@@ -35,7 +35,7 @@ cpFile('assets/img/profile.png', 'public/assets/img/profile.png').then(function 
     console.log('Copied profile.png');
 });
 
-// app.use(compression());
+app.use(compression());
 app.use(morgan('tiny'));
 app.use(opbeat.middleware.express());
 
