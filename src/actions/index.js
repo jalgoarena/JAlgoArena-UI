@@ -12,7 +12,7 @@ export function sendSubmission(sourceCode, problemId) {
     };
 
     return dispatch => {
-        return fetch(`http://localhost:8080/problems/${problemId}/submit`, options)
+        return fetch(`https://jalgoarena.herokuapp.com/problems/${problemId}/submit`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissionResult(json)))
     };
@@ -43,7 +43,7 @@ export function fetchProblems() {
     };
 
     return dispatch => {
-        return fetch(`http://localhost:8080/problems`, options)
+        return fetch(`https://jalgoarena.herokuapp.com/problems`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblems(json)))
     };
