@@ -9,7 +9,7 @@ import {
     HIDE_MODAL
 } from '../actions';
 
-const jalgoArenaApp = combineReducers({
+const rootReducer = combineReducers({
     sourceCode,
     problems,
     result,
@@ -52,6 +52,8 @@ function showModal(state = { showModal: false }, action) {
             return true;
         case HIDE_MODAL:
             return false;
+        case FETCH_PROBLEMS:
+            return false;
         default:
             return state;
     }
@@ -62,10 +64,11 @@ function modalTitle(state = "", action) {
         case SHOW_MODAL:
             return action.title;
         case HIDE_MODAL:
+        case FETCH_PROBLEMS:
             return "";
         default:
             return state;
     }
 }
 
-export default jalgoArenaApp;
+export default rootReducer;

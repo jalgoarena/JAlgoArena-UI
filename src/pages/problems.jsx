@@ -1,14 +1,16 @@
 import React from 'react';
 import {Grid} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 import Problem from '../components/Problem.jsx';
 import WorkInProgress from "../components/WorkInProgress";
-import {LoadingInProgressActions} from "../actions/loadingInProgress.js";
+import store from '../stores';
+import {showModal} from '../actions';
 
-export default class Problems extends React.Component {
+class Problems extends React.Component {
     componentWillMount() {
         if (!this.props.problems) {
-            LoadingInProgressActions.LoadingInProgress('Downloading Problems');
+            store.dispatch(showModal("Downloading Problems"));
         }
     }
     render() {
@@ -30,3 +32,18 @@ export default class Problems extends React.Component {
         </Grid>;
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        problems: state.problems,
+        modalTitle: state.modalTitle,
+        showModal: state.showModal
+    }
+};
+
+
+const ProblemsPage = connect(
+    mapStateToProps
+)(Problems);
+
+export default ProblemsPage;

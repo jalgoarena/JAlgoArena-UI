@@ -4,13 +4,11 @@ import {Grid} from 'react-bootstrap';
 import Output from '../components/Output.jsx';
 import WorkInProgress from '../components/WorkInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
-import {SubmissionActions} from "../actions/submission.js";
 import store from '../stores';
 import {resetSourceCode} from '../actions';
 
 export default class Problem extends React.Component{
     componentDidMount() {
-        SubmissionActions.ResetSourceCode();
         store.dispatch(resetSourceCode());
     }
     render() {

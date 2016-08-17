@@ -5,7 +5,7 @@ import { Router, Route, hashHistory } from 'react-router';
 import Leaderboard from "./pages/leaderboard.jsx";
 import Profile from "./pages/profile.jsx";
 import Problem from "./pages/problem.jsx";
-import Problems from "./pages/problems.jsx";
+import ProblemsPage from "./pages/problems.jsx";
 import Home from "./pages/home.jsx";
 
 import { Provider } from 'react-redux'
@@ -16,7 +16,7 @@ export default (
         <Router history={hashHistory}>
             <Route component={Layout}>
                 <Route path="/" component={Home} />
-                <Route path="/problems" component={Problems} />
+                <Route path="/problems" component={ProblemsPage} />
                 <Route path="/leaderboard" component={Leaderboard} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/problem/:id" component={Problem} />

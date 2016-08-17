@@ -1,7 +1,6 @@
 import React from 'react';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Button} from 'react-bootstrap';
 import FontAwesome from './FontAwesome';
 
 export default class Problem extends React.Component {

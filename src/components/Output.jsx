@@ -1,19 +1,19 @@
 import React from 'react';
 import {Row} from 'react-bootstrap';
 
-import SubmissionResult from './SubmissionResult.jsx';
+import SubmissionResult from './SubmissionResult';
 
-export default class Output extends React.Component {
-    render() {
-        const outputStyle = {
-            marginTop: 30,
-            borderRadius: 10,
-            border: "1px solid black",
-            padding: "0 10px 10px",
-        };
+const outputStyle = {
+    marginTop: 30,
+    borderRadius: 10,
+    border: "1px solid black",
+    padding: "0 10px 10px",
+};
 
-        return <Row style={outputStyle}>
-            <SubmissionResult result={this.props.result}/>
-        </Row>;
-    }
-}
+const Output = ({result}) => (
+    <Row style={outputStyle}>
+        <SubmissionResult result={result}/>
+    </Row>
+);
+
+export default Output;

@@ -1,4 +1,4 @@
-import jalgoArenaApp from '../reducers';
+import rootReducer from '../reducers';
 import { persistState } from 'redux-devtools';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -9,6 +9,6 @@ const configureStore = compose(
     DevTools.instrument()
 )(createStore);
 
-const store = configureStore(jalgoArenaApp);
+const store = configureStore(rootReducer);
 
 export default store;

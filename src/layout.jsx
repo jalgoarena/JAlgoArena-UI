@@ -1,29 +1,14 @@
 import React from "react";
-import Reflux from 'reflux';
 
 import Menu from "./components/Menu.jsx";
 import Footer from "./components/Footer.jsx";
-import {ProblemActions} from "./actions/problems.js";
-import {ProblemStore} from "./stores/problems.js";
-import {SubmissionStore} from "./stores/submission.js";
-import {LoadingInProgressStore} from "./stores/loadingInProgress.js";
 import store from './stores';
 import DevTools from './devtools';
+import {fetchProblems} from "./actions";
 
 export const Layout = React.createClass({
-    mixins: [
-        Reflux.listenTo(
-            ProblemStore, 'onFetchProblems'
-        ),
-        Reflux.listenTo(
-            SubmissionStore, 'onSendSubmission'
-        ),
-        Reflux.listenTo(
-            LoadingInProgressStore, 'onLoadingInProgress'
-        )
-    ],
     componentDidMount: function() {
-        ProblemActions.FetchProblems();
+        store.dispatch(fetchProblems());
         this.setState({result: {status_code: 'WAITING'}, showModal: false});
     },
     render: function() {
@@ -33,14 +18,5 @@ export const Layout = React.createClass({
             { React.cloneElement(this.props.children, this.state) }
             <Footer />
         </div>;
-    },
-    onFetchProblems: function(data) {
-        this.setState({problems: data, showModal: false});
-    },
-    onSendSubmission: function (result, sourceCode) {
-        this.setState({result, sourceCode, showModal: false});
-    },
-    onLoadingInProgress: function (title) {
-        this.setState({showModal: true, modalTitle: title});
     }
 });
