@@ -2,6 +2,7 @@ import React from 'react';
 import {Row, Col} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Button} from 'react-bootstrap';
+import FontAwesome from './FontAwesome';
 
 export default class Problem extends React.Component {
     render() {
@@ -18,7 +19,9 @@ export default class Problem extends React.Component {
             </Row>
             <Row>
                 <LinkContainer to={{pathname: "/problem/" + this.props.id}}>
-                    <Button  bsStyle="success" className="pull-right"><i className="fa fa-bars"> </i> Solve Problem</Button>
+                    <Button  bsStyle="success" className="pull-right">
+                        <FontAwesome name="bars"/> Solve Problem
+                    </Button>
                 </LinkContainer>
 
                 Time Limit: {this.props.timeLimit}<br />

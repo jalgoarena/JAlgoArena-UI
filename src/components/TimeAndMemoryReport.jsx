@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesome from './FontAwesome';
 
 export default class TimeAndMemoryReport extends React.Component {
     render() {
@@ -8,9 +9,9 @@ export default class TimeAndMemoryReport extends React.Component {
 
         return <div className="col-md-12 text-center" style={timeAndMemoryReportStyle}>
             <span>
-                <i className="fa fa-clock-o" aria-hidden="true"> </i> {Math.round(this.props.elapsedTime) + " ms"}
-                &nbsp;|&nbsp;
-                <i className="fa fa-database" aria-hidden="true"> </i> {this.props.consumedMemory + " kb"}
+                <FontAwesome name="clock-o"/> {Math.round(this.props.elapsedTime) + " ms"}
+                {" | "}
+                <FontAwesome name="database"/> {this.props.consumedMemory + " kb"}
             </span>
         </div>
     }

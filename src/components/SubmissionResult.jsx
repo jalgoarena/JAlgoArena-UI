@@ -1,7 +1,8 @@
 import React from 'react';
 
-import TimeAndMemoryReport from './TimeAndMemoryReport.jsx';
-import SubmissionFailed from './SubmissionFailed.jsx';
+import TimeAndMemoryReport from './TimeAndMemoryReport';
+import SubmissionFailed from './SubmissionFailed';
+import TestCaseResult from './TestCaseResult';
 
 export default class SubmissionResult extends React.Component {
     render() {
@@ -16,12 +17,7 @@ export default class SubmissionResult extends React.Component {
                 return <div>
                     <h2 className="text-success text-center">All test cases passed, congratulations!</h2>
                     {this.props.result.testcase_results.map((result, i) =>
-                        <div className="col-md-3" key={i}>
-                            <span
-                                className={"glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger')}
-                                aria-hidden="true">
-                            </span> Test Case #{i + 1}
-                        </div>
+                        <TestCaseResult key={i} passed={result} id={i + 1} />
                     )}
                     <TimeAndMemoryReport elapsedTime={this.props.result.elapsed_time}
                                          consumedMemory={this.props.result.consumed_memory}/>
@@ -30,12 +26,7 @@ export default class SubmissionResult extends React.Component {
                 return <div>
                     <SubmissionFailed>Wrong Answer</SubmissionFailed>
                     {this.props.result.testcase_results.map((result, i) =>
-                        <div className="col-md-3" key={i}>
-                            <span
-                                className={"glyphicon glyphicon-" + (result ? 'ok' : 'remove') + " text-" + (result ? 'success' : 'danger')}
-                                aria-hidden="true">
-                            </span> Test Case #{i + 1}
-                        </div>
+                        <TestCaseResult key={i} passed={result} id={i + 1} />
                     )}
                 </div>;
             case 'COMPILE_ERROR':

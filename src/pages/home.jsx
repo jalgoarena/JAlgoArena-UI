@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
+import FontAwesome from './FontAwesome';
 
 export default class Home extends React.Component {
     render() {
@@ -50,7 +51,7 @@ export default class Home extends React.Component {
                         <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Java Hacker</span>
                     </div>
                     <Link to="/problems" className="btn btn-lg btn-outline">
-                        <i className="fa fa-bars"> </i>  Learn More
+                        <FontAwesome name="bars"/>  Learn More
                     </Link>
                 </Col>
             </Row>

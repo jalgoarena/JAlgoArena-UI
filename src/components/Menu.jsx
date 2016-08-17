@@ -2,6 +2,7 @@
 import React from "react";
 import {Link} from "react-router";
 import {Navbar, Nav} from "react-bootstrap";
+import FontAwesome from './FontAwesome';
 
 export default class Menu extends React.Component {
     render() {
@@ -22,10 +23,18 @@ export default class Menu extends React.Component {
             </Navbar.Header>
             <Navbar.Collapse>
                 <Nav role="navigation" pullRight>
-                    <li><Link activeStyle={activeStyle} to="/"><i className="fa fa-home fa-lg"> </i> Home</Link></li>
-                    <li><Link activeStyle={activeStyle} to="/problems"><i className="fa fa-lightbulb-o fa-lg"> </i> Problems</Link></li>
-                    <li><Link activeStyle={activeStyle} to="/leaderboard"><i className="fa fa-trophy fa-lg"> </i> Leaderboard</Link></li>
-                    <li><Link activeStyle={activeStyle} to="/profile"><i className="fa fa-user fa-lg"> </i> Profile</Link></li>
+                    <li><Link activeStyle={activeStyle} to="/">
+                        <FontAwesome name="home" lg={true}/> Home
+                    </Link></li>
+                    <li><Link activeStyle={activeStyle} to="/problems">
+                        <FontAwesome name="lightbulb-o" lg={true}/>  Problems
+                    </Link></li>
+                    <li><Link activeStyle={activeStyle} to="/leaderboard">
+                        <FontAwesome name="trophy" lg={true}/> Leaderboard
+                    </Link></li>
+                    <li><Link activeStyle={activeStyle} to="/profile">
+                        <FontAwesome name="user" lg={true}/> Profile
+                    </Link></li>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>;

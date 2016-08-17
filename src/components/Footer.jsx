@@ -1,5 +1,6 @@
 import React from "react";
 import {Grid, Col} from 'react-bootstrap';
+import FontAwesome from './FontAwesome';
 
 export default class Footer extends React.Component {
     render() {
@@ -13,7 +14,7 @@ export default class Footer extends React.Component {
                 <hr/>
                 <Grid>
                     <Col md={5}>
-                        <span><i className="fa fa-copyright"> </i> Jacek Spólnik 2016</span>
+                        <span><FontAwesome name="copyright"/> Jacek Spólnik 2016</span>
                     </Col>
                     <Col md={7}>
                         <img src="img/logo.png" className="img-responsive" style={footerLogoStyle}/>
