@@ -48,7 +48,7 @@ function result(state = { status_code: 'WAITING' }, action) {
     }
 }
 
-function showModal(state = { showModal: false }, action) {
+function showModal(state = false, action) {
     switch (action.type) {
         case SHOW_MODAL:
             return true;
