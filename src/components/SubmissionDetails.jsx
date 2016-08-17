@@ -6,7 +6,7 @@ import ExampleInputAndOutput from './ExampleInputAndOutput.jsx';
 import AceCodeEditor from './AceCodeEditor.jsx';
 import SubmissionPanel from './SubmissionPanel.jsx';
 
-const SubmissionDetails = ({problem, sourceCode}) => (
+const SubmissionDetails = ({problem, sourceCode, onSubmit}) => (
     <Row>
         <PageHeader>{problem.title}</PageHeader>
         <ProblemDescription description={problem.description} />
@@ -19,6 +19,7 @@ const SubmissionDetails = ({problem, sourceCode}) => (
             memoryLimit={problem.memory_limit}
             problemId={problem.id}
             sourceCode={sourceCode}
+            onSubmit={onSubmit}
         />
     </Row>
 );

@@ -3,13 +3,17 @@ import SubmitButton from './SubmitButton.jsx';
 import MemoryLimit from './MemoryLimit.jsx';
 import TimeLimit from './TimeLimit.jsx';
 
-export default class SubmissionPanel extends React.Component {
-    render() {
-        return <div>
-            <SubmitButton problemId={this.props.problemId} sourceCode={this.props.sourceCode}/>
-            <TimeLimit timeLimit={this.props.timeLimit} />
-            <br />
-            <MemoryLimit memoryLimit={this.props.memoryLimit} />
-        </div>;
-    }
-}
+const SubmissionPanel = ({problemId, sourceCode, onSubmit, timeLimit, memoryLimit}) => (
+    <div>
+        <SubmitButton
+            problemId={problemId}
+            sourceCode={sourceCode}
+            onSubmit={onSubmit}
+        />
+        <TimeLimit timeLimit={timeLimit} />
+        <br />
+        <MemoryLimit memoryLimit={memoryLimit} />
+    </div>
+);
+
+export default SubmissionPanel;
