@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
-import FontAwesome from './FontAwesome';
+import FontAwesome from '../components/FontAwesome';
 
 export default class Home extends React.Component {
     render() {

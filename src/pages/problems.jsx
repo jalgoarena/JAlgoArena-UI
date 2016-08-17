@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid} from 'react-bootstrap';
 
 import Problem from '../components/Problem.jsx';
-import SubmissionInProgress from "../components/SubmissionInProgress.jsx";
+import WorkInProgress from "../components/WorkInProgress";
 import {LoadingInProgressActions} from "../actions/loadingInProgress.js";
 
 export default class Problems extends React.Component {
@@ -25,7 +25,7 @@ export default class Problems extends React.Component {
         });
 
         return <Grid>
-            <SubmissionInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
+            <WorkInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
             {problemNodes}
         </Grid>;
     }
