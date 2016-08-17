@@ -5,7 +5,9 @@ import {
     FETCH_PROBLEMS,
     SUBMISSION_RESULT_RECEIVED,
     SHOW_MODAL,
-    SET_CURRENT_PROBLEM
+    SET_CURRENT_PROBLEM,
+    LOGIN_FAIL,
+    LOGIN_USER
 } from '../actions';
 
 const rootReducer = combineReducers({
@@ -14,7 +16,8 @@ const rootReducer = combineReducers({
     result,
     showModal,
     modalTitle,
-    currentProblemId
+    currentProblemId,
+    user
 });
 
 function sourceCode(state = null, action) {
@@ -78,6 +81,26 @@ function currentProblemId(state = null, action) {
     switch (action.type) {
         case SET_CURRENT_PROBLEM:
             return action.problemId;
+        default:
+            return state;
+    }
+}
+
+function user(state = { message: "", userData: {}}, action) {
+    switch (action.type) {
+        case LOGIN_USER:
+            return {
+                ...state,
+                userData: action.loginResponse[0],
+                timestamp: action.timestamp
+            };
+        case LOGIN_FAIL:
+            return {
+                ...state,
+                userData: [],
+                error: "Invalid login or password",
+                timestamp: action.timestamp
+            };
         default:
             return state;
     }
