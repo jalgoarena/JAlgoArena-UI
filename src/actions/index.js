@@ -89,7 +89,7 @@ export function login(userData) {
         },
         method: 'post',
         body: JSON.stringify(body)
-    }
+    };
 
     return dispatch => {
         return fetch(`/api/login`, options)
@@ -98,7 +98,7 @@ export function login(userData) {
     }
 }
 
-function setLoginDetails(json) {
+export function setLoginDetails(json) {
     if (json.length === 0) {
         return {
             type: LOGIN_FAIL,
@@ -106,9 +106,12 @@ function setLoginDetails(json) {
         }
     }
 
-    return {
+    const loginData = {
         type: LOGIN_USER,
         loginResponse: json,
         timestamp: Date.now()
-    }
+    };
+
+    sessionStorage.setItem('login', JSON.stringify(loginData));
+    return loginData;
 }
