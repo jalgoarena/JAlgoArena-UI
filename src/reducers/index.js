@@ -6,7 +6,8 @@ import {
     RESET_SOURCE_CODE,
     SUBMISSION_RESULT_RECEIVED,
     SHOW_MODAL,
-    HIDE_MODAL
+    HIDE_MODAL,
+    SET_CURRENT_PROBLEM
 } from '../actions';
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     problems,
     result,
     showModal,
-    modalTitle
+    modalTitle,
+    currentProblemId
 });
 
 function sourceCode(state = null, action) {
@@ -51,8 +53,8 @@ function showModal(state = { showModal: false }, action) {
         case SHOW_MODAL:
             return true;
         case HIDE_MODAL:
-            return false;
         case FETCH_PROBLEMS:
+        case SUBMISSION_RESULT_RECEIVED:
             return false;
         default:
             return state;
@@ -65,7 +67,17 @@ function modalTitle(state = "", action) {
             return action.title;
         case HIDE_MODAL:
         case FETCH_PROBLEMS:
+        case SUBMISSION_RESULT_RECEIVED:
             return "";
+        default:
+            return state;
+    }
+}
+
+function currentProblemId(state = null, action) {
+    switch (action.type) {
+        case SET_CURRENT_PROBLEM:
+            return action.problemId;
         default:
             return state;
     }

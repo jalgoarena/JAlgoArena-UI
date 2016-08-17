@@ -2,6 +2,8 @@ import React from 'react';
 import {Row, Col, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from './FontAwesome';
+import store from '../stores';
+import {resetSourceCode, setCurrentProblem} from '../actions';
 
 export default class Problem extends React.Component {
     render() {
@@ -18,7 +20,11 @@ export default class Problem extends React.Component {
             </Row>
             <Row>
                 <LinkContainer to={{pathname: "/problem/" + this.props.id}}>
-                    <Button  bsStyle="success" className="pull-right">
+                    <Button  bsStyle="success" className="pull-right"
+                             onClick={() => {
+                                 store.dispatch(setCurrentProblem(this.props.id));
+                                 store.dispatch(resetSourceCode());
+                             }}>
                         <FontAwesome name="bars"/> Solve Problem
                     </Button>
                 </LinkContainer>

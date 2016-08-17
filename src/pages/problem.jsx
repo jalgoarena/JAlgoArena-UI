@@ -1,31 +1,47 @@
 import React from 'react';
 import {Grid} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 import Output from '../components/Output.jsx';
 import WorkInProgress from '../components/WorkInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
 import store from '../stores';
-import {resetSourceCode} from '../actions';
+import {setCurrentProblem} from '../actions';
 
-export default class Problem extends React.Component{
+class Problem extends React.Component{
     componentDidMount() {
-        store.dispatch(resetSourceCode());
+        store.dispatch(setCurrentProblem(this.props.params.id));
     }
     render() {
-        if (!this.props.problems) {
-            return null;
-        }
-
-        let problem = this.props.problems.find((problem) => problem.id === this.props.params.id);
-
-        if (!problem) {
+        if (!this.props.problem) {
             return null;
         }
 
         return <Grid>
-            <SubmissionDetails problem={problem} sourceCode={this.props.sourceCode} />
+            <SubmissionDetails problem={this.props.problem} sourceCode={this.props.sourceCode} />
             <Output result={this.props.result}/>
             <WorkInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
         </Grid>;
     }
 }
+
+const mapStateToProps = (state) => {
+    const problem = state.currentProblemId
+        ? state.problems.find((problem) => problem.id === state.currentProblemId)
+        : null;
+
+    return {
+        problem,
+        modalTitle: state.modalTitle,
+        showModal: state.showModal,
+        result: state.result,
+        sourceCode: state.sourceCode
+    }
+};
+
+
+const ProblemPage = connect(
+    mapStateToProps
+)(Problem);
+
+export default ProblemPage;

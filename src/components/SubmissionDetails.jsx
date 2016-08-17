@@ -19,6 +19,7 @@ export default class SubmissionDetails extends React.Component {
                 timeLimit={this.props.problem.time_limit}
                 memoryLimit={this.props.problem.memory_limit}
                 problemId={this.props.problem.id}
+                sourceCode={this.props.sourceCode}
             />
         </Row>;
     }

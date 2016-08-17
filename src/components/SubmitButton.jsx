@@ -7,9 +7,8 @@ import FontAwesome from './FontAwesome';
 
 export default class SubmitButton extends React.Component {
     submitCode() {
-        const sourceCode = store.getState().sourceCode;
         store.dispatch(showModal("Submission in progress"));
-        store.dispatch(sendSubmission(sourceCode, this.props.problemId));
+        store.dispatch(sendSubmission(this.props.sourceCode, this.props.problemId));
     }
     render() {
         return <Button

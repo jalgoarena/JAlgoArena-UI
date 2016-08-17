@@ -71,10 +71,17 @@ export function changeSourceCode(newValue) {
     }
 }
 
-
 export const RESET_SOURCE_CODE = 'RESET_SOURCE_CODE';
 export function resetSourceCode() {
     return {
         type: RESET_SOURCE_CODE
+    }
+}
+
+export const SET_CURRENT_PROBLEM = 'SET_CURRENT_PROBLEM';
+export function setCurrentProblem(problemId) {
+    return {
+        type: SET_CURRENT_PROBLEM,
+        problemId
     }
 }
