@@ -10,7 +10,7 @@ import {showModal} from '../actions';
 class Problems extends React.Component {
     componentWillMount() {
         if (this.props.problems.length === 0) {
-            store.dispatch(showModal("Downloading Problems"));
+            store.dispatch(showModal());
         }
     }
     render() {
@@ -27,7 +27,7 @@ class Problems extends React.Component {
         });
 
         return <Grid>
-            <WorkInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
+            <WorkInProgress showModal={this.props.showModal} />
             {problemNodes}
         </Grid>;
     }
@@ -36,7 +36,6 @@ class Problems extends React.Component {
 const mapStateToProps = (state) => {
     return {
         problems: state.problems,
-        modalTitle: state.modalTitle,
         showModal: state.showModal
     }
 };

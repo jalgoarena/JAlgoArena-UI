@@ -27,7 +27,7 @@ class Problem extends React.Component{
                 onSourceCodeChanged={this.props.onSourceCodeChanged}
             />
             <Output result={this.props.result}/>
-            <WorkInProgress title={this.props.modalTitle} showModal={this.props.showModal} />
+            <WorkInProgress showModal={this.props.showModal} />
         </Grid>;
     }
 }
@@ -39,7 +39,6 @@ const mapStateToProps = (state) => {
 
     return {
         problem,
-        modalTitle: state.modalTitle,
         showModal: state.showModal,
         result: state.result,
         sourceCode: state.sourceCode

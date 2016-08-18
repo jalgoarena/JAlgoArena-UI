@@ -1,25 +1,33 @@
 import {combineReducers} from 'redux';
-import { routerReducer } from 'react-router-redux'
+import {routerReducer} from 'react-router-redux'
 
 import {
     CHANGE_SOURCE_CODE,
     FETCH_PROBLEMS,
     SUBMISSION_RESULT_RECEIVED,
     SHOW_MODAL,
-    SET_CURRENT_PROBLEM,
-    LOGIN_FAIL,
-    LOGIN_USER
+    SET_CURRENT_PROBLEM
 } from '../actions';
+
+import {
+    Checked_Session_Status,
+    Login_Fail,
+    Login_Success,
+    Logout_Success,
+    SignUp_Fail,
+    SignUp_Success
+} from '../actions/AuthActions';
+
+import {updateUserInfo} from "./AuthReducers";
 
 const rootReducer = combineReducers({
     sourceCode,
     problems,
     result,
     showModal,
-    modalTitle,
     currentProblemId,
-    user,
-    routing: routerReducer
+    routing: routerReducer,
+    userAuthSession: updateUserInfo
 });
 
 function sourceCode(state = null, action) {
@@ -60,20 +68,13 @@ function showModal(state = false, action) {
         case SET_CURRENT_PROBLEM:
         case FETCH_PROBLEMS:
         case SUBMISSION_RESULT_RECEIVED:
+        case Checked_Session_Status:
+        case Login_Fail:
+        case Login_Success:
+        case Logout_Success:
+        case SignUp_Fail:
+        case SignUp_Success:
             return false;
-        default:
-            return state;
-    }
-}
-
-function modalTitle(state = "", action) {
-    switch (action.type) {
-        case SHOW_MODAL:
-            return action.title;
-        case SET_CURRENT_PROBLEM:
-        case FETCH_PROBLEMS:
-        case SUBMISSION_RESULT_RECEIVED:
-            return "";
         default:
             return state;
     }
@@ -83,26 +84,6 @@ function currentProblemId(state = null, action) {
     switch (action.type) {
         case SET_CURRENT_PROBLEM:
             return action.problemId;
-        default:
-            return state;
-    }
-}
-
-function user(state = { message: "", userData: {}}, action) {
-    switch (action.type) {
-        case LOGIN_USER:
-            return {
-                ...state,
-                userData: action.loginResponse[0],
-                timestamp: action.timestamp
-            };
-        case LOGIN_FAIL:
-            return {
-                ...state,
-                userData: [],
-                error: "Invalid login or password",
-                timestamp: action.timestamp
-            };
         default:
             return state;
     }

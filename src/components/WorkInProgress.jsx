@@ -30,10 +30,10 @@ const modalBodyStyle = {
     height: 200
 };
 
-const WorkInProgress = ({showModal, title}) => (
+const WorkInProgress = ({showModal}) => (
     <Modal show={showModal || false}>
         <Modal.Header style={modalTextCenterStyle}>
-            <h3>{title || "Title"}</h3>
+            <h3>{"Loading ..."}</h3>
         </Modal.Header>
         <Modal.Body style={modalBodyStyle}>
             <Spinner config={spinnerOpts} stopped={false} style={searchingSpinnerCenterStyle} />

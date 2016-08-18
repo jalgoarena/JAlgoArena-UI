@@ -56,3 +56,11 @@ hr.star-light:after {
 .modal-container .modal, .modal-container .modal-backdrop {
     position: absolute;
 }
+
+#menu > .active > a {
+    color: #4078c0;
+    background-color: whitesmoke;
+}
+#menu > li > a:hover {
+    color: #4078c0
+}

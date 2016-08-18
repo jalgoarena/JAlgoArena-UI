@@ -1,55 +1,63 @@
 import React from 'react';
-import {Grid, Col, Button, Form, FormGroup, FormControl, PageHeader} from 'react-bootstrap';
+import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import {setLoginDetails} from '../actions';
 import FontAwesome from '../components/FontAwesome';
-import store from '../store';
+import {attemptLogout} from "../actions/AuthActions";
+import {showModal} from "../actions/index";
+import WorkInProgress from '../components/WorkInProgress';
 
 class Profile extends React.Component {
 
-    componentWillMount() {
-        let storedSessionLogin = sessionStorage.getItem('login');
-        if (storedSessionLogin) {
-            store.dispatch(setLoginDetails(JSON.parse(storedSessionLogin).loginResponse));
-        } else {
-            console.log("Transition in progress");
+    transferToProfileIfLoggedOut() {
+        if (!this.props.userAuthSession.isLoggedIn) {
             hashHistory.push('/login');
         }
     }
 
+    componentWillMount() {
+        this.transferToProfileIfLoggedOut();
+    }
+
+    componentDidUpdate() {
+        this.transferToProfileIfLoggedOut();
+    }
+
     render() {
         const {
-            user
+            userAuthSession
         } = this.props;
 
+        let {
+            userObject
+        } = userAuthSession;
+
+        userObject = userObject || {username: "", email: "", id: ""};
+
         return <Grid>
+            <WorkInProgress showModal={this.props.showModal} />
             <Col mdOffset={3} md={6}>
                 <PageHeader>Profile</PageHeader>
-                <Form>
-                    <FormGroup>
-                        <FormControl type="text" placeholder="Name"/>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <FormControl type="email" placeholder="Email"/>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <FormControl type="password" placeholder="Password"/>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <FormControl type="password" placeholder="Repeat Password"/>
-                    </FormGroup>
-
-                    <FormGroup className="text-center">
-                        <Button bsStyle="info" className="pull-right">
-                            <FontAwesome name="save"/> Update
-                        </Button>
-                    </FormGroup>
-                </Form>
+                <Table striped bordered condensed hover>
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{userObject.id}</td>
+                            <td>{userObject.username}</td>
+                            <td>{userObject.email}</td>
+                        </tr>
+                    </tbody>
+                </Table>
+                <Button bsStyle="danger" className="pull-right" onClick={this.props.onLogout}>
+                    <FontAwesome name="sign-out"/> Logout
+                </Button>
             </Col>
         </Grid>;
     }
@@ -57,12 +65,23 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        userAuthSession: state.userAuthSession,
+        showModal: state.showModal
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: () => {
+            dispatch(showModal());
+            dispatch(attemptLogout());
+        }
+    }
+};
+
 const ProfilePage = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Profile);
 
 export default ProfilePage;

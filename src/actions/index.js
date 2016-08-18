@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+const JUDGE_SERVER_URL = 'https://jalgoarena.herokuapp.com';
+
 export const SUBMISSION_RESULT_RECEIVED = 'SUBMISSION_RESULT_RECEIVED';
 export function sendSubmission(sourceCode, problemId) {
     const options = {
@@ -12,7 +14,7 @@ export function sendSubmission(sourceCode, problemId) {
     };
 
     return dispatch => {
-        return fetch(`https://jalgoarena.herokuapp.com/problems/${problemId}/submit`, options)
+        return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissionResult(json)))
     };
@@ -26,10 +28,9 @@ function setSubmissionResult(result) {
 }
 
 export const SHOW_MODAL = 'SHOW_MODAL';
-export function showModal(title) {
+export function showModal() {
     return {
-        type: SHOW_MODAL,
-        title
+        type: SHOW_MODAL
     };
 }
 
@@ -43,7 +44,7 @@ export function fetchProblems() {
     };
 
     return dispatch => {
-        return fetch(`https://jalgoarena.herokuapp.com/problems`, options)
+        return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblems(json)))
     };
@@ -70,48 +71,4 @@ export function setCurrentProblem(problemId) {
         type: SET_CURRENT_PROBLEM,
         problemId
     }
-}
-
-export const LOGIN_FAIL = 'LOGIN_FAIL';
-
-export const LOGIN_USER = 'LOGIN_USER';
-export function login(userData) {
-    const body = {
-        username: userData.username,
-        password: userData.password
-    };
-
-    const options = {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 1234567890'
-        },
-        method: 'post',
-        body: JSON.stringify(body)
-    };
-
-    return dispatch => {
-        return fetch(`https://jalgoarena-auth.herokuapp.com/login`, options)
-            .then(response => response.json())
-            .then(json => dispatch(setLoginDetails(json)))
-    }
-}
-
-export function setLoginDetails(json) {
-    if (json.length === 0) {
-        return {
-            type: LOGIN_FAIL,
-            timestamp: Date.now()
-        }
-    }
-
-    const loginData = {
-        type: LOGIN_USER,
-        loginResponse: json,
-        timestamp: Date.now()
-    };
-
-    sessionStorage.setItem('login', JSON.stringify(loginData));
-    return loginData;
 }
