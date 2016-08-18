@@ -11,7 +11,7 @@ import LoginPage from "./pages/login"
 import Register from "./pages/register";
 
 import { Provider } from 'react-redux'
-import store from './stores';
+import store from './store';
 
 export default (
     <Provider store={store}>

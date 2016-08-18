@@ -2,7 +2,7 @@ import React from "react";
 
 import Menu from "./components/Menu.jsx";
 import Footer from "./components/Footer.jsx";
-import store from './stores';
+import store from './store';
 import DevTools from './devtools';
 import {fetchProblems} from "./actions";
 

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import Output from '../components/Output.jsx';
 import WorkInProgress from '../components/WorkInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
-import store from '../stores';
+import store from '../store';
 import {setCurrentProblem, sendSubmission, showModal, changeSourceCode} from '../actions';
 
 class Problem extends React.Component{
