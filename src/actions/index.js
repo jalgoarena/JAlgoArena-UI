@@ -92,7 +92,7 @@ export function login(userData) {
     };
 
     return dispatch => {
-        return fetch(`/api/login`, options)
+        return fetch(`https://jalgoarena-auth.herokuapp.com/login`, options)
             .then(response => response.json())
             .then(json => dispatch(setLoginDetails(json)))
     }

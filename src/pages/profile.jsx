@@ -1,16 +1,13 @@
 import React from 'react';
 import {Grid, Col, Button, Form, FormGroup, FormControl, PageHeader} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 import {setLoginDetails} from '../actions';
 import FontAwesome from '../components/FontAwesome';
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
     componentWillMount() {
-        const {dispatch} = this.props;
-        let storedSessionLogin = sessionStorage.getItem('login');
-        if (storedSessionLogin) {
-            dispatch(setLoginDetails(JSON.parse(storedSessionLogin).loginResponse));
-        }
+        this.props.onLoad();
     }
 
     render() {
@@ -44,3 +41,26 @@ export default class Profile extends React.Component {
         </Grid>;
     }
 }
+
+const mapStateToProps = (state) => {
+    return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLoad: () => {
+            let storedSessionLogin = sessionStorage.getItem('login');
+            if (storedSessionLogin) {
+                dispatch(setLoginDetails(JSON.parse(storedSessionLogin).loginResponse));
+            }
+        }
+    }
+};
+
+
+const ProfilePage = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Profile);
+
+export default ProfilePage;

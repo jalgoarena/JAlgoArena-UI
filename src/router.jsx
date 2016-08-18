@@ -3,7 +3,7 @@ import { Router, Route, hashHistory } from 'react-router';
 
 import {Layout} from './layout';
 import Leaderboard from "./pages/leaderboard";
-import Profile from "./pages/profile";
+import ProfilePage from "./pages/profile";
 import ProblemPage from "./pages/problem";
 import ProblemsPage from "./pages/problems";
 import Home from "./pages/home";
@@ -20,7 +20,7 @@ export default (
                 <Route path="/" component={Home} />
                 <Route path="/problems" component={ProblemsPage} />
                 <Route path="/leaderboard" component={Leaderboard} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/profile" component={ProfilePage} />
                 <Route path="/problem/:id" component={ProblemPage} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={Register} />
