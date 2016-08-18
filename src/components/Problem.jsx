@@ -2,7 +2,7 @@ import React from 'react';
 import {Row, Col, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from './FontAwesome';
-import store from '../stores';
+import store from '../store';
 import {setCurrentProblem} from '../actions';
 
 const problemStyle = {

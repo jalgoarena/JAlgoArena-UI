@@ -3,6 +3,7 @@ import {findDOMNode} from 'react-dom';
 import {Grid, Col, Button, Form, FormGroup, FormControl, PageHeader} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
+import {hashHistory} from 'react-router';
 
 import {login} from '../actions';
 import FontAwesome from '../components/FontAwesome';
@@ -14,7 +15,9 @@ class Login extends React.Component {
         dispatch(login({
             username: findDOMNode(this.refs.username).value,
             password: findDOMNode(this.refs.password).value
-        }))
+        }));
+
+        hashHistory.push('/profile');
     }
 
     render() {

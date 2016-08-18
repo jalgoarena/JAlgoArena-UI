@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import { routerReducer } from 'react-router-redux'
 
 import {
     CHANGE_SOURCE_CODE,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     showModal,
     modalTitle,
     currentProblemId,
-    user
+    user,
+    routing: routerReducer
 });
 
 function sourceCode(state = null, action) {

@@ -11,9 +11,14 @@ export const Layout = React.createClass({
         store.dispatch(fetchProblems());
     },
     render: function() {
+        let devTools = <DevTools store={store} />;
+        if (process.env.NODE_ENV === 'production') {
+            devTools = null;
+        }
+
         return <div>
             <Menu />
-            <DevTools store={store}  />
+            { devTools }
             { React.cloneElement(this.props.children, this.state) }
             <Footer />
         </div>;

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import Problem from '../components/Problem.jsx';
 import WorkInProgress from "../components/WorkInProgress";
-import store from '../stores';
+import store from '../store';
 import {showModal} from '../actions';
 
 class Problems extends React.Component {

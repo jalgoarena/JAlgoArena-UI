@@ -1,5 +1,6 @@
 import React from "react";
 import { Router, Route, hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux'
 
 import {Layout} from './layout';
 import Leaderboard from "./pages/leaderboard";
@@ -13,9 +14,11 @@ import Register from "./pages/register";
 import { Provider } from 'react-redux'
 import store from './store';
 
+const history = syncHistoryWithStore(hashHistory, store)
+
 export default (
     <Provider store={store}>
-        <Router history={hashHistory}>
+        <Router history={history}>
             <Route component={Layout}>
                 <Route path="/" component={Home} />
                 <Route path="/problems" component={ProblemsPage} />
