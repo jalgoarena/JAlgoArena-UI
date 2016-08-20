@@ -1,4 +1,5 @@
 var env = process.env.NODE_ENV || 'dev';
+console.log('Env: ' + env);
 
 var serverConfig = require('./server/config/config.js');
 var session  = require('express-session');
@@ -14,27 +15,8 @@ var morgan = require('morgan');
 var app = express();
 
 if (env === 'production') {
-    var cpFile = require('cp-file');
-
-    cpFile('assets/index.prod.html', 'public/assets/index.html').then(function () {
-        console.log('Copied index.html');
-    });
-
-    cpFile('assets/app.css', 'public/assets/app.css').then(function () {
-        console.log('Copied app.css');
-    });
-
-    cpFile('assets/favicon.ico', 'public/assets/favicon.ico').then(function () {
-        console.log('Copied favicon.ico');
-    });
-
-    cpFile('assets/img/logo.png', 'public/assets/img/logo.png').then(function () {
-        console.log('Copied logo.png');
-    });
-
-    cpFile('assets/img/profile.png', 'public/assets/img/profile.png').then(function () {
-        console.log('Copied profile.png');
-    });
+    var copyFiles = require('./server/build/copyFiles');
+    copyFiles();
 
     var compression = require('compression');
     app.use(compression());
@@ -43,12 +25,7 @@ if (env === 'production') {
 app.use(morgan('tiny'));
 
 if (env === 'production') {
-    var opbeat = require('opbeat').start({
-        appId: '92e1be46f0',
-        organizationId: 'd9d560ad264b4ccc901d0ca138ba3ca8',
-        secretToken: '1179a60b42a3bf26fde64bd76962621cd75a77f7'
-    });
-    app.use(opbeat.middleware.express());
+    require('./server/config/opbeat.js')(app);
 }
 
 app.use(bodyParser.json());
@@ -57,14 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var sessionOptions = serverConfig(NedbSessionStore);
 app.use(cookieParser(sessionOptions.secret));
 
-var Datastore = require('nedb');
-var userDb = new Datastore({filename: 'users.db', autoload: true});
-userDb.loadDatabase(function (err) {
-    if (err) {
-        console.log(err);
-    }
-});
-
+var userDb = require('./server/userDb.js');
 require('./server/config/passport.js')(passport, userDb);
 
 app.use(session(sessionOptions));
@@ -73,22 +43,9 @@ app.use(passport.session());
 
 require('./server/routes/index')(app, passport);
 
-
 if (env === 'dev') {
-    var config = require('./webpack.config.dev');
-    var webpack = require('webpack');
-    var compiler = webpack(config);
-
-    app.use(require('webpack-dev-middleware')(compiler, {
-        noInfo: true,
-        publicPath: config.output.publicPath
-    }));
-
-    app.use(require("webpack-hot-middleware")(compiler, {
-        log: console.log,
-        path: '/__webpack_hmr',
-        heartbeat: 10 * 1000
-    }));
+    console.log('Configuring DEV');
+    require('./server/config/devWebpack')(app);
 
     app.get('*', function(req, res) {
         res.sendFile(path.join(__dirname, 'assets', req.path));
@@ -103,6 +60,7 @@ if (env === 'dev') {
         console.log('Listening at http://localhost:' + port);
     });
 } else {
+    console.log('Configuring PROD');
     var serveStatic = require('serve-static');
     app.use(serveStatic(path.join(__dirname, 'public', 'assets')));
 
