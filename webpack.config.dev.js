@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
     entry: [
         'webpack-hot-middleware/client',
-        "./src/index"
+        "./client/index"
     ],
     output: {
         path: path.join(__dirname, 'public'),
@@ -29,7 +29,7 @@ module.exports = {
         loaders: [{
             tests: /\.jsx?$/,
             loaders: ['babel'],
-            include: path.join(__dirname, 'src')
+            include: path.join(__dirname, 'client')
         }]
     },
     resolve: {

@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        "./src/index"
+        "./client/index"
     ],
     output: {
         path: path.join(__dirname, 'public', 'assets'),
@@ -29,7 +29,7 @@ module.exports = {
                 query: {
                     presets: ['es2015', 'react']
                 },
-                include: path.join(__dirname, 'src'),
+                include: path.join(__dirname, 'client'),
                 exclude: /node_modules/,
                 test: /\.jsx?$/
             }
