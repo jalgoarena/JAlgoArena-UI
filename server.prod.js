@@ -4,7 +4,13 @@ var opbeat = require('opbeat').start({
     secretToken: '1179a60b42a3bf26fde64bd76962621cd75a77f7'
 });
 
+var serverConfig = require('./server/config/config.js');
+var session  = require('express-session');
+var NedbSessionStore = require('express-nedb-session')(session);
 var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var passport = require('passport');
 var express = require('express');
 var port = process.env.PORT || 3000;
 var host = process.env.HOST || '0.0.0.0';
@@ -38,6 +44,30 @@ cpFile('assets/img/profile.png', 'public/assets/img/profile.png').then(function 
 app.use(compression());
 app.use(morgan('tiny'));
 app.use(opbeat.middleware.express());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+var sessionOptions = serverConfig(NedbSessionStore);
+app.use(cookieParser(sessionOptions.secret));
+
+var Datastore = require('nedb');
+var userDb = new Datastore({filename: 'jalgoarena.db', autoload: true});
+userDb.loadDatabase(function (err) {
+    if (err) {
+        console.log(err);
+    }
+});
+
+require('./server/config/passport.js')(passport, userDb);
+
+
+app.use(session(sessionOptions));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+require('./server/routes/index')(app, passport);
 
 var serveStatic = require('serve-static');
 app.use(serveStatic(path.join(__dirname, 'public', 'assets')));

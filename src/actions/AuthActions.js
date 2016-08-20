@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
 
-const AUTH_SERVER_URL = 'https://jalgoarena-auth.herokuapp.com';
-
 export function attemptSignUp(email, password, username) {
 
     const body = {
@@ -21,7 +19,7 @@ export function attemptSignUp(email, password, username) {
     };
 
     return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/signup`, options)
+        return fetch(`/signup`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -79,7 +77,7 @@ export function attemptLogin(email, password) {
     };
 
     return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/login`, options)
+        return fetch(`/login`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -107,7 +105,7 @@ export function checkSessionStatus() {
     };
 
     return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/checkSession`, options)
+        return fetch(`/checkSession`, options)
             .then(response => response.json())
             .then(json => dispatch(checkedSessionStatus(json)))
             .catch(error => console.log(error));
@@ -131,7 +129,7 @@ export function attemptLogout(){
     };
 
     return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/logout`, options)
+        return fetch(`/logout`, options)
             .then(response => response.json())
             .then(json => dispatch(logoutSuccess()))
             .catch(error => console.log(error));
