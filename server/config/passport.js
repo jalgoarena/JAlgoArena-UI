@@ -11,16 +11,16 @@ module.exports = function(passport, userDb) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, {
+            id: user.id,
+            email: user.email,
+            username: user.username
+        });
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        userDb.find({_id: id},
-            {password: 0},
-            function (err, data) {
-                done(err, data);
-            });
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
     });
 
     // =========================================================================

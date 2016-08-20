@@ -101,7 +101,7 @@ export function checkSessionStatus() {
             'Content-Type': 'application/json'
         },
         method: 'post',
-        body: {}
+        body: JSON.stringify({})
     };
 
     return dispatch => {
@@ -125,13 +125,12 @@ export function attemptLogout(){
             'Content-Type': 'application/json'
         },
         method: 'post',
-        body: {}
+        body: JSON.stringify({})
     };
 
     return dispatch => {
         return fetch(`/logout`, options)
-            .then(response => response.json())
-            .then(json => dispatch(logoutSuccess()))
+            .then(response => dispatch(logoutSuccess()))
             .catch(error => console.log(error));
     }
 }
