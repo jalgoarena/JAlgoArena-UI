@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "prestart": "npm run build",
-    "start": "node server.prod.js",
-    "dev": "node server.dev.js",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "node server.js",
     "prebuild": "rimraf public",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
     "predeploy": "npm run build",
