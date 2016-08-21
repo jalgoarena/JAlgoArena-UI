@@ -16,14 +16,15 @@ export function judgeCode(sourceCode, problemId) {
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
-            .then(json => dispatch(judgeResultReceived(json)))
+            .then(json => dispatch(judgeResultReceived(json, sourceCode, problemId)))
+            .catch(error => console.log(error));
     };
 }
 
-function judgeResultReceived(result) {
+function judgeResultReceived(result, sourceCode, problemId) {
     return {
         type: JUDGE_RESULT_RECEIVED,
-        result
+        result: Object.assign({sourceCode: sourceCode, problemId: problemId}, result)
     }
 }
 
@@ -47,6 +48,7 @@ export function fetchProblems() {
         return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblems(json)))
+            .catch(error => console.log(error));
     };
 }
 
@@ -54,6 +56,30 @@ function setProblems(problems) {
     return {
         type: FETCH_PROBLEMS,
         problems
+    }
+}
+
+export const FETCH_SUBMISSIONS = 'FETCH_SUBMISSIONS';
+export function fetchSubmissions(userId) {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`/submissions/${userId}`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setSubmissions(json)))
+            .catch(error => console.log(error));
+    };
+}
+
+function setSubmissions(submissions) {
+    return {
+        type: FETCH_SUBMISSIONS,
+        submissions
     }
 }
 
@@ -70,5 +96,34 @@ export function setCurrentProblem(problemId) {
     return {
         type: SET_CURRENT_PROBLEM,
         problemId
+    }
+}
+
+export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
+export function sendSubmission(result, userId) {
+    const options = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({
+            result: result,
+            userId: userId
+        })
+    };
+
+    return dispatch => {
+        return fetch(`/submissions`, options)
+            .then(response => response.json())
+            .then(json => dispatch(submissionSaved(json)))
+            .catch(error => console.log(error));
+    };
+}
+
+function submissionSaved(submissions) {
+    return {
+        type: SUBMISSION_SAVED,
+        submissions
     }
 }

@@ -5,14 +5,17 @@ import {hashHistory} from 'react-router';
 
 import FontAwesome from '../components/FontAwesome';
 import {attemptLogout} from "../actions/AuthActions";
-import {showModal} from "../actions/index";
+import {showModal, fetchSubmissions} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
+import store from '../store';
 
 class Profile extends React.Component {
 
     transferToProfileIfLoggedOut() {
         if (!this.props.userAuthSession.isLoggedIn) {
             hashHistory.push('/login');
+        } else {
+            store.dispatch(fetchSubmissions(this.props.userAuthSession.userObject.id));
         }
     }
 
@@ -35,9 +38,30 @@ class Profile extends React.Component {
 
         userObject = userObject || {username: "", email: "", id: ""};
 
+        let submissionNodes = this.props.submissions.map((submission, idx) =>
+            <tr key={idx}>
+                <td>{submission.result.problemId}</td>
+                <td>{submission.result.elapsed_time}</td>
+                <td>{submission.result.consumed_memory}</td>
+            </tr>
+        );
+
         return <Grid>
             <WorkInProgress showModal={this.props.showModal} />
             <Col mdOffset={3} md={6}>
+                <PageHeader>Submissions</PageHeader>
+                <Table striped bordered condensed hover>
+                    <thead>
+                    <tr>
+                        <th>Problem ID</th>
+                        <th>Used Time (ms)</th>
+                        <th>Used Memory (kb)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {submissionNodes}
+                    </tbody>
+                </Table>
                 <PageHeader>Profile</PageHeader>
                 <Table striped bordered condensed hover>
                     <thead>
@@ -66,7 +90,8 @@ class Profile extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userAuthSession: state.userAuthSession,
-        showModal: state.showModal
+        showModal: state.showModal,
+        submissions: state.submissions
     };
 };
 

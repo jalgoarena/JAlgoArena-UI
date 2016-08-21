@@ -3,12 +3,12 @@ import {Button} from 'react-bootstrap';
 
 import FontAwesome from './FontAwesome';
 
-const SubmitButton = ({sourceCode, problemId, onSubmit, isSubmitDisabled}) => (
+const SubmitButton = ({result, userId, onSubmit, isSubmitDisabled}) => (
     <Button
         bsStyle="success"
         bsSize="large"
         disabled={isSubmitDisabled}
-        onClick={() => onSubmit(sourceCode, problemId)}>
+        onClick={() => onSubmit(result, userId)}>
         <FontAwesome name="send"/> Submit
     </Button>
 );

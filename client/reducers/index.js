@@ -6,7 +6,9 @@ import {
     FETCH_PROBLEMS,
     JUDGE_RESULT_RECEIVED,
     SHOW_MODAL,
-    SET_CURRENT_PROBLEM
+    SET_CURRENT_PROBLEM,
+    SUBMISSION_SAVED,
+    FETCH_SUBMISSIONS
 } from '../actions';
 
 import {
@@ -27,7 +29,8 @@ const rootReducer = combineReducers({
     showModal,
     currentProblemId,
     routing: routerReducer,
-    userAuthSession: updateUserInfo
+    userAuthSession: updateUserInfo,
+    submissions
 });
 
 function sourceCode(state = null, action) {
@@ -68,6 +71,7 @@ function showModal(state = false, action) {
         case SET_CURRENT_PROBLEM:
         case FETCH_PROBLEMS:
         case JUDGE_RESULT_RECEIVED:
+        case SUBMISSION_SAVED:
         case Checked_Session_Status:
         case Login_Fail:
         case Login_Success:
@@ -84,6 +88,16 @@ function currentProblemId(state = null, action) {
     switch (action.type) {
         case SET_CURRENT_PROBLEM:
             return action.problemId;
+        default:
+            return state;
+    }
+}
+
+function submissions(state = [], action) {
+    switch (action.type) {
+        case SUBMISSION_SAVED:
+        case FETCH_SUBMISSIONS:
+            return action.submissions;
         default:
             return state;
     }

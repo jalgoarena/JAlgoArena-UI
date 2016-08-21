@@ -85,7 +85,8 @@ export function attemptLogin(email, password) {
                 } else {
                     dispatch(loginSuccess(json));
                 }
-            });
+            })
+            .catch(error => console.log(error));
     };
 }
 

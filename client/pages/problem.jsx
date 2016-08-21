@@ -6,7 +6,7 @@ import Output from '../components/Output.jsx';
 import WorkInProgress from '../components/WorkInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
 import store from '../store';
-import {setCurrentProblem, judgeCode, showModal, changeSourceCode} from '../actions';
+import {sendSubmission, setCurrentProblem, judgeCode, showModal, changeSourceCode} from '../actions';
 
 class Problem extends React.Component {
     componentDidMount() {
@@ -15,20 +15,30 @@ class Problem extends React.Component {
         }
     }
 
+    isSubmitDisabled() {
+        return !(this.props.problem &&
+                this.props.result.status_code === 'ACCEPTED' &&
+                this.props.sourceCode &&
+                this.props.userAuthSession.isLoggedIn)
+    }
+
     render() {
         if (!this.props.problem) {
             return null;
         }
 
-        var isSubmitDisabled = true;
+        const isSubmitDisabled = this.isSubmitDisabled();
+        const userId = this.props.userAuthSession.userObject ? this.props.userAuthSession.userObject.id : null;
 
         return <Grid>
             <SubmissionDetails
                 problem={this.props.problem}
+                result={this.props.result}
                 sourceCode={this.props.sourceCode}
+                isSubmitDisabled={isSubmitDisabled}
                 onRun={this.props.onRun}
                 onSubmit={this.props.onSubmit}
-                isSubmitDisabled={isSubmitDisabled}
+                userId={userId}
                 onSourceCodeChanged={this.props.onSourceCodeChanged}
             />
             <Output result={this.props.result}/>
@@ -54,12 +64,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onRun: (sourceCode, problemId) => {
-            dispatch(showModal("Submission in progress"));
+            dispatch(showModal());
             dispatch(judgeCode(sourceCode, problemId));
         },
-        onSubmit: (sourceCode, problemId) => {
-            dispatch(showModal("Submission in progress"));
-            dispatch(judgeCode(sourceCode, problemId));
+        onSubmit: (result, userId) => {
+            dispatch(showModal());
+            dispatch(sendSubmission(result, userId));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))
