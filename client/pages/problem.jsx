@@ -6,28 +6,33 @@ import Output from '../components/Output.jsx';
 import WorkInProgress from '../components/WorkInProgress.jsx';
 import SubmissionDetails from '../components/SubmissionDetails.jsx';
 import store from '../store';
-import {setCurrentProblem, sendSubmission, showModal, changeSourceCode} from '../actions';
+import {setCurrentProblem, judgeCode, showModal, changeSourceCode} from '../actions';
 
-class Problem extends React.Component{
+class Problem extends React.Component {
     componentDidMount() {
         if (store.getState().currentProblemId !== this.props.params.id) {
             store.dispatch(setCurrentProblem(this.props.params.id));
         }
     }
+
     render() {
         if (!this.props.problem) {
             return null;
         }
 
+        var isSubmitDisabled = true;
+
         return <Grid>
             <SubmissionDetails
                 problem={this.props.problem}
                 sourceCode={this.props.sourceCode}
+                onRun={this.props.onRun}
                 onSubmit={this.props.onSubmit}
+                isSubmitDisabled={isSubmitDisabled}
                 onSourceCodeChanged={this.props.onSourceCodeChanged}
             />
             <Output result={this.props.result}/>
-            <WorkInProgress showModal={this.props.showModal} />
+            <WorkInProgress showModal={this.props.showModal}/>
         </Grid>;
     }
 }
@@ -41,15 +46,20 @@ const mapStateToProps = (state) => {
         problem,
         showModal: state.showModal,
         result: state.result,
-        sourceCode: state.sourceCode
+        sourceCode: state.sourceCode,
+        userAuthSession: state.userAuthSession
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        onRun: (sourceCode, problemId) => {
+            dispatch(showModal("Submission in progress"));
+            dispatch(judgeCode(sourceCode, problemId));
+        },
         onSubmit: (sourceCode, problemId) => {
             dispatch(showModal("Submission in progress"));
-            dispatch(sendSubmission(sourceCode, problemId));
+            dispatch(judgeCode(sourceCode, problemId));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))

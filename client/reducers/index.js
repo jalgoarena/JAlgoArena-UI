@@ -4,7 +4,7 @@ import {routerReducer} from 'react-router-redux'
 import {
     CHANGE_SOURCE_CODE,
     FETCH_PROBLEMS,
-    SUBMISSION_RESULT_RECEIVED,
+    JUDGE_RESULT_RECEIVED,
     SHOW_MODAL,
     SET_CURRENT_PROBLEM
 } from '../actions';
@@ -52,7 +52,7 @@ function problems(state = [], action) {
 
 function result(state = { status_code: 'WAITING' }, action) {
     switch (action.type) {
-        case SUBMISSION_RESULT_RECEIVED:
+        case JUDGE_RESULT_RECEIVED:
             return action.result;
         case SET_CURRENT_PROBLEM:
             return { status_code: 'WAITING' };
@@ -67,7 +67,7 @@ function showModal(state = false, action) {
             return true;
         case SET_CURRENT_PROBLEM:
         case FETCH_PROBLEMS:
-        case SUBMISSION_RESULT_RECEIVED:
+        case JUDGE_RESULT_RECEIVED:
         case Checked_Session_Status:
         case Login_Fail:
         case Login_Success:

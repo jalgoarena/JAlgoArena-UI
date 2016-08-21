@@ -2,8 +2,8 @@ import fetch from 'isomorphic-fetch';
 
 const JUDGE_SERVER_URL = 'https://jalgoarena.herokuapp.com';
 
-export const SUBMISSION_RESULT_RECEIVED = 'SUBMISSION_RESULT_RECEIVED';
-export function sendSubmission(sourceCode, problemId) {
+export const JUDGE_RESULT_RECEIVED = 'JUDGE_RESULT_RECEIVED';
+export function judgeCode(sourceCode, problemId) {
     const options = {
         headers: {
             'Accept': 'application/json',
@@ -16,13 +16,13 @@ export function sendSubmission(sourceCode, problemId) {
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
-            .then(json => dispatch(setSubmissionResult(json)))
+            .then(json => dispatch(judgeResultReceived(json)))
     };
 }
 
-function setSubmissionResult(result) {
+function judgeResultReceived(result) {
     return {
-        type: SUBMISSION_RESULT_RECEIVED,
+        type: JUDGE_RESULT_RECEIVED,
         result
     }
 }

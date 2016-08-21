@@ -1,9 +1,4 @@
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.json({error: "Not signed in"});
-}
+var authenticationMiddleware = require('../middlewares/authentication.js');
 
 function addAuthRoute(app, passport, routePath, strategy) {
     app.post(routePath, function(req, res, next) {
@@ -25,7 +20,7 @@ module.exports = function(app, passport) {
 
     addAuthRoute(app, passport, "/login", "local-login");
 
-    app.post('/logout', isLoggedIn, function(req, res) {
+    app.post('/logout', authenticationMiddleware.isLoggedIn, function(req, res) {
         req.logout();
         req.session.destroy(function (err) {
             if (err) {

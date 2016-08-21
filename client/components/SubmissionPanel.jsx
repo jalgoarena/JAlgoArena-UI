@@ -1,18 +1,30 @@
 import React from 'react';
-import SubmitButton from './SubmitButton.jsx';
-import MemoryLimit from './MemoryLimit.jsx';
-import TimeLimit from './TimeLimit.jsx';
+import {ButtonToolbar} from 'react-bootstrap';
 
-const SubmissionPanel = ({problemId, sourceCode, onSubmit, timeLimit, memoryLimit}) => (
+import RunButton from './RunButton';
+import SubmitButton from './SubmitButton';
+import MemoryLimit from './MemoryLimit';
+import TimeLimit from './TimeLimit';
+
+const SubmissionPanel = ({problemId, sourceCode, onRun, onSubmit, timeLimit, memoryLimit, isSubmitDisabled}) => (
     <div>
-        <SubmitButton
-            problemId={problemId}
-            sourceCode={sourceCode}
-            onSubmit={onSubmit}
-        />
-        <TimeLimit timeLimit={timeLimit} />
+        <ButtonToolbar className="pull-right">
+                <RunButton
+                    problemId={problemId}
+                    sourceCode={sourceCode}
+                    onRun={onRun}
+                />
+                <SubmitButton
+                    problemId={problemId}
+                    sourceCode={sourceCode}
+                    onSubmit={onSubmit}
+                    isSubmitDisabled={isSubmitDisabled}
+                />
+        </ButtonToolbar>
+
+        <TimeLimit timeLimit={timeLimit}/>
         <br />
-        <MemoryLimit memoryLimit={memoryLimit} />
+        <MemoryLimit memoryLimit={memoryLimit}/>
     </div>
 );
 

@@ -12,7 +12,7 @@ export default class SubmissionResult extends React.Component {
 
         switch (this.props.result.status_code) {
             case 'WAITING':
-                return <h2 className="text-info text-center">Submit your code to see results</h2>;
+                return <h2 className="text-info text-center">Run your code to see results</h2>;
             case 'ACCEPTED':
                 return <div>
                     <h2 className="text-success text-center">All test cases passed, congratulations!</h2>

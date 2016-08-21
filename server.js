@@ -34,14 +34,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var sessionOptions = serverConfig(NedbSessionStore);
 app.use(cookieParser(sessionOptions.secret));
 
-var userDb = require('./server/userDb.js');
+var userDb = require('./server/newLocalDb.js')('users.db');
 require('./server/config/passport.js')(passport, userDb);
 
 app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./server/routes/index')(app, passport);
+var submissionDb = require('./server/newLocalDb.js')('submissions.db');
+require('./server/routes/index')(app, passport, submissionDb);
 
 if (env === 'dev') {
     console.log('Configuring DEV');

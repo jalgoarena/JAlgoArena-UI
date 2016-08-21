@@ -5,7 +5,7 @@ import ProblemDescription from './ProblemDescription.jsx';
 import AceCodeEditor from './AceCodeEditor.jsx';
 import SubmissionPanel from './SubmissionPanel.jsx';
 
-const SubmissionDetails = ({problem, sourceCode, onSubmit, onSourceCodeChanged}) => (
+const SubmissionDetails = ({problem, sourceCode, onRun, onSubmit, onSourceCodeChanged, isSubmitDisabled}) => (
     <Row>
         <PageHeader>{problem.title}</PageHeader>
         <ProblemDescription description={problem.description} />
@@ -18,7 +18,9 @@ const SubmissionDetails = ({problem, sourceCode, onSubmit, onSourceCodeChanged})
             memoryLimit={problem.memory_limit}
             problemId={problem.id}
             sourceCode={sourceCode}
+            onRun={onRun}
             onSubmit={onSubmit}
+            isSubmitDisabled={isSubmitDisabled}
         />
     </Row>
 );
