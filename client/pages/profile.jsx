@@ -42,7 +42,7 @@ class Profile extends React.Component {
 
         userObject = userObject || {username: "", email: "", id: ""};
 
-        let submissions = this.props.submissions || [];
+        let submissions = this.props.submissions.map ? this.props.submissions : [];
 
         let submissionNodes = submissions.map((submission, idx) =>
             <tr key={idx}>
