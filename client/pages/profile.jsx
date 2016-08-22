@@ -14,8 +14,6 @@ class Profile extends React.Component {
     transferToProfileIfLoggedOut() {
         if (!this.props.userAuthSession.isLoggedIn) {
             hashHistory.push('/login');
-        } else {
-            store.dispatch(fetchSubmissions(this.props.userAuthSession.userObject.id));
         }
     }
 
@@ -25,6 +23,12 @@ class Profile extends React.Component {
 
     componentDidUpdate() {
         this.transferToProfileIfLoggedOut();
+    }
+
+    componentDidMount() {
+        if (this.props.userAuthSession.isLoggedIn) {
+            store.dispatch(fetchSubmissions(this.props.userAuthSession.userObject.id));
+        }
     }
 
     render() {
@@ -38,7 +42,9 @@ class Profile extends React.Component {
 
         userObject = userObject || {username: "", email: "", id: ""};
 
-        let submissionNodes = this.props.submissions.map((submission, idx) =>
+        let submissions = this.props.submissions || [];
+
+        let submissionNodes = submissions.map((submission, idx) =>
             <tr key={idx}>
                 <td>{submission.result.problemId}</td>
                 <td>{submission.result.elapsed_time}</td>

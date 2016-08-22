@@ -11,6 +11,7 @@ var passport = require('passport');
 var express = require('express');
 var port = process.env.PORT || 3000;
 var morgan = require('morgan');
+var helmet = require('helmet');
 
 var app = express();
 
@@ -34,12 +35,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var sessionOptions = serverConfig(NedbSessionStore);
 app.use(cookieParser(sessionOptions.secret));
 
-var userDb = require('./server/newLocalDb.js')('users.db');
-require('./server/config/passport.js')(passport, userDb);
-
 app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
+helmet(app);
+
+var userDb = require('./server/newLocalDb.js')('users.db');
+require('./server/config/passport.js')(passport, userDb);
 
 var submissionDb = require('./server/newLocalDb.js')('submissions.db');
 require('./server/routes/index')(app, passport, submissionDb);

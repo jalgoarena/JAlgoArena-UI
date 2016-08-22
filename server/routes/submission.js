@@ -20,7 +20,7 @@ module.exports = function(app, submissionDb) {
         })
     });
 
-    app.get('/submissions/:userId', authenticationMiddleware.isLoggedIn, function(req, res) {
+    app.get('/submissions/:userId', function(req, res) {
         var userId = req.params.userId;
 
         submissionDb.find({userId: userId}, function (err, docs) {
