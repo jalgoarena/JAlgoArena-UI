@@ -26,7 +26,7 @@ class Login extends React.Component {
     }
 
     transferToDashboardIfLoggedIn() {
-        if (this.props.userAuthSession.isLoggedIn) {
+        if (this.props.userAuthSession.user) {
             hashHistory.push('/profile');
         }
     }

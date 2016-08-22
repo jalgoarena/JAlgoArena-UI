@@ -1,12 +1,12 @@
 import fetch from 'isomorphic-fetch';
+import {hashHistory} from "react-router";
 
 export function attemptSignUp(email, password, username) {
 
     const body = {
         username: username,
         email: email,
-        password: password,
-        timestamp: Date.now()
+        password: password
     };
 
     const options = {
@@ -25,20 +25,24 @@ export function attemptSignUp(email, password, username) {
                 if (json.error){
                     dispatch(signUpFail(json.error));
                 } else {
-                    dispatch(signUpSuccess(json));
+                    dispatch(signUpSuccess());
                 }
             }).catch(error => console.log(error));
     };
 
 }
 export const SignUp_Success = 'SignUp_Success';
-export function signUpSuccess(userObject) {
-    return { type: SignUp_Success, userObject };
+export function signUpSuccess() {
+    hashHistory.push('/login');
+    return { type: SignUp_Success };
 }
 
 export const SignUp_Fail = 'SignUp_Fail';
 export function signUpFail(error) {
-    return { type: SignUp_Fail, error };
+    return {
+        type: SignUp_Fail,
+        error
+    };
 }
 
 export const Login_Success = 'Login_Success';
@@ -51,20 +55,25 @@ export const Logout_Success = 'Logout_Success';
 export const Navigate_Away_From_Auth_Form = 'Navigate_Away_From_Auth_Form';
 
 
-export function loginSuccess(userObject) {
-    return { type: Login_Success, userObject };
+export function loginSuccess(user) {
+    return {
+        type: Login_Success,
+        user
+    };
 }
 
 export function loginFail(error) {
-    return { type: Login_Fail, error };
+    return {
+        type: Login_Fail,
+        error
+    };
 }
 
 export function attemptLogin(email, password) {
 
     const body = {
         email: email,
-        password: password,
-        timestamp: Date.now()
+        password: password
     };
 
     const options = {
@@ -83,32 +92,46 @@ export function attemptLogin(email, password) {
                 if (json.error){
                     dispatch(loginFail(json.error));
                 } else {
-                    dispatch(loginSuccess(json));
+                    localStorage.setItem('jwtToken', json.token);
+                    dispatch(loginSuccess(json.user));
                 }
             })
             .catch(error => console.log(error));
     };
 }
 
-export function checkedSessionStatus(result) {
-    return { type: Checked_Session_Status, result };
+export function checkedSessionStatus(user) {
+    return {
+        type: Checked_Session_Status,
+        user
+    };
 }
 
 export function checkSessionStatus() {
 
-    const options = {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify({})
-    };
-
     return dispatch => {
-        return fetch(`/checkSession`, options)
+
+        console.log("I'm in");
+
+        let token = localStorage.getItem('jwtToken');
+
+        if (!token || token === '') {
+            return;
+        }
+
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': token
+            },
+            method: 'get'
+        };
+
+        return fetch(`/user`, options)
             .then(response => response.json())
-            .then(json => dispatch(checkedSessionStatus(json)))
+            .then(json => {
+                dispatch(checkedSessionStatus(json))
+            })
             .catch(error => console.log(error));
     };
 
@@ -130,6 +153,9 @@ export function attemptLogout(){
     };
 
     return dispatch => {
+
+        localStorage.removeItem('jwtToken');
+
         return fetch(`/logout`, options)
             .then(response => dispatch(logoutSuccess()))
             .catch(error => console.log(error));
@@ -139,5 +165,3 @@ export function attemptLogout(){
 export function navigatedAwayFromAuthFormPage() {
     return { type: Navigate_Away_From_Auth_Form };
 }
-
-

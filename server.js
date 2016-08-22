@@ -1,19 +1,19 @@
-var env = process.env.NODE_ENV || 'dev';
+var config = require('./server/config/config.js');
+
+var env = config.env;
+var port = config.port;
 console.log('Env: ' + env);
 
-var serverConfig = require('./server/config/config.js');
-var session  = require('express-session');
-var NedbSessionStore = require('express-nedb-session')(session);
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var express = require('express');
-var port = process.env.PORT || 3000;
+
 var morgan = require('morgan');
 var helmet = require('helmet');
 
 var app = express();
+app.config = config;
 
 if (env === 'production') {
     var copyFiles = require('./server/build/copyFiles');
@@ -32,16 +32,11 @@ if (env === 'production') {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var sessionOptions = serverConfig(NedbSessionStore);
-app.use(cookieParser(sessionOptions.secret));
-
-app.use(session(sessionOptions));
 app.use(passport.initialize());
-app.use(passport.session());
 helmet(app);
 
 var userDb = require('./server/newLocalDb.js')('users.db');
-require('./server/config/passport.js')(passport, userDb);
+require('./server/config/passport.js')(app, passport, userDb);
 
 var submissionDb = require('./server/newLocalDb.js')('submissions.db');
 require('./server/routes/index')(app, passport, submissionDb);

@@ -12,7 +12,7 @@ import store from '../store';
 class Profile extends React.Component {
 
     transferToProfileIfLoggedOut() {
-        if (!this.props.userAuthSession.isLoggedIn) {
+        if (!this.props.userAuthSession.user) {
             hashHistory.push('/login');
         }
     }
@@ -26,8 +26,8 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.userAuthSession.isLoggedIn) {
-            store.dispatch(fetchSubmissions(this.props.userAuthSession.userObject.id));
+        if (this.props.userAuthSession.user) {
+            store.dispatch(fetchSubmissions(this.props.userAuthSession.user.id));
         }
     }
 
@@ -37,10 +37,10 @@ class Profile extends React.Component {
         } = this.props;
 
         let {
-            userObject
+            user
         } = userAuthSession;
 
-        userObject = userObject || {username: "", email: "", id: ""};
+        user = user || {username: "", email: "", id: ""};
 
         let submissions = this.props.submissions.map ? this.props.submissions : [];
 
@@ -79,9 +79,9 @@ class Profile extends React.Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{userObject.id}</td>
-                            <td>{userObject.username}</td>
-                            <td>{userObject.email}</td>
+                            <td>{user.id}</td>
+                            <td>{user.username}</td>
+                            <td>{user.email}</td>
                         </tr>
                     </tbody>
                 </Table>

@@ -1,8 +1,9 @@
-var authenticationMiddleware = require('../middlewares/authentication.js');
+var passport = require('passport');
+var requireAuth = passport.authenticate('jwt', { session: false });
 
 module.exports = function(app, submissionDb) {
 
-    app.post('/submissions', authenticationMiddleware.isLoggedIn, function(req, res) {
+    app.post('/submissions', requireAuth, function(req, res) {
         var newSubmission = req.body;
 
         submissionDb.insert(newSubmission, function (err, newDoc) {

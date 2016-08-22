@@ -101,19 +101,24 @@ export function setCurrentProblem(problemId) {
 
 export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
 export function sendSubmission(result, userId) {
-    const options = {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify({
-            result: result,
-            userId: userId
-        })
-    };
 
     return dispatch => {
+
+        let token = localStorage.getItem('jwtToken');
+
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            method: 'post',
+            body: JSON.stringify({
+                result: result,
+                userId: userId
+            })
+        };
+
         return fetch(`/submissions`, options)
             .then(response => response.json())
             .then(json => dispatch(submissionSaved(json)))

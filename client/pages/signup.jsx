@@ -27,7 +27,7 @@ class SignUp extends React.Component {
     }
 
     transferToProfileIfLoggedIn(){
-        if (this.props.userAuthSession.isLoggedIn){
+        if (this.props.userAuthSession.user){
             hashHistory.push('/profile');
         }
     }
@@ -38,6 +38,15 @@ class SignUp extends React.Component {
 
     componentDidUpdate() {
         this.transferToProfileIfLoggedIn();
+
+        if(this.props.userAuthSession.error === 'That username is already being used.') {
+            if(!this.state.isUserNameFieldIncorrect){
+                let newState = Object.assign({}, this.state);
+                newState.isUserNameFieldIncorrect = true;
+                this.setState(newState);
+            }
+            findDOMNode(this.refs.username).focus();
+        }
 
         if(this.props.userAuthSession.error === "That email is already being used.") {
             if(!this.state.isEmailFieldIncorrect){

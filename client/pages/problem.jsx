@@ -19,7 +19,7 @@ class Problem extends React.Component {
         return !(this.props.problem &&
                 this.props.result.status_code === 'ACCEPTED' &&
                 this.props.sourceCode &&
-                this.props.userAuthSession.isLoggedIn)
+                this.props.userAuthSession.user)
     }
 
     render() {
@@ -28,7 +28,7 @@ class Problem extends React.Component {
         }
 
         const isSubmitDisabled = this.isSubmitDisabled();
-        const userId = this.props.userAuthSession.userObject ? this.props.userAuthSession.userObject.id : null;
+        const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
         return <Grid>
             <SubmissionDetails

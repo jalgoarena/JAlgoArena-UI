@@ -1,45 +1,46 @@
-var authenticationMiddleware = require('../middlewares/authentication.js');
 
-function addAuthRoute(app, passport, routePath, strategy) {
-    app.post(routePath, function(req, res, next) {
-        passport.authenticate(strategy, function(err, user, info) {
+
+const jwt = require('jsonwebtoken');
+
+module.exports = function(app, passport) {
+
+    var requireAuth = passport.authenticate('jwt', { session: false });
+
+    app.post("/signup", function(req, res, next) {
+        passport.authenticate('local-signup', { session: false }, function(err, success, info) {
             if (err) { return next(err); }
-            if (!user) { return res.json(info); }
-            if (user) {
-                req.logIn(user, function(err) {
-                    if (err) { return next(err); }
-                    return res.json(user);
-                });
+            if (!success) { return res.json(info); }
+            if (success) {
+                return res.json({location: '/login'});
             }
         })(req, res, next);
     });
-}
 
-module.exports = function(app, passport) {
-    addAuthRoute(app, passport, "/signup", "local-signup");
-
-    addAuthRoute(app, passport, "/login", "local-login");
-
-    app.post('/logout', authenticationMiddleware.isLoggedIn, function(req, res) {
-        req.logout();
-        req.session.destroy(function (err) {
-            if (err) {
-                console.log(err);
+    app.post('/login', function(req, res, next) {
+        passport.authenticate('local-login', { session: false }, function(err, user, info) {
+            if (err) { return next(err); }
+            if (!user) { return res.json(info); }
+            if (user) {
+                const token = jwt.sign(user, app.config.secret, {
+                    expiresIn: 10080 // in seconds
+                });
+                return res.status(200).json({ user: user, token: 'JWT ' + token });
             }
-        });
+        })(req, res, next);
+    });
+
+    app.post('/logout', requireAuth, function(req, res) {
+        req.logout();
         return res.json('logged out :)');
     });
 
-    app.post('/checkSession', function(req, res) {
-        var isLoggedIn = req.isAuthenticated();
-        if (isLoggedIn) return res.json({
-            isLoggedIn: isLoggedIn,
-            userObject: {
-                username: req.user.username,
-                id: req.user.id,
-                email: req.user.email
-            }
+    app.get('/user', requireAuth, function(req, res) {
+        var user = req.user;
+        if (user) return res.json({
+            username: req.user.username,
+            id: req.user.id,
+            email: req.user.email
         });
-        return res.json({isLoggedIn: isLoggedIn});
+        return res.json({});
     });
 };
