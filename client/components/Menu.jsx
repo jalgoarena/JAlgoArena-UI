@@ -24,8 +24,11 @@ const Menu = () => (
                 <LinkContainer to="/problems">
                     <NavItem><FontAwesome name="lightbulb-o" lg={true}/> Problems</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/contests">
+                    <NavItem><FontAwesome name="graduation-cap" lg={true}/> Contests</NavItem>
+                </LinkContainer>
                 <LinkContainer to="/leaderboard">
-                    <NavItem><FontAwesome name="trophy" lg={true}/> Leaderboard</NavItem>
+                    <NavItem><FontAwesome name="trophy" lg={true}/> Rank</NavItem>
                 </LinkContainer>
                 <LinkContainer to="/profile">
                     <NavItem><FontAwesome name="user" lg={true}/> Profile</NavItem>
