@@ -83,6 +83,30 @@ function setSubmissions(submissions) {
     }
 }
 
+export const FETCH_RANKING = 'FETCH_RANKING';
+export function fetchRanking() {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`/ranking/`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setRanking(json)))
+            .catch(error => console.log(error));
+    };
+}
+
+function setRanking(ranking) {
+    return {
+        type: FETCH_RANKING,
+        ranking
+    }
+}
+
 export const CHANGE_SOURCE_CODE = 'CHANGE_SOURCE_CODE';
 export function changeSourceCode(newValue) {
     return {

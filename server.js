@@ -39,7 +39,7 @@ var userDb = require('./server/newLocalDb.js')('users.db');
 require('./server/config/passport.js')(app, passport, userDb);
 
 var submissionDb = require('./server/newLocalDb.js')('submissions.db');
-require('./server/routes/index')(app, passport, submissionDb);
+require('./server/routes/index')(app, passport, submissionDb, userDb);
 
 if (env === 'dev') {
     console.log('Configuring DEV');
