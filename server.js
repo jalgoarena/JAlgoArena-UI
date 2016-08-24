@@ -5,6 +5,7 @@ var port = config.port;
 console.log('Env: ' + env);
 
 var path = require('path');
+var fs = require('fs');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var express = require('express');
@@ -46,7 +47,11 @@ if (env === 'dev') {
     require('./server/config/devWebpack')(app);
 
     app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'assets', req.path));
+        if (fs.existsSync(path.join(__dirname, 'assets', req.path))) {
+            res.sendFile(path.join(__dirname, 'assets', req.path));
+        } else {
+            res.sendFile(path.join(__dirname, 'assets', 'index.html'));
+        }
     });
 
     app.listen(port, 'localhost', function(err) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 
 import FontAwesome from '../components/FontAwesome';
 import {attemptLogout} from "../actions/AuthActions";
@@ -13,7 +13,7 @@ class Profile extends React.Component {
 
     transferToProfileIfLoggedOut() {
         if (!this.props.userAuthSession.user) {
-            hashHistory.push('/login');
+            browserHistory.push('/login');
         }
     }
 

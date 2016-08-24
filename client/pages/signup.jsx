@@ -2,7 +2,7 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 
 import FontAwesome from '../components/FontAwesome';
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
@@ -28,7 +28,7 @@ class SignUp extends React.Component {
 
     transferToProfileIfLoggedIn(){
         if (this.props.userAuthSession.user){
-            hashHistory.push('/profile');
+            browserHistory.push('/profile');
         }
     }
 
