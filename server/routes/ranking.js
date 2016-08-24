@@ -9,7 +9,7 @@ module.exports = function(app, submissionDb, userDb) {
             }
 
             userDb.find({}, function(err, users) {
-                return ranking(users, submissions);
+                res.json(ranking(users, submissions));
             });
         })
     });
@@ -27,7 +27,7 @@ function ranking(users, submissions) {
             return submission.result.problemId;
         });
 
-        var score = _.uniq(submittedProblems);
+        var score = _.uniq(submittedProblems).length;
 
         ranking.push(rankEntry(user.username, score));
     });
