@@ -3,7 +3,7 @@ body {
 }
 
 body, p, button {
-    font-family: "Whitney SSm A", "Whitney SSm B", "Avenir", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Ubuntu", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: normal;
 }
 
