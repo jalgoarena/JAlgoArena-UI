@@ -32,9 +32,7 @@ function ranking(users, submissions) {
         ranking.push(rankEntry(user.username, score));
     });
 
-    return _.sortBy(ranking, function(rankEntry) {
-        return rankEntry.score;
-    })
+    return _.orderBy(ranking, ['score'], ['desc']);
 }
 
 function rankEntry(userName, score) {
