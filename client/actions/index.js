@@ -145,7 +145,11 @@ export function sendSubmission(result, userId) {
 
         return fetch(`/submissions`, options)
             .then(response => response.json())
-            .then(json => dispatch(submissionSaved(json)))
+             .then(json => {
+                dispatch(submissionSaved(json));
+                dispatch(fetchSubmissions(userId));
+                dispatch(fetchRanking());
+            })
             .catch(error => console.log(error));
     };
 }
