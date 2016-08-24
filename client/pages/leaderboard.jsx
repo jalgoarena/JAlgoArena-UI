@@ -1,7 +1,8 @@
 import React from 'react';
 import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {showModal, fetchRanking} from "../actions/index";
+import {fetchRanking} from "../actions/index";
+import UserRank from '../components/UserRank';
 
 class Leaderboard extends React.Component {
 
@@ -14,23 +15,19 @@ class Leaderboard extends React.Component {
         let ranking = this.props.ranking.map ? this.props.ranking : [];
 
         let rankNodes = ranking.map((ranking, idx) =>
-            <tr key={idx}>
-                <td>{idx + 1}</td>
-                <td>{ranking.hacker}</td>
-                <td>{ranking.score}</td>
-            </tr>
+            <UserRank key={idx} idx={idx} hacker={ranking.hacker} score={ranking.score} />
         );
 
         return (
             <Grid>
                 <Col mdOffset={3} md={6}>
                     <PageHeader>Ranking</PageHeader>
-                    <Table striped bordered condensed hover>
+                    <Table striped bordered condensed hover responsive>
                         <thead>
                         <tr>
-                            <th>Problem ID</th>
-                            <th>Used Time (ms)</th>
-                            <th>Used Memory (kb)</th>
+                            <th>#</th>
+                            <th>Hacker</th>
+                            <th>Score</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,7 +43,6 @@ class Leaderboard extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userAuthSession: state.userAuthSession,
-        showModal: state.showModal,
         ranking: state.ranking
     };
 };
@@ -54,7 +50,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
-            dispatch(showModal());
             dispatch(fetchRanking());
         }
     }

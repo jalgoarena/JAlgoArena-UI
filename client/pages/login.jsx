@@ -3,14 +3,14 @@ import {findDOMNode} from 'react-dom';
 import {Grid, Col, Button, FormGroup, PageHeader} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 
 import FontAwesome from '../components/FontAwesome';
 import {attemptLogin} from "../actions/AuthActions";
 import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
 import {validateEmail, validatePassword} from '../utilities/RegexValidators';
-import {showModal} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
+import {startLogin} from "../actions/AuthActions";
 
 const initialFormState = {
     errorMessage: null,
@@ -27,7 +27,7 @@ class Login extends React.Component {
 
     transferToDashboardIfLoggedIn() {
         if (this.props.userAuthSession.user) {
-            hashHistory.push('/profile');
+            browserHistory.push('/profile');
         }
     }
 
@@ -157,7 +157,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (formData) => {
-            dispatch(showModal());
+            dispatch(startLogin());
             dispatch(attemptLogin(formData.email, formData.password));
         },
         onUnmount: () => {

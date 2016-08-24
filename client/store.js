@@ -1,10 +1,9 @@
 import rootReducer from './reducers';
-import { persistState } from 'redux-devtools';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './devtools';
 import {checkSessionStatus} from "./actions/AuthActions";
-import {showModal} from "./actions/index";
+import {fetchRanking, startFetchingProblems, fetchProblems} from "./actions";
 
 const configureStore = compose(
     applyMiddleware(thunk),
@@ -12,7 +11,9 @@ const configureStore = compose(
 )(createStore);
 
 const store = configureStore(rootReducer);
-store.dispatch(showModal());
+store.dispatch(startFetchingProblems());
+store.dispatch(fetchProblems());
 store.dispatch(checkSessionStatus());
+store.dispatch(fetchRanking());
 
 export default store;

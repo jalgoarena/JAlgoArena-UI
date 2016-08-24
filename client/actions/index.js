@@ -2,7 +2,13 @@ import fetch from 'isomorphic-fetch';
 
 const JUDGE_SERVER_URL = 'https://jalgoarena.herokuapp.com';
 
-export const JUDGE_RESULT_RECEIVED = 'JUDGE_RESULT_RECEIVED';
+export const START_JUDGE = 'START_JUDGE';
+export function startJudge() {
+    return {
+        type: START_JUDGE
+    };
+}
+
 export function judgeCode(sourceCode, problemId) {
     const options = {
         headers: {
@@ -12,15 +18,16 @@ export function judgeCode(sourceCode, problemId) {
         method: 'post',
         body: sourceCode
     };
-
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
             .then(json => dispatch(judgeResultReceived(json, sourceCode, problemId)))
             .catch(error => console.log(error));
     };
+
 }
 
+export const JUDGE_RESULT_RECEIVED = 'JUDGE_RESULT_RECEIVED';
 function judgeResultReceived(result, sourceCode, problemId) {
     return {
         type: JUDGE_RESULT_RECEIVED,
@@ -28,10 +35,10 @@ function judgeResultReceived(result, sourceCode, problemId) {
     }
 }
 
-export const SHOW_MODAL = 'SHOW_MODAL';
-export function showModal() {
+export const START_FETCHING_PROBLEMS = 'START_FETCHING_PROBLEMS';
+export function startFetchingProblems() {
     return {
-        type: SHOW_MODAL
+        type: START_FETCHING_PROBLEMS
     };
 }
 
@@ -123,6 +130,13 @@ export function setCurrentProblem(problemId) {
     }
 }
 
+export const START_SUBMISSION = 'START_SUBMISSION';
+export function startSubmission() {
+    return {
+        type: START_SUBMISSION
+    };
+}
+
 export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
 export function sendSubmission(result, userId) {
 
@@ -145,7 +159,11 @@ export function sendSubmission(result, userId) {
 
         return fetch(`/submissions`, options)
             .then(response => response.json())
-            .then(json => dispatch(submissionSaved(json)))
+             .then(json => {
+                dispatch(submissionSaved(json));
+                dispatch(fetchSubmissions(userId));
+                dispatch(fetchRanking());
+            })
             .catch(error => console.log(error));
     };
 }
