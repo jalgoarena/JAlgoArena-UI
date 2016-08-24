@@ -22,7 +22,7 @@ class Leaderboard extends React.Component {
             <Grid>
                 <Col mdOffset={3} md={6}>
                     <PageHeader>Ranking</PageHeader>
-                    <Table striped bordered condensed hover>
+                    <Table striped bordered condensed hover responsive>
                         <thead>
                         <tr>
                             <th>#</th>

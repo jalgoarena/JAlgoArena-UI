@@ -56,7 +56,7 @@ class Profile extends React.Component {
             <WorkInProgress showModal={this.props.showModal} />
             <Col mdOffset={3} md={6}>
                 <PageHeader>Submissions</PageHeader>
-                <Table striped bordered condensed hover>
+                <Table striped bordered condensed hover responsive>
                     <thead>
                     <tr>
                         <th>Problem ID</th>
@@ -69,7 +69,7 @@ class Profile extends React.Component {
                     </tbody>
                 </Table>
                 <PageHeader>Profile</PageHeader>
-                <Table striped bordered condensed hover>
+                <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
                             <th>User ID</th>
