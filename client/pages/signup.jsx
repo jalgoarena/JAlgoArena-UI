@@ -8,8 +8,8 @@ import FontAwesome from '../components/FontAwesome';
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
 import {attemptSignUp} from "../actions/AuthActions";
 import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
-import {showModal} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
+import {startSignup} from "../actions/AuthActions";
 
 const initialFormState = {
     errorMessage:  null,
@@ -67,9 +67,9 @@ class SignUp extends React.Component {
     }
 
     findErrorsInSignupForm(formData) {
-        // Only finding one error at a time.
+
         let newState = Object.assign({}, initialFormState);
-        // Checking user name
+
         if (formData.username === "") {
             newState.errorMessage = "A user name is required";
             newState.isUserNameFieldIncorrect = true;
@@ -78,7 +78,6 @@ class SignUp extends React.Component {
             newState.errorMessage = "Please enter a valid user name containing alphanumerics, dashes (-), and/or underscores (_)";
             newState.isUserNameFieldIncorrect = true;
         }
-        // Checking email
         else if (formData.email === "") {
             newState.errorMessage = "Email is required";
             newState.isEmailFieldIncorrect = true;
@@ -87,7 +86,7 @@ class SignUp extends React.Component {
             newState.errorMessage = "Please enter a valid email address";
             newState.isEmailFieldIncorrect = true;
         }
-        // Checking password
+
         else if (formData.password === "") {
             newState.errorMessage = "Password is required";
             newState.isPasswordFieldIncorrect = true;
@@ -96,7 +95,6 @@ class SignUp extends React.Component {
             newState.errorMessage = "Your password must contain at least 6 valid characters";
             newState.isPasswordFieldIncorrect = true;
         }
-        // Checking confirmed password
         else if (formData.confirmedPassword === "") {
             newState.errorMessage = "Please confirm your password";
             newState.isConfirmPasswordFieldIncorrect = true;
@@ -184,7 +182,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSignUp: (formData) => {
-            dispatch(showModal());
+            dispatch(startSignup());
             dispatch(attemptSignUp(formData.email, formData.password, formData.username));
         },
         onUnmount: () => {

@@ -9,8 +9,8 @@ import FontAwesome from '../components/FontAwesome';
 import {attemptLogin} from "../actions/AuthActions";
 import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
 import {validateEmail, validatePassword} from '../utilities/RegexValidators';
-import {showModal} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
+import {startLogin} from "../actions/AuthActions";
 
 const initialFormState = {
     errorMessage: null,
@@ -157,7 +157,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (formData) => {
-            dispatch(showModal());
+            dispatch(startLogin());
             dispatch(attemptLogin(formData.email, formData.password));
         },
         onUnmount: () => {

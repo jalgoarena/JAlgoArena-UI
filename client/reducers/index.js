@@ -5,20 +5,24 @@ import {
     CHANGE_SOURCE_CODE,
     FETCH_PROBLEMS,
     JUDGE_RESULT_RECEIVED,
-    SHOW_MODAL,
     SET_CURRENT_PROBLEM,
     SUBMISSION_SAVED,
     FETCH_SUBMISSIONS,
-    FETCH_RANKING
+    FETCH_RANKING,
+    START_JUDGE,
+    START_FETCHING_PROBLEMS,
+    START_SUBMISSION
 } from '../actions';
 
 import {
-    Checked_Session_Status,
-    Login_Fail,
-    Login_Success,
-    Logout_Success,
-    SignUp_Fail,
-    SignUp_Success
+    CHECKED_SESSION_STATUS,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    SIGNUP_FAIL,
+    SIGNUP_SUCCESS,
+    START_SIGNUP,
+    START_LOGIN
 } from '../actions/AuthActions';
 
 import {updateUserInfo} from "./AuthReducers";
@@ -40,6 +44,7 @@ function sourceCode(state = null, action) {
         case CHANGE_SOURCE_CODE:
             return action.sourceCode;
         case SET_CURRENT_PROBLEM:
+        case SUBMISSION_SAVED:
             return null;
         default:
             return state;
@@ -60,6 +65,7 @@ function result(state = { status_code: 'WAITING' }, action) {
         case JUDGE_RESULT_RECEIVED:
             return action.result;
         case SET_CURRENT_PROBLEM:
+        case SUBMISSION_SAVED:
             return { status_code: 'WAITING' };
         default:
             return state;
@@ -68,7 +74,11 @@ function result(state = { status_code: 'WAITING' }, action) {
 
 function showModal(state = false, action) {
     switch (action.type) {
-        case SHOW_MODAL:
+        case START_SIGNUP:
+        case START_LOGIN:
+        case START_JUDGE:
+        case START_FETCHING_PROBLEMS:
+        case START_SUBMISSION:
             return true;
         case SET_CURRENT_PROBLEM:
         case FETCH_PROBLEMS:
@@ -76,12 +86,12 @@ function showModal(state = false, action) {
         case SUBMISSION_SAVED:
         case FETCH_SUBMISSIONS:
         case FETCH_RANKING:
-        case Checked_Session_Status:
-        case Login_Fail:
-        case Login_Success:
-        case Logout_Success:
-        case SignUp_Fail:
-        case SignUp_Success:
+        case CHECKED_SESSION_STATUS:
+        case LOGIN_FAIL:
+        case LOGIN_SUCCESS:
+        case LOGOUT_SUCCESS:
+        case SIGNUP_FAIL:
+        case SIGNUP_SUCCESS:
             return false;
         default:
             return state;
@@ -99,7 +109,6 @@ function currentProblemId(state = null, action) {
 
 function submissions(state = [], action) {
     switch (action.type) {
-        case SUBMISSION_SAVED:
         case FETCH_SUBMISSIONS:
             return action.submissions;
         default:

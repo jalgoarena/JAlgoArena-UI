@@ -1,6 +1,15 @@
 import fetch from 'isomorphic-fetch';
 import {hashHistory} from "react-router";
 
+import {fetchSubmissions} from "./index";
+
+export const START_SIGNUP = 'START_SIGNUP';
+export function startSignup() {
+    return {
+        type: START_SIGNUP
+    };
+}
+
 export function attemptSignUp(email, password, username) {
 
     const body = {
@@ -29,44 +38,29 @@ export function attemptSignUp(email, password, username) {
                 }
             }).catch(error => console.log(error));
     };
-
 }
-export const SignUp_Success = 'SignUp_Success';
-export function signUpSuccess() {
+
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+function signUpSuccess() {
     hashHistory.push('/login');
-    return { type: SignUp_Success };
+    return {
+        type: SIGNUP_SUCCESS
+    };
 }
 
-export const SignUp_Fail = 'SignUp_Fail';
-export function signUpFail(error) {
+export const SIGNUP_FAIL = 'SIGNUP_FAIL';
+function signUpFail(error) {
     return {
-        type: SignUp_Fail,
+        type: SIGNUP_FAIL,
         error
     };
 }
 
-export const Login_Success = 'Login_Success';
-export const Login_Fail = 'Login_Fail';
-
-export const Checked_Session_Status = 'Checked_Session_Status';
-
-export const Logout_Success = 'Logout_Success';
-
-export const Navigate_Away_From_Auth_Form = 'Navigate_Away_From_Auth_Form';
-
-
-export function loginSuccess(user) {
+export const START_LOGIN = 'START_LOGIN';
+export function startLogin() {
     return {
-        type: Login_Success,
-        user
-    };
-}
-
-export function loginFail(error) {
-    return {
-        type: Login_Fail,
-        error
-    };
+        type: START_LOGIN
+    }
 }
 
 export function attemptLogin(email, password) {
@@ -100,18 +94,25 @@ export function attemptLogin(email, password) {
     };
 }
 
-export function checkedSessionStatus(user) {
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+function loginSuccess(user) {
     return {
-        type: Checked_Session_Status,
+        type: LOGIN_SUCCESS,
         user
     };
 }
 
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+function loginFail(error) {
+    return {
+        type: LOGIN_FAIL,
+        error
+    };
+}
+
+
 export function checkSessionStatus() {
-
     return dispatch => {
-
-        console.log("I'm in");
 
         let token = localStorage.getItem('jwtToken');
 
@@ -129,16 +130,22 @@ export function checkSessionStatus() {
 
         return fetch(`/user`, options)
             .then(response => response.json())
-            .then(json => {
-                dispatch(checkedSessionStatus(json))
+            .then(user => {
+                dispatch(checkedSessionStatus(user));
+                if (user) dispatch(fetchSubmissions(user.id));
             })
             .catch(error => console.log(error));
     };
 
+
 }
 
-export function logoutSuccess() {
-    return { type: Logout_Success };
+export const CHECKED_SESSION_STATUS = 'CHECKED_SESSION_STATUS';
+function checkedSessionStatus(user) {
+    return {
+        type: CHECKED_SESSION_STATUS,
+        user
+    };
 }
 
 export function attemptLogout(){
@@ -162,6 +169,16 @@ export function attemptLogout(){
     }
 }
 
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+function logoutSuccess() {
+    return {
+        type: LOGOUT_SUCCESS
+    };
+}
+
+export const NAVIGATE_AWAY_FROM_AUTH_FORM = 'NAVIGATE_AWAY_FROM_AUTH_FORM';
 export function navigatedAwayFromAuthFormPage() {
-    return { type: Navigate_Away_From_Auth_Form };
+    return {
+        type: NAVIGATE_AWAY_FROM_AUTH_FORM
+    };
 }

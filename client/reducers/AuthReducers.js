@@ -1,11 +1,11 @@
 import {
-    SignUp_Success,
-    SignUp_Fail,
-    Login_Success,
-    Login_Fail,
-    Checked_Session_Status,
-    Logout_Success,
-    Navigate_Away_From_Auth_Form
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    CHECKED_SESSION_STATUS,
+    LOGOUT_SUCCESS,
+    NAVIGATE_AWAY_FROM_AUTH_FORM
 } from '../actions/AuthActions';
 
 const defaultStartState = {
@@ -16,20 +16,20 @@ const defaultStartState = {
 export function updateUserInfo(userAuthState = defaultStartState , action) {
     switch (action.type){
 
-        case Login_Success:
+        case LOGIN_SUCCESS:
             return {
                 user: action.user,
                 error: null
             };
 
-        case Login_Fail:
-        case SignUp_Fail:
+        case LOGIN_FAIL:
+        case SIGNUP_FAIL:
             return {
                 user: null,
                 error: action.error
             };
 
-        case Checked_Session_Status:
+        case CHECKED_SESSION_STATUS:
             if (action.user && action.user.id){
                 return {
                     user: action.user,
@@ -39,11 +39,11 @@ export function updateUserInfo(userAuthState = defaultStartState , action) {
 
             return defaultStartState;
 
-        case Logout_Success:
+        case LOGOUT_SUCCESS:
             return defaultStartState;
 
-        case Navigate_Away_From_Auth_Form:
-        case SignUp_Success:
+        case NAVIGATE_AWAY_FROM_AUTH_FORM:
+        case SIGNUP_SUCCESS:
             return Object.assign({}, userAuthState, {
                 error: null
             });

@@ -2,11 +2,11 @@ import React from 'react';
 import {Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import Output from '../components/Output.jsx';
-import WorkInProgress from '../components/WorkInProgress.jsx';
-import SubmissionDetails from '../components/SubmissionDetails.jsx';
+import Output from '../components/Output';
+import WorkInProgress from '../components/WorkInProgress';
+import SubmissionDetails from '../components/SubmissionDetails';
 import store from '../store';
-import {sendSubmission, setCurrentProblem, judgeCode, showModal, changeSourceCode} from '../actions';
+import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, showModal, changeSourceCode} from '../actions';
 
 class Problem extends React.Component {
     componentDidMount() {
@@ -40,6 +40,7 @@ class Problem extends React.Component {
                 onSubmit={this.props.onSubmit}
                 userId={userId}
                 onSourceCodeChanged={this.props.onSourceCodeChanged}
+                submissions={this.props.submissions}
             />
             <Output result={this.props.result}/>
             <WorkInProgress showModal={this.props.showModal}/>
@@ -57,18 +58,19 @@ const mapStateToProps = (state) => {
         showModal: state.showModal,
         result: state.result,
         sourceCode: state.sourceCode,
-        userAuthSession: state.userAuthSession
+        userAuthSession: state.userAuthSession,
+        submissions: state.submissions
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onRun: (sourceCode, problemId) => {
-            dispatch(showModal());
+            dispatch(startJudge());
             dispatch(judgeCode(sourceCode, problemId));
         },
         onSubmit: (result, userId) => {
-            dispatch(showModal());
+            dispatch(startSubmission());
             dispatch(sendSubmission(result, userId));
         },
         onSourceCodeChanged: (sourceCode) => {
