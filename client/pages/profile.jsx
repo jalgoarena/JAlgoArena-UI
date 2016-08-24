@@ -5,7 +5,7 @@ import {browserHistory} from 'react-router';
 
 import FontAwesome from '../components/FontAwesome';
 import {attemptLogout} from "../actions/AuthActions";
-import {showModal, fetchSubmissions} from "../actions/index";
+import {fetchSubmissions} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
 import store from '../store';
 
