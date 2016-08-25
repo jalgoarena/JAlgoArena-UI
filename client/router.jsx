@@ -4,7 +4,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import {Layout} from './layout';
 import RankPage from "./pages/leaderboard";
-import Contests from "./pages/contests";
 import ProfilePage from "./pages/profile";
 import ProblemPage from "./pages/problem";
 import ProblemsPage from "./pages/problems";
@@ -23,7 +22,6 @@ export default (
             <Route component={Layout}>
                 <Route path="/" component={Home} />
                 <Route path="/problems" component={ProblemsPage} />
-                <Route path="/contests" component={Contests} />
                 <Route path="/leaderboard" component={RankPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/problem/:id" component={ProblemPage} />
