@@ -1,11 +1,11 @@
 import React from 'react';
 import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {browserHistory} from 'react-router';
+import {hashHistory} from 'react-router';
 
 import FontAwesome from '../components/FontAwesome';
 import {attemptLogout} from "../actions/AuthActions";
-import {showModal, fetchSubmissions} from "../actions/index";
+import {fetchSubmissions} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
 import store from '../store';
 
@@ -13,7 +13,7 @@ class Profile extends React.Component {
 
     transferToProfileIfLoggedOut() {
         if (!this.props.userAuthSession.user) {
-            browserHistory.push('/login');
+            hashHistory.push('/login');
         }
     }
 

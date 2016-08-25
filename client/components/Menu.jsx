@@ -24,9 +24,6 @@ const Menu = () => (
                 <LinkContainer to="/problems">
                     <NavItem><FontAwesome name="lightbulb-o" lg={true}/> Problems</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/contests">
-                    <NavItem><FontAwesome name="graduation-cap" lg={true}/> Contests</NavItem>
-                </LinkContainer>
                 <LinkContainer to="/leaderboard">
                     <NavItem><FontAwesome name="trophy" lg={true}/> Rank</NavItem>
                 </LinkContainer>

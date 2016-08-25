@@ -6,7 +6,7 @@ import Output from '../components/Output';
 import WorkInProgress from '../components/WorkInProgress';
 import SubmissionDetails from '../components/SubmissionDetails';
 import store from '../store';
-import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, showModal, changeSourceCode} from '../actions';
+import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 
 class Problem extends React.Component {
     componentDidMount() {
