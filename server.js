@@ -26,10 +26,6 @@ if (env === 'production') {
 
 app.use(morgan('tiny'));
 
-if (env === 'production') {
-    require('./server/config/opbeat.js')(app);
-}
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
