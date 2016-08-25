@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import {browserHistory} from "react-router";
+import {hashHistory} from "react-router";
 
 import {fetchSubmissions} from "./index";
 
@@ -42,7 +42,7 @@ export function attemptSignUp(email, password, username) {
 
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 function signUpSuccess() {
-    browserHistory.push('/login');
+    hashHistory.push('/login');
     return {
         type: SIGNUP_SUCCESS
     };

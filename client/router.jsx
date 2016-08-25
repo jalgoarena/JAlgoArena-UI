@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import {Layout} from './layout';
@@ -15,7 +15,7 @@ import SignUpPage from "./pages/signup";
 import { Provider } from 'react-redux'
 import store from './store';
 
-const history = syncHistoryWithStore(browserHistory, store)
+const history = syncHistoryWithStore(hashHistory, store);
 
 export default (
     <Provider store={store}>
