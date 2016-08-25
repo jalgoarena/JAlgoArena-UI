@@ -46,6 +46,10 @@ if (env === 'dev') {
     console.log('Configuring DEV');
     require('./server/config/devWebpack')(app);
 
+    app.get('/', function(req, res) {
+        res.sendFile(path.join(__dirname, 'assets', 'index.html'));
+    });
+
     app.get('*', function(req, res) {
         if (fs.existsSync(path.join(__dirname, 'assets', req.path))) {
             res.sendFile(path.join(__dirname, 'assets', req.path));
@@ -54,7 +58,7 @@ if (env === 'dev') {
         }
     });
 
-    app.listen(port, 'localhost', function(err) {
+    app.listen(port, function(err) {
         if (err) {
             console.log(err);
             return;
