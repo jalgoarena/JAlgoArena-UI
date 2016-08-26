@@ -20,11 +20,6 @@ app.config = config;
 var compression = require('compression');
 app.use(compression());
 
-if (env === 'production') {
-    var copyFiles = require('./server/build/copyFiles');
-    copyFiles(logger);
-}
-
 app.use(morgan('tiny', {'stream': logger.stream}));
 
 app.use(bodyParser.json());
@@ -39,50 +34,36 @@ require('./server/config/passport.js')(app, passport, userDb);
 var submissionDb = require('./server/newLocalDb.js')('submissions.db', logger);
 require('./server/routes/index')(app, passport, submissionDb, userDb);
 
-if (env === 'dev') {
-    logger.debug('Configuring DEV');
-    require('./server/config/devWebpack')(app, logger);
+logger.debug('Configuring: ' + env);
 
-    app.use(serveStatic(path.join(__dirname, 'assets')));
+var assetsDir;
 
-    app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'assets', 'index.html'));
-    });
-
-    app.listen(port, function(err) {
-        if (err) {
-            logger.error(err);
-            return;
-        }
-
-        logger.info('Listening at http://localhost:' + port);
-    });
+if (env == 'production') {
+    require('./server/build/copyFiles')(logger);
+    assetsDir = path.join(__dirname, 'public', 'assets');
 } else {
-    logger.debug('Configuring PROD');
-
-    app.use(serveStatic(path.join(__dirname, 'public', 'assets')));
-
-    var envs = require('envs');
-    app.set('environment', envs('NODE_ENV', 'production'));
-
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'public', 'assets', 'index.html'));
-    });
-
-    var host = process.env.HOST || '0.0.0.0';
-    var http = require('http');
-
-    const server = http.createServer(app);
-
-    app.use(function (err, req, res, next) {
-        logger.error(err);
-        next(err);
-    });
-
-    var errorHandler = require('express-error-handler');
-    app.use(errorHandler({server: server}));
-
-    app.listen(port, host, function () {
-        logger.info('Server started at http://' + host + ':' + port);
-    });
+    require('./server/config/devWebpack')(app, logger);
+    assetsDir = path.join(__dirname, 'assets');
 }
+
+app.use(serveStatic(assetsDir));
+
+app.get('*', function (req, res) {
+    res.sendFile(path.join(assetsDir, 'index.html'));
+});
+
+var http = require('http');
+
+const server = http.createServer(app);
+
+app.use(function (err, req, res, next) {
+    logger.error(err);
+    next(err);
+});
+
+var errorHandler = require('express-error-handler');
+app.use(errorHandler({server: server}));
+
+app.listen(port, function () {
+    logger.info('Server started at http://localhost:' + port);
+});

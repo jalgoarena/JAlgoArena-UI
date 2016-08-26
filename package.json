@@ -40,7 +40,6 @@
     "brace": "^0.8.0",
     "compression": "^1.6.2",
     "cp-file": "^3.2.0",
-    "envs": "^0.1.6",
     "express": "^4.14.0",
     "express-error-handler": "^1.1.0",
     "helmet": "^2.1.2",
