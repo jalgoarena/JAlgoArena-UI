@@ -2,7 +2,9 @@ var config = require('./server/config/config.js');
 
 var env = config.env;
 var port = config.port;
-console.log('Env: ' + env);
+var logger = require('./server/config/logger.js');
+
+logger.debug('Env: ' + env);
 
 var path = require('path');
 var fs = require('fs');
@@ -15,16 +17,15 @@ var helmet = require('helmet');
 
 var app = express();
 app.config = config;
+var compression = require('compression');
+app.use(compression());
 
 if (env === 'production') {
     var copyFiles = require('./server/build/copyFiles');
-    copyFiles();
-
-    var compression = require('compression');
-    app.use(compression());
+    copyFiles(logger);
 }
 
-app.use(morgan('tiny'));
+app.use(morgan('tiny', {'stream': logger.stream}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,15 +33,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 helmet(app);
 
-var userDb = require('./server/newLocalDb.js')('users.db');
+var userDb = require('./server/newLocalDb.js')('users.db', logger);
 require('./server/config/passport.js')(app, passport, userDb);
 
-var submissionDb = require('./server/newLocalDb.js')('submissions.db');
+var submissionDb = require('./server/newLocalDb.js')('submissions.db', logger);
 require('./server/routes/index')(app, passport, submissionDb, userDb);
 
 if (env === 'dev') {
-    console.log('Configuring DEV');
-    require('./server/config/devWebpack')(app);
+    logger.debug('Configuring DEV');
+    require('./server/config/devWebpack')(app, logger);
 
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname, 'assets', 'index.html'));
@@ -56,14 +57,14 @@ if (env === 'dev') {
 
     app.listen(port, function(err) {
         if (err) {
-            console.log(err);
+            logger.error(err);
             return;
         }
 
-        console.log('Listening at http://localhost:' + port);
+        logger.info('Listening at http://localhost:' + port);
     });
 } else {
-    console.log('Configuring PROD');
+    logger.debug('Configuring PROD');
     var serveStatic = require('serve-static');
     app.use(serveStatic(path.join(__dirname, 'public', 'assets')));
 
@@ -86,7 +87,7 @@ if (env === 'dev') {
     const server = http.createServer(app);
 
     app.use(function (err, req, res, next) {
-        console.log(err);
+        logger.error(err);
         next(err);
     });
 
@@ -94,6 +95,6 @@ if (env === 'dev') {
     app.use(errorHandler({server: server}));
 
     app.listen(port, host, function () {
-        console.log('Server started at http://' + host + ':' + port);
+        logger.info('Server started at http://' + host + ':' + port);
     });
 }

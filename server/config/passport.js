@@ -83,7 +83,6 @@ module.exports = function(app, passport, userDb) {
                         }
 
                         if (!doc) {
-                            console.log("no user found...");
                             return done(null, false, {error: 'Incorrect login or password.'});
                         }
 
