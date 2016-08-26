@@ -1,10 +1,12 @@
 var Datastore = require('nedb');
 
-module.exports = function (filename) {
+module.exports = function (filename, logger) {
     var userDb = new Datastore({filename: filename, autoload: true});
     userDb.loadDatabase(function (err) {
         if (err) {
-            console.log(err);
+            logger.error(err);
+        } else {
+            logger.debug("DB loaded: " + filename);
         }
     });
 

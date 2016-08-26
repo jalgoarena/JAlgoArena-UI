@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\"",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
-    "dev": "node server.js",
+    "dev": "node server.js --trace-sync-io",
     "prod": "NODE_ENV=production node server.js",
     "prebuild": "rimraf public",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
@@ -40,7 +40,6 @@
     "brace": "^0.8.0",
     "compression": "^1.6.2",
     "cp-file": "^3.2.0",
-    "envs": "^0.1.6",
     "express": "^4.14.0",
     "express-error-handler": "^1.1.0",
     "helmet": "^2.1.2",
@@ -71,7 +70,8 @@
     "rimraf": "^2.5.4",
     "serve-static": "^1.11.1",
     "spin.js": "^2.3.2",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "react-transform-catch-errors": "^1.0.2",

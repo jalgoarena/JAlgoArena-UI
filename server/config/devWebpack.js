@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, logger) {
     var config = require('../../webpack.config.dev');
     var webpack = require('webpack');
     var compiler = webpack(config);
@@ -9,7 +9,7 @@ module.exports = function (app) {
     }));
 
     app.use(require("webpack-hot-middleware")(compiler, {
-        log: console.log,
+        log: logger.debug,
         path: '/__webpack_hmr',
         heartbeat: 10 * 1000
     }));
