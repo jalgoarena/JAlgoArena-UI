@@ -1,13 +1,12 @@
-var config = require('./config/config.js');
+var config = require('./server/config/config.js');
 
 var env = config.env;
 var port = config.port;
-var logger = require('./config/logger.js');
+var logger = require('./server/config/logger.js');
 
 logger.debug('Env: ' + env);
 
 var path = require('path');
-var fs = require('fs');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var express = require('express');
@@ -21,7 +20,7 @@ var compression = require('compression');
 app.use(compression());
 
 if (env === 'production') {
-    var copyFiles = require('./build/copyFiles');
+    var copyFiles = require('./server/build/copyFiles');
     copyFiles(logger);
 }
 
@@ -33,26 +32,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 helmet(app);
 
-var userDb = require('./newLocalDb.js')('users.db', logger);
-require('./config/passport.js')(app, passport, userDb);
+var userDb = require('./server/newLocalDb.js')('users.db', logger);
+require('./server/config/passport.js')(app, passport, userDb);
 
-var submissionDb = require('./newLocalDb.js')('submissions.db', logger);
-require('./routes/index')(app, passport, submissionDb, userDb);
+var submissionDb = require('./server/newLocalDb.js')('submissions.db', logger);
+require('./server/routes/index')(app, passport, submissionDb, userDb);
 
 if (env === 'dev') {
     logger.debug('Configuring DEV');
-    require('./config/devWebpack')(app, logger);
+    require('./server/config/devWebpack')(app, logger);
 
-    app.get('/', function(req, res) {
-        res.sendFile(path.join(__dirname, 'assets', 'index.html'));
+    app.get('*.css', function (req, res) {
+        res.sendFile(path.join(__dirname, 'assets', req.path));
+    });
+
+    app.get('*.png', function (req, res) {
+        res.sendFile(path.join(__dirname, 'assets', req.path));
     });
 
     app.get('*', function(req, res) {
-        if (fs.existsSync(path.join(__dirname, 'assets', req.path))) {
-            res.sendFile(path.join(__dirname, 'assets', req.path));
-        } else {
-            res.sendFile(path.join(__dirname, 'assets', 'index.html'));
-        }
+        res.sendFile(path.join(__dirname, 'assets', 'index.html'));
     });
 
     app.listen(port, function(err) {
