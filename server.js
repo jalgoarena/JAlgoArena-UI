@@ -13,6 +13,7 @@ var express = require('express');
 
 var morgan = require('morgan');
 var helmet = require('helmet');
+var serveStatic = require('serve-static');
 
 var app = express();
 app.config = config;
@@ -42,13 +43,7 @@ if (env === 'dev') {
     logger.debug('Configuring DEV');
     require('./server/config/devWebpack')(app, logger);
 
-    app.get('*.css', function (req, res) {
-        res.sendFile(path.join(__dirname, 'assets', req.path));
-    });
-
-    app.get('*.png', function (req, res) {
-        res.sendFile(path.join(__dirname, 'assets', req.path));
-    });
+    app.use(serveStatic(path.join(__dirname, 'assets')));
 
     app.get('*', function(req, res) {
         res.sendFile(path.join(__dirname, 'assets', 'index.html'));
@@ -64,21 +59,15 @@ if (env === 'dev') {
     });
 } else {
     logger.debug('Configuring PROD');
-    var serveStatic = require('serve-static');
+
     app.use(serveStatic(path.join(__dirname, 'public', 'assets')));
 
     var envs = require('envs');
     app.set('environment', envs('NODE_ENV', 'production'));
 
-    var routes = function (app) {
-        app.get('*', function (req, res) {
-            res.sendFile(path.join(__dirname, 'public', 'assets', 'index.html'));
-        });
-    };
-
-    var router = express.Router();
-    routes(router);
-    app.use(router);
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'public', 'assets', 'index.html'));
+    });
 
     var host = process.env.HOST || '0.0.0.0';
     var http = require('http');
