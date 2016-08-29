@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
     entry: [
+        'babel-polyfill',
         'webpack-hot-middleware/client',
         "./client/index"
     ],
