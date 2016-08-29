@@ -46,9 +46,8 @@ class Profile extends React.Component {
 
         let submissionNodes = submissions.map((submission, idx) =>
             <tr key={idx}>
-                <td>{submission.result.problemId}</td>
-                <td>{submission.result.elapsed_time}</td>
-                <td>{submission.result.consumed_memory}</td>
+                <td>{submission.problemId}</td>
+                <td>{submission.elapsed_time}</td>
             </tr>
         );
 
@@ -61,7 +60,6 @@ class Profile extends React.Component {
                     <tr>
                         <th>Problem ID</th>
                         <th>Used Time (ms)</th>
-                        <th>Used Memory (kb)</th>
                     </tr>
                     </thead>
                     <tbody>

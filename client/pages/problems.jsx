@@ -12,7 +12,7 @@ class Problems extends React.Component {
 
         let problemNodes = problems.map((problem, idx) => {
 
-            let submittedProblems = _.map(this.props.submissions, (submission) => submission.result.problemId);
+            let submittedProblems = _.map(this.props.submissions, (submission) => submission.problemId);
 
             const isDone = _.includes(submittedProblems, problem.id);
 

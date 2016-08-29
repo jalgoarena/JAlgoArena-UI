@@ -138,7 +138,7 @@ export function startSubmission() {
 }
 
 export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
-export function sendSubmission(result, userId) {
+export function sendSubmission(result, userId, problem) {
 
     return dispatch => {
 
@@ -152,7 +152,10 @@ export function sendSubmission(result, userId) {
             },
             method: 'post',
             body: JSON.stringify({
-                result: result,
+                problemId: problem.id,
+                level: problem.level,
+                elapsed_time: result.elapsed_time,
+                sourceCode: result.sourceCode,
                 userId: userId
             })
         };

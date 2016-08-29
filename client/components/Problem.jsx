@@ -29,8 +29,8 @@ const Problem = ({title, id, timeLimit, memoryLimit, isDone}) => {
                     </Button>
                 </LinkContainer>
 
-                Time Limit: {timeLimit}<br />
-                Memory Limit: {memoryLimit}
+                Time Limit is {timeLimit} sec<br />
+                Memory Limit is {memoryLimit} kb
             </Row>
         </Col>
     );

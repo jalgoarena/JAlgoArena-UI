@@ -31,8 +31,9 @@ helmet(app);
 var userDb = require('./server/newLocalDb.js')('users.db', logger);
 require('./server/config/passport.js')(app, passport, userDb);
 
+var ranking = require('./server/core/ranking.js').ranking;
 var submissionDb = require('./server/newLocalDb.js')('submissions.db', logger);
-require('./server/routes/index')(app, passport, submissionDb, userDb);
+require('./server/routes/index')(app, passport, submissionDb, userDb, ranking);
 
 logger.debug('Configuring: ' + env);
 
