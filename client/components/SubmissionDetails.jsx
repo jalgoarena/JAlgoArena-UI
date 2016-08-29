@@ -11,7 +11,7 @@ const SubmissionDetails = ({problem, result, sourceCode, onRun, onSubmit, onSour
 
     let title = <PageHeader>{problem.title}</PageHeader>;
 
-    let submittedProblems = _.map(submissions, (submission) => submission.result.problemId);
+    let submittedProblems = _.map(submissions, (submission) => submission.problemId);
 
     if (_.includes(submittedProblems, problem.id)) {
         title = <PageHeader className="text-success">{problem.title} <FontAwesome name="check-circle" /></PageHeader>;
@@ -26,9 +26,7 @@ const SubmissionDetails = ({problem, result, sourceCode, onRun, onSubmit, onSour
                 onSourceCodeChanged={onSourceCodeChanged}
             />
             <SubmissionPanel
-                timeLimit={problem.time_limit}
-                memoryLimit={problem.memory_limit}
-                problemId={problem.id}
+                problem={problem}
                 userId={userId}
                 result={result}
                 sourceCode={sourceCode}

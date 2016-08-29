@@ -69,9 +69,9 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(startJudge());
             dispatch(judgeCode(sourceCode, problemId));
         },
-        onSubmit: (result, userId) => {
+        onSubmit: (result, userId, problem) => {
             dispatch(startSubmission());
-            dispatch(sendSubmission(result, userId));
+            dispatch(sendSubmission(result, userId, problem));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))

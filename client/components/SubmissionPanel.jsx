@@ -6,25 +6,25 @@ import SubmitButton from './SubmitButton';
 import MemoryLimit from './MemoryLimit';
 import TimeLimit from './TimeLimit';
 
-const SubmissionPanel = ({problemId, sourceCode, result, userId, onRun, onSubmit, timeLimit, memoryLimit, isSubmitDisabled}) => (
+const SubmissionPanel = ({problem, sourceCode, result, userId, onRun, onSubmit, isSubmitDisabled}) => (
     <div>
         <ButtonToolbar className="pull-right">
                 <RunButton
-                    problemId={problemId}
+                    problemId={problem.id}
                     sourceCode={sourceCode}
                     onRun={onRun}
                 />
                 <SubmitButton
+                    problem={problem}
                     result={result}
                     userId={userId}
                     onSubmit={onSubmit}
                     isSubmitDisabled={isSubmitDisabled}
                 />
         </ButtonToolbar>
-
-        <TimeLimit timeLimit={timeLimit}/>
+        <TimeLimit timeLimit={problem.time_limit}/>
         <br />
-        <MemoryLimit memoryLimit={memoryLimit}/>
+        <MemoryLimit memoryLimit={problem.memory_limit}/>
     </div>
 );
 
