@@ -1,5 +1,6 @@
 import React from 'react';
-import {Row, PageHeader} from 'react-bootstrap';
+import {Row, PageHeader, Button} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import _ from 'lodash';
 
 import ProblemDescription from './ProblemDescription';
@@ -14,7 +15,14 @@ const SubmissionDetails = ({problem, result, sourceCode, onRun, onSubmit, onSour
     let submittedProblems = _.map(submissions, (submission) => submission.problemId);
 
     if (_.includes(submittedProblems, problem.id)) {
-        title = <PageHeader className="text-success">{problem.title} <FontAwesome name="check-circle" /></PageHeader>;
+        title = <PageHeader className="text-success">
+            {problem.title} <FontAwesome name="check-circle" />
+            <LinkContainer to={"problem/" + problem.id + "/rank"} className="pull-right">
+                <Button
+                    bsStyle="info"
+                ><FontAwesome name="trophy" lg={true}/> Problem Ranking</Button>
+            </LinkContainer>
+        </PageHeader>;
     }
 
     return (

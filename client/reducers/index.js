@@ -11,7 +11,8 @@ import {
     FETCH_RANKING,
     START_JUDGE,
     START_FETCHING_PROBLEMS,
-    START_SUBMISSION
+    START_SUBMISSION,
+    FETCH_PROBLEM_RANKING
 } from '../actions';
 
 import {
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
     routing: routerReducer,
     userAuthSession: updateUserInfo,
     submissions,
-    ranking
+    ranking,
+    problemRanking
 });
 
 function sourceCode(state = null, action) {
@@ -120,6 +122,15 @@ function ranking(state = [], action) {
     switch (action.type) {
         case FETCH_RANKING:
             return action.ranking;
+        default:
+            return state;
+    }
+}
+
+function problemRanking(state = [], action) {
+    switch (action.type) {
+        case FETCH_PROBLEM_RANKING:
+            return action.problemRanking;
         default:
             return state;
     }

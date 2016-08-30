@@ -94,7 +94,6 @@ class Profile extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userAuthSession: state.userAuthSession,
-        showModal: state.showModal,
         submissions: state.submissions
     };
 };
@@ -102,7 +101,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => {
-            dispatch(showModal());
             dispatch(attemptLogout());
         }
     }

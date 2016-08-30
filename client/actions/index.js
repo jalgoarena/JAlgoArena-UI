@@ -90,6 +90,30 @@ function setSubmissions(submissions) {
     }
 }
 
+export const FETCH_PROBLEM_RANKING = 'FETCH_PROBLEM_RANKING';
+export function fetchProblemRanking(problemId) {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`/ranking/${problemId}`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setProblemRanking(json)))
+            .catch(error => console.log(error));
+    };
+}
+
+function setProblemRanking(problemRanking) {
+    return {
+        type: FETCH_PROBLEM_RANKING,
+        problemRanking
+    }
+}
+
 export const FETCH_RANKING = 'FETCH_RANKING';
 export function fetchRanking() {
     const options = {
