@@ -8,12 +8,36 @@ function ranking(users, submissions) {
             return submission.userId === user._id;
         });
 
+        var solvedProblems = _.map(_.uniq(userSubmissions, 'problemId'), function(submission) {
+            return submission.problemId;
+        });
+
         ranking.push(
-            rankEntry(user.username, score(userSubmissions))
+            rankEntry(user.username, score(userSubmissions), solvedProblems)
         );
     });
 
     return _.orderBy(ranking, ['score'], ['desc']);
+}
+
+function problemRanking(users, submissions) {
+    var ranking = [];
+
+    _.forEach(submissions, function (submission) {
+        var username = users.filter(function (user) {
+            return user._id === submission.userId
+        })[0].username;
+
+        var index = _.indexOf(ranking, _.find(ranking, {hacker: username}));
+
+        var rankingEntry = {hacker: username, score: score([submission]), elapsed_time: submission.elapsed_time};
+
+        if (index === -1) {
+            ranking.push(rankingEntry);
+        }
+    });
+
+    return _.orderBy(ranking, ['elapsed_time']);
 }
 
 function score(userSubmissions) {
@@ -44,11 +68,12 @@ function score(userSubmissions) {
     });
 }
 
-function rankEntry(userName, score) {
+function rankEntry(userName, score, solvedProblems) {
     return {
         hacker: userName,
-        score
+        score,
+        solvedProblems
     }
 }
 
-module.exports = {ranking, score};
+module.exports = {ranking, score, problemRanking};
