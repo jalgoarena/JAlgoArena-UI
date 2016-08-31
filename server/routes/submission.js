@@ -6,19 +6,24 @@ module.exports = function(app, submissionDb) {
     app.post('/submissions', requireAuth, function(req, res) {
         var newSubmission = req.body;
 
-        submissionDb.insert(newSubmission, function (err, newDoc) {
-            if (err) {
-                return res.json({error: err});
-            }
-
-            submissionDb.find({userId: newDoc.userId}, function (err, docs) {
+        submissionDb.update(
+            {userId: newSubmission.userId, problemId: newSubmission.problemId},
+            newSubmission,
+            {upsert: true},
+            function (err) {
                 if (err) {
                     return res.json({error: err});
                 }
 
-                return res.json(docs);
-            })
-        })
+                submissionDb.find({userId: newSubmission.userId}, function (err, docs) {
+                    if (err) {
+                        return res.json({error: err});
+                    }
+
+                    return res.json(docs);
+                });
+            }
+        );
     });
 
     app.get('/submissions/:userId', function(req, res) {

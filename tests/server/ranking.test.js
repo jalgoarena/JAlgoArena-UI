@@ -62,18 +62,6 @@ describe('Ranking', function() {
             var ranking = problemRanking(users, submissions);
             expect(ranking[1].hacker).to.equal('A_user');
         });
-
-        it('should ignore first A result and return still 3 positions in the ranking', function () {
-            var submissions = [
-                _.assign({}, submission, {userId: 'A', elapsed_time: 500.0}),
-                _.assign({}, submission, {userId: 'B', elapsed_time: 0}),
-                _.assign({}, submission, {userId: 'C', elapsed_time: 10}),
-            ];
-
-            submissions.push(_.assign({}, submission, {userId: 'A', elapsed_time: 5.0}));
-            var ranking = problemRanking(users, submissions);
-            expect(ranking.length).to.equal(3);
-        });
     });
 
     it('should return 25 points for 2 problems solved, 1 easy solved in 15 ms, and 1 mid solved in 0 ms', function() {

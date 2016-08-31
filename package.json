@@ -4,7 +4,7 @@
   "description": "JAlgoArena UI",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "mocha tests/*",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
     "dev": "node server.js --trace-sync-io",
