@@ -44,7 +44,7 @@ export default class SubmissionResult extends React.Component {
             case 'TIME_LIMIT_EXCEEDED':
                 return <SubmissionFailed>Time Limit Exceeded</SubmissionFailed>;
             default:
-                return <SubmissionFailed>Unsupported status code: {this.props.result.status_code}</SubmissionFailed>;
+                return <SubmissionFailed>Internal Server Error, Sorry :(</SubmissionFailed>;
         }
     }
 }
