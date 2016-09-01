@@ -8,13 +8,13 @@ import {hashHistory} from 'react-router';
 import FontAwesome from '../components/FontAwesome';
 import {attemptLogin} from "../actions/AuthActions";
 import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
-import {validateEmail, validatePassword} from '../utilities/RegexValidators';
+import {validateUserName, validatePassword} from '../utilities/RegexValidators';
 import WorkInProgress from '../components/WorkInProgress';
 import {startLogin} from "../actions/AuthActions";
 
 const initialFormState = {
     errorMessage: null,
-    isEmailFieldIncorrect: false,
+    isUsernameFieldIncorrect: false,
     isPasswordFieldIncorrect: false
 };
 
@@ -39,12 +39,12 @@ class Login extends React.Component {
         this.transferToDashboardIfLoggedIn();
 
         if (this.props.userAuthSession.error === "Incorrect login or password.") {
-            if (!this.state.isEmailFieldIncorrect) {
+            if (!this.state.isUsernameFieldIncorrect) {
                 let newState = Object.assign({}, this.state);
-                newState.isEmailFieldIncorrect = true;
+                newState.isUsernameFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.refs.email).focus();
+            findDOMNode(this.refs.username).focus();
         }
     }
 
@@ -53,7 +53,7 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        findDOMNode(this.refs.email).focus();
+        findDOMNode(this.refs.username).focus();
     }
 
     getInputContainerClass(inputIncorrect) {
@@ -64,16 +64,14 @@ class Login extends React.Component {
         // Only finding one error at a time.
         let newState = Object.assign({}, initialFormState);
 
-        // Checking email
-        if (formData.email === "") {
-            newState.errorMessage = "Email is required";
-            newState.isEmailFieldIncorrect = true;
+        if (formData.username === "") {
+            newState.errorMessage = "Username is required";
+            newState.isUsernameFieldIncorrect = true;
         }
-        else if (!validateEmail(formData.email)) {
+        else if (!validateUserName(formData.username)) {
             newState.errorMessage = "Please enter a valid email address";
-            newState.isEmailFieldIncorrect = true;
+            newState.isUsernameFieldIncorrect = true;
         }
-        // Checking password
         else if (formData.password === "") {
             newState.errorMessage = "Password is required";
             newState.isPasswordFieldIncorrect = true;
@@ -88,7 +86,7 @@ class Login extends React.Component {
 
     onLogin() {
         const formData = {
-            email: findDOMNode(this.refs.email).value.trim(),
+            username: findDOMNode(this.refs.username).value.trim(),
             password: findDOMNode(this.refs.password).value.trim(),
         };
 
@@ -121,8 +119,8 @@ class Login extends React.Component {
                 <PageHeader className="text-center">Sign In</PageHeader>
                 {errorLabel}
                 <form>
-                    <div className={this.getInputContainerClass(this.state.isEmailFieldIncorrect)}>
-                        <input className="form-control" type="text" placeholder="Email" ref="email"/>
+                    <div className={this.getInputContainerClass(this.state.isUsernameFieldIncorrect)}>
+                        <input className="form-control" type="text" placeholder="Username" ref="username"/>
                     </div>
                     <div className={this.getInputContainerClass(this.state.isPasswordFieldIncorrect)}>
                         <input className="form-control" type="password" placeholder="Password" ref="password" />
@@ -158,7 +156,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (formData) => {
             dispatch(startLogin());
-            dispatch(attemptLogin(formData.email, formData.password));
+            dispatch(attemptLogin(formData.username, formData.password));
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
