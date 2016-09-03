@@ -13,7 +13,19 @@ const problemStyle = {
     padding: "1em 2em 1em"
 };
 
-const Problem = ({title, id, timeLimit, memoryLimit, isDone}) => {
+function difficulty(level) {
+    if (level === 3) {
+        return 'Hard';
+    }
+
+    if (level === 2) {
+        return 'Medium';
+    }
+
+    return "Easy";
+}
+
+const Problem = ({title, id, level, isDone}) => {
     const checkControl = isDone ? <FontAwesome name="check" /> : null;
 
     return (
@@ -29,8 +41,8 @@ const Problem = ({title, id, timeLimit, memoryLimit, isDone}) => {
                     </Button>
                 </LinkContainer>
 
-                Time Limit is {timeLimit} sec<br />
-                Memory Limit is {memoryLimit} kb
+                <span className="text-muted">Difficulty:</span> <span className="text-primary">{difficulty(level)}</span><br />
+                <span className="text-muted">Max Score:</span> <span className="text-primary">{level * 10}</span>
             </Row>
         </Col>
     );
