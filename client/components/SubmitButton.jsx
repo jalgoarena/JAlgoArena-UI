@@ -1,16 +1,14 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
 
 import FontAwesome from './FontAwesome';
 
 const SubmitButton = ({result, userId, onSubmit, isSubmitDisabled, problem}) => (
-    <Button
-        bsStyle="success"
-        bsSize="large"
+    <button
+        className="pulse-button btn btn-lg btn-success"
         disabled={isSubmitDisabled}
         onClick={() => onSubmit(result, userId, problem)}>
         <FontAwesome name="send"/> Submit
-    </Button>
+    </button>
 );
 
 export default SubmitButton;
