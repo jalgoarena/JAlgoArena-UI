@@ -64,3 +64,21 @@ hr.star-light:after {
 #menu > li > a:hover {
     color: #4078c0
 }
+
+.problems-filter-enter {
+    opacity: 0.01;
+}
+
+.problems-filter-enter.problems-filter-enter-active {
+    opacity: 1;
+    transition: opacity 600ms ease-in;
+}
+
+.problems-filter-leave {
+    opacity: 1;
+}
+
+.problems-filter-leave.problems-filter-leave-active {
+    opacity: 0.01;
+    transition: opacity 600ms ease-in;
+}

@@ -52,6 +52,7 @@
     "passport-local": "^1.0.0",
     "react": "^15.3.0",
     "react-ace": "^3.5.0",
+    "react-addons-css-transition-group": "^15.3.1",
     "react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
@@ -66,6 +67,7 @@
     "redux-devtools-log-monitor": "^1.0.11",
     "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.4",
+    "s": "^0.1.1",
     "serve-static": "^1.11.1",
     "webpack": "^1.13.1",
     "winston": "^2.2.0"

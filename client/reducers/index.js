@@ -12,7 +12,8 @@ import {
     START_JUDGE,
     START_FETCHING_PROBLEMS,
     START_SUBMISSION,
-    FETCH_PROBLEM_RANKING
+    FETCH_PROBLEM_RANKING,
+    SET_CURRENT_PROBLEMS_FILTER
 } from '../actions';
 
 import {
@@ -38,7 +39,8 @@ const rootReducer = combineReducers({
     userAuthSession: updateUserInfo,
     submissions,
     ranking,
-    problemRanking
+    problemRanking,
+    problemsFilter
 });
 
 function sourceCode(state = null, action) {
@@ -131,6 +133,15 @@ function problemRanking(state = [], action) {
     switch (action.type) {
         case FETCH_PROBLEM_RANKING:
             return action.problemRanking;
+        default:
+            return state;
+    }
+}
+
+function problemsFilter(state = 0, action) {
+    switch (action.type) {
+        case SET_CURRENT_PROBLEMS_FILTER:
+            return action.level;
         default:
             return state;
     }
