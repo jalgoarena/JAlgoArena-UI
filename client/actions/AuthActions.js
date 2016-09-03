@@ -63,10 +63,10 @@ export function startLogin() {
     }
 }
 
-export function attemptLogin(email, password) {
+export function attemptLogin(username, password) {
 
     const body = {
-        email: email,
+        username: username,
         password: password
     };
 

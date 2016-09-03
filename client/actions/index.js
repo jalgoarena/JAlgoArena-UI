@@ -154,6 +154,14 @@ export function setCurrentProblem(problemId) {
     }
 }
 
+export const SET_CURRENT_PROBLEMS_FILTER = 'SET_CURRENT_PROBLEMS_FILTER';
+export function setCurrentProblemsFilter(level) {
+    return {
+        type: SET_CURRENT_PROBLEMS_FILTER,
+        level
+    }
+}
+
 export const START_SUBMISSION = 'START_SUBMISSION';
 export function startSubmission() {
     return {

@@ -70,13 +70,13 @@ module.exports = function(app, passport, userDb) {
     passport.use(
         'local-login',
         new LocalStrategy({
-                usernameField : 'email',
+                usernameField : 'username',
                 passwordField : 'password',
                 session: false,
                 passReqToCallback : true
             },
-            function(req, email, password, done) {
-                userDb.findOne({email: email},
+            function(req, username, password, done) {
+                userDb.findOne({username: username},
                     function (err, doc) {
                         if (err) {
                             return done(err);

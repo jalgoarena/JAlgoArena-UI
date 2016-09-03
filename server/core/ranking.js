@@ -8,7 +8,7 @@ function ranking(users, submissions) {
             return submission.userId === user._id;
         });
 
-        var solvedProblems = _.map(_.uniq(userSubmissions, 'problemId'), function(submission) {
+        var solvedProblems = _.map(userSubmissions, function(submission) {
             return submission.problemId;
         });
 
@@ -28,13 +28,7 @@ function problemRanking(users, submissions) {
             return user._id === submission.userId
         })[0].username;
 
-        var index = _.indexOf(ranking, _.find(ranking, {hacker: username}));
-
-        var rankingEntry = {hacker: username, score: score([submission]), elapsed_time: submission.elapsed_time};
-
-        if (index === -1) {
-            ranking.push(rankingEntry);
-        }
+        ranking.push({hacker: username, score: score([submission]), elapsed_time: submission.elapsed_time});
     });
 
     return _.orderBy(ranking, ['elapsed_time']);
