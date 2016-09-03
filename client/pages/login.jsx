@@ -69,7 +69,7 @@ class Login extends React.Component {
             newState.isUsernameFieldIncorrect = true;
         }
         else if (!validateUserName(formData.username)) {
-            newState.errorMessage = "Please enter a valid email address";
+            newState.errorMessage = "Please enter a valid user name";
             newState.isUsernameFieldIncorrect = true;
         }
         else if (formData.password === "") {
