@@ -5,10 +5,16 @@ import {connect} from 'react-redux';
 import Output from '../components/Output';
 import WorkInProgress from '../components/WorkInProgress';
 import SubmissionDetails from '../components/SubmissionDetails';
+import LinkedListNodeSourceCode from '../components/LinkedListNodeSourceCode';
 import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
+import {problemRefresh} from "../actions/index";
 
 class Problem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {showLinkedListNodeSourceCode: false}
+    }
     componentDidMount() {
         if (store.getState().currentProblemId !== this.props.params.id) {
             store.dispatch(setCurrentProblem(this.props.params.id));
@@ -20,6 +26,14 @@ class Problem extends React.Component {
                 this.props.result.status_code === 'ACCEPTED' &&
                 this.props.sourceCode &&
                 this.props.userAuthSession.user)
+    }
+
+    showLinkedListNodeSourceCode() {
+        this.setState({showLinkedListNodeSourceCode: true});
+    }
+
+    hideLinkedListNodeSourceCode() {
+        this.setState({showLinkedListNodeSourceCode: false});
     }
 
     render() {
@@ -34,15 +48,21 @@ class Problem extends React.Component {
             <SubmissionDetails
                 problem={this.props.problem}
                 result={this.props.result}
-                sourceCode={this.props.sourceCode}
+                sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
                 isSubmitDisabled={isSubmitDisabled}
                 onRun={this.props.onRun}
                 onSubmit={this.props.onSubmit}
                 userId={userId}
                 onSourceCodeChanged={this.props.onSourceCodeChanged}
                 submissions={this.props.submissions}
+                onShowLinkedListNodeSourceCode={this.showLinkedListNodeSourceCode.bind(this)}
+                onRefresh={this.props.onRefresh}
             />
             <Output result={this.props.result}/>
+            <LinkedListNodeSourceCode
+                show={this.state.showLinkedListNodeSourceCode}
+                onHide={this.hideLinkedListNodeSourceCode.bind(this)}
+            />
             <WorkInProgress showModal={this.props.showModal}/>
         </Grid>;
     }
@@ -75,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))
+        },
+        onRefresh: () => {
+            dispatch(problemRefresh());
         }
     }
 };

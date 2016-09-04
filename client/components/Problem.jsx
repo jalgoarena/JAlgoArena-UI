@@ -14,15 +14,11 @@ const problemStyle = {
 };
 
 function difficulty(level) {
-    if (level === 3) {
-        return 'Hard';
+    switch (level) {
+        case '3': return 'Hard';
+        case '2': return 'Medium';
+        default:  return 'Easy';
     }
-
-    if (level === 2) {
-        return 'Medium';
-    }
-
-    return "Easy";
 }
 
 const Problem = ({title, id, level, isDone}) => {
