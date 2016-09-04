@@ -5,7 +5,7 @@ import FontAwesome from './FontAwesome';
 
 const RunButton = ({sourceCode, problemId, onRun}) => (
     <Button
-        bsStyle="info"
+        bsStyle="primary"
         bsSize="large"
         onClick={() => onRun(sourceCode, problemId)}>
         <FontAwesome name="flash"/> Run

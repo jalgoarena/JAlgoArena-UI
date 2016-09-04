@@ -13,7 +13,8 @@ import {
     START_FETCHING_PROBLEMS,
     START_SUBMISSION,
     FETCH_PROBLEM_RANKING,
-    SET_CURRENT_PROBLEMS_FILTER
+    SET_CURRENT_PROBLEMS_FILTER,
+    PROBLEM_REFRESH
 } from '../actions';
 
 import {
@@ -49,6 +50,7 @@ function sourceCode(state = null, action) {
             return action.sourceCode;
         case SET_CURRENT_PROBLEM:
         case SUBMISSION_SAVED:
+        case PROBLEM_REFRESH:
             return null;
         default:
             return state;
@@ -70,6 +72,7 @@ function result(state = { status_code: 'WAITING' }, action) {
             return action.result;
         case SET_CURRENT_PROBLEM:
         case SUBMISSION_SAVED:
+        case PROBLEM_REFRESH:
             return { status_code: 'WAITING' };
         default:
             return state;

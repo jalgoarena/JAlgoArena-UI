@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
+import config from '../config';
 
-const JUDGE_SERVER_URL = 'https://jalgoarena.herokuapp.com';
+const JUDGE_SERVER_URL = config.judgeServerUrl;
 
 export const START_JUDGE = 'START_JUDGE';
 export function startJudge() {
@@ -143,6 +144,13 @@ export function changeSourceCode(newValue) {
     return {
         type: CHANGE_SOURCE_CODE,
         sourceCode: newValue
+    }
+}
+
+export const PROBLEM_REFRESH = 'PROBLEM_REFRESH';
+export function problemRefresh() {
+    return {
+        type: PROBLEM_REFRESH
     }
 }
 

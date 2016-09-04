@@ -26,8 +26,7 @@ class Problems extends React.Component {
 
             return <Problem
                 title={problem.title}
-                timeLimit={problem.time_limit}
-                memoryLimit={problem.memory_limit}
+                level={problem.level}
                 id={problem.id}
                 key={idx}
                 submissions={this.props.submissions}

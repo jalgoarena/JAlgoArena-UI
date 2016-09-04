@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, PageHeader, Button} from 'react-bootstrap';
+import {Row, PageHeader, Button, ButtonToolbar} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import _ from 'lodash';
 
@@ -8,7 +8,7 @@ import AceCodeEditor from './AceCodeEditor';
 import SubmissionPanel from './SubmissionPanel';
 import FontAwesome from './FontAwesome';
 
-const SubmissionDetails = ({problem, result, sourceCode, onRun, onSubmit, onSourceCodeChanged, isSubmitDisabled, userId, submissions}) => {
+const SubmissionDetails = ({problem, result, sourceCode, onRun, onSubmit, onSourceCodeChanged, isSubmitDisabled, userId, submissions, onShowLinkedListNodeSourceCode, onRefresh}) => {
 
     let title = <PageHeader>{problem.title}</PageHeader>;
 
@@ -25,12 +25,31 @@ const SubmissionDetails = ({problem, result, sourceCode, onRun, onSubmit, onSour
         </PageHeader>;
     }
 
+    let linkedListNodeButton = null;
+    if (problem.skeleton_code.includes('LinkedListNode')) {
+        linkedListNodeButton = <Button
+            bsStyle="primary"
+            onClick={onShowLinkedListNodeSourceCode}
+        >LinkedListNode</Button>;
+    }
+
+    let details = <ButtonToolbar>
+        <LinkContainer to={"problem/" + problem.id}>
+            <Button bsStyle="danger" className="pull-right" onClick={onRefresh}>
+                <FontAwesome name="refresh"/> Refresh
+            </Button>
+        </LinkContainer>
+        <Button bsStyle="success" className="pull-right" >Max {problem.level * 10} Points</Button>
+        {linkedListNodeButton}
+    </ButtonToolbar>;
+
     return (
         <Row>
             {title}
             <ProblemDescription description={problem.description} />
+            {details}
             <AceCodeEditor
-                sourceCode={sourceCode || problem.skeleton_code}
+                sourceCode={sourceCode}
                 onSourceCodeChanged={onSourceCodeChanged}
             />
             <SubmissionPanel
