@@ -146,6 +146,13 @@ export function changeSourceCode(newValue) {
     }
 }
 
+export const PROBLEM_REFRESH = 'PROBLEM_REFRESH';
+export function problemRefresh() {
+    return {
+        type: PROBLEM_REFRESH
+    }
+}
+
 export const SET_CURRENT_PROBLEM = 'SET_CURRENT_PROBLEM';
 export function setCurrentProblem(problemId) {
     return {
