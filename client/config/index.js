@@ -1,3 +1,3 @@
 module.exports = {
-    judgeServerUrl: 'https://jalgoarena-ui.herokuapp.com'
+    judgeServerUrl: 'https://jalgoarena.herokuapp.com'
 };
