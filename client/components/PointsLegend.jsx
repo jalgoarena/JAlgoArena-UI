@@ -16,11 +16,11 @@ const PointsLegend = ({show, onHide}) => (
             <h2>{"Score Points"}</h2>
         </Modal.Header>
         <Modal.Body style={modalBodyStyle}>
-            <Table condensed hover>
+            <Table condensed hover responsive>
                 <thead>
                 <tr>
                     <th>Level</th>
-                    <th>Score</th>
+                    <th>Max Score</th>
                 </tr>
                 </thead>
                 <tbody>
