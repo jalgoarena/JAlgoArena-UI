@@ -84,7 +84,9 @@ class Login extends React.Component {
         return newState;
     }
 
-    onLogin() {
+    onLogin(e) {
+        e.preventDefault();
+
         const formData = {
             username: findDOMNode(this.refs.username).value.trim(),
             password: findDOMNode(this.refs.password).value.trim(),

@@ -108,7 +108,9 @@ class SignUp extends React.Component {
         return newState;
     }
 
-    onSignUp(){
+    onSignUp(e){
+        e.preventDefault();
+
         let formData = {
             username : findDOMNode(this.refs.username).value.trim(),
             email : findDOMNode(this.refs.email).value.trim(),
