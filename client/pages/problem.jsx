@@ -13,16 +13,32 @@ import SubmissionPanel from '../components/SubmissionPanel';
 import LinkedListNodeSourceCode from '../components/LinkedListNodeSourceCode';
 import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh} from "../actions/index";
+import {problemRefresh, fetchSubmissions} from "../actions/index";
+import {hashHistory} from 'react-router';
 
 class Problem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {showLinkedListNodeSourceCode: false, showPointsLegend: false}
     }
+
+    transferToLoginIfLoggedOut() {
+        if (!this.props.userAuthSession.user) {
+            hashHistory.push('/login');
+        }
+    }
+
+    componentWillMount() {
+        this.transferToLoginIfLoggedOut();
+    }
+
     componentDidMount() {
+        this.transferToLoginIfLoggedOut();
         if (store.getState().currentProblemId !== this.props.params.id) {
             store.dispatch(setCurrentProblem(this.props.params.id));
+        }
+        if (this.props.userAuthSession.user) {
+            store.dispatch(fetchSubmissions(this.props.userAuthSession.user.id));
         }
     }
 

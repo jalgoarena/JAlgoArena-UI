@@ -127,7 +127,7 @@ class Login extends React.Component {
                     </div>
 
                     <FormGroup className="text-center">
-                        <Button bsStyle="success" onClick={this.onLogin} block>
+                        <Button type="submit" bsStyle="success" onClick={this.onLogin} block>
                             <FontAwesome name="sign-in"/> Sign In
                         </Button>
                     </FormGroup>
