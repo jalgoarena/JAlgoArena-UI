@@ -68,8 +68,11 @@ function clientErrorHandler(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
-    res.status(500);
-    res.render('error', { error: err });
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
 }
 
 app.use(logErrors);
