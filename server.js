@@ -54,18 +54,29 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(assetsDir, 'index.html'));
 });
 
-var http = require('http');
-
-const server = http.createServer(app);
-
-app.use(function (err, req, res, next) {
+function logErrors(err, req, res, next) {
     logger.error(err);
     next(err);
-});
+}
 
-var errorHandler = require('express-error-handler');
-app.use(errorHandler({server: server}));
+function clientErrorHandler(err, req, res, next) {
+    if (req.xhr) {
+        res.status(500).send({error: err});
+    } else {
+        next(err);
+    }
+}
+
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    res.render('error', { error: err });
+}
+
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 app.listen(port, function () {
     logger.info('Server started at http://localhost:' + port);
 });
+
