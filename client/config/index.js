@@ -1,4 +1,4 @@
 module.exports = {
-    judgeServerUrl: 'https//jalgoarena.herokuapp.com',
+    judgeServerUrl: 'https://jalgoarena.herokuapp.com',
     dataServerUrl: 'https://jalgoarena-data.herokuapp.com'
 };
