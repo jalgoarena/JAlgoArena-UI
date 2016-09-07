@@ -10,10 +10,6 @@ class ProblemRank extends React.Component {
         this.props.onLoad(this.props.params.id);
     }
 
-    shouldComponentUpdate(nextProps) {
-        return nextProps.params.id !== this.props.params.id;
-    }
-
     render() {
 
         let ranking = this.props.problemRanking.map ? this.props.problemRanking : [];
