@@ -1,4 +1,4 @@
-module.exports = function(app, submissionDb, userDb, ranking, problemRanking) {
+module.exports = function(app, submissionDb, userDb, ranking, problemRanking, logger) {
     app.get('/ranking/', function(req, res, next) {
 
         submissionDb.find({}, function (err, submissions) {
@@ -28,7 +28,7 @@ module.exports = function(app, submissionDb, userDb, ranking, problemRanking) {
                 }
 
                 try {
-                    res.json(problemRanking(users, problemSubmissions));
+                    res.json(problemRanking(users, problemSubmissions, logger));
                 } catch (err) {
                     next(err);
                 }

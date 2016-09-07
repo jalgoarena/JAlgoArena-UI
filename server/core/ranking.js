@@ -20,15 +20,20 @@ function ranking(users, submissions) {
     return _.orderBy(ranking, ['score'], ['desc']);
 }
 
-function problemRanking(users, submissions) {
+function problemRanking(users, submissions, logger) {
     var ranking = [];
 
     _.forEach(submissions, function (submission) {
-        var username = users.filter(function (user) {
+        var user = users.filter(function (user) {
             return user._id === submission.userId
-        })[0].username;
+        });
 
-        ranking.push({hacker: username, score: score([submission]), elapsed_time: submission.elapsed_time});
+        if (user) {
+            var username = user[0].username;
+            ranking.push({hacker: username, score: score([submission]), elapsed_time: submission.elapsed_time});
+        } else {
+            logger.error('User does not exist: ' + submission.userId);
+        }
     });
 
     return _.orderBy(ranking, ['elapsed_time']);
