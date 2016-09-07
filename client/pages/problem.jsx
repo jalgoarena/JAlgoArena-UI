@@ -1,23 +1,44 @@
 import React from 'react';
-import {Grid} from 'react-bootstrap';
+import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import Output from '../components/Output';
 import WorkInProgress from '../components/WorkInProgress';
-import SubmissionDetails from '../components/SubmissionDetails';
+import ProblemToolbar from '../components/ProblemToolbar';
+import ProblemTitle from '../components/ProblemTitle';
+import ProblemDescription from '../components/ProblemDescription';
+import PointsLegend from '../components/PointsLegend';
+import AceCodeEditor from '../components/AceCodeEditor';
+import SubmissionPanel from '../components/SubmissionPanel';
 import LinkedListNodeSourceCode from '../components/LinkedListNodeSourceCode';
 import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh} from "../actions/index";
+import {problemRefresh, fetchSubmissions} from "../actions/index";
+import {hashHistory} from 'react-router';
 
 class Problem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {showLinkedListNodeSourceCode: false}
+        this.state = {showLinkedListNodeSourceCode: false, showPointsLegend: false}
     }
+
+    transferToLoginIfLoggedOut() {
+        if (!this.props.userAuthSession.user) {
+            hashHistory.push('/login');
+        }
+    }
+
+    componentWillMount() {
+        this.transferToLoginIfLoggedOut();
+    }
+
     componentDidMount() {
+        this.transferToLoginIfLoggedOut();
         if (store.getState().currentProblemId !== this.props.params.id) {
             store.dispatch(setCurrentProblem(this.props.params.id));
+        }
+        if (this.props.userAuthSession.user) {
+            store.dispatch(fetchSubmissions(this.props.userAuthSession.user.id));
         }
     }
 
@@ -36,6 +57,14 @@ class Problem extends React.Component {
         this.setState({showLinkedListNodeSourceCode: false});
     }
 
+    showPointsLegend() {
+        this.setState({showPointsLegend: true});
+    }
+
+    hidePointsLegend() {
+        this.setState({showPointsLegend: false});
+    }
+
     render() {
         if (!this.props.problem) {
             return null;
@@ -44,24 +73,47 @@ class Problem extends React.Component {
         const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
+        let linkedListNodeButton = null;
+        if (this.props.problem.skeleton_code.includes('LinkedListNode')) {
+            linkedListNodeButton = <Button
+                bsStyle="primary"
+                onClick={this.showLinkedListNodeSourceCode.bind(this)}
+            >LinkedListNode</Button>;
+        }
+
         return <Grid>
-            <SubmissionDetails
-                problem={this.props.problem}
-                result={this.props.result}
-                sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
-                isSubmitDisabled={isSubmitDisabled}
-                onRun={this.props.onRun}
-                onSubmit={this.props.onSubmit}
-                userId={userId}
-                onSourceCodeChanged={this.props.onSourceCodeChanged}
-                submissions={this.props.submissions}
-                onShowLinkedListNodeSourceCode={this.showLinkedListNodeSourceCode.bind(this)}
-                onRefresh={this.props.onRefresh}
-            />
+            <Row>
+                <ProblemTitle submissions={this.props.submissions} problem={this.props.problem} />
+                <ProblemDescription description={this.props.problem.description} />
+                <ProblemToolbar
+                    problem={this.props.problem}
+                    onRefresh={this.props.onRefresh}
+                    onShowPointsLegend={this.showPointsLegend.bind(this)}
+                >
+                    {linkedListNodeButton}
+                </ProblemToolbar>
+                <AceCodeEditor
+                    sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
+                    onSourceCodeChanged={this.props.onSourceCodeChanged}
+                />
+                <SubmissionPanel
+                    problem={this.props.problem}
+                    userId={userId}
+                    result={this.props.result}
+                    sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
+                    onRun={this.props.onRun}
+                    onSubmit={this.props.onSubmit}
+                    isSubmitDisabled={isSubmitDisabled}
+                />
+            </Row>
             <Output result={this.props.result}/>
             <LinkedListNodeSourceCode
                 show={this.state.showLinkedListNodeSourceCode}
                 onHide={this.hideLinkedListNodeSourceCode.bind(this)}
+            />
+            <PointsLegend
+                show={this.state.showPointsLegend}
+                onHide={this.hidePointsLegend.bind(this)}
             />
             <WorkInProgress showModal={this.props.showModal}/>
         </Grid>;

@@ -108,7 +108,9 @@ class SignUp extends React.Component {
         return newState;
     }
 
-    onSignUp(){
+    onSignUp(e){
+        e.preventDefault();
+
         let formData = {
             username : findDOMNode(this.refs.username).value.trim(),
             email : findDOMNode(this.refs.email).value.trim(),
@@ -162,7 +164,7 @@ class SignUp extends React.Component {
                         <div className={this.getInputContainerClass(this.state.isConfirmPasswordFieldIncorrect)}>
                             <input className="form-control" type="password" placeholder="Confirm Password" ref="confirmPassword" />
                         </div>
-                        <Button bsStyle="success" block onClick={this.onSignUp}>
+                        <Button type="submit" bsStyle="success" block onClick={this.onSignUp}>
                             <FontAwesome name="user"/> Create Account
                         </Button>
                     </form>

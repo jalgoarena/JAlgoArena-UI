@@ -12,7 +12,7 @@ class ProblemRank extends React.Component {
 
     render() {
 
-        let ranking = this.props.ranking.map ? this.props.ranking : [];
+        let ranking = this.props.problemRanking.map ? this.props.problemRanking : [];
 
         let rankNodes = ranking.map((ranking, idx) =>
             <UserProblemRank key={idx} idx={idx} hacker={ranking.hacker} score={ranking.score} elapsedTime={ranking.elapsed_time} />
@@ -44,7 +44,7 @@ class ProblemRank extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userAuthSession: state.userAuthSession,
-        ranking: state.problemRanking
+        problemRanking: state.problemRanking
     };
 };
 

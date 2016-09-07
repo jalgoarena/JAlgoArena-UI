@@ -15,8 +15,8 @@ const problemStyle = {
 
 function difficulty(level) {
     switch (level) {
-        case '3': return 'Hard';
-        case '2': return 'Medium';
+        case 3: return 'Hard';
+        case 2: return 'Medium';
         default:  return 'Easy';
     }
 }

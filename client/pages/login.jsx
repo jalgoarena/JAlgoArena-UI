@@ -84,7 +84,9 @@ class Login extends React.Component {
         return newState;
     }
 
-    onLogin() {
+    onLogin(e) {
+        e.preventDefault();
+
         const formData = {
             username: findDOMNode(this.refs.username).value.trim(),
             password: findDOMNode(this.refs.password).value.trim(),
@@ -127,7 +129,7 @@ class Login extends React.Component {
                     </div>
 
                     <FormGroup className="text-center">
-                        <Button bsStyle="success" onClick={this.onLogin} block>
+                        <Button type="submit" bsStyle="success" onClick={this.onLogin} block>
                             <FontAwesome name="sign-in"/> Sign In
                         </Button>
                     </FormGroup>

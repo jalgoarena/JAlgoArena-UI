@@ -99,3 +99,20 @@ hr.star-light:after {
 @-moz-keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
 @-ms-keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
 @keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
+
+.ace_editor.fullScreen {
+    height: auto;
+    width: auto;
+    border: 0;
+    margin: 70px 0 0;
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.fullScreen {
+    overflow: hidden
+}
