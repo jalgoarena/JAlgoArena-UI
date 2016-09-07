@@ -2,6 +2,9 @@ import fetch from 'isomorphic-fetch';
 import {hashHistory} from "react-router";
 
 import {fetchSubmissions} from "./index";
+import config from '../config';
+
+const DATA_SERVER_URL = config.dataServerUrl;
 
 export const START_SIGNUP = 'START_SIGNUP';
 export function startSignup() {
@@ -28,7 +31,7 @@ export function attemptSignUp(email, password, username) {
     };
 
     return dispatch => {
-        return fetch(`/signup`, options)
+        return fetch(`${DATA_SERVER_URL}/signup`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -80,7 +83,7 @@ export function attemptLogin(username, password) {
     };
 
     return dispatch => {
-        return fetch(`/login`, options)
+        return fetch(`${DATA_SERVER_URL}/login`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -128,7 +131,7 @@ export function checkSessionStatus() {
             method: 'get'
         };
 
-        return fetch(`/user`, options)
+        return fetch(`${DATA_SERVER_URL}/user`, options)
             .then(response => response.json())
             .then(user => {
                 dispatch(checkedSessionStatus(user));
@@ -163,7 +166,7 @@ export function attemptLogout(){
 
         localStorage.removeItem('jwtToken');
 
-        return fetch(`/logout`, options)
+        return fetch(`${DATA_SERVER_URL}/logout`, options)
             .then(response => dispatch(logoutSuccess()))
             .catch(error => console.log(error));
     }

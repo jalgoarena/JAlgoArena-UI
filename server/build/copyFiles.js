@@ -1,23 +1,23 @@
-module.exports = function(logger) {
+module.exports = function() {
     var cpFile = require('cp-file');
 
     cpFile('assets/index.prod.html', 'public/assets/index.html').then(function () {
-        logger.debug('Copied index.html');
+        console.log('Copied index.html');
     });
 
     cpFile('assets/app.css', 'public/assets/app.css').then(function () {
-        logger.debug('Copied app.css');
+        console.log('Copied app.css');
     });
 
     cpFile('assets/favicon.ico', 'public/assets/favicon.ico').then(function () {
-        logger.debug('Copied favicon.ico');
+        console.log('Copied favicon.ico');
     });
 
     cpFile('assets/img/logo.png', 'public/assets/img/logo.png').then(function () {
-        logger.debug('Copied logo.png');
+        console.log('Copied logo.png');
     });
 
     cpFile('assets/img/profile.png', 'public/assets/img/profile.png').then(function () {
-        logger.debug('Copied profile.png');
+        console.log('Copied profile.png');
     });
 };

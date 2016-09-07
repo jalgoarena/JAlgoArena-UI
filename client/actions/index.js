@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../config';
 
 const JUDGE_SERVER_URL = config.judgeServerUrl;
+const DATA_SERVER_URL = config.dataServerUrl;
 
 export const START_JUDGE = 'START_JUDGE';
 export function startJudge() {
@@ -77,7 +78,7 @@ export function fetchSubmissions(userId) {
     };
 
     return dispatch => {
-        return fetch(`/submissions/${userId}`, options)
+        return fetch(`${DATA_SERVER_URL}/submissions/${userId}`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissions(json)))
             .catch(error => console.log(error));
@@ -101,7 +102,7 @@ export function fetchProblemRanking(problemId) {
     };
 
     return dispatch => {
-        return fetch(`/ranking/${problemId}`, options)
+        return fetch(`${DATA_SERVER_URL}/ranking/${problemId}`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblemRanking(json)))
             .catch(error => console.log(error));
@@ -125,7 +126,7 @@ export function fetchRanking() {
     };
 
     return dispatch => {
-        return fetch(`/ranking/`, options)
+        return fetch(`${DATA_SERVER_URL}/ranking/`, options)
             .then(response => response.json())
             .then(json => dispatch(setRanking(json)))
             .catch(error => console.log(error));
@@ -200,7 +201,7 @@ export function sendSubmission(result, userId, problem) {
             })
         };
 
-        return fetch(`/submissions`, options)
+        return fetch(`${DATA_SERVER_URL}/submissions`, options)
             .then(response => response.json())
              .then(json => {
                 dispatch(submissionSaved(json));
