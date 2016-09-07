@@ -56,7 +56,7 @@
   "directories": {},
   "dist": {
     "shasum": "b9b11dbe6d9651dd882a01e6cc467df718ecf189",
-    "tarball": "http://registry.npmjs.org/crypto-browserify/-/crypto-browserify-3.2.8.tgz"
+    "tarball": "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-3.2.8.tgz"
   },
   "engines": {
     "node": "*"
