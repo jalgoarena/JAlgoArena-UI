@@ -24,7 +24,7 @@ if (env === 'production') {
     require('./server/build/copyFiles')();
     assetsDir = path.join(__dirname, 'public', 'assets');
 } else {
-    require('./server/config/devWebpack')(app, logger);
+    require('./server/config/devWebpack')(app);
     assetsDir = path.join(__dirname, 'assets');
 }
 
