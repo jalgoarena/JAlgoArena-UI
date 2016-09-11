@@ -13,20 +13,20 @@ const modalBodyStyle = {
     height: 200
 };
 
-const LinkedListNodeSourceCode = ({show, onHide}) => (
+const ListNodeSourceCode = ({show, onHide}) => (
     <Modal show={show || false} onHide={onHide}>
         <Modal.Header closeButton>
-            <h2>{"LinkedListNode"}</h2>
+            <h2>{"ListNode"}</h2>
         </Modal.Header>
         <Modal.Body style={modalBodyStyle}>
             <AceEditor
                 mode="java"
                 theme="chrome"
-                value={`public class LinkedListNode<E> {
-    public E value;
-    public LinkedListNode<E> next;
+                value={`public class ListNode {
+    public int value;
+    public ListNode next;
 
-    public LinkedListNode(E value) {
+    public ListNode(int value) {
         this.value = value;
     }
 }`}
@@ -45,4 +45,4 @@ const LinkedListNodeSourceCode = ({show, onHide}) => (
     </Modal>
 );
 
-export default LinkedListNodeSourceCode;
+export default ListNodeSourceCode;

@@ -10,7 +10,7 @@ import ProblemDescription from '../components/ProblemDescription';
 import PointsLegend from '../components/PointsLegend';
 import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
-import LinkedListNodeSourceCode from '../components/LinkedListNodeSourceCode';
+import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, fetchSubmissions} from "../actions/index";
@@ -19,7 +19,7 @@ import {hashHistory} from 'react-router';
 class Problem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {showLinkedListNodeSourceCode: false, showPointsLegend: false}
+        this.state = {showListNodeSourceCode: false, showPointsLegend: false}
     }
 
     transferToLoginIfLoggedOut() {
@@ -49,12 +49,12 @@ class Problem extends React.Component {
                 this.props.userAuthSession.user)
     }
 
-    showLinkedListNodeSourceCode() {
-        this.setState({showLinkedListNodeSourceCode: true});
+    showListNodeSourceCode() {
+        this.setState({showListNodeSourceCode: true});
     }
 
-    hideLinkedListNodeSourceCode() {
-        this.setState({showLinkedListNodeSourceCode: false});
+    hideListNodeSourceCode() {
+        this.setState({showListNodeSourceCode: false});
     }
 
     showPointsLegend() {
@@ -73,12 +73,12 @@ class Problem extends React.Component {
         const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
-        let linkedListNodeButton = null;
-        if (this.props.problem.skeleton_code.includes('LinkedListNode')) {
-            linkedListNodeButton = <Button
+        let listNodeButton = null;
+        if (this.props.problem.skeleton_code.includes('ListNode')) {
+            listNodeButton = <Button
                 bsStyle="primary"
-                onClick={this.showLinkedListNodeSourceCode.bind(this)}
-            >LinkedListNode</Button>;
+                onClick={this.showListNodeSourceCode.bind(this)}
+            >ListNode</Button>;
         }
 
         return <Grid>
@@ -90,7 +90,7 @@ class Problem extends React.Component {
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
                 >
-                    {linkedListNodeButton}
+                    {listNodeButton}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
@@ -107,9 +107,9 @@ class Problem extends React.Component {
                 />
             </Row>
             <Output result={this.props.result}/>
-            <LinkedListNodeSourceCode
-                show={this.state.showLinkedListNodeSourceCode}
-                onHide={this.hideLinkedListNodeSourceCode.bind(this)}
+            <ListNodeSourceCode
+                show={this.state.showListNodeSourceCode}
+                onHide={this.hideListNodeSourceCode.bind(this)}
             />
             <PointsLegend
                 show={this.state.showPointsLegend}
