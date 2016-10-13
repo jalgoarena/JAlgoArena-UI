@@ -8,6 +8,7 @@ import {attemptLogout} from "../actions/AuthActions";
 import {fetchSubmissions} from "../actions/index";
 import WorkInProgress from '../components/WorkInProgress';
 import store from '../store';
+import {closeWorkInProgressWindow} from "../actions/index";
 
 class Profile extends React.Component {
 
@@ -52,7 +53,7 @@ class Profile extends React.Component {
         );
 
         return <Grid>
-            <WorkInProgress showModal={this.props.showModal} />
+            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
             <Col mdOffset={3} md={6}>
                 <PageHeader>Submissions</PageHeader>
                 <Table striped bordered condensed hover responsive>
@@ -102,6 +103,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => {
             dispatch(attemptLogout());
+        },
+        onHide: () => {
+            dispatch(closeWorkInProgressWindow());
         }
     }
 };

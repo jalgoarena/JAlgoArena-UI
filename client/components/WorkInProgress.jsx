@@ -30,9 +30,9 @@ const modalBodyStyle = {
     height: 200
 };
 
-const WorkInProgress = ({showModal}) => (
-    <Modal show={showModal || false}>
-        <Modal.Header style={modalTextCenterStyle}>
+const WorkInProgress = ({showModal, onHide}) => (
+    <Modal show={showModal || false} onHide={onHide}>
+        <Modal.Header style={modalTextCenterStyle} closeButton>
             <h3>{"Loading ..."}</h3>
         </Modal.Header>
         <Modal.Body style={modalBodyStyle}>

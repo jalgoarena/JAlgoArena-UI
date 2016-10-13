@@ -11,6 +11,7 @@ import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
 import {validateUserName, validatePassword} from '../utilities/RegexValidators';
 import WorkInProgress from '../components/WorkInProgress';
 import {startLogin} from "../actions/AuthActions";
+import {closeWorkInProgressWindow} from "../actions";
 
 const initialFormState = {
     errorMessage: null,
@@ -116,7 +117,7 @@ class Login extends React.Component {
         }
 
         return <Grid>
-            <WorkInProgress showModal={this.props.showModal} />
+            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide} />
             <Col mdOffset={4} md={4}>
                 <PageHeader className="text-center">Sign In</PageHeader>
                 {errorLabel}
@@ -162,6 +163,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
+        },
+        onHide: () => {
+            dispatch(closeWorkInProgressWindow());
         }
     }
 };

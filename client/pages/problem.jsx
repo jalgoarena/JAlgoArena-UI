@@ -15,6 +15,7 @@ import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, fetchSubmissions} from "../actions/index";
 import {hashHistory} from 'react-router';
+import {closeWorkInProgressWindow} from "../actions/index";
 
 class Problem extends React.Component {
     constructor(props) {
@@ -115,7 +116,7 @@ class Problem extends React.Component {
                 show={this.state.showPointsLegend}
                 onHide={this.hidePointsLegend.bind(this)}
             />
-            <WorkInProgress showModal={this.props.showModal}/>
+            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
         </Grid>;
     }
 }
@@ -150,6 +151,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onRefresh: () => {
             dispatch(problemRefresh());
+        },
+        onHide: () => {
+            dispatch(closeWorkInProgressWindow());
         }
     }
 };

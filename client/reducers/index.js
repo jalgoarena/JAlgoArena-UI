@@ -14,7 +14,8 @@ import {
     START_SUBMISSION,
     FETCH_PROBLEM_RANKING,
     SET_CURRENT_PROBLEMS_FILTER,
-    PROBLEM_REFRESH
+    PROBLEM_REFRESH,
+    CLOSE_WORK_IN_PROGRESS_WINDOW
 } from '../actions';
 
 import {
@@ -99,6 +100,7 @@ function showModal(state = false, action) {
         case LOGOUT_SUCCESS:
         case SIGNUP_FAIL:
         case SIGNUP_SUCCESS:
+        case CLOSE_WORK_IN_PROGRESS_WINDOW:
             return false;
         default:
             return state;

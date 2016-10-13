@@ -10,6 +10,7 @@ import {attemptSignUp} from "../actions/AuthActions";
 import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
 import WorkInProgress from '../components/WorkInProgress';
 import {startSignup} from "../actions/AuthActions";
+import {closeWorkInProgressWindow} from "../actions/index";
 
 const initialFormState = {
     errorMessage:  null,
@@ -147,7 +148,7 @@ class SignUp extends React.Component {
 
         return (
             <Grid>
-                <WorkInProgress showModal={this.props.showModal} />
+                <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
                 <Col mdOffset={4} md={4}>
                     <form>
                         <PageHeader className="text-center">Join Us</PageHeader>
@@ -189,6 +190,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
+        },
+        onHide: () => {
+            dispatch(closeWorkInProgressWindow());
         }
     }
 };

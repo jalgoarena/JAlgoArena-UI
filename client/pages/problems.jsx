@@ -8,6 +8,7 @@ import Problem from '../components/Problem';
 import WorkInProgress from "../components/WorkInProgress";
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setCurrentProblemsFilter} from "../actions/index";
+import {closeWorkInProgressWindow} from "../actions/index";
 
 class Problems extends React.Component {
     render() {
@@ -35,7 +36,7 @@ class Problems extends React.Component {
         });
 
         return <Grid>
-            <WorkInProgress showModal={this.props.showModal} />
+            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
             <ProblemsFilter changeFilter={this.props.changeFilter} filter={this.props.problemsFilter} />
             <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
                 {problemNodes}
@@ -57,6 +58,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         changeFilter: (level) => {
             dispatch(setCurrentProblemsFilter(level));
+        },
+        onHide: () => {
+            dispatch(closeWorkInProgressWindow());
         }
     }
 };

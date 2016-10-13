@@ -4,6 +4,13 @@ import config from '../config';
 const JUDGE_SERVER_URL = config.judgeServerUrl;
 const DATA_SERVER_URL = config.dataServerUrl;
 
+export const CLOSE_WORK_IN_PROGRESS_WINDOW = 'CLOSE_WORK_IN_PROGRESS_WINDOW';
+export function closeWorkInProgressWindow() {
+    return {
+        type: CLOSE_WORK_IN_PROGRESS_WINDOW
+    };
+}
+
 export const START_JUDGE = 'START_JUDGE';
 export function startJudge() {
     return {
