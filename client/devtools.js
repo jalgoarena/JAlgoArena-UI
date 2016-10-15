@@ -5,7 +5,6 @@ import DockMonitor from 'redux-devtools-dock-monitor';
 import FilterMonitor from 'redux-devtools-filter-actions';
 import {CHANGE_SOURCE_CODE} from "./actions/index";
 
-
 const DevTools = createDevTools(
     <DockMonitor toggleVisibilityKey='ctrl-h'
                  changePositionKey='ctrl-q'

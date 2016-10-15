@@ -17,7 +17,7 @@ export const Layout = React.createClass({
         }
 
         return <div>
-            { React.cloneElement(<Menu />, this.state) }
+            { <Menu store={store} /> }
             { devTools }
             { React.cloneElement(this.props.children, this.state) }
             <Footer />
