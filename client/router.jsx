@@ -11,6 +11,7 @@ import Home from "./pages/home";
 import LoginPage from "./pages/login"
 import SignUpPage from "./pages/signup";
 import ProblemRankPage from './pages/problemRank';
+import AdminPage from "./pages/admin";
 
 import { Provider } from 'react-redux'
 import store from './store';
@@ -28,6 +29,7 @@ export default (
                 <Route path="/problem/:id" component={ProblemPage} />
                 <Route path="/problem/:id/rank" component={ProblemRankPage} />
                 <Route path="/login" component={LoginPage} />
+                <Route path="/admin" component={AdminPage} />
                 <Route path="/signup" component={SignUpPage} />
             </Route>
         </Router>

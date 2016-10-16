@@ -30,10 +30,23 @@ export default class Menu extends React.Component {
                             <NavItem><FontAwesome name="trophy" lg={true}/> Rank</NavItem>
                         </LinkContainer>
                         {this.profileOrLoginMenuItem()}
+                        {this.adminMenuItem()}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
         );
+    }
+
+    adminMenuItem() {
+        if (!this.props.store.getState().userAuthSession.user) {
+            return null;
+        }
+
+        return this.props.store.getState().userAuthSession.user.isAdmin
+            ? <LinkContainer to="/admin">
+                <NavItem><FontAwesome name="cogs" lg={true}/> Admin</NavItem>
+            </LinkContainer>
+            : null;
     }
 
     profileOrLoginMenuItem() {

@@ -92,6 +92,22 @@ export function fetchSubmissions(userId) {
     };
 }
 
+export function fetchAllSubmissions() {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`${DATA_SERVER_URL}/submissions/`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setSubmissions(json)))
+            .catch(error => console.log(error));
+    };
+}
+
 function setSubmissions(submissions) {
     return {
         type: FETCH_SUBMISSIONS,
