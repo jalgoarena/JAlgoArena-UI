@@ -77,9 +77,17 @@ function setProblems(problems) {
 
 export const FETCH_SUBMISSIONS = 'FETCH_SUBMISSIONS';
 export function fetchSubmissions(userId) {
+
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '') {
+        return;
+    }
+
     const options = {
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Authorization': token
         },
         method: 'get'
     };
@@ -93,9 +101,17 @@ export function fetchSubmissions(userId) {
 }
 
 export function fetchAllSubmissions() {
+
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '') {
+        return;
+    }
+
     const options = {
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Authorization': token
         },
         method: 'get'
     };

@@ -143,6 +143,40 @@ export function checkSessionStatus() {
 
 }
 
+export const FETCH_USERS = 'FETCH_USERS';
+export function fetchUsers() {
+    return dispatch => {
+        let token = localStorage.getItem('jwtToken');
+
+        if (!token || token === '') {
+            return;
+        }
+
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': token
+            },
+            method: 'get'
+        };
+
+        return fetch(`${DATA_SERVER_URL}/users`, options)
+            .then(response => response.json())
+            .then(users => {
+                console.log(users);
+                dispatch(setUsers(users));
+            })
+            .catch(error => console.log(error));
+    };
+}
+
+function setUsers(users) {
+    return {
+        type: FETCH_USERS,
+        users
+    }
+}
+
 export const CHECKED_SESSION_STATUS = 'CHECKED_SESSION_STATUS';
 function checkedSessionStatus(user) {
     return {
@@ -153,10 +187,17 @@ function checkedSessionStatus(user) {
 
 export function attemptLogout(){
 
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '') {
+        return;
+    }
+
     const options = {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': token
         },
         method: 'post',
         body: JSON.stringify({})

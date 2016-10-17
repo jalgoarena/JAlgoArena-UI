@@ -4,6 +4,7 @@ import {Grid} from 'react-bootstrap';
 import {hashHistory} from 'react-router';
 import {fetchAllSubmissions} from "../actions/index";
 import Submission from "../components/Submission";
+import {fetchUsers} from "../actions/AuthActions";
 
 class Admin extends React.Component {
 
@@ -31,13 +32,21 @@ class Admin extends React.Component {
 
     render() {
         let submissions = this.props.submissions || [];
+        let users = this.props.userAuthSession.users;
 
         let submissionNodes = submissions.map((submission, idx) => {
+
+            let username;
+            if (users) {
+                username = users.find((user) => {
+                    return user._id === submission.userId;
+                }).username;
+            }
 
             return <Submission
                 sourceCode={submission.sourceCode}
                 problemId={submission.problemId}
-                userId={submission.userId}
+                userId={username || submission.userId}
                 elapsed_time={submission.elapsed_time}
                 level={submission.level}
                 key={idx}
@@ -61,6 +70,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
             dispatch(fetchAllSubmissions());
+            dispatch(fetchUsers());
         }
     }
 };

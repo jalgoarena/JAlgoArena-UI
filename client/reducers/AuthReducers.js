@@ -5,12 +5,14 @@ import {
     LOGIN_FAIL,
     CHECKED_SESSION_STATUS,
     LOGOUT_SUCCESS,
-    NAVIGATE_AWAY_FROM_AUTH_FORM
+    NAVIGATE_AWAY_FROM_AUTH_FORM,
+    FETCH_USERS
 } from '../actions/AuthActions';
 
 const defaultStartState = {
     user: null,
-    error: null
+    error: null,
+    users: null
 };
 
 export function updateUserInfo(userAuthState = defaultStartState , action) {
@@ -46,6 +48,11 @@ export function updateUserInfo(userAuthState = defaultStartState , action) {
         case SIGNUP_SUCCESS:
             return Object.assign({}, userAuthState, {
                 error: null
+            });
+
+        case FETCH_USERS:
+            return Object.assign({}, userAuthState, {
+                users: action.users
             });
 
         default:
