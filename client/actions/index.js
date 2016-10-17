@@ -267,6 +267,7 @@ export function deleteSubmission(submissionId) {
         const options = {
             headers: {
                 'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': token
             },
             method: 'post',
@@ -274,10 +275,15 @@ export function deleteSubmission(submissionId) {
         };
 
         return fetch(`${DATA_SERVER_URL}/submissions/delete/${submissionId}`, options)
-            .then(response => {
-                console.log(`Submission removed: ${submissionId}`);
-                dispatch({type: DELETE_SUBMISSION});
-            })
+            .then(response => response.json())
+            .then(json => dispatch(refreshSubmissions(json)))
             .catch(error => console.log(error));
     };
+}
+
+function refreshSubmissions(submissions) {
+    return {
+        type: DELETE_SUBMISSION,
+        submissions
+    }
 }

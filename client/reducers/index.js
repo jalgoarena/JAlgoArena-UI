@@ -15,7 +15,8 @@ import {
     FETCH_PROBLEM_RANKING,
     SET_CURRENT_PROBLEMS_FILTER,
     PROBLEM_REFRESH,
-    CLOSE_WORK_IN_PROGRESS_WINDOW
+    CLOSE_WORK_IN_PROGRESS_WINDOW,
+    DELETE_SUBMISSION
 } from '../actions';
 
 import {
@@ -119,6 +120,7 @@ function currentProblemId(state = null, action) {
 function submissions(state = [], action) {
     switch (action.type) {
         case FETCH_SUBMISSIONS:
+        case DELETE_SUBMISSION:
             return action.submissions;
         default:
             return state;
