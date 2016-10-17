@@ -46,7 +46,7 @@ class Admin extends React.Component {
             return <Submission
                 sourceCode={submission.sourceCode}
                 problemId={submission.problemId}
-                userId={username || submission.userId}
+                userId={username + ':' +  submission.userId}
                 elapsed_time={submission.elapsed_time}
                 level={submission.level}
                 key={idx}
