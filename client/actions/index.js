@@ -257,3 +257,27 @@ function submissionSaved(submissions) {
         submissions
     }
 }
+
+export const DELETE_SUBMISSION = 'DELETE_SUBMISSION';
+export function deleteSubmission(submissionId) {
+    return dispatch => {
+
+        let token = localStorage.getItem('jwtToken');
+
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': token
+            },
+            method: 'post',
+            body: JSON.stringify({})
+        };
+
+        return fetch(`${DATA_SERVER_URL}/submissions/delete/${submissionId}`, options)
+            .then(response => {
+                console.log(`Submission removed: ${submissionId}`);
+                dispatch({type: DELETE_SUBMISSION});
+            })
+            .catch(error => console.log(error));
+    };
+}

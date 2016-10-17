@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Row, Col} from 'react-bootstrap';
+import {Button, Row, Col, ButtonToolbar} from 'react-bootstrap';
 import SourceCode from './SourceCode';
 import FontAwesome from './FontAwesome';
 
@@ -41,10 +41,16 @@ class Submission extends React.Component {
                 </Row>
                 <Row>
 
-                    <Button bsStyle="success" className="pull-right"
-                            onClick={this.showSourceCode.bind(this)}>
-                        <FontAwesome name="bars"/> Source Code
-                    </Button>
+                    <ButtonToolbar className="pull-right">
+                        <Button bsStyle="success"
+                                onClick={this.showSourceCode.bind(this)}>
+                            <FontAwesome name="bars"/> Source Code
+                        </Button>
+                        <Button bsStyle="danger"
+                                onClick={() => this.props.onDelete(this.props.submissionId)}>
+                            <FontAwesome name="remove"/> Delete
+                        </Button>
+                    </ButtonToolbar>
 
                     <span className="text-muted">Difficulty:</span> <span className="text-primary">{difficulty(this.props.level)}</span><br />
                     <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{this.props.elapsed_time} ms</span>

@@ -5,6 +5,7 @@ import {hashHistory} from 'react-router';
 import {fetchAllSubmissions} from "../actions/index";
 import Submission from "../components/Submission";
 import {fetchUsers} from "../actions/AuthActions";
+import {deleteSubmission} from "../actions/index";
 
 class Admin extends React.Component {
 
@@ -49,6 +50,8 @@ class Admin extends React.Component {
                 userId={username + ':' +  submission.userId}
                 elapsed_time={submission.elapsed_time}
                 level={submission.level}
+                submissionId={submission._id}
+                onDelete={this.props.onDelete}
                 key={idx}
             />;
         });
@@ -71,6 +74,9 @@ const mapDispatchToProps = (dispatch) => {
         onLoad: () => {
             dispatch(fetchAllSubmissions());
             dispatch(fetchUsers());
+        },
+        onDelete: (submissionId) => {
+            dispatch(deleteSubmission(submissionId));
         }
     }
 };
