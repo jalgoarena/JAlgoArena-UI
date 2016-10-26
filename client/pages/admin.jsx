@@ -38,6 +38,7 @@ class Admin extends React.Component {
                 username={username}
                 userId={submission.userId}
                 elapsed_time={submission.elapsed_time}
+                statusCode={submission.statusCode}
                 level={submission.level}
                 submissionId={submission._id}
                 onDelete={this.props.onDelete}

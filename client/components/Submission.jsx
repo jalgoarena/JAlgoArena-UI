@@ -10,14 +10,6 @@ const submissionStyle = {
     padding: "1em 2em 1em"
 };
 
-function difficulty(level) {
-    switch (level) {
-        case 3: return 'Hard';
-        case 2: return 'Medium';
-        default:  return 'Easy';
-    }
-}
-
 class Submission extends React.Component {
 
     constructor(props) {
@@ -58,8 +50,10 @@ class Submission extends React.Component {
                         </Button>
                     </ButtonToolbar>
 
-                    <span className="text-muted">Difficulty:</span> <span className="text-primary">{difficulty(this.props.level)}</span><br />
-                    <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{this.props.elapsed_time} ms</span>
+                    <span className="text-muted">Difficulty:</span> <span className="text-primary">{this.props.level}</span><br />
+                    <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{this.props.elapsed_time} sec</span><br />
+                    <span className="text-muted">Source Code length:</span> <span className="text-primary">{this.props.sourceCode.length} chars</span><br />
+                    <span className="text-muted">Status:</span> <span className="text-primary">{this.props.statusCode}</span>
                 </Row>
                 <SourceCode
                     sourceCode={this.props.sourceCode}

@@ -258,6 +258,7 @@ export function sendSubmission(result, userId, problem, isForAll) {
                 level: problem.level,
                 elapsed_time: result.elapsed_time,
                 sourceCode: result.sourceCode,
+                statusCode: result.status_code,
                 userId: userId
             })
         };
