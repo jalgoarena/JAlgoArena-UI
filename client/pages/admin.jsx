@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Grid} from 'react-bootstrap';
-import {hashHistory} from 'react-router';
 import {fetchAllSubmissions} from "../actions/index";
 import Submission from "../components/Submission";
 import {fetchUsers} from "../actions/AuthActions";
@@ -41,6 +40,7 @@ class Admin extends React.Component {
                 level={submission.level}
                 submissionId={submission._id}
                 onDelete={this.props.onDelete}
+                onRerun={this.props.onRerun}
                 key={idx}
             />;
         });
