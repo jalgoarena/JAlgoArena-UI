@@ -39,9 +39,15 @@ class Admin extends React.Component {
 
             let username;
             if (users) {
-                username = users.find((user) => {
+                var user = users.find((user) => {
                     return user._id === submission.userId;
-                }).username;
+                });
+
+                if (user && user.username) {
+                    username = user.username;
+                } else {
+                    username = 'Not-Found';
+                }
             }
 
             return <Submission
