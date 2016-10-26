@@ -37,7 +37,7 @@ class Submission extends React.Component {
         return (
             <Col md={6} style={submissionStyle}>
                 <Row>
-                    <h4 className="text-success">{this.props.problemId} <span className="pull-right">{this.props.userId}</span></h4>
+                    <h4 className="text-success">{this.props.problemId} <span className="pull-right">{`${this.props.username}:${this.props.userId}`}</span></h4>
                 </Row>
                 <Row>
 
@@ -64,7 +64,7 @@ class Submission extends React.Component {
                 <SourceCode
                     sourceCode={this.props.sourceCode}
                     problemId={this.props.problemId}
-                    userId={this.props.userId}
+                    userId={`${this.props.username}:${this.props.userId}`}
                     show={this.state.showSourceCode}
                     onHide={this.hideSourceCode.bind(this)}
                 />
