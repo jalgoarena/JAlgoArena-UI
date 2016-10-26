@@ -224,7 +224,7 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel) {
             .then(response => response.json())
             .then(json => {
                 let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
-                dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}));
+                dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}, true));
                 dispatch(fetchAllSubmissions());
             })
             .catch(error => console.log(error));
@@ -240,7 +240,7 @@ export function startSubmission() {
 }
 
 export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
-export function sendSubmission(result, userId, problem) {
+export function sendSubmission(result, userId, problem, isForAll) {
 
     return dispatch => {
 
@@ -264,9 +264,13 @@ export function sendSubmission(result, userId, problem) {
 
         return fetch(`${DATA_SERVER_URL}/submissions`, options)
             .then(response => response.json())
-             .then(json => {
+            .then(json => {
                 dispatch(submissionSaved(json));
-                dispatch(fetchSubmissions(userId));
+                if (isForAll) {
+                    dispatch(fetchAllSubmissions());
+                } else {
+                    dispatch(fetchSubmissions(userId));
+                }
                 dispatch(fetchRanking());
             })
             .catch(error => console.log(error));
