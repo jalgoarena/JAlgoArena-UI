@@ -10,24 +10,6 @@ import {rerunSubmission} from "../actions/index";
 
 class Admin extends React.Component {
 
-    transferToLoginIfLoggedOut() {
-        if (!this.props.userAuthSession.user) {
-            hashHistory.push('/login');
-        }
-
-        if (!this.props.userAuthSession.user.isAdmin) {
-            hashHistory.push('/');
-        }
-    }
-
-    componentWillMount() {
-        this.transferToLoginIfLoggedOut();
-    }
-
-    componentDidUpdate() {
-        this.transferToLoginIfLoggedOut();
-    }
-
     componentDidMount() {
         this.props.onLoad();
     }
