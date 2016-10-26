@@ -6,6 +6,7 @@ import {fetchAllSubmissions} from "../actions/index";
 import Submission from "../components/Submission";
 import {fetchUsers} from "../actions/AuthActions";
 import {deleteSubmission} from "../actions/index";
+import {rerunSubmission} from "../actions/index";
 
 class Admin extends React.Component {
 
@@ -83,6 +84,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDelete: (submissionId) => {
             dispatch(deleteSubmission(submissionId));
+        },
+        onRerun: (sourceCode, userId, problemId, problemLevel) => {
+            dispatch(rerunSubmission(sourceCode, userId, problemId, problemLevel));
         }
     }
 };

@@ -210,6 +210,28 @@ export function setCurrentProblemsFilter(level) {
     }
 }
 
+export function rerunSubmission(sourceCode, userId, problemId, problemLevel) {
+    const options = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'text/plain'
+        },
+        method: 'post',
+        body: sourceCode
+    };
+    return dispatch => {
+        return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
+            .then(response => response.json())
+            .then(json => {
+                let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
+                dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}));
+                dispatch(fetchAllSubmissions());
+            })
+            .catch(error => console.log(error));
+    };
+
+}
+
 export const START_SUBMISSION = 'START_SUBMISSION';
 export function startSubmission() {
     return {

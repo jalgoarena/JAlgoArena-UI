@@ -35,7 +35,7 @@ class Submission extends React.Component {
 
     render() {
         return (
-            <Col md={5} style={submissionStyle}>
+            <Col md={6} style={submissionStyle}>
                 <Row>
                     <h4 className="text-success">{this.props.problemId} <span className="pull-right">{this.props.userId}</span></h4>
                 </Row>
@@ -45,6 +45,12 @@ class Submission extends React.Component {
                         <Button bsStyle="success"
                                 onClick={this.showSourceCode.bind(this)}>
                             <FontAwesome name="bars"/> Source Code
+                        </Button>
+                        <Button bsStyle="info"
+                                onClick={() =>
+                                    this.props.onRerun(this.props.sourceCode, this.props.userId, this.props.problemId, this.props.level)
+                                }>
+                            <FontAwesome name="refresh"/> Re-Run
                         </Button>
                         <Button bsStyle="danger"
                                 onClick={() => this.props.onDelete(this.props.submissionId)}>
