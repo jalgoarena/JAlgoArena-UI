@@ -11,6 +11,7 @@ import PointsLegend from '../components/PointsLegend';
 import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
 import ListNodeSourceCode from '../components/ListNodeSourceCode';
+import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
 import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, fetchSubmissions} from "../actions/index";
@@ -20,7 +21,7 @@ import {closeWorkInProgressWindow} from "../actions/index";
 class Problem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {showListNodeSourceCode: false, showPointsLegend: false}
+        this.state = {showListNodeSourceCode: false, showTreeNodeSourceCode: false, showPointsLegend: false}
     }
 
     transferToLoginIfLoggedOut() {
@@ -58,6 +59,15 @@ class Problem extends React.Component {
         this.setState({showListNodeSourceCode: false});
     }
 
+    showTreeNodeSourceCode() {
+        this.setState({showTreeNodeSourceCode: true});
+    }
+
+    hideTreeNodeSourceCode() {
+        this.setState({showTreeNodeSourceCode: false});
+    }
+
+
     showPointsLegend() {
         this.setState({showPointsLegend: true});
     }
@@ -74,13 +84,7 @@ class Problem extends React.Component {
         const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
-        let listNodeButton = null;
-        if (this.props.problem.skeleton_code.includes('ListNode')) {
-            listNodeButton = <Button
-                bsStyle="primary"
-                onClick={this.showListNodeSourceCode.bind(this)}
-            >ListNode</Button>;
-        }
+        this.listNodeButton();
 
         return <Grid>
             <Row>
@@ -91,7 +95,8 @@ class Problem extends React.Component {
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
                 >
-                    {listNodeButton}
+                    {this.listNodeButton()}
+                    {this.treeNodeButton()}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
@@ -112,12 +117,38 @@ class Problem extends React.Component {
                 show={this.state.showListNodeSourceCode}
                 onHide={this.hideListNodeSourceCode.bind(this)}
             />
+            <TreeNodeSourceCode
+                show={this.state.showTreeNodeSourceCode}
+                onHide={this.hideTreeNodeSourceCode.bind(this)}
+            />
             <PointsLegend
                 show={this.state.showPointsLegend}
                 onHide={this.hidePointsLegend.bind(this)}
             />
             <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
         </Grid>;
+    }
+
+    listNodeButton() {
+        if (this.props.problem.skeleton_code.includes('ListNode')) {
+            return <Button
+                bsStyle="primary"
+                onClick={this.showListNodeSourceCode.bind(this)}
+            >ListNode</Button>;
+        }
+
+        return null;
+    }
+
+    treeNodeButton() {
+        if (this.props.problem.skeleton_code.includes('TreeNode')) {
+            return <Button
+                bsStyle="primary"
+                onClick={this.showTreeNodeSourceCode.bind(this)}
+            >TreeNode</Button>;
+        }
+
+        return null;
     }
 }
 
