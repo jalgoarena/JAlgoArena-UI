@@ -224,6 +224,11 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel) {
             .then(response => response.json())
             .then(json => {
                 let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
+
+                if (result.status_code === 'ACCEPTED') {
+                    result = Object.assign({}, result, {status_code: 'RERUN_ACCEPTED'});
+                }
+
                 dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}, true));
                 dispatch(fetchAllSubmissions());
             })
