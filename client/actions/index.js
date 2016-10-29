@@ -202,6 +202,14 @@ export function setCurrentProblem(problemId) {
     }
 }
 
+export const SET_SUBMISSIONS_FILTER = 'SET_SUBMISSIONS_FILTER';
+export function setSubmissionsFilter(status) {
+    return {
+        type: SET_SUBMISSIONS_FILTER,
+        status
+    }
+}
+
 export const SET_CURRENT_PROBLEMS_FILTER = 'SET_CURRENT_PROBLEMS_FILTER';
 export function setCurrentProblemsFilter(level) {
     return {

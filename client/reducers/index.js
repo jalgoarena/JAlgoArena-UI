@@ -16,7 +16,8 @@ import {
     SET_CURRENT_PROBLEMS_FILTER,
     PROBLEM_REFRESH,
     CLOSE_WORK_IN_PROGRESS_WINDOW,
-    DELETE_SUBMISSION
+    DELETE_SUBMISSION,
+    SET_SUBMISSIONS_FILTER
 } from '../actions';
 
 import {
@@ -43,7 +44,8 @@ const rootReducer = combineReducers({
     submissions,
     ranking,
     problemRanking,
-    problemsFilter
+    problemsFilter,
+    submissionsFilter
 });
 
 function sourceCode(state = null, action) {
@@ -149,6 +151,15 @@ function problemsFilter(state = 0, action) {
     switch (action.type) {
         case SET_CURRENT_PROBLEMS_FILTER:
             return action.level;
+        default:
+            return state;
+    }
+}
+
+function submissionsFilter(state = 'ALL', action) {
+    switch (action.type) {
+        case SET_SUBMISSIONS_FILTER:
+            return action.status;
         default:
             return state;
     }

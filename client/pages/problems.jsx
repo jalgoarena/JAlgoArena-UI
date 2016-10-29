@@ -14,25 +14,25 @@ class Problems extends React.Component {
     render() {
         let problems = this.props.problems || [];
 
-        problems = problems.filter(problem => {
-            if (this.props.problemsFilter === 0) return true;
-            return problem.level === this.props.problemsFilter;
-        });
+        let problemNodes = problems
+            .filter(problem =>
+                this.props.problemsFilter === 0 ||
+                problem.level === this.props.problemsFilter
+            )
+            .map((problem, idx) => {
 
-        let problemNodes = problems.map((problem, idx) => {
+                let submittedProblems = _.map(this.props.submissions, (submission) => submission.problemId);
 
-            let submittedProblems = _.map(this.props.submissions, (submission) => submission.problemId);
+                const isDone = _.includes(submittedProblems, problem.id);
 
-            const isDone = _.includes(submittedProblems, problem.id);
-
-            return <Problem
-                title={problem.title}
-                level={problem.level}
-                id={problem.id}
-                key={idx}
-                submissions={this.props.submissions}
-                isDone={isDone}
-            />;
+                return <Problem
+                    title={problem.title}
+                    level={problem.level}
+                    id={problem.id}
+                    key={idx}
+                    submissions={this.props.submissions}
+                    isDone={isDone}
+                />;
         });
 
         return <Grid>
