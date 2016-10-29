@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
 import FontAwesome from '../components/FontAwesome';
+import {title} from '../config';
 
 const starLightStyle = {
     padding: 0,
@@ -45,7 +46,7 @@ const Home = () => (
             <Col lg={12}>
                 <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle}/>
                 <div className="intro-text">
-                    <span className="name" style={introTextNameStyle}>Start to solve your first problem</span>
+                    <span className="name" style={introTextNameStyle}>{title}</span>
                     <hr className="star-light" style={starLightStyle}/>
                     <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Java Hacker</span>
                 </div>
