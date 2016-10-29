@@ -1,15 +1,14 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
 
 import FontAwesome from './FontAwesome';
 
 const RunButton = ({sourceCode, problemId, onRun}) => (
-    <Button
-        bsStyle="primary"
-        bsSize="large"
+    <button
+        style={{width: '200px'}}
+        className="btn btn-lg btn-primary pull-right"
         onClick={() => onRun(sourceCode, problemId)}>
         <FontAwesome name="flash"/> Run
-    </Button>
+    </button>
 );
 
 export default RunButton;

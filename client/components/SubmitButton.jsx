@@ -2,10 +2,10 @@ import React from 'react';
 
 import FontAwesome from './FontAwesome';
 
-const SubmitButton = ({result, userId, onSubmit, isSubmitDisabled, problem}) => (
+const SubmitButton = ({result, userId, onSubmit, problem}) => (
     <button
-        className="pulse-button btn btn-lg btn-success"
-        disabled={isSubmitDisabled}
+        style={{width: '200px'}}
+        className="pulse-button btn btn-lg btn-success pull-right"
         onClick={() => onSubmit(result, userId, problem)}>
         <FontAwesome name="send"/> Submit
     </button>

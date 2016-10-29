@@ -84,8 +84,6 @@ class Problem extends React.Component {
         const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
-        this.listNodeButton();
-
         return <Grid>
             <Row>
                 <ProblemTitle submissions={this.props.submissions} problem={this.props.problem} />
