@@ -13,12 +13,14 @@ export function startSignup() {
     };
 }
 
-export function attemptSignUp(email, password, username) {
+export function attemptSignUp(email, password, username, region, team) {
 
     const body = {
         username: username,
         email: email,
-        password: password
+        password: password,
+        region: region,
+        team: team
     };
 
     const options = {

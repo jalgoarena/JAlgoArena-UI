@@ -11,6 +11,7 @@ import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
 import WorkInProgress from '../components/WorkInProgress';
 import {startSignup} from "../actions/AuthActions";
 import {closeWorkInProgressWindow} from "../actions/index";
+import {regions, teams} from "../config"
 
 const initialFormState = {
     errorMessage:  null,
@@ -116,7 +117,9 @@ class SignUp extends React.Component {
             username : findDOMNode(this.refs.username).value.trim(),
             email : findDOMNode(this.refs.email).value.trim(),
             password : findDOMNode(this.refs.password).value.trim(),
-            confirmedPassword : findDOMNode(this.refs.confirmPassword).value.trim()
+            confirmedPassword : findDOMNode(this.refs.confirmPassword).value.trim(),
+            region : findDOMNode(this.refs.region).value.trim(),
+            team : findDOMNode(this.refs.team).value.trim()
         };
 
         let newState = this.findErrorsInSignupForm(formData);
@@ -146,13 +149,28 @@ class SignUp extends React.Component {
                 </div> );
         }
 
+        let regionOptions = regions.map(region => <option>{region}</option>);
+        let teamOptions = teams.map(team => <option>{team}</option>);
+
         return (
             <Grid>
                 <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
                 <Col mdOffset={4} md={4}>
                     <form>
-                        <PageHeader className="text-center">Join Us</PageHeader>
+                        <PageHeader className="text-center">Create Account</PageHeader>
                         { errorLabel }
+                        <div className="form-group">
+                            <label htmlFor="region" className="control-label">Region</label>
+                            <select className="form-control" ref="region" id="region">
+                                {regionOptions}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="Team" className="control-label">Team</label>
+                            <select className="form-control" ref="team" id="team">
+                                {teamOptions}
+                            </select>
+                        </div>
                         <div className={this.getInputContainerClass(this.state.isUserNameFieldIncorrect)}>
                             <input className="form-control" type="text" placeholder="User Name" ref="username"/>
                         </div>
@@ -186,7 +204,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSignUp: (formData) => {
             dispatch(startSignup());
-            dispatch(attemptSignUp(formData.email, formData.password, formData.username));
+            dispatch(attemptSignUp(formData.email, formData.password, formData.username, formData.region, formData.team));
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
