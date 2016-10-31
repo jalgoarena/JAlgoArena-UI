@@ -14,8 +14,8 @@ class Leaderboard extends React.Component {
 
         let ranking = this.props.ranking.map ? this.props.ranking : [];
 
-        let rankNodes = ranking.map((ranking, idx) =>
-            <UserRank key={idx} idx={idx} hacker={ranking.hacker} score={ranking.score} />
+        let rankNodes = ranking.map((user, idx) =>
+            <UserRank key={idx} idx={idx} hacker={user.hacker} score={user.score} region={user.region} team={user.team} />
         );
 
         return (
@@ -27,6 +27,8 @@ class Leaderboard extends React.Component {
                         <tr>
                             <th>#</th>
                             <th>Hacker</th>
+                            <th>Region</th>
+                            <th>Team</th>
                             <th>Score</th>
                         </tr>
                         </thead>

@@ -41,7 +41,7 @@ class Profile extends React.Component {
             user
         } = userAuthSession;
 
-        user = user || {username: "", email: "", id: ""};
+        user = user || {username: "", email: "", id: "", region: "", team: ""};
 
         let submissions = this.props.submissions.map ? this.props.submissions : [];
 
@@ -74,6 +74,8 @@ class Profile extends React.Component {
                             <th>User ID</th>
                             <th>User Name</th>
                             <th>Email</th>
+                            <th>Region</th>
+                            <th>Team</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +83,8 @@ class Profile extends React.Component {
                             <td>{user.id}</td>
                             <td>{user.username}</td>
                             <td>{user.email}</td>
+                            <td>{user.region}</td>
+                            <td>{user.team}</td>
                         </tr>
                     </tbody>
                 </Table>
