@@ -59,10 +59,6 @@ class Admin extends React.Component {
             </ReactCSSTransitionGroup>
         </Grid>
     }
-
-    submissionsFilter(submission) {
-        return ;
-    }
 }
 
 const mapStateToProps = (state) => {
