@@ -48,7 +48,7 @@ class Leaderboard extends React.Component {
                         </tbody>
                     </Table>
                 </Col>
-                <Col md={6}>
+                <Col mdOffset={3} md={6}>
                     <PageHeader>Individual Ranking</PageHeader>
                     <Table striped bordered condensed hover responsive>
                         <thead>
