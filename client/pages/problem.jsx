@@ -97,14 +97,14 @@ class Problem extends React.Component {
                     {this.treeNodeButton()}
                 </ProblemToolbar>
                 <AceCodeEditor
-                    sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
+                    sourceCode={this.props.sourceCode || this.props.problem.skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
                 />
                 <SubmissionPanel
                     problem={this.props.problem}
                     userId={userId}
                     result={this.props.result}
-                    sourceCode={this.props.sourceCode || this.props.problem.skeleton_code}
+                    sourceCode={this.props.sourceCode || this.props.problem.skeletonCode}
                     onRun={this.props.onRun}
                     onSubmit={this.props.onSubmit}
                     isSubmitDisabled={isSubmitDisabled}
@@ -128,7 +128,7 @@ class Problem extends React.Component {
     }
 
     listNodeButton() {
-        if (this.props.problem.skeleton_code.includes('ListNode')) {
+        if (this.props.problem.skeletonCode.includes('ListNode')) {
             return <Button
                 bsStyle="primary"
                 onClick={this.showListNodeSourceCode.bind(this)}
@@ -139,7 +139,7 @@ class Problem extends React.Component {
     }
 
     treeNodeButton() {
-        if (this.props.problem.skeleton_code.includes('TreeNode')) {
+        if (this.props.problem.skeletonCode.includes('TreeNode')) {
             return <Button
                 bsStyle="primary"
                 onClick={this.showTreeNodeSourceCode.bind(this)}
