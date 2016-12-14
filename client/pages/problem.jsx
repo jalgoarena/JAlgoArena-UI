@@ -85,8 +85,8 @@ class Problem extends React.Component {
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
         let skeletonCode = this.props.programmingLanguage === 'java'
-            ? this.props.problem.skeletonCode
-            : this.props.problem.kotlinSkeletonCode;
+            ? this.props.problem.skeleton_code
+            : this.props.problem.kotlin_skeleton_code;
 
         return <Grid>
             <Row>
