@@ -327,3 +327,11 @@ function refreshSubmissions(submissions) {
         submissions
     }
 }
+
+export const CHANGE_PROGRAMMING_LANGUAGE = 'CHANGE_PROGRAMMING_LANGUAGE';
+export function changeActualLanguage(language) {
+    return {
+        type: CHANGE_PROGRAMMING_LANGUAGE,
+        programmingLanguage: language
+    }
+}

@@ -14,7 +14,7 @@ import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
 import store from '../store';
 import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh, fetchSubmissions} from "../actions/index";
+import {problemRefresh, fetchSubmissions, changeActualLanguage} from "../actions/index";
 import {hashHistory} from 'react-router';
 import {closeWorkInProgressWindow} from "../actions/index";
 
@@ -84,6 +84,10 @@ class Problem extends React.Component {
         const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
+        let skeletonCode = this.props.programmingLanguage === 'java'
+            ? this.props.problem.skeletonCode
+            : this.props.problem.kotlinSkeletonCode;
+
         return <Grid>
             <Row>
                 <ProblemTitle submissions={this.props.submissions} problem={this.props.problem} />
@@ -92,19 +96,21 @@ class Problem extends React.Component {
                     problem={this.props.problem}
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
+                    onLanguageChange={this.props.onLanguageChange}
+                    activeLanguage={this.props.programmingLanguage}
                 >
-                    {this.listNodeButton()}
-                    {this.treeNodeButton()}
+                    {this.listNodeButton(skeletonCode)}
+                    {this.treeNodeButton(skeletonCode)}
                 </ProblemToolbar>
                 <AceCodeEditor
-                    sourceCode={this.props.sourceCode || this.props.problem.skeletonCode}
+                    sourceCode={this.props.sourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
                 />
                 <SubmissionPanel
                     problem={this.props.problem}
                     userId={userId}
                     result={this.props.result}
-                    sourceCode={this.props.sourceCode || this.props.problem.skeletonCode}
+                    sourceCode={this.props.sourceCode || skeletonCode}
                     onRun={this.props.onRun}
                     onSubmit={this.props.onSubmit}
                     isSubmitDisabled={isSubmitDisabled}
@@ -127,8 +133,8 @@ class Problem extends React.Component {
         </Grid>;
     }
 
-    listNodeButton() {
-        if (this.props.problem.skeletonCode.includes('ListNode')) {
+    listNodeButton(skeletonCode) {
+        if (skeletonCode.includes('ListNode')) {
             return <Button
                 bsStyle="primary"
                 onClick={this.showListNodeSourceCode.bind(this)}
@@ -138,8 +144,8 @@ class Problem extends React.Component {
         return null;
     }
 
-    treeNodeButton() {
-        if (this.props.problem.skeletonCode.includes('TreeNode')) {
+    treeNodeButton(skeletonCode) {
+        if (skeletonCode.includes('TreeNode')) {
             return <Button
                 bsStyle="primary"
                 onClick={this.showTreeNodeSourceCode.bind(this)}
@@ -161,7 +167,8 @@ const mapStateToProps = (state) => {
         result: state.result,
         sourceCode: state.sourceCode,
         userAuthSession: state.userAuthSession,
-        submissions: state.submissions
+        submissions: state.submissions,
+        programmingLanguage: state.programmingLanguage
     }
 };
 
@@ -183,6 +190,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onHide: () => {
             dispatch(closeWorkInProgressWindow());
+        },
+        onLanguageChange: (language) => {
+            dispatch(changeActualLanguage(language));
         }
     }
 };

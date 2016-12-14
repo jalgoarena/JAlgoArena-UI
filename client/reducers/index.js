@@ -32,6 +32,7 @@ import {
 } from '../actions/AuthActions';
 
 import {updateUserInfo} from "./AuthReducers";
+import {CHANGE_PROGRAMMING_LANGUAGE} from "../actions/index";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -45,7 +46,8 @@ const rootReducer = combineReducers({
     ranking,
     problemRanking,
     problemsFilter,
-    submissionsFilter
+    submissionsFilter,
+    programmingLanguage
 });
 
 function sourceCode(state = null, action) {
@@ -55,6 +57,7 @@ function sourceCode(state = null, action) {
         case SET_CURRENT_PROBLEM:
         case SUBMISSION_SAVED:
         case PROBLEM_REFRESH:
+        case CHANGE_PROGRAMMING_LANGUAGE:
             return null;
         default:
             return state;
@@ -160,6 +163,15 @@ function submissionsFilter(state = 'ALL', action) {
     switch (action.type) {
         case SET_SUBMISSIONS_FILTER:
             return action.status;
+        default:
+            return state;
+    }
+}
+
+function programmingLanguage(state = 'java', action) {
+    switch (action.type) {
+        case CHANGE_PROGRAMMING_LANGUAGE:
+            return action.programmingLanguage;
         default:
             return state;
     }
