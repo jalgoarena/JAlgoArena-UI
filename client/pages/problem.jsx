@@ -137,7 +137,7 @@ class Problem extends React.Component {
     listNodeButton(skeletonCode) {
         if (skeletonCode.includes('ListNode')) {
             return <Button
-                bsStyle="primary"
+                bsStyle="success"
                 onClick={this.showListNodeSourceCode.bind(this)}
             >ListNode</Button>;
         }
@@ -148,7 +148,7 @@ class Problem extends React.Component {
     treeNodeButton(skeletonCode) {
         if (skeletonCode.includes('TreeNode')) {
             return <Button
-                bsStyle="primary"
+                bsStyle="success"
                 onClick={this.showTreeNodeSourceCode.bind(this)}
             >TreeNode</Button>;
         }
