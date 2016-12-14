@@ -28,7 +28,7 @@ class ProblemRank extends React.Component {
                             <th>#</th>
                             <th>Hacker</th>
                             <th>Score</th>
-                            <th>Elapsed Time (sec)</th>
+                            <th>Elapsed Time (ms)</th>
                         </tr>
                         </thead>
                         <tbody>
