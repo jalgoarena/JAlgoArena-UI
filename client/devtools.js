@@ -3,13 +3,13 @@ import { createDevTools } from 'redux-devtools';
 import LogMonitor from 'redux-devtools-log-monitor';
 import DockMonitor from 'redux-devtools-dock-monitor';
 import FilterMonitor from 'redux-devtools-filter-actions';
-import {CHANGE_SOURCE_CODE} from "./actions/index";
+import {CHANGE_SOURCE_CODE, FETCH_SUBMISSIONS} from "./actions/index";
 
 const DevTools = createDevTools(
     <DockMonitor toggleVisibilityKey='ctrl-h'
                  changePositionKey='ctrl-q'
                  defaultIsVisible={false}>
-        <FilterMonitor blacklist={[CHANGE_SOURCE_CODE]}>
+        <FilterMonitor blacklist={[CHANGE_SOURCE_CODE, FETCH_SUBMISSIONS]}>
             <LogMonitor theme='tomorrow' />
         </FilterMonitor>
     </DockMonitor>
