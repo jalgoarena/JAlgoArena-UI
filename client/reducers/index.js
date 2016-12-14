@@ -17,7 +17,9 @@ import {
     PROBLEM_REFRESH,
     CLOSE_WORK_IN_PROGRESS_WINDOW,
     DELETE_SUBMISSION,
-    SET_SUBMISSIONS_FILTER
+    SET_SUBMISSIONS_FILTER,
+    CHANGE_PROGRAMMING_LANGUAGE,
+    HIDE_DONE_PROBLEMS
 } from '../actions';
 
 import {
@@ -32,7 +34,6 @@ import {
 } from '../actions/AuthActions';
 
 import {updateUserInfo} from "./AuthReducers";
-import {CHANGE_PROGRAMMING_LANGUAGE} from "../actions/index";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -47,7 +48,8 @@ const rootReducer = combineReducers({
     problemRanking,
     problemsFilter,
     submissionsFilter,
-    programmingLanguage
+    programmingLanguage,
+    hideDoneProblems
 });
 
 function sourceCode(state = null, action) {
@@ -172,6 +174,15 @@ function programmingLanguage(state = 'java', action) {
     switch (action.type) {
         case CHANGE_PROGRAMMING_LANGUAGE:
             return action.programmingLanguage;
+        default:
+            return state;
+    }
+}
+
+function hideDoneProblems(state = false, action) {
+    switch (action.type) {
+        case HIDE_DONE_PROBLEMS:
+            return action.hideDoneProblems;
         default:
             return state;
     }

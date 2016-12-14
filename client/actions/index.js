@@ -336,3 +336,11 @@ export function changeActualLanguage(language) {
         programmingLanguage: language
     }
 }
+
+export const HIDE_DONE_PROBLEMS = 'HIDE_DONE_PROBLEMS';
+export function hideDoneProblems(value) {
+    return {
+        type: HIDE_DONE_PROBLEMS,
+        hideDoneProblems: value
+    }
+}

@@ -7,7 +7,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Problem from '../components/Problem';
 import WorkInProgress from "../components/WorkInProgress";
 import ProblemsFilter from '../components/ProblemsFilter';
-import {setCurrentProblemsFilter} from "../actions/index";
+import {setCurrentProblemsFilter, hideDoneProblems} from "../actions/index";
 import {closeWorkInProgressWindow} from "../actions/index";
 
 class Problems extends React.Component {
@@ -25,6 +25,8 @@ class Problems extends React.Component {
 
                 const isDone = _.includes(submittedProblems, problem.id);
 
+                if (this.props.hideDoneProblems && isDone) return null;
+
                 return <Problem
                     title={problem.title}
                     level={problem.level}
@@ -37,7 +39,12 @@ class Problems extends React.Component {
 
         return <Grid>
             <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
-            <ProblemsFilter changeFilter={this.props.changeFilter} filter={this.props.problemsFilter} />
+            <ProblemsFilter
+                changeFilter={this.props.changeFilter}
+                filter={this.props.problemsFilter}
+                onHideDoneProblems={this.props.onHideDoneProblems}
+                hideDoneProblems={this.props.hideDoneProblems}
+            />
             <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
                 {problemNodes}
             </ReactCSSTransitionGroup>
@@ -50,7 +57,8 @@ const mapStateToProps = (state) => {
         problems: state.problems,
         showModal: state.showModal,
         submissions: state.submissions,
-        problemsFilter: state.problemsFilter
+        problemsFilter: state.problemsFilter,
+        hideDoneProblems: state.hideDoneProblems
     }
 };
 
@@ -61,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onHide: () => {
             dispatch(closeWorkInProgressWindow());
+        },
+        onHideDoneProblems: (value) => {
+            dispatch(hideDoneProblems(value));
         }
     }
 };

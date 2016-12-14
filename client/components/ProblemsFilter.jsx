@@ -6,7 +6,7 @@ const filterStyle = {
     marginRight: "30px"
 };
 
-const ProblemsFilter = ({changeFilter, filter}) => (
+const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems}) => (
     <Row>
         <Col md={11}>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
@@ -14,6 +14,10 @@ const ProblemsFilter = ({changeFilter, filter}) => (
                 <Button onClick={() => changeFilter(2)} active={filter === 2}>Medium</Button>
                 <Button onClick={() => changeFilter(3)} active={filter === 3}>Hard</Button>
                 <Button onClick={() => changeFilter(0)} active={filter === 0}>All</Button>
+            </ButtonGroup>
+            <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
+                <Button onClick={() => onHideDoneProblems(true)} active={hideDoneProblems === true}>Todo</Button>
+                <Button onClick={() => onHideDoneProblems(false)} active={hideDoneProblems === false}>All</Button>
             </ButtonGroup>
         </Col>
     </Row>
