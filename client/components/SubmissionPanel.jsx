@@ -5,7 +5,7 @@ import SubmitButton from './SubmitButton';
 import MemoryLimit from './MemoryLimit';
 import TimeLimit from './TimeLimit';
 
-const SubmissionPanel = ({problem, sourceCode, result, userId, onRun, onSubmit, isSubmitDisabled}) => {
+const SubmissionPanel = ({problem, sourceCode, result, userId, onRun, onSubmit, isSubmitDisabled, activeLanguage}) => {
 
     let button = isSubmitDisabled
         ? <RunButton
@@ -18,6 +18,7 @@ const SubmissionPanel = ({problem, sourceCode, result, userId, onRun, onSubmit, 
             result={result}
             userId={userId}
             onSubmit={onSubmit}
+            activeLanguage={activeLanguage}
         />;
 
     return <div>

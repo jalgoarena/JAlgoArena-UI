@@ -40,7 +40,7 @@ class Submission extends React.Component {
                         </Button>
                         <Button bsStyle="info"
                                 onClick={() =>
-                                    this.props.onRerun(this.props.sourceCode, this.props.userId, this.props.problemId, this.props.level)
+                                    this.props.onRerun(this.props.sourceCode, this.props.userId, this.props.problemId, this.props.level, this.props.language)
                                 }>
                             <FontAwesome name="refresh"/> Re-Run
                         </Button>

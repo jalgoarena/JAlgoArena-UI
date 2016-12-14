@@ -46,6 +46,7 @@ class Admin extends React.Component {
                     statusCode={submission.statusCode}
                     level={submission.level}
                     submissionId={submission._id}
+                    language={submission.language}
                     onDelete={this.props.onDelete}
                     onRerun={this.props.onRerun}
                     key={idx}
@@ -78,8 +79,8 @@ const mapDispatchToProps = (dispatch) => {
         onDelete: (submissionId) => {
             dispatch(deleteSubmission(submissionId));
         },
-        onRerun: (sourceCode, userId, problemId, problemLevel) => {
-            dispatch(rerunSubmission(sourceCode, userId, problemId, problemLevel));
+        onRerun: (sourceCode, userId, problemId, problemLevel, problemLanguage) => {
+            dispatch(rerunSubmission(sourceCode, userId, problemId, problemLevel, problemLanguage));
         },
         changeFilter: (status) => {
             dispatch(setSubmissionsFilter(status));

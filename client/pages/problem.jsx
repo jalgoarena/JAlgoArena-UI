@@ -114,6 +114,7 @@ class Problem extends React.Component {
                     onRun={this.props.onRun}
                     onSubmit={this.props.onSubmit}
                     isSubmitDisabled={isSubmitDisabled}
+                    activeLanguage={this.props.programmingLanguage}
                 />
             </Row>
             <Output result={this.props.result}/>
@@ -178,9 +179,9 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(startJudge());
             dispatch(judgeCode(sourceCode, problemId));
         },
-        onSubmit: (result, userId, problem) => {
+        onSubmit: (result, userId, problem, activeLanguage) => {
             dispatch(startSubmission());
-            dispatch(sendSubmission(result, userId, problem));
+            dispatch(sendSubmission(result, userId, problem, activeLanguage));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))

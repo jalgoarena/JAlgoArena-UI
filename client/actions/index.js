@@ -218,7 +218,7 @@ export function setCurrentProblemsFilter(level) {
     }
 }
 
-export function rerunSubmission(sourceCode, userId, problemId, problemLevel) {
+export function rerunSubmission(sourceCode, userId, problemId, problemLevel, language) {
     const options = {
         headers: {
             'Accept': 'application/json',
@@ -237,7 +237,7 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel) {
                     result = Object.assign({}, result, {status_code: 'RERUN_ACCEPTED'});
                 }
 
-                dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}, true));
+                dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}, language, true));
                 dispatch(fetchAllSubmissions());
             })
             .catch(error => console.log(error));
@@ -253,7 +253,7 @@ export function startSubmission() {
 }
 
 export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
-export function sendSubmission(result, userId, problem, isForAll) {
+export function sendSubmission(result, userId, problem, activeLanguage, isForAll) {
 
     return dispatch => {
 
@@ -272,7 +272,8 @@ export function sendSubmission(result, userId, problem, isForAll) {
                 elapsed_time: result.elapsed_time,
                 sourceCode: result.sourceCode,
                 statusCode: result.status_code,
-                userId: userId
+                userId: userId,
+                language: activeLanguage
             })
         };
 
