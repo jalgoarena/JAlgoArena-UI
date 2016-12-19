@@ -1,5 +1,5 @@
 import React from "react";
-import {Navbar, Nav, NavItem} from "react-bootstrap";
+import {Navbar, Nav, NavItem, NavDropdown} from "react-bootstrap";
 import FontAwesome from './FontAwesome';
 import {LinkContainer} from 'react-router-bootstrap';
 
@@ -43,9 +43,14 @@ export default class Menu extends React.Component {
         }
 
         return this.props.store.getState().userAuthSession.user.isAdmin
-            ? <LinkContainer to="/admin">
-                <NavItem><FontAwesome name="cogs" lg={true}/> Admin</NavItem>
-            </LinkContainer>
+            ? <NavDropdown title={<span><FontAwesome name="cogs" lg={true}/> Admin</span>} id="basic-nav-dropdown">
+                <LinkContainer to="/admin">
+                    <NavItem><FontAwesome name="code"/> Submissions</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/newProblem">
+                    <NavItem><FontAwesome name="book"/> New Problem</NavItem>
+                </LinkContainer>
+            </NavDropdown>
             : null;
     }
 

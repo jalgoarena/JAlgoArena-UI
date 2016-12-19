@@ -12,6 +12,7 @@ import LoginPage from "./pages/login"
 import SignUpPage from "./pages/signup";
 import ProblemRankPage from './pages/problemRank';
 import AdminPage from "./pages/admin";
+import NewProblemPage from "./pages/newProblem";
 
 import { Provider } from 'react-redux'
 import store from './store';
@@ -31,6 +32,7 @@ export default (
                 <Route path="/login" component={LoginPage} />
                 <Route path="/admin" component={AdminPage} />
                 <Route path="/signup" component={SignUpPage} />
+                <Route path="/newProblem" component={NewProblemPage} />
             </Route>
         </Router>
     </Provider>
