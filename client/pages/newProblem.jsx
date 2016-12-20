@@ -65,7 +65,7 @@ class NewProblem extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="level" className="control-label">Level</label>
-                            <select className="form-control" ref="level" id="level"
+                            <select className="form-control" id="level"
                                 onChange={(e) => this.setState({level: e.target.value})}
                             >
                                 <option value={1}>Easy</option>
@@ -86,6 +86,27 @@ class NewProblem extends React.Component {
                                        func: Object.assign({}, this.state.func, {name: e.target.value})
                                    })}
                             />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="returnType" className="control-label">Return Type</label>
+                            <select className="form-control" id="returnType"
+                                    onChange={(e) => this.setState({
+                                        func: Object.assign({}, this.state.func, {return: {type: e.target.value, comment: this.state.func.return.comment}})
+                                    })}
+                            >
+                                <option value="java.lang.Integer">int</option>
+                                <option value="java.lang.Long">long</option>
+                                <option value="java.lang.Double">double</option>
+                                <option value="java.lang.Boolean">bool</option>
+                                <option value="java.lang.Float">float</option>
+                                <option value="java.lang.Short">short</option>
+                                <option value="java.lang.String">String</option>
+                                <option value="[I">int[]</option>
+                                <option value="[[I">int[][]</option>
+                                <option value="void">void</option>
+                                <option value="org.algohub.engine.type.ListNode">ListNode</option>
+                                <option value="org.algohub.engine.type.TreeNode">TreeNode</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <input className="form-control" type="text" placeholder="Return Comment" id="returnComment"
