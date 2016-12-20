@@ -1,4 +1,5 @@
 import React from 'react';
+import {findDOMNode} from 'react-dom';
 import {Grid, Button, Col, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Markdown from 'react-remarkable';
@@ -10,10 +11,10 @@ class NewProblem extends React.Component {
     constructor(props) {
         super(props);
         this.state = Object.assign({}, {
-            description: "Write the `fib` function to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
-            title: "Dummy Title",
+            description: "Write the `fib` function to return the N'th term.\nWe start counting from:\n* fib(0) = 0\n* fib(1) = 1.\n\n### Examples\n\n* `0` -> `0`\n* `6` -> `8`",
+            title: "Fibonacci",
             level: "1",
-            problemId: "TBD",
+            problemId: "fib",
             timeLimit: 1,
             memoryLimit: 32,
             func: {
@@ -39,6 +40,30 @@ class NewProblem extends React.Component {
         });
     }
 
+    onCreateProblem(e) {
+        e.preventDefault();
+
+        let problemJson = {
+            id: this.state.problemId,
+            title: this.state.title,
+            description: this.state.description,
+            time_limit: this.state.timeLimit,
+            memory_limit: this.state.memoryLimit,
+            level: this.state.level,
+            function: this.state.func,
+            test_cases: this.state.test_cases
+        };
+
+        // let newState = this.findErrorsInSignupForm(formData);
+        // this.setState(newState);
+
+        // if (!newState.errorMessage) {
+        //     this.props.onCreateProblem(problemJson);
+        // }
+
+        console.log(JSON.stringify(problemJson));
+    }
+
     render() {
         return (
             <Grid>
@@ -47,36 +72,36 @@ class NewProblem extends React.Component {
                     <form>
                         <div className="form-group">
                             <label htmlFor="title" className="control-label">Title </label>
-                            <input className="form-control" type="text" placeholder="Title" id="title"
+                            <input className="form-control" type="text" placeholder="Title" id="title" ref="title"
                                    value={this.state.title}
                                    onChange={(e) => this.setState({title: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="problemId" className="control-label">Problem ID</label>
-                            <input className="form-control" type="text" placeholder="Problem ID" id="problemId"
+                            <input className="form-control" type="text" placeholder="Problem ID" id="problemId" ref="problemId"
                                    value={this.state.problemId}
                                    onChange={(e) => this.setState({problemId: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="timeLimit" className="control-label">Time Limit</label>
-                            <input className="form-control" type="number" placeholder="Time Limit" id="timeLimit"
+                            <input className="form-control" type="number" placeholder="Time Limit" id="timeLimit" ref="timeLimit"
                                    value={this.state.timeLimit}
                                    onChange={(e) => this.setState({timeLimit: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="memoryLimit" className="control-label">Memory Limit</label>
-                            <input className="form-control" type="number" placeholder="Memory Limit" id="memoryLimit"
+                            <input className="form-control" type="number" placeholder="Memory Limit" id="memoryLimit" ref="memoryLimit"
                                    value={this.state.memoryLimit}
                                    onChange={(e) => this.setState({memoryLimit: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="level" className="control-label">Level</label>
-                            <select className="form-control" id="level"
-                                onChange={(e) => this.setState({level: e.target.value})}
+                            <select className="form-control" id="level" ref="level"
+                                    onChange={(e) => this.setState({level: e.target.value})}
                             >
                                 <option value={1}>Easy</option>
                                 <option value={2}>Medium</option>
@@ -85,14 +110,14 @@ class NewProblem extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="description" className="control-label">Description</label>
-                            <textarea className="form-control" type="text" placeholder="Description" id="description"
+                            <textarea className="form-control" type="text" placeholder="Description" id="description" ref="description"
                                       value={this.state.description}
                                       onChange={(e) => this.setState({description: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="functionName" className="control-label">Function Name</label>
-                            <input className="form-control" type="text" placeholder="Function Name" id="functionName"
+                            <input className="form-control" type="text" placeholder="Function Name" id="functionName" ref="functionName"
                                    value={this.state.func.name}
                                    onChange={(e) => this.setState({
                                        func: Object.assign({}, this.state.func, {name: e.target.value})
@@ -101,9 +126,14 @@ class NewProblem extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="returnType" className="control-label">Return Type</label>
-                            <select className="form-control" id="returnType"
+                            <select className="form-control" id="returnType" ref="returnType"
                                     onChange={(e) => this.setState({
-                                        func: Object.assign({}, this.state.func, {return: {type: e.target.value, comment: this.state.func.return.comment}})
+                                        func: Object.assign({}, this.state.func, {
+                                            return: {
+                                                type: e.target.value,
+                                                comment: this.state.func.return.comment
+                                            }
+                                        })
                                     })}
                             >
                                 <option value="java.lang.Integer">int</option>
@@ -122,32 +152,38 @@ class NewProblem extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="returnComment" className="control-label">Return Comment</label>
-                            <input className="form-control" type="text" placeholder="Return Comment" id="returnComment"
+                            <input className="form-control" type="text" placeholder="Return Comment" id="returnComment" ref="returnComment"
                                    value={this.state.func.return.comment}
                                    onChange={(e) => this.setState({
-                                       func: Object.assign({}, this.state.func, {return: {type: this.state.func.return.type, comment: e.target.value}})
+                                       func: Object.assign({}, this.state.func, {
+                                           return: {
+                                               type: this.state.func.return.type,
+                                               comment: e.target.value
+                                           }
+                                       })
                                    })}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="parameters" className="control-label">Parameters</label>
-                            <textarea className="form-control" type="text" placeholder="Parameters" id="parameters"
-                                   value={JSON.stringify(this.state.func.parameters)}
-                                   onChange={(e) => this.setState({
-                                       func: Object.assign({}, this.state.func, {parameters: JSON.parse(e.target.value)})
-                                   })}
+                            <textarea className="form-control" type="text" placeholder="Parameters" id="parameters" ref="parameters"
+                                      value={JSON.stringify(this.state.func.parameters)}
+                                      onChange={(e) => this.setState({
+                                          func: Object.assign({}, this.state.func, {parameters: JSON.parse(e.target.value)})
+                                      })}
                             />
                         </div>
                         <div className="form-group">
                             <label htmlFor="testCases" className="control-label">Test Cases</label>
-                            <textarea className="form-control" type="text" placeholder="Test Cases" id="testCases"
+                            <textarea className="form-control" type="text" placeholder="Test Cases" id="testCases" ref="testCases"
                                       value={JSON.stringify(this.state.test_cases)}
                                       onChange={(e) => this.setState({
-                                          test_cases: JSON.parse(e.target.value)})
+                                          test_cases: JSON.parse(e.target.value)
+                                      })
                                       }
                             />
                         </div>
-                        <Button type="submit" bsStyle="success" className="pull-right" onClick={this.onSignUp}>
+                        <Button type="submit" bsStyle="success" className="pull-right" onClick={(e) => this.onCreateProblem(e)}>
                             <FontAwesome name="book"/> Create Problem
                         </Button>
                     </form>
@@ -171,9 +207,7 @@ class NewProblem extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-
-    }
+    return {}
 };
 
 const mapDispatchToProps = (dispatch) => {
