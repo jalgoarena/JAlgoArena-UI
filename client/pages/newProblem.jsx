@@ -10,7 +10,7 @@ class NewProblem extends React.Component {
     constructor(props) {
         super(props);
         this.state = Object.assign({}, {
-            description: "Dummy Description",
+            description: "Write the `fib` function to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
             title: "Dummy Title",
             level: "1",
             problemId: "TBD",
@@ -29,7 +29,13 @@ class NewProblem extends React.Component {
                         comment: "id of fibonacci term to be returned"
                     }
                 ]
-            }
+            },
+            test_cases: [
+                {input: ["0"], output: 0},
+                {input: ["1"], output: 1},
+                {input: ["2"], output: 1},
+                {input: ["3"], output: 2}
+            ]
         });
     }
 
@@ -40,24 +46,28 @@ class NewProblem extends React.Component {
                 <Col md={5}>
                     <form>
                         <div className="form-group">
+                            <label htmlFor="title" className="control-label">Title </label>
                             <input className="form-control" type="text" placeholder="Title" id="title"
                                    value={this.state.title}
                                    onChange={(e) => this.setState({title: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
+                            <label htmlFor="problemId" className="control-label">Problem ID</label>
                             <input className="form-control" type="text" placeholder="Problem ID" id="problemId"
                                    value={this.state.problemId}
                                    onChange={(e) => this.setState({problemId: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
+                            <label htmlFor="timeLimit" className="control-label">Time Limit</label>
                             <input className="form-control" type="number" placeholder="Time Limit" id="timeLimit"
                                    value={this.state.timeLimit}
                                    onChange={(e) => this.setState({timeLimit: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
+                            <label htmlFor="memoryLimit" className="control-label">Memory Limit</label>
                             <input className="form-control" type="number" placeholder="Memory Limit" id="memoryLimit"
                                    value={this.state.memoryLimit}
                                    onChange={(e) => this.setState({memoryLimit: e.target.value})}
@@ -74,12 +84,14 @@ class NewProblem extends React.Component {
                             </select>
                         </div>
                         <div className="form-group">
+                            <label htmlFor="description" className="control-label">Description</label>
                             <textarea className="form-control" type="text" placeholder="Description" id="description"
                                       value={this.state.description}
                                       onChange={(e) => this.setState({description: e.target.value})}
                             />
                         </div>
                         <div className="form-group">
+                            <label htmlFor="functionName" className="control-label">Function Name</label>
                             <input className="form-control" type="text" placeholder="Function Name" id="functionName"
                                    value={this.state.func.name}
                                    onChange={(e) => this.setState({
@@ -109,11 +121,30 @@ class NewProblem extends React.Component {
                             </select>
                         </div>
                         <div className="form-group">
+                            <label htmlFor="returnComment" className="control-label">Return Comment</label>
                             <input className="form-control" type="text" placeholder="Return Comment" id="returnComment"
                                    value={this.state.func.return.comment}
                                    onChange={(e) => this.setState({
                                        func: Object.assign({}, this.state.func, {return: {type: this.state.func.return.type, comment: e.target.value}})
                                    })}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="parameters" className="control-label">Parameters</label>
+                            <textarea className="form-control" type="text" placeholder="Parameters" id="parameters"
+                                   value={JSON.stringify(this.state.func.parameters)}
+                                   onChange={(e) => this.setState({
+                                       func: Object.assign({}, this.state.func, {parameters: JSON.parse(e.target.value)})
+                                   })}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="testCases" className="control-label">Test Cases</label>
+                            <textarea className="form-control" type="text" placeholder="Test Cases" id="testCases"
+                                      value={JSON.stringify(this.state.test_cases)}
+                                      onChange={(e) => this.setState({
+                                          test_cases: JSON.parse(e.target.value)})
+                                      }
                             />
                         </div>
                         <Button type="submit" bsStyle="success" className="pull-right" onClick={this.onSignUp}>
@@ -126,9 +157,13 @@ class NewProblem extends React.Component {
                     <h4>ID: {this.state.problemId}</h4>
                     <h4>Time Limit: {this.state.timeLimit}</h4>
                     <h4>Memory Limit: {this.state.memoryLimit}</h4>
-                    <h4>Level: {this.state.level}</h4><br/><br/>
+                    <h4>Level: {this.state.level}</h4>
+                    <h4>Description</h4>
                     <Markdown source={this.state.description}/>
+                    <h4>Function Json</h4>
                     <JSONTree data={this.state.func}/>
+                    <h4>Test Cases Json</h4>
+                    <JSONTree data={this.state.test_cases}/>
                 </Col>
             </Grid>
         );
