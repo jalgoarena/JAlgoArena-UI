@@ -6,6 +6,7 @@ import Markdown from 'react-remarkable';
 import JSONTree from 'react-json-tree';
 
 import FontAwesome from '../components/FontAwesome';
+import {createProblem} from "../actions/index";
 
 class NewProblem extends React.Component {
     constructor(props) {
@@ -54,14 +55,7 @@ class NewProblem extends React.Component {
             test_cases: this.state.test_cases
         };
 
-        // let newState = this.findErrorsInSignupForm(formData);
-        // this.setState(newState);
-
-        // if (!newState.errorMessage) {
-        //     this.props.onCreateProblem(problemJson);
-        // }
-
-        console.log(JSON.stringify(problemJson));
+        this.props.onCreateProblem(problemJson);
     }
 
     render() {
@@ -207,11 +201,16 @@ class NewProblem extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onCreateProblem: (problemJson) => {
+            dispatch(createProblem(problemJson));
+        }
+    }
 };
 
 const NewProblemPage = connect(

@@ -344,3 +344,35 @@ export function hideDoneProblems(value) {
         hideDoneProblems: value
     }
 }
+
+export const CREATE_PROBLEM = 'CREATE_PROBLEM';
+export function createProblem(problem) {
+    return dispatch => {
+
+        let token = localStorage.getItem('jwtToken');
+
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            method: 'post',
+            body: JSON.stringify(problem)
+        };
+
+        return fetch(`${DATA_SERVER_URL}/problems/new`, options)
+            .then(response => response.json())
+            .then(json => {
+                console.log('problem saved: ' + json._id);
+                dispatch(problemCreated())
+            })
+            .catch(error => console.log(error));
+    };
+}
+
+function problemCreated() {
+    return {
+        type: CREATE_PROBLEM
+    }
+}
