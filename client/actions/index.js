@@ -3,6 +3,7 @@ import config from '../config';
 
 const JUDGE_SERVER_URL = config.judgeServerUrl;
 const DATA_SERVER_URL = config.dataServerUrl;
+const PROBLEMS_SERVER_URL = config.problemsServerUrl;
 
 export const CLOSE_WORK_IN_PROGRESS_WINDOW = 'CLOSE_WORK_IN_PROGRESS_WINDOW';
 export function closeWorkInProgressWindow() {
@@ -361,7 +362,7 @@ export function createProblem(problem) {
             body: JSON.stringify(problem)
         };
 
-        return fetch(`${DATA_SERVER_URL}/problems/new`, options)
+        return fetch(`${PROBLEMS_SERVER_URL}/problems/new`, options)
             .then(response => response.json())
             .then(json => {
                 console.log('problem saved: ' + json._id);

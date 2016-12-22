@@ -32,7 +32,7 @@ class NewProblem extends React.Component {
                     }
                 ]
             },
-            test_cases: [
+            testCases: [
                 {input: ["0"], output: 0},
                 {input: ["1"], output: 1},
                 {input: ["2"], output: 1},
@@ -52,7 +52,7 @@ class NewProblem extends React.Component {
             memory_limit: this.state.memoryLimit,
             level: this.state.level,
             function: this.state.func,
-            test_cases: this.state.test_cases
+            testCases: this.state.testCases
         };
 
         this.props.onCreateProblem(problemJson);
@@ -170,9 +170,9 @@ class NewProblem extends React.Component {
                         <div className="form-group">
                             <label htmlFor="testCases" className="control-label">Test Cases</label>
                             <textarea className="form-control" type="text" placeholder="Test Cases" id="testCases" ref="testCases"
-                                      value={JSON.stringify(this.state.test_cases)}
+                                      value={JSON.stringify(this.state.testCases)}
                                       onChange={(e) => this.setState({
-                                          test_cases: JSON.parse(e.target.value)
+                                          testCases: JSON.parse(e.target.value)
                                       })
                                       }
                             />
@@ -193,7 +193,7 @@ class NewProblem extends React.Component {
                     <h4>Function Json</h4>
                     <JSONTree data={this.state.func}/>
                     <h4>Test Cases Json</h4>
-                    <JSONTree data={this.state.test_cases}/>
+                    <JSONTree data={this.state.testCases}/>
                 </Col>
             </Grid>
         );
