@@ -26,7 +26,8 @@ export function judgeCode(sourceCode, problemId) {
             'Content-Type': 'text/plain'
         },
         method: 'post',
-        body: sourceCode
+        body: sourceCode,
+        mode: 'no-cors'
     };
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
@@ -58,7 +59,8 @@ export function fetchProblems() {
         headers: {
             'Accept': 'application/json'
         },
-        method: 'get'
+        method: 'get',
+        mode: 'no-cors'
     };
 
     return dispatch => {
@@ -90,7 +92,8 @@ export function fetchSubmissions(userId) {
             'Accept': 'application/json',
             'Authorization': token
         },
-        method: 'get'
+        method: 'get',
+        mode: 'no-cors'
     };
 
     return dispatch => {
@@ -114,7 +117,8 @@ export function fetchAllSubmissions() {
             'Accept': 'application/json',
             'Authorization': token
         },
-        method: 'get'
+        method: 'get',
+        mode: 'no-cors'
     };
 
     return dispatch => {
@@ -138,7 +142,8 @@ export function fetchProblemRanking(problemId) {
         headers: {
             'Accept': 'application/json'
         },
-        method: 'get'
+        method: 'get',
+        mode: 'no-cors'
     };
 
     return dispatch => {
@@ -162,7 +167,8 @@ export function fetchRanking() {
         headers: {
             'Accept': 'application/json'
         },
-        method: 'get'
+        method: 'get',
+        mode: 'no-cors'
     };
 
     return dispatch => {
@@ -226,7 +232,8 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel, lan
             'Content-Type': 'text/plain'
         },
         method: 'post',
-        body: sourceCode
+        body: sourceCode,
+        mode: 'no-cors'
     };
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
@@ -275,7 +282,8 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
                 statusCode: result.status_code,
                 userId: userId,
                 language: activeLanguage
-            })
+            }),
+            mode: 'no-cors'
         };
 
         return fetch(`${DATA_SERVER_URL}/submissions`, options)
@@ -313,7 +321,8 @@ export function deleteSubmission(submissionId) {
                 'Authorization': token
             },
             method: 'post',
-            body: JSON.stringify({})
+            body: JSON.stringify({}),
+            mode: 'no-cors'
         };
 
         return fetch(`${DATA_SERVER_URL}/submissions/delete/${submissionId}`, options)
@@ -359,7 +368,8 @@ export function createProblem(problem) {
                 'Authorization': token
             },
             method: 'post',
-            body: JSON.stringify(problem)
+            body: JSON.stringify(problem),
+            mode: 'no-cors'
         };
 
         return fetch(`${PROBLEMS_SERVER_URL}/problems/new`, options)
