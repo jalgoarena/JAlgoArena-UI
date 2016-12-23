@@ -27,7 +27,7 @@ export function judgeCode(sourceCode, problemId) {
         },
         method: 'post',
         body: sourceCode,
-        mode: 'no-cors'
+        mode: 'cors'
     };
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
@@ -60,7 +60,7 @@ export function fetchProblems() {
             'Accept': 'application/json'
         },
         method: 'get',
-        mode: 'no-cors'
+        mode: 'cors'
     };
 
     return dispatch => {
