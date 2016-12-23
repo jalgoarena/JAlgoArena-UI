@@ -92,8 +92,7 @@ export function fetchSubmissions(userId) {
             'Accept': 'application/json',
             'Authorization': token
         },
-        method: 'get',
-        mode: 'no-cors'
+        method: 'get'
     };
 
     return dispatch => {
@@ -117,8 +116,7 @@ export function fetchAllSubmissions() {
             'Accept': 'application/json',
             'Authorization': token
         },
-        method: 'get',
-        mode: 'no-cors'
+        method: 'get'
     };
 
     return dispatch => {
@@ -142,8 +140,7 @@ export function fetchProblemRanking(problemId) {
         headers: {
             'Accept': 'application/json'
         },
-        method: 'get',
-        mode: 'no-cors'
+        method: 'get'
     };
 
     return dispatch => {
@@ -167,8 +164,7 @@ export function fetchRanking() {
         headers: {
             'Accept': 'application/json'
         },
-        method: 'get',
-        mode: 'no-cors'
+        method: 'get'
     };
 
     return dispatch => {
@@ -232,8 +228,7 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel, lan
             'Content-Type': 'text/plain'
         },
         method: 'post',
-        body: sourceCode,
-        mode: 'no-cors'
+        body: sourceCode
     };
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
@@ -282,8 +277,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
                 statusCode: result.status_code,
                 userId: userId,
                 language: activeLanguage
-            }),
-            mode: 'no-cors'
+            })
         };
 
         return fetch(`${DATA_SERVER_URL}/submissions`, options)
@@ -321,8 +315,7 @@ export function deleteSubmission(submissionId) {
                 'Authorization': token
             },
             method: 'post',
-            body: JSON.stringify({}),
-            mode: 'no-cors'
+            body: JSON.stringify({})
         };
 
         return fetch(`${DATA_SERVER_URL}/submissions/delete/${submissionId}`, options)
