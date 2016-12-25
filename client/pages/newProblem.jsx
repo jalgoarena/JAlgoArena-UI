@@ -140,8 +140,8 @@ class NewProblem extends React.Component {
                                 <option value="[I">int[]</option>
                                 <option value="[[I">int[][]</option>
                                 <option value="void">void</option>
-                                <option value="org.algohub.engine.type.ListNode">ListNode</option>
-                                <option value="org.algohub.engine.type.TreeNode">TreeNode</option>
+                                <option value="com.jalgoarena.type.ListNode">ListNode</option>
+                                <option value="com.jalgoarena.type.TreeNode">TreeNode</option>
                             </select>
                         </div>
                         <div className="form-group">
