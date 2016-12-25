@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import config from '../config';
 
-const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge";
-const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems";
+const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
+const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
 const DATA_SERVER_URL = config.dataServerUrl;
 
 export const CLOSE_WORK_IN_PROGRESS_WINDOW = 'CLOSE_WORK_IN_PROGRESS_WINDOW';
