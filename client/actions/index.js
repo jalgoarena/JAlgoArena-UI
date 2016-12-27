@@ -90,7 +90,7 @@ export function fetchSubmissions(userId) {
     const options = {
         headers: {
             'Accept': 'application/json',
-            'Authorization': token
+            'X-Authorization': token
         },
         method: 'get'
     };
@@ -114,7 +114,7 @@ export function fetchAllSubmissions() {
     const options = {
         headers: {
             'Accept': 'application/json',
-            'Authorization': token
+            'X-Authorization': token
         },
         method: 'get'
     };
@@ -266,7 +266,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': token
+                'X-Authorization': token
             },
             method: 'post',
             body: JSON.stringify({
@@ -312,7 +312,7 @@ export function deleteSubmission(submissionId) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': token
+                'X-Authorization': token
             },
             method: 'post',
             body: JSON.stringify({})
@@ -358,7 +358,7 @@ export function createProblem(problem) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': token
+                'X-Authorization': token
             },
             method: 'post',
             body: JSON.stringify(problem),

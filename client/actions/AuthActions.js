@@ -4,7 +4,7 @@ import {hashHistory} from "react-router";
 import {fetchSubmissions} from "./index";
 import config from '../config';
 
-const DATA_SERVER_URL = config.dataServerUrl;
+const AUTH_SERVER_URL = config.jalgoarenaApiUrl + "/auth";
 
 export const START_SIGNUP = 'START_SIGNUP';
 export function startSignup() {
@@ -28,12 +28,12 @@ export function attemptSignUp(email, password, username, region, team) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        method: 'post',
+        method: 'POST',
         body: JSON.stringify(body)
     };
 
     return dispatch => {
-        return fetch(`${DATA_SERVER_URL}/signup`, options)
+        return fetch(`${AUTH_SERVER_URL}/signup`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -76,22 +76,25 @@ export function attemptLogin(username, password) {
     };
 
     const options = {
+        method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'X-Requested-With': 'XMLHttpRequest'
         },
-        method: 'post',
         body: JSON.stringify(body)
     };
 
     return dispatch => {
-        return fetch(`${DATA_SERVER_URL}/login`, options)
+        return fetch(`${AUTH_SERVER_URL}/api/auth/login`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
                     dispatch(loginFail(json.error));
                 } else {
                     localStorage.setItem('jwtToken', json.token);
+                    localStorage.setItem('jwtRefreshToken', json.refreshToken);
                     dispatch(loginSuccess(json.user));
                 }
             })
@@ -128,12 +131,12 @@ export function checkSessionStatus() {
         const options = {
             headers: {
                 'Accept': 'application/json',
-                'Authorization': token
+                'X-Authorization': token
             },
             method: 'get'
         };
 
-        return fetch(`${DATA_SERVER_URL}/user`, options)
+        return fetch(`${AUTH_SERVER_URL}/api/user`, options)
             .then(response => response.json())
             .then(user => {
                 dispatch(checkedSessionStatus(user));
@@ -157,12 +160,12 @@ export function fetchUsers() {
         const options = {
             headers: {
                 'Accept': 'application/json',
-                'Authorization': token
+                'X-Authorization': token
             },
             method: 'get'
         };
 
-        return fetch(`${DATA_SERVER_URL}/users`, options)
+        return fetch(`${AUTH_SERVER_URL}/users`, options)
             .then(response => response.json())
             .then(users => {
                 console.log(users);
@@ -199,7 +202,7 @@ export function attemptLogout(){
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': token
+            'X-Authorization': token
         },
         method: 'post',
         body: JSON.stringify({})
@@ -209,7 +212,7 @@ export function attemptLogout(){
 
         localStorage.removeItem('jwtToken');
 
-        return fetch(`${DATA_SERVER_URL}/logout`, options)
+        return fetch(`${AUTH_SERVER_URL}/api/auth/logout`, options)
             .then(response => dispatch(logoutSuccess()))
             .catch(error => console.log(error));
     }
