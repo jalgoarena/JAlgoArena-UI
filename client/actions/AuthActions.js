@@ -80,8 +80,7 @@ export function attemptLogin(username, password) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache',
-            'X-Requested-With': 'XMLHttpRequest'
+            'Cache-Control': 'no-cache'
         },
         body: JSON.stringify(body)
     };
@@ -93,9 +92,34 @@ export function attemptLogin(username, password) {
                 if (json.error){
                     dispatch(loginFail(json.error));
                 } else {
-                    localStorage.setItem('jwtToken', json.token);
+                    let token = 'Bearer ' + json.token;
+                    localStorage.setItem('jwtToken', token);
                     localStorage.setItem('jwtRefreshToken', json.refreshToken);
-                    dispatch(loginSuccess(json.user));
+                    dispatch(fetchUser(token));
+                }
+            })
+            .catch(error => console.log(error));
+    };
+}
+
+function fetchUser(token) {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'X-Authorization': token
+        }
+    };
+
+    return dispatch => {
+        return fetch(`${AUTH_SERVER_URL}/api/user`, options)
+            .then(response => response.json())
+            .then(json => {
+                if (json.error){
+                    dispatch(loginFail(json.error));
+                } else {
+                    dispatch(loginSuccess(json));
                 }
             })
             .catch(error => console.log(error));
@@ -106,7 +130,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 function loginSuccess(user) {
     return {
         type: LOGIN_SUCCESS,
-        user
+        user: Object.assign({}, user, {isAdmin: user.role === 'ADMIN'})
     };
 }
 
@@ -198,24 +222,8 @@ export function attemptLogout(){
         return;
     }
 
-    const options = {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-Authorization': token
-        },
-        method: 'post',
-        body: JSON.stringify({})
-    };
-
-    return dispatch => {
-
-        localStorage.removeItem('jwtToken');
-
-        return fetch(`${AUTH_SERVER_URL}/api/auth/logout`, options)
-            .then(response => dispatch(logoutSuccess()))
-            .catch(error => console.log(error));
-    }
+    localStorage.removeItem('jwtToken');
+    return logoutSuccess();
 }
 
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';

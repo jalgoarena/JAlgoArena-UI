@@ -26,8 +26,7 @@ export function judgeCode(sourceCode, problemId) {
             'Content-Type': 'text/plain'
         },
         method: 'post',
-        body: sourceCode,
-        mode: 'cors'
+        body: sourceCode
     };
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
@@ -59,8 +58,7 @@ export function fetchProblems() {
         headers: {
             'Accept': 'application/json'
         },
-        method: 'get',
-        mode: 'cors'
+        method: 'get'
     };
 
     return dispatch => {
@@ -361,8 +359,7 @@ export function createProblem(problem) {
                 'X-Authorization': token
             },
             method: 'post',
-            body: JSON.stringify(problem),
-            mode: 'no-cors'
+            body: JSON.stringify(problem)
         };
 
         return fetch(`${PROBLEMS_SERVER_URL}/problems/new`, options)
