@@ -3,7 +3,7 @@ import config from '../config';
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
-const DATA_SERVER_URL = config.dataServerUrl;
+const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
 
 export const CLOSE_WORK_IN_PROGRESS_WINDOW = 'CLOSE_WORK_IN_PROGRESS_WINDOW';
 export function closeWorkInProgressWindow() {
@@ -94,7 +94,7 @@ export function fetchSubmissions(userId) {
     };
 
     return dispatch => {
-        return fetch(`${DATA_SERVER_URL}/submissions/${userId}`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${userId}`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissions(json)))
             .catch(error => console.log(error));
@@ -118,7 +118,7 @@ export function fetchAllSubmissions() {
     };
 
     return dispatch => {
-        return fetch(`${DATA_SERVER_URL}/submissions/`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissions(json)))
             .catch(error => console.log(error));
@@ -142,7 +142,7 @@ export function fetchProblemRanking(problemId) {
     };
 
     return dispatch => {
-        return fetch(`${DATA_SERVER_URL}/ranking/${problemId}`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/${problemId}`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblemRanking(json)))
             .catch(error => console.log(error));
@@ -166,7 +166,7 @@ export function fetchRanking() {
     };
 
     return dispatch => {
-        return fetch(`${DATA_SERVER_URL}/ranking/`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/`, options)
             .then(response => response.json())
             .then(json => dispatch(setRanking(json)))
             .catch(error => console.log(error));
@@ -278,7 +278,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
             })
         };
 
-        return fetch(`${DATA_SERVER_URL}/submissions`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
             .then(json => {
                 dispatch(submissionSaved(json));
@@ -316,7 +316,7 @@ export function deleteSubmission(submissionId) {
             body: JSON.stringify({})
         };
 
-        return fetch(`${DATA_SERVER_URL}/submissions/delete/${submissionId}`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/delete/${submissionId}`, options)
             .then(response => response.json())
             .then(json => dispatch(refreshSubmissions(json)))
             .catch(error => console.log(error));
