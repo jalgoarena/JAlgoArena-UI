@@ -162,14 +162,30 @@ export function checkSessionStatus() {
 
         return fetch(`${AUTH_SERVER_URL}/api/user`, options)
             .then(response => response.json())
-            .then(user => {
-                dispatch(checkedSessionStatus(user));
-                if (user) dispatch(fetchSubmissions(user.id));
+            .then(json => {
+                if (json.username) {
+                    dispatch(checkedSessionStatus(json));
+                    dispatch(fetchSubmissions(json.id));
+                } else {
+                    console.log("Error: " + JSON.stringify(json));
+                    if (json.errorCode && "JWT_TOKEN_EXPIRED" == json.errorCode) {
+                        localStorage.removeItem('jwtToken');
+                    }
+                }
             })
             .catch(error => console.log(error));
     };
 
 
+}
+
+
+export const CHECKED_SESSION_STATUS = 'CHECKED_SESSION_STATUS';
+function checkedSessionStatus(user) {
+    return {
+        type: CHECKED_SESSION_STATUS,
+        user
+    };
 }
 
 export const FETCH_USERS = 'FETCH_USERS';
@@ -204,14 +220,6 @@ function setUsers(users) {
         type: FETCH_USERS,
         users
     }
-}
-
-export const CHECKED_SESSION_STATUS = 'CHECKED_SESSION_STATUS';
-function checkedSessionStatus(user) {
-    return {
-        type: CHECKED_SESSION_STATUS,
-        user
-    };
 }
 
 export function attemptLogout(){
