@@ -1,6 +1,4 @@
 .idea
 node_modules/
-npm-debug.log
-submissions.db
 public
-logs/all-logs.log
+dist/*.zip
