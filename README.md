@@ -41,17 +41,18 @@ JAlgoArena UI is frontent for JAlgoArena services.
 
 There are two ways to run it - from sources or from binaries.
 - Default port: `3000`
+- prerequisite if you plan to rebuild: `npm install webpack -g`
 
 ### Running from binaries
 - go to [releases page](https://github.com/spolnik/JAlgoArena-UI/releases) and download last app package (JAlgoArena-UI-[version_number].zip)
 - after unpacking it, go to folder and run `./run.sh` (to make it runnable, invoke command `chmod +x run.sh`)
- - there is now some caveat - configuration is embedded into sources under [config](client/config/index.js) file. If you would like to change welcome message, name of teams or regions, url to EUREKA you are supposed to do that in this file. Once you do that, you should replace command `npm run prod` from `run.sh` with `npm start` which will rebuild sources
+ - there is now some caveat - configuration is embedded into sources under [config](client/config/index.js) file. If you would like to change welcome message, name of teams or regions, url to EUREKA you are supposed to do that in this file. Once you do that, you should run `npm start` which will rebuild sources
  - in future that configuration/data will go to some other service and will be downloaded by UI on the start
 - you can modify port, api gateway service url run.sh script, depending on your infrastructure settings. The script itself can be found in here: [run.sh](run.sh)
 
 ### Running from sources
 - run `git clone https://github.com/spolnik/JAlgoArena-UI` to clone locally the sources
-- now, you can build project with command `./npm run build` which will create runnable jar package with app sources. Next, run `npm run prod` which will start application
+- now, you can build project with command `./npm run build` which will create bundle.js with app sources. Next, run `npm run prod` which will start application
  - there is now some caveat - configuration is embedded into sources under [config](client/config/index.js) file. If you would like to change welcome message, name of teams or regions, url to EUREKA you are supposed to do that in this file. Once you do that, you should repeat above command to rebuild sources
  - in future that configuration/data will go to some other service and will be downloaded by UI on the start
 

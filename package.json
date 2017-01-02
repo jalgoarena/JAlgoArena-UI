@@ -10,10 +10,9 @@
     "dev": "node server.js --trace-sync-io",
     "prod": "NODE_ENV=production node server.js",
     "prebuild": "node deletePublicDir.js",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
-    "postbuild": "node createReleasePackage.js",
+    "build": "NODE_ENV=production webpack --progress --config webpack.config.prod.js",
     "predeploy": "npm run build",
-    "deploy": "echo Ready to deploy. Commit your changes and run git push heroku master"
+    "deploy": "node createReleasePackage.js"
   },
   "repository": {
     "type": "git",

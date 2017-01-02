@@ -26,6 +26,7 @@ archive.directory('./public', { name: 'public'});
 archive.directory('./node_modules', { name: 'node_modules'});
 archive.directory('./server', { name: 'server'});
 archive.directory('./client', { name: 'client'});
+archive.directory('./assets', { name: 'assets'});
 archive.file('assets/index.prod.html', { name: 'public/assets/index.html' });
 archive.file('assets/app.css', { name: 'public/assets/app.css' });
 archive.file('assets/favicon.ico', { name: 'public/assets/favicon.ico' });
