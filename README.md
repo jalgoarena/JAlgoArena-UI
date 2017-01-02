@@ -58,7 +58,7 @@ There are two ways to run it - from sources or from binaries.
 ### Recommended way to run - PM2
 - the recommended way to run JAlgoArena UI is to use [PM2](http://pm2.keymetrics.io/)
 - prerequisit - `npm install pm2 -g`
-- the command is `pm2 start server.js`, after you build sources with `npm run build` or when using released version
+- the command is `pm2 start server.js --name jalgoarena-ui`, after you build sources with `npm run build` or when using released version
 
 ## Notes
 - [Travis Builds](https://travis-ci.org/spolnik)
