@@ -7,10 +7,13 @@
     "test": "echo 'Tests not implemented yet'",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
+    "preherokuStart": "npm run herokuBuild",
+    "herokuStart": "NODE_ENV=production node server.js",
     "dev": "node server.js --trace-sync-io",
     "prod": "NODE_ENV=production node server.js",
     "prebuild": "node deletePublicDir.js",
     "build": "NODE_ENV=production webpack --progress --config webpack.config.prod.js",
+    "herokuBuild": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.prod.js",
     "predeploy": "npm run build",
     "deploy": "node createReleasePackage.js"
   },
