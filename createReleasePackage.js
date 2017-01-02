@@ -1,15 +1,15 @@
-let archiver = require('archiver');
-let fs = require('fs');
-let version = '1.0.2';
+var archiver = require('archiver');
+var fs = require('fs');
+var version = '1.0.2';
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
     version = `${version}.${process.env.TRAVIS_BUILD_NUMBER}`;
 }
 
-let path = `${__dirname}/dist/JAlgoArena-UI-${version}.zip`;
+var path = `${__dirname}/dist/JAlgoArena-UI-${version}.zip`;
 console.log(`Creating package at: ${path}`);
-let output = fs.createWriteStream(path);
-let archive = new archiver('zip', { store: true });
+var output = fs.createWriteStream(path);
+var archive = new archiver('zip', { store: true });
 
 output.on('close', function() {
     console.log(`${archive.pointer()} total bytes`);
