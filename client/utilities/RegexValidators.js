@@ -8,7 +8,7 @@ const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,}$/; // At least 6 characters
  * a proper email format.
  */
 export function validateEmail(email) {
-    return config.test(email);
+    return config.emailRegex.test(email);
 }
 
 /**
