@@ -45,14 +45,13 @@ There are two ways to run it - from sources or from binaries.
 
 ### Running from binaries
 - go to [releases page](https://github.com/spolnik/JAlgoArena-UI/releases) and download last app package (JAlgoArena-UI-[version_number].zip)
-- after unpacking it, go to folder and run `./run.sh` (to make it runnable, invoke command `chmod +x run.sh`)
- - there is now some caveat - configuration is embedded into sources under [config](client/config/index.js) file. If you would like to change welcome message, name of teams or regions, url to EUREKA you are supposed to do that in this file. Once you do that, you should run `npm start` which will rebuild sources
- - in future that configuration/data will go to some other service and will be downloaded by UI on the start
-- you can modify port, api gateway service url run.sh script, depending on your infrastructure settings. The script itself can be found in here: [run.sh](run.sh)
+- after unpacking it, go to folder and edit configuration: `nano client/config/index.js` - change there url to JAlgoArena API Gateway, title, region and team names
+- run with command: `npm start`
 
 ### Running from sources
 - run `git clone https://github.com/spolnik/JAlgoArena-UI` to clone locally the sources
-- now, you can build project with command `./npm run build` which will create bundle.js with app sources. Next, run `npm run prod` which will start application
+- run `npm install` to install all dependencies
+- now, you can build and run project with command `./npm start`
  - there is now some caveat - configuration is embedded into sources under [config](client/config/index.js) file. If you would like to change welcome message, name of teams or regions, url to EUREKA you are supposed to do that in this file. Once you do that, you should repeat above command to rebuild sources
  - in future that configuration/data will go to some other service and will be downloaded by UI on the start
 
