@@ -4,9 +4,12 @@
   "description": "JAlgoArena UI",
   "main": "server.js",
   "scripts": {
+    "installRequiredGlobalDependencies": "npm install webpack -g & npm install pm2 -g",
     "test": "echo 'Tests not implemented yet'",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
+    "prepm2start": "npm run build",
+    "pm2start": "NODE_ENV=production pm2 start server.js --name jalgoarena-ui",
     "preherokuStart": "npm run herokuBuild",
     "herokuStart": "NODE_ENV=production node server.js",
     "dev": "node server.js --trace-sync-io",

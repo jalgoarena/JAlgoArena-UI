@@ -41,7 +41,7 @@ JAlgoArena UI is frontent for JAlgoArena services.
 
 There are two ways to run it - from sources or from binaries.
 - Default port: `3000`
-- prerequisite if you plan to rebuild: `npm install webpack -g`
+- prerequisite if you plan to rebuild: `npm run installRequiredGlobalDependencies`
 
 ### Running from binaries
 - go to [releases page](https://github.com/spolnik/JAlgoArena-UI/releases) and download last app package (JAlgoArena-UI-[version_number].zip)
@@ -58,8 +58,7 @@ There are two ways to run it - from sources or from binaries.
 
 ### Recommended way to run - PM2
 - the recommended way to run JAlgoArena UI is to use [PM2](http://pm2.keymetrics.io/)
-- prerequisit - `npm install pm2 -g`
-- the command is `pm2 start server.js --name jalgoarena-ui`, after you build sources with `npm run build` or when using released version
+- the command is `npm run pm2start`
 
 ## Notes
 - [Travis Builds](https://travis-ci.org/spolnik)
