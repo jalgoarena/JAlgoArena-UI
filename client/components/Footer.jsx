@@ -12,7 +12,7 @@ const Footer = () => (
         <hr/>
         <Grid>
             <Col md={5}>
-                <span><FontAwesome name="copyright"/> Jacek Spólnik 2017</span>
+                <span>Created by Jacek Spólnik 2017</span>
             </Col>
             <Col md={7}>
                 <img src="img/logo.png" className="img-responsive" style={footerLogoStyle}/>

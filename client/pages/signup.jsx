@@ -11,7 +11,7 @@ import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
 import WorkInProgress from '../components/WorkInProgress';
 import {startSignup} from "../actions/AuthActions";
 import {closeWorkInProgressWindow} from "../actions/index";
-import {regions, teams} from "../config"
+import {regions, teams, emailErrorMessage} from "../config"
 
 const initialFormState = {
     errorMessage:  null,
@@ -85,7 +85,7 @@ class SignUp extends React.Component {
             newState.isEmailFieldIncorrect = true;
         }
         else if (!validateEmail(formData.email)) {
-            newState.errorMessage = "Please enter a valid email address";
+            newState.errorMessage = emailErrorMessage;
             newState.isEmailFieldIncorrect = true;
         }
 
