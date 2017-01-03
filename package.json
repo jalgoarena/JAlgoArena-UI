@@ -10,7 +10,7 @@
     "start": "NODE_ENV=production node server.js",
     "prepm2start": "npm run build",
     "pm2start": "NODE_ENV=production pm2 start server.js --name jalgoarena-ui",
-    "preherokuStart": "npm run herokuBuild",
+    "postinstall": "npm run herokuBuild",
     "herokuStart": "NODE_ENV=production node server.js",
     "dev": "node server.js --trace-sync-io",
     "prod": "NODE_ENV=production node server.js",
