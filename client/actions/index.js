@@ -365,7 +365,7 @@ export function createProblem(problem) {
         return fetch(`${PROBLEMS_SERVER_URL}/problems/new`, options)
             .then(response => response.json())
             .then(json => {
-                console.log('problem saved: ' + json._id);
+                console.log('problem saved: ' + json.id);
                 dispatch(problemCreated())
             })
             .catch(error => console.log(error));

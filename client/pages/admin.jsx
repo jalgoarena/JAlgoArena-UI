@@ -27,7 +27,7 @@ class Admin extends React.Component {
                 let username;
                 if (users) {
                     var user = users.find((user) => {
-                        return user._id === submission.userId;
+                        return user.id === submission.userId;
                     });
 
                     if (user && user.username) {
@@ -45,7 +45,7 @@ class Admin extends React.Component {
                     elapsedTime={submission.elapsedTime}
                     statusCode={submission.statusCode}
                     level={submission.level}
-                    submissionId={submission._id}
+                    submissionId={submission.id}
                     language={submission.language}
                     onDelete={this.props.onDelete}
                     onRerun={this.props.onRerun}
