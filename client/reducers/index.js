@@ -75,14 +75,14 @@ function problems(state = [], action) {
     }
 }
 
-function result(state = { status_code: 'WAITING' }, action) {
+function result(state = { statusCode: 'WAITING' }, action) {
     switch (action.type) {
         case JUDGE_RESULT_RECEIVED:
             return action.result;
         case SET_CURRENT_PROBLEM:
         case SUBMISSION_SAVED:
         case PROBLEM_REFRESH:
-            return { status_code: 'WAITING' };
+            return { statusCode: 'WAITING' };
         default:
             return state;
     }

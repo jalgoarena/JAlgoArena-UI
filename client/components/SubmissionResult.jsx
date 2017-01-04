@@ -10,34 +10,34 @@ export default class SubmissionResult extends React.Component {
             return null;
         }
 
-        switch (this.props.result.status_code) {
+        switch (this.props.result.statusCode) {
             case 'WAITING':
                 return <h2 className="text-info text-center">Run your code to see results</h2>;
             case 'ACCEPTED':
                 return <div>
                     <h2 className="text-success text-center">All test cases passed, congratulations!</h2>
-                    {this.props.result.testcase_results.map((result, i) =>
+                    {this.props.result.testcaseResults.map((result, i) =>
                         <TestCaseResult key={i} passed={result} id={i + 1} />
                     )}
-                    <TimeAndMemoryReport elapsedTime={this.props.result.elapsed_time}
-                                         consumedMemory={this.props.result.consumed_memory}/>
+                    <TimeAndMemoryReport elapsedTime={this.props.result.elapsedTime}
+                                         consumedMemory={this.props.result.consumedMemory}/>
                 </div>;
             case 'WRONG_ANSWER':
                 return <div>
                     <SubmissionFailed>Wrong Answer</SubmissionFailed>
-                    {this.props.result.testcase_results.map((result, i) =>
+                    {this.props.result.testcaseResults.map((result, i) =>
                         <TestCaseResult key={i} passed={result} id={i + 1} />
                     )}
                 </div>;
             case 'COMPILE_ERROR':
                 return <div>
                     <SubmissionFailed>Compilation Error</SubmissionFailed>
-                    <pre>{this.props.result.error_message}</pre>
+                    <pre>{this.props.result.errorMessage}</pre>
                 </div>;
             case 'RUNTIME_ERROR':
                 return <div>
                     <SubmissionFailed>Runtime Error</SubmissionFailed>
-                    <pre>{this.props.result.error_message}</pre>
+                    <pre>{this.props.result.errorMessage}</pre>
                 </div>;
             case 'MEMORY_LIMIT_EXCEEDED':
                 return <SubmissionFailed>Memory Limit Exceeded!</SubmissionFailed>;

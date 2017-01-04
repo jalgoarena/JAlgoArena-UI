@@ -42,7 +42,7 @@ class Admin extends React.Component {
                     problemId={submission.problemId}
                     username={username}
                     userId={submission.userId}
-                    elapsed_time={submission.elapsed_time}
+                    elapsedTime={submission.elapsedTime}
                     statusCode={submission.statusCode}
                     level={submission.level}
                     submissionId={submission._id}

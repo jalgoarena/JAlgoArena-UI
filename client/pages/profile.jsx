@@ -48,7 +48,7 @@ class Profile extends React.Component {
         let submissionNodes = submissions.map((submission, idx) =>
             <tr key={idx}>
                 <td>{submission.problemId}</td>
-                <td>{submission.elapsed_time}</td>
+                <td>{submission.elapsedTime}</td>
             </tr>
         );
 

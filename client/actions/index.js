@@ -234,8 +234,8 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel, lan
             .then(json => {
                 let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
 
-                if (result.status_code === 'ACCEPTED') {
-                    result = Object.assign({}, result, {status_code: 'RERUN_ACCEPTED'});
+                if (result.statusCode === 'ACCEPTED') {
+                    result = Object.assign({}, result, {statusCode: 'RERUN_ACCEPTED'});
                 }
 
                 dispatch(sendSubmission(result, userId, {id: problemId, level: problemLevel}, language, true));
@@ -270,9 +270,9 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
             body: JSON.stringify({
                 problemId: problem.id,
                 level: problem.level,
-                elapsed_time: result.elapsed_time,
+                elapsedTime: result.elapsedTime,
                 sourceCode: result.sourceCode,
-                statusCode: result.status_code,
+                statusCode: result.statusCode,
                 userId: userId,
                 language: activeLanguage
             })

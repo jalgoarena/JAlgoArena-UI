@@ -51,7 +51,7 @@ class Submission extends React.Component {
                     </ButtonToolbar>
 
                     <span className="text-muted">Difficulty:</span> <span className="text-primary">{this.props.level}</span><br />
-                    <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{this.props.elapsed_time} ms</span><br />
+                    <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{this.props.elapsedTime} ms</span><br />
                     <span className="text-muted">Source Code length:</span> <span className="text-primary">{this.props.sourceCode ? this.props.sourceCode.length : 0} chars</span><br />
                     <span className="text-muted">Status:</span> <span className="text-primary">{this.props.statusCode}</span>
                 </Row>

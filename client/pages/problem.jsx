@@ -46,7 +46,7 @@ class Problem extends React.Component {
 
     isSubmitDisabled() {
         return !(this.props.problem &&
-                this.props.result.status_code === 'ACCEPTED' &&
+                this.props.result.statusCode === 'ACCEPTED' &&
                 this.props.sourceCode &&
                 this.props.userAuthSession.user)
     }
