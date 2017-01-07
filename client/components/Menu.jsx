@@ -42,7 +42,7 @@ export default class Menu extends React.Component {
             return null;
         }
 
-        return this.props.store.getState().userAuthSession.user.isAdmin
+        return this.props.store.getState().userAuthSession.user.role === 'ADMIN'
             ? <NavDropdown title={<span><FontAwesome name="cogs" lg={true}/> Admin</span>} id="basic-nav-dropdown">
                 <LinkContainer to="/admin">
                     <NavItem><FontAwesome name="code"/> Submissions</NavItem>

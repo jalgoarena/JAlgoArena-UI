@@ -130,7 +130,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 function loginSuccess(user) {
     return {
         type: LOGIN_SUCCESS,
-        user: Object.assign({}, user, {isAdmin: user.role === 'ADMIN'})
+        user
     };
 }
 
@@ -175,8 +175,6 @@ export function checkSessionStatus() {
             })
             .catch(error => console.log(error));
     };
-
-
 }
 
 
