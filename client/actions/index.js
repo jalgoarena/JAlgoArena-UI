@@ -266,7 +266,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
                 'Content-Type': 'application/json',
                 'X-Authorization': token
             },
-            method: 'post',
+            method: 'put',
             body: JSON.stringify({
                 problemId: problem.id,
                 level: problem.level,
@@ -312,11 +312,11 @@ export function deleteSubmission(submissionId) {
                 'Content-Type': 'application/json',
                 'X-Authorization': token
             },
-            method: 'post',
+            method: 'delete',
             body: JSON.stringify({})
         };
 
-        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/delete/${submissionId}`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${submissionId}`, options)
             .then(response => response.json())
             .then(json => dispatch(refreshSubmissions(json)))
             .catch(error => console.log(error));
