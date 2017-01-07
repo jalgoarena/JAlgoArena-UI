@@ -358,14 +358,14 @@ export function createProblem(problem) {
                 'Content-Type': 'application/json',
                 'X-Authorization': token
             },
-            method: 'post',
+            method: 'put',
             body: JSON.stringify(problem)
         };
 
-        return fetch(`${PROBLEMS_SERVER_URL}/problems/new`, options)
+        return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => {
-                console.log('problem saved: ' + json.id);
+                console.log(`problem saved: ${json.id}`);
                 dispatch(problemCreated())
             })
             .catch(error => console.log(error));
