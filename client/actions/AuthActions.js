@@ -94,7 +94,6 @@ export function attemptLogin(username, password) {
                 } else {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
-                    localStorage.setItem('jwtRefreshToken', json.refreshToken);
                     dispatch(fetchUser(token));
                 }
             })
