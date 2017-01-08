@@ -33,7 +33,7 @@ export function attemptSignUp(email, password, username, region, team) {
     };
 
     return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/api/signup`, options)
+        return fetch(`${AUTH_SERVER_URL}/signup`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -86,7 +86,7 @@ export function attemptLogin(username, password) {
     };
 
     return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/api/login`, options)
+        return fetch(`${AUTH_SERVER_URL}/login`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
