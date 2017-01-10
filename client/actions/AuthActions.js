@@ -167,9 +167,7 @@ export function checkSessionStatus() {
                     dispatch(fetchSubmissions(json.id));
                 } else {
                     console.log("Error: " + JSON.stringify(json));
-                    if (json.errorCode && "JWT_TOKEN_EXPIRED" == json.errorCode) {
-                        localStorage.removeItem('jwtToken');
-                    }
+                    localStorage.removeItem('jwtToken');
                 }
             })
             .catch(error => console.log(error));
