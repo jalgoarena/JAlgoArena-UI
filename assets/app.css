@@ -97,7 +97,6 @@ hr.star-light:after {
 
 @-webkit-keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
 @-moz-keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
-@-ms-keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
 @keyframes pulse {to {box-shadow: 0 0 0 25px rgba(92,184,92, 0);}}
 
 .ace_editor.fullScreen {
@@ -105,7 +104,7 @@ hr.star-light:after {
     width: auto;
     border: 0;
     margin: 70px 0 0;
-    position: fixed !important;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
