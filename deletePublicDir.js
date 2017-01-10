@@ -1,5 +1,5 @@
-var del = require('del');
+var del = require("del");
 
-del(['public/**']).then(function () {
-    console.log('/public dir is deleted');
+del(["public/**"]).then(function () {
+    console.log("/public dir is deleted");
 });
