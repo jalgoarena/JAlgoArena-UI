@@ -18,8 +18,6 @@ helmet(app);
 
 var assetsDir;
 
-console.log("Env: " + env);
-
 if (env === "production") {
     require("./server/build/copyFiles")();
     assetsDir = path.join(__dirname, "public", "assets");

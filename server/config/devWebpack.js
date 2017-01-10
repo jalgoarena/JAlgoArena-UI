@@ -13,4 +13,4 @@ module.exports = function (app) {
         path: '/__webpack_hmr',
         heartbeat: 10 * 1000
     }));
-}
+};

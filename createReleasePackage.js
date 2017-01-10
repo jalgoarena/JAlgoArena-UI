@@ -1,4 +1,4 @@
-var archiver = require("archiver");
+var Archiver = require("archiver");
 var fs = require("fs");
 var version = "1.0.13";
 
@@ -7,14 +7,8 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
 }
 
 var path = `${__dirname}/dist/JAlgoArena-UI-${version}.zip`;
-console.log(`Creating package at: ${path}`);
 var output = fs.createWriteStream(path);
-var archive = new archiver("zip", { store: true });
-
-output.on("close", function() {
-    console.log(`${archive.pointer()} total bytes`);
-    console.log("archiver has been finalized and the output file descriptor has closed.");
-});
+var archive = new Archiver("zip", { store: true });
 
 archive.on("error", function(err) {
     throw err;
