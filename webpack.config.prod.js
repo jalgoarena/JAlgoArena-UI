@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
     entry: [
@@ -7,14 +7,14 @@ module.exports = {
         "./client/index"
     ],
     output: {
-        path: path.join(__dirname, 'public', 'assets'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, "public", "assets"),
+        filename: "bundle.js"
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+            "process.env": {
+                "NODE_ENV": JSON.stringify("production")
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
@@ -26,18 +26,18 @@ module.exports = {
     module: {
         loaders: [
             {
-                loader: 'babel',
+                loader: "babel",
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ["es2015", "react"]
                 },
-                include: path.join(__dirname, 'client'),
+                include: path.join(__dirname, "client"),
                 exclude: /node_modules/,
                 test: /\.jsx?$/
             }
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ["", ".js", ".jsx"]
     }
 };
 

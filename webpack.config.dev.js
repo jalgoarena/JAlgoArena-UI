@@ -1,23 +1,23 @@
-var webpack = require('webpack');
-var path = require('path');
+var webpack = require("webpack");
+var path = require("path");
 
 module.exports = {
     entry: [
-        'babel-polyfill',
-        'webpack-hot-middleware/client',
+        "babel-polyfill",
+        "webpack-hot-middleware/client",
         "./client/index"
     ],
     output: {
-        path: path.join(__dirname, 'public'),
+        path: path.join(__dirname, "public"),
         filename: "bundle.js",
-        publicPath: '/assets/'
+        publicPath: "/assets/"
     },
     devServer: {
         inline: true,
-        contentBase: './public',
+        contentBase: "./public",
         port: 3000
     },
-    devtool: 'cheap-module-eval-source-map',
+    devtool: "cheap-module-eval-source-map",
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
@@ -25,11 +25,11 @@ module.exports = {
     module: {
         loaders: [{
             tests: /\.js?$/,
-            loaders: ['babel'],
-            include: path.join(__dirname, 'client')
+            loaders: ["babel"],
+            include: path.join(__dirname, "client")
         }]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ["", ".js", ".jsx"]
     }
 };
