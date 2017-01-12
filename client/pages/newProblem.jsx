@@ -134,9 +134,7 @@ class NewProblem extends React.Component {
                                 <option value="java.lang.Long">long</option>
                                 <option value="java.lang.Double">double</option>
                                 <option value="java.lang.Boolean">bool</option>
-                                <option value="java.lang.Float">float</option>
-                                <option value="java.lang.Short">short</option>
-                                <option value="java.lang.String">String</option>
+                                c<option value="java.lang.String">String</option>
                                 <option value="[I">int[]</option>
                                 <option value="[[I">int[][]</option>
                                 <option value="void">void</option>
