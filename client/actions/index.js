@@ -1,21 +1,21 @@
 import fetch from 'isomorphic-fetch';
 import config from '../config';
+import * as types from "./ActionTypes"
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
 
-export const CLOSE_WORK_IN_PROGRESS_WINDOW = 'CLOSE_WORK_IN_PROGRESS_WINDOW';
+
 export function closeWorkInProgressWindow() {
     return {
-        type: CLOSE_WORK_IN_PROGRESS_WINDOW
+        type: types.CLOSE_WORK_IN_PROGRESS_WINDOW
     };
 }
 
-export const START_JUDGE = 'START_JUDGE';
 export function startJudge() {
     return {
-        type: START_JUDGE
+        type: types.START_JUDGE
     };
 }
 
@@ -37,22 +37,20 @@ export function judgeCode(sourceCode, problemId) {
 
 }
 
-export const JUDGE_RESULT_RECEIVED = 'JUDGE_RESULT_RECEIVED';
+
 function judgeResultReceived(result, sourceCode, problemId) {
     return {
-        type: JUDGE_RESULT_RECEIVED,
+        type: types.JUDGE_RESULT_RECEIVED,
         result: Object.assign({sourceCode: sourceCode, problemId: problemId}, result)
     }
 }
 
-export const START_FETCHING_PROBLEMS = 'START_FETCHING_PROBLEMS';
 export function startFetchingProblems() {
     return {
-        type: START_FETCHING_PROBLEMS
+        type: types.START_FETCHING_PROBLEMS
     };
 }
 
-export const FETCH_PROBLEMS = 'FETCH_PROBLEMS';
 export function fetchProblems() {
     const options = {
         headers: {
@@ -71,12 +69,11 @@ export function fetchProblems() {
 
 function setProblems(problems) {
     return {
-        type: FETCH_PROBLEMS,
+        type: types.FETCH_PROBLEMS,
         problems
     }
 }
 
-export const FETCH_SUBMISSIONS = 'FETCH_SUBMISSIONS';
 export function fetchSubmissions(userId) {
 
     let token = localStorage.getItem('jwtToken');
@@ -127,12 +124,11 @@ export function fetchAllSubmissions() {
 
 function setSubmissions(submissions) {
     return {
-        type: FETCH_SUBMISSIONS,
+        type: types.FETCH_SUBMISSIONS,
         submissions
     }
 }
 
-export const FETCH_PROBLEM_RANKING = 'FETCH_PROBLEM_RANKING';
 export function fetchProblemRanking(problemId) {
     const options = {
         headers: {
@@ -151,12 +147,11 @@ export function fetchProblemRanking(problemId) {
 
 function setProblemRanking(problemRanking) {
     return {
-        type: FETCH_PROBLEM_RANKING,
+        type: types.FETCH_PROBLEM_RANKING,
         problemRanking
     }
 }
 
-export const FETCH_RANKING = 'FETCH_RANKING';
 export function fetchRanking() {
     const options = {
         headers: {
@@ -175,46 +170,41 @@ export function fetchRanking() {
 
 function setRanking(ranking) {
     return {
-        type: FETCH_RANKING,
+        type: types.FETCH_RANKING,
         ranking
     }
 }
 
-export const CHANGE_SOURCE_CODE = 'CHANGE_SOURCE_CODE';
 export function changeSourceCode(newValue) {
     return {
-        type: CHANGE_SOURCE_CODE,
+        type: types.CHANGE_SOURCE_CODE,
         sourceCode: newValue
     }
 }
 
-export const PROBLEM_REFRESH = 'PROBLEM_REFRESH';
 export function problemRefresh() {
     return {
-        type: PROBLEM_REFRESH
+        type: types.PROBLEM_REFRESH
     }
 }
 
-export const SET_CURRENT_PROBLEM = 'SET_CURRENT_PROBLEM';
 export function setCurrentProblem(problemId) {
     return {
-        type: SET_CURRENT_PROBLEM,
+        type: types.SET_CURRENT_PROBLEM,
         problemId
     }
 }
 
-export const SET_SUBMISSIONS_FILTER = 'SET_SUBMISSIONS_FILTER';
 export function setSubmissionsFilter(status) {
     return {
-        type: SET_SUBMISSIONS_FILTER,
+        type: types.SET_SUBMISSIONS_FILTER,
         status
     }
 }
 
-export const SET_CURRENT_PROBLEMS_FILTER = 'SET_CURRENT_PROBLEMS_FILTER';
 export function setCurrentProblemsFilter(level) {
     return {
-        type: SET_CURRENT_PROBLEMS_FILTER,
+        type: types.SET_CURRENT_PROBLEMS_FILTER,
         level
     }
 }
@@ -246,14 +236,12 @@ export function rerunSubmission(sourceCode, userId, problemId, problemLevel, lan
 
 }
 
-export const START_SUBMISSION = 'START_SUBMISSION';
 export function startSubmission() {
     return {
-        type: START_SUBMISSION
+        type: types.START_SUBMISSION
     };
 }
 
-export const SUBMISSION_SAVED = 'SUBMISSION_SAVED';
 export function sendSubmission(result, userId, problem, activeLanguage, isForAll) {
 
     return dispatch => {
@@ -295,12 +283,11 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
 
 function submissionSaved(submissions) {
     return {
-        type: SUBMISSION_SAVED,
+        type: types.SUBMISSION_SAVED,
         submissions
     }
 }
 
-export const DELETE_SUBMISSION = 'DELETE_SUBMISSION';
 export function deleteSubmission(submissionId) {
     return dispatch => {
 
@@ -325,28 +312,25 @@ export function deleteSubmission(submissionId) {
 
 function refreshSubmissions(submissions) {
     return {
-        type: DELETE_SUBMISSION,
+        type: types.DELETE_SUBMISSION,
         submissions
     }
 }
 
-export const CHANGE_PROGRAMMING_LANGUAGE = 'CHANGE_PROGRAMMING_LANGUAGE';
 export function changeActualLanguage(language) {
     return {
-        type: CHANGE_PROGRAMMING_LANGUAGE,
+        type: types.CHANGE_PROGRAMMING_LANGUAGE,
         programmingLanguage: language
     }
 }
 
-export const HIDE_DONE_PROBLEMS = 'HIDE_DONE_PROBLEMS';
 export function hideDoneProblems(value) {
     return {
-        type: HIDE_DONE_PROBLEMS,
+        type: types.HIDE_DONE_PROBLEMS,
         hideDoneProblems: value
     }
 }
 
-export const CREATE_PROBLEM = 'CREATE_PROBLEM';
 export function createProblem(problem) {
     return dispatch => {
 
@@ -374,6 +358,6 @@ export function createProblem(problem) {
 
 function problemCreated() {
     return {
-        type: CREATE_PROBLEM
+        type: types.CREATE_PROBLEM
     }
 }

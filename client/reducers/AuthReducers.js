@@ -1,13 +1,4 @@
-import {
-    SIGNUP_SUCCESS,
-    SIGNUP_FAIL,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    CHECKED_SESSION_STATUS,
-    LOGOUT_SUCCESS,
-    NAVIGATE_AWAY_FROM_AUTH_FORM,
-    FETCH_USERS
-} from '../actions/AuthActions';
+import * as types from "../actions/ActionTypes";
 
 const defaultStartState = {
     user: null,
@@ -18,20 +9,20 @@ const defaultStartState = {
 export function updateUserInfo(userAuthState = defaultStartState , action) {
     switch (action.type){
 
-        case LOGIN_SUCCESS:
+        case types.LOGIN_SUCCESS:
             return {
                 user: action.user,
                 error: null
             };
 
-        case LOGIN_FAIL:
-        case SIGNUP_FAIL:
+        case types.LOGIN_FAIL:
+        case types.SIGNUP_FAIL:
             return {
                 user: null,
                 error: action.error
             };
 
-        case CHECKED_SESSION_STATUS:
+        case types.CHECKED_SESSION_STATUS:
             if (action.user && action.user.id){
                 return {
                     user: action.user,
@@ -41,16 +32,16 @@ export function updateUserInfo(userAuthState = defaultStartState , action) {
 
             return defaultStartState;
 
-        case LOGOUT_SUCCESS:
+        case types.LOGOUT_SUCCESS:
             return defaultStartState;
 
-        case NAVIGATE_AWAY_FROM_AUTH_FORM:
-        case SIGNUP_SUCCESS:
+        case types.NAVIGATE_AWAY_FROM_AUTH_FORM:
+        case types.SIGNUP_SUCCESS:
             return Object.assign({}, userAuthState, {
                 error: null
             });
 
-        case FETCH_USERS:
+        case types.FETCH_USERS:
             return Object.assign({}, userAuthState, {
                 users: action.users
             });

@@ -3,13 +3,14 @@ import {hashHistory} from "react-router";
 
 import {fetchSubmissions} from "./index";
 import config from '../config';
+import * as types from "./ActionTypes"
 
 const AUTH_SERVER_URL = config.jalgoarenaApiUrl + "/auth";
 
-export const START_SIGNUP = 'START_SIGNUP';
+
 export function startSignup() {
     return {
-        type: START_SIGNUP
+        type: types.START_SIGNUP
     };
 }
 
@@ -45,26 +46,23 @@ export function attemptSignUp(email, password, username, region, team) {
     };
 }
 
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 function signUpSuccess() {
     hashHistory.push('/login');
     return {
-        type: SIGNUP_SUCCESS
+        type: types.SIGNUP_SUCCESS
     };
 }
 
-export const SIGNUP_FAIL = 'SIGNUP_FAIL';
 function signUpFail(error) {
     return {
-        type: SIGNUP_FAIL,
+        type: types.SIGNUP_FAIL,
         error
     };
 }
 
-export const START_LOGIN = 'START_LOGIN';
 export function startLogin() {
     return {
-        type: START_LOGIN
+        type: types.START_LOGIN
     }
 }
 
@@ -125,22 +123,19 @@ function fetchUser(token) {
     };
 }
 
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 function loginSuccess(user) {
     return {
-        type: LOGIN_SUCCESS,
+        type: types.LOGIN_SUCCESS,
         user
     };
 }
 
-export const LOGIN_FAIL = 'LOGIN_FAIL';
 function loginFail(error) {
     return {
-        type: LOGIN_FAIL,
+        type: types.LOGIN_FAIL,
         error
     };
 }
-
 
 export function checkSessionStatus() {
     return dispatch => {
@@ -175,15 +170,13 @@ export function checkSessionStatus() {
 }
 
 
-export const CHECKED_SESSION_STATUS = 'CHECKED_SESSION_STATUS';
 function checkedSessionStatus(user) {
     return {
-        type: CHECKED_SESSION_STATUS,
+        type: types.CHECKED_SESSION_STATUS,
         user
     };
 }
 
-export const FETCH_USERS = 'FETCH_USERS';
 export function fetchUsers() {
     return dispatch => {
         let token = localStorage.getItem('jwtToken');
@@ -212,7 +205,7 @@ export function fetchUsers() {
 
 function setUsers(users) {
     return {
-        type: FETCH_USERS,
+        type: types.FETCH_USERS,
         users
     }
 }
@@ -229,16 +222,14 @@ export function attemptLogout(){
     return logoutSuccess();
 }
 
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 function logoutSuccess() {
     return {
-        type: LOGOUT_SUCCESS
+        type: types.LOGOUT_SUCCESS
     };
 }
 
-export const NAVIGATE_AWAY_FROM_AUTH_FORM = 'NAVIGATE_AWAY_FROM_AUTH_FORM';
 export function navigatedAwayFromAuthFormPage() {
     return {
-        type: NAVIGATE_AWAY_FROM_AUTH_FORM
+        type: types.NAVIGATE_AWAY_FROM_AUTH_FORM
     };
 }
