@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import config from '../config';
-import * as types from "./ActionTypes"
+import * as types from "../constants/ActionTypes"
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";

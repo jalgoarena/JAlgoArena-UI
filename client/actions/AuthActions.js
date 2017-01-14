@@ -3,7 +3,7 @@ import {hashHistory} from "react-router";
 
 import {fetchSubmissions} from "./index";
 import config from '../config';
-import * as types from "./ActionTypes"
+import * as types from "../constants/ActionTypes"
 
 const AUTH_SERVER_URL = config.jalgoarenaApiUrl + "/auth";
 

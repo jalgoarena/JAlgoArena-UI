@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
-import * as types from "../actions/ActionTypes";
+import * as types from "../constants/ActionTypes";
 
 import {updateUserInfo} from "./AuthReducers";
 
