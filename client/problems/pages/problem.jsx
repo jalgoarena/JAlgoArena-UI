@@ -1,9 +1,10 @@
 import React from 'react';
 import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {hashHistory} from 'react-router';
 
 import Output from '../components/Output';
-import WorkInProgress from '../components/WorkInProgress';
+import WorkInProgress from '../../components/WorkInProgress';
 import ProblemToolbar from '../components/ProblemToolbar';
 import ProblemTitle from '../components/ProblemTitle';
 import ProblemDescription from '../components/ProblemDescription';
@@ -12,11 +13,10 @@ import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
 import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
-import store from '../store';
-import {startJudge, startSubmission, sendSubmission, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh, fetchSubmissions, changeActualLanguage} from "../actions/index";
-import {hashHistory} from 'react-router';
-import {closeWorkInProgressWindow} from "../actions/index";
+import store from '../../store';
+import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
+import {problemRefresh, changeActualLanguage} from "../actions/index";
+import {closeWorkInProgressWindow, sendSubmission, fetchSubmissions, startSubmission} from "../../actions/index";
 
 class Problem extends React.Component {
     constructor(props) {

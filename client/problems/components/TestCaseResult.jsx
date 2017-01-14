@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col} from 'react-bootstrap';
-import FontAwesome from './FontAwesome';
+import FontAwesome from '../../components/FontAwesome';
 
 const TestCaseResult = ({passed, id}) => {
     if (passed) {

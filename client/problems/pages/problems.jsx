@@ -5,10 +5,10 @@ import _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Problem from '../components/Problem';
-import WorkInProgress from "../components/WorkInProgress";
+import WorkInProgress from "../../components/WorkInProgress";
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setCurrentProblemsFilter, hideDoneProblems} from "../actions/index";
-import {closeWorkInProgressWindow} from "../actions/index";
+import {closeWorkInProgressWindow} from "../../actions/index";
 
 class Problems extends React.Component {
     render() {

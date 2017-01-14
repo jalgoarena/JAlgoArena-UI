@@ -4,7 +4,7 @@ import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import store from './store';
 import DevTools from './devtools';
-import {fetchProblems} from "./actions";
+import {fetchProblems} from "./problems/actions";
 
 export const Layout = React.createClass({
     componentDidMount: function() {

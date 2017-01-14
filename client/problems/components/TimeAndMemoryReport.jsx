@@ -1,5 +1,5 @@
 import React from 'react';
-import FontAwesome from './FontAwesome';
+import FontAwesome from '../../components/FontAwesome';
 
 const timeAndMemoryReportStyle = {
     marginTop: 3

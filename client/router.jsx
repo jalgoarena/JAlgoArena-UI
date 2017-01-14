@@ -5,14 +5,14 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import {Layout} from './layout';
 import RankPage from "./pages/leaderboard";
 import ProfilePage from "./pages/profile";
-import ProblemPage from "./pages/problem";
-import ProblemsPage from "./pages/problems";
+import ProblemPage from "./problems/pages/problem";
+import ProblemsPage from "./problems/pages/problems";
 import Home from "./pages/home";
 import LoginPage from "./pages/login"
 import SignUpPage from "./pages/signup";
 import ProblemRankPage from './pages/problemRank';
 import AdminPage from "./pages/admin";
-import NewProblemPage from "./pages/newProblem";
+import NewProblemPage from "./problems/pages/newProblem";
 
 import { Provider } from 'react-redux'
 import store from './store';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FontAwesome from './FontAwesome';
+import FontAwesome from '../../components/FontAwesome';
 
 const RunButton = ({sourceCode, problemId, onRun}) => (
     <button

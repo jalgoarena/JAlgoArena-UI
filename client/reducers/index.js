@@ -3,6 +3,8 @@ import {routerReducer} from 'react-router-redux';
 import * as types from "../constants/ActionTypes";
 
 import {updateUserInfo} from "./AuthReducers";
+import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage} from "../problems/reducers/index";
+import {hideDoneProblems} from "../problems/actions/index";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -20,42 +22,6 @@ const rootReducer = combineReducers({
     programmingLanguage,
     hideDoneProblems
 });
-
-function sourceCode(state = null, action) {
-    switch (action.type) {
-        case types.CHANGE_SOURCE_CODE:
-            return action.sourceCode;
-        case types.SET_CURRENT_PROBLEM:
-        case types.SUBMISSION_SAVED:
-        case types.PROBLEM_REFRESH:
-        case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return null;
-        default:
-            return state;
-    }
-}
-
-function problems(state = [], action) {
-    switch (action.type) {
-        case types.FETCH_PROBLEMS:
-            return action.problems;
-        default:
-            return state;
-    }
-}
-
-function result(state = { statusCode: 'WAITING' }, action) {
-    switch (action.type) {
-        case types.JUDGE_RESULT_RECEIVED:
-            return action.result;
-        case types.SET_CURRENT_PROBLEM:
-        case types.SUBMISSION_SAVED:
-        case types.PROBLEM_REFRESH:
-            return { statusCode: 'WAITING' };
-        default:
-            return state;
-    }
-}
 
 function showModal(state = false, action) {
     switch (action.type) {
@@ -79,15 +45,6 @@ function showModal(state = false, action) {
         case types.SIGNUP_SUCCESS:
         case types.CLOSE_WORK_IN_PROGRESS_WINDOW:
             return false;
-        default:
-            return state;
-    }
-}
-
-function currentProblemId(state = null, action) {
-    switch (action.type) {
-        case types.SET_CURRENT_PROBLEM:
-            return action.problemId;
         default:
             return state;
     }
@@ -121,37 +78,10 @@ function problemRanking(state = [], action) {
     }
 }
 
-function problemsFilter(state = 0, action) {
-    switch (action.type) {
-        case types.SET_CURRENT_PROBLEMS_FILTER:
-            return action.level;
-        default:
-            return state;
-    }
-}
-
 function submissionsFilter(state = 'ALL', action) {
     switch (action.type) {
         case types.SET_SUBMISSIONS_FILTER:
             return action.status;
-        default:
-            return state;
-    }
-}
-
-function programmingLanguage(state = 'java', action) {
-    switch (action.type) {
-        case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return action.programmingLanguage;
-        default:
-            return state;
-    }
-}
-
-function hideDoneProblems(state = false, action) {
-    switch (action.type) {
-        case types.HIDE_DONE_PROBLEMS:
-            return action.hideDoneProblems;
         default:
             return state;
     }
