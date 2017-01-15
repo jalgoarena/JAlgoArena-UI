@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
+import {fetchRanking} from "../../ranking/actions";
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
