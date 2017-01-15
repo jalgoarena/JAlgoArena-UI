@@ -6,7 +6,7 @@
   "scripts": {
     "installRequiredGlobalDependencies": "npm install webpack -g & npm install pm2 -g",
     "test": "jest && codecov",
-    "test:watch": "npm test --watch",
+    "test:watch": "jest --watch",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
     "prepm2start": "npm run build",

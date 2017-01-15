@@ -3,6 +3,7 @@ import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
+const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
 
 export function startJudge() {
     return {
@@ -55,14 +56,14 @@ export function setCurrentProblem(problemId) {
     }
 }
 
-export function setCurrentProblemsFilter(level) {
+export function setProblemsDifficultyVisibilityFilter(level) {
     return {
-        type: types.SET_CURRENT_PROBLEMS_FILTER,
+        type: types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER,
         level
     }
 }
 
-export function changeActualLanguage(language) {
+export function changeCurrentProgrammingLanguage(language) {
     return {
         type: types.CHANGE_PROGRAMMING_LANGUAGE,
         programmingLanguage: language
@@ -94,7 +95,7 @@ export function fetchProblems() {
 
 function setProblems(problems) {
     return {
-        type: types.FETCH_PROBLEMS,
+        type: types.PROBLEMS_RECEIVED,
         problems
     }
 }
@@ -126,7 +127,7 @@ export function createProblem(problem) {
 
 function problemCreated() {
     return {
-        type: types.CREATE_PROBLEM
+        type: types.PROBLEM_CREATED
     }
 }
 

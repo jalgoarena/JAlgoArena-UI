@@ -16,7 +16,7 @@ export function sourceCode(state = null, action) {
 
 export function problems(state = [], action) {
     switch (action.type) {
-        case types.FETCH_PROBLEMS:
+        case types.PROBLEMS_RECEIVED:
             return action.problems;
         default:
             return state;
@@ -47,7 +47,7 @@ export function currentProblemId(state = null, action) {
 
 export function problemsFilter(state = 0, action) {
     switch (action.type) {
-        case types.SET_CURRENT_PROBLEMS_FILTER:
+        case types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER:
             return action.level;
         default:
             return state;

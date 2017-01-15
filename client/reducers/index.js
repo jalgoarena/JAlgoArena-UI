@@ -32,7 +32,7 @@ function showModal(state = false, action) {
         case types.START_SUBMISSION:
             return true;
         case types.SET_CURRENT_PROBLEM:
-        case types.FETCH_PROBLEMS:
+        case types.PROBLEMS_RECEIVED:
         case types.JUDGE_RESULT_RECEIVED:
         case types.SUBMISSION_SAVED:
         case types.FETCH_SUBMISSIONS:

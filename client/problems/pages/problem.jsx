@@ -15,7 +15,7 @@ import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
 import store from '../../store';
 import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh, changeActualLanguage} from "../actions/index";
+import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index";
 import {closeWorkInProgressWindow, sendSubmission, fetchSubmissions, startSubmission} from "../../actions/index";
 
 class Problem extends React.Component {
@@ -193,7 +193,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(closeWorkInProgressWindow());
         },
         onLanguageChange: (language) => {
-            dispatch(changeActualLanguage(language));
+            dispatch(changeCurrentProgrammingLanguage(language));
         }
     }
 };
