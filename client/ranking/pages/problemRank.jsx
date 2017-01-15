@@ -1,8 +1,9 @@
 import React from 'react';
 import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
+
 import UserProblemRank from '../components/UserProblemRank';
-import {fetchProblemRanking} from "../actions/index";
+import {fetchProblemRanking} from "../actions";
 
 class ProblemRank extends React.Component {
 

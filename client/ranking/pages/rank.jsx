@@ -2,7 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {fetchRanking} from "../actions/index";
+
+import {fetchRanking} from "../actions";
 import UserRank from '../components/UserRank';
 import RegionRank from '../components/RegionRank';
 import TeamRank from '../components/TeamRank';

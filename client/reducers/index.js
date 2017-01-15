@@ -2,9 +2,9 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import * as types from "../constants/ActionTypes";
 
+import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage, hideDoneProblems} from "../problems/reducers";
 import {updateUserInfo} from "../users/reducers";
-import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage} from "../problems/reducers";
-import {hideDoneProblems} from "../problems/actions";
+import {ranking, problemRanking} from "../ranking/reducers";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -55,24 +55,6 @@ function submissions(state = [], action) {
         case types.FETCH_SUBMISSIONS:
         case types.DELETE_SUBMISSION:
             return action.submissions;
-        default:
-            return state;
-    }
-}
-
-function ranking(state = [], action) {
-    switch (action.type) {
-        case types.FETCH_RANKING:
-            return action.ranking;
-        default:
-            return state;
-    }
-}
-
-function problemRanking(state = [], action) {
-    switch (action.type) {
-        case types.FETCH_PROBLEM_RANKING:
-            return action.problemRanking;
         default:
             return state;
     }
