@@ -1,14 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Grid} from 'react-bootstrap';
-import {fetchAllSubmissions} from "../actions/index";
-import Submission from "../components/Submission";
-import {fetchUsers} from "../users/actions";
-import {deleteSubmission} from "../actions/index";
-import {rerunSubmission} from "../actions/index";
-import SubmissionsFilter from "../components/SubmissionsFilter";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {setSubmissionsFilter} from "../actions/index";
+
+import {fetchUsers} from "../../users/actions";
+
+import Submission from "../components/Submission";
+import SubmissionsFilter from "../components/SubmissionsFilter";
+import {rerunSubmission, setSubmissionsFilter, deleteSubmission, fetchAllSubmissions} from "../actions";
 
 class Admin extends React.Component {
 

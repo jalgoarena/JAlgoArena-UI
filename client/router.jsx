@@ -11,7 +11,7 @@ import Home from "./pages/home";
 import LoginPage from "./users/pages/login"
 import SignUpPage from "./users/pages/signup";
 import ProblemRankPage from './ranking/pages/problemRank';
-import AdminPage from "./pages/rerunSubmissions";
+import AdminPage from "./submissions/pages/rerunSubmissions";
 import NewProblemPage from "./problems/pages/newProblem";
 
 import { Provider } from 'react-redux'

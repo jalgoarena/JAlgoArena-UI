@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import {hashHistory} from "react-router";
 
 import config from '../../config';
-import {fetchSubmissions} from "../../actions";
+import {fetchSubmissions} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
 
 const AUTH_SERVER_URL = config.jalgoarenaApiUrl + "/auth";

@@ -5,6 +5,7 @@ import * as types from "../constants/ActionTypes";
 import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage, hideDoneProblems} from "../problems/reducers";
 import {updateUserInfo} from "../users/reducers";
 import {ranking, problemRanking} from "../ranking/reducers";
+import {submissions, submissionsFilter} from "../submissions/reducers";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -45,25 +46,6 @@ function showModal(state = false, action) {
         case types.SIGNUP_SUCCESS:
         case types.CLOSE_WORK_IN_PROGRESS_WINDOW:
             return false;
-        default:
-            return state;
-    }
-}
-
-function submissions(state = [], action) {
-    switch (action.type) {
-        case types.FETCH_SUBMISSIONS:
-        case types.DELETE_SUBMISSION:
-            return action.submissions;
-        default:
-            return state;
-    }
-}
-
-function submissionsFilter(state = 'ALL', action) {
-    switch (action.type) {
-        case types.SET_SUBMISSIONS_FILTER:
-            return action.status;
         default:
             return state;
     }

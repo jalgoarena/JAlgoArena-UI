@@ -3,8 +3,12 @@ import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import Output from '../components/Output';
 import WorkInProgress from '../../components/WorkInProgress';
+import store from '../../store';
+import {sendSubmission, fetchSubmissions, startSubmission} from "../../submissions/actions";
+import {closeWorkInProgressWindow} from "../../actions";
+
+import Output from '../components/Output';
 import ProblemToolbar from '../components/ProblemToolbar';
 import ProblemTitle from '../components/ProblemTitle';
 import ProblemDescription from '../components/ProblemDescription';
@@ -13,10 +17,8 @@ import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
 import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
-import store from '../../store';
 import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index";
-import {closeWorkInProgressWindow, sendSubmission, fetchSubmissions, startSubmission} from "../../actions/index";
 
 class Problem extends React.Component {
     constructor(props) {

@@ -5,7 +5,8 @@ import {hashHistory} from 'react-router';
 
 import FontAwesome from '../../components/FontAwesome';
 import WorkInProgress from '../../components/WorkInProgress';
-import {fetchSubmissions, closeWorkInProgressWindow} from "../../actions";
+import {closeWorkInProgressWindow} from "../../actions";
+import {fetchSubmissions} from "../../submissions/actions";
 import store from '../../store';
 
 import {attemptLogout} from "../actions";

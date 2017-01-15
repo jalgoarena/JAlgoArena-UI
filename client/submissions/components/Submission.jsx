@@ -1,7 +1,9 @@
 import React from 'react';
 import {Button, Row, Col, ButtonToolbar} from 'react-bootstrap';
+
+import FontAwesome from '../../components/FontAwesome';
+
 import SourceCode from './SourceCode';
-import FontAwesome from './FontAwesome';
 
 const submissionStyle = {
     margin: "20px 20px 0px",
