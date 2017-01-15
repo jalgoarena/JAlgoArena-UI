@@ -42,7 +42,7 @@ export function attemptSignUp(email, password, username, region, team) {
                 } else {
                     dispatch(signUpSuccess());
                 }
-            }).catch(error => console.log(error));
+            });
     };
 }
 
@@ -87,6 +87,7 @@ export function attemptLogin(username, password) {
         return fetch(`${AUTH_SERVER_URL}/login`, options)
             .then(response => response.json())
             .then(json => {
+                console.log(json);
                 if (json.error){
                     dispatch(loginFail(json));
                 } else {
@@ -94,8 +95,7 @@ export function attemptLogin(username, password) {
                     localStorage.setItem('jwtToken', token);
                     dispatch(fetchUser(token));
                 }
-            })
-            .catch(error => console.log(error));
+            });
     };
 }
 
@@ -113,13 +113,13 @@ function fetchUser(token) {
         return fetch(`${AUTH_SERVER_URL}/api/user`, options)
             .then(response => response.json())
             .then(json => {
+                console.log(json);
                 if (json.error){
                     dispatch(loginFail(json.message));
                 } else {
                     dispatch(loginSuccess(json));
                 }
-            })
-            .catch(error => console.log(error));
+            });
     };
 }
 
@@ -164,8 +164,7 @@ export function checkSessionStatus() {
                     console.log("Error: " + JSON.stringify(json));
                     localStorage.removeItem('jwtToken');
                 }
-            })
-            .catch(error => console.log(error));
+            });
     };
 }
 
@@ -198,8 +197,7 @@ export function fetchUsers() {
             .then(users => {
                 console.log(users);
                 dispatch(setUsers(users));
-            })
-            .catch(error => console.log(error));
+            });
     };
 }
 

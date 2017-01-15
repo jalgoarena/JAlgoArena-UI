@@ -11,13 +11,17 @@ import nock from "nock"
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-let authServerUrl = config.jalgoarenaApiUrl + "/auth";
+let authServerUrl = config.jalgoarenaApiUrl + "/auth/";
 
 window.localStorage = {
-    getItem: function(key) {
+    getItem: function (key) {
         if (key === "jwtToken")
             return "dummy_value";
         else
+            throw Error("Wrong key");
+    },
+    setItem: function(key, value) {
+        if (key !== 'jwtToken')
             throw Error("Wrong key");
     }
 };
@@ -39,6 +43,29 @@ describe("async actions", () => {
 
         const expectedActions = [{
             type: types.SIGNUP_SUCCESS
+        }];
+
+        const store = mockStore({sourceCode: "", result: "", problemId: ""});
+
+        return store.dispatch(actions.attemptSignUp("email", "password", "username", "region", "team"))
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
+    it("creates SIGNUP_FAIL when sign up has been failed", () => {
+        let errorMessage = {
+            error: "Registration Error",
+            message: "Username is already used"
+        };
+
+        nock(authServerUrl)
+            .post("/signup")
+            .reply(409, errorMessage);
+
+        const expectedActions = [{
+            type: types.SIGNUP_FAIL,
+            error: errorMessage
         }];
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});

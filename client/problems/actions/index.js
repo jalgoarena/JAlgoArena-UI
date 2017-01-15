@@ -23,8 +23,7 @@ export function judgeCode(sourceCode, problemId) {
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
-            .then(json => dispatch(judgeResultReceived(json, sourceCode, problemId)))
-            .catch(error => console.log(error));
+            .then(json => dispatch(judgeResultReceived(json, sourceCode, problemId)));
     };
 
 }
@@ -88,8 +87,7 @@ export function fetchProblems() {
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
-            .then(json => dispatch(setProblems(json)))
-            .catch(error => console.log(error));
+            .then(json => dispatch(setProblems(json)));
     };
 }
 
@@ -117,11 +115,9 @@ export function createProblem(problem) {
 
         return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
             .then(response => response.json())
-            .then(json => {
-                console.log(`problem saved: ${json.id}`);
+            .then(() => {
                 dispatch(problemCreated())
-            })
-            .catch(error => console.log(error));
+            });
     };
 }
 
