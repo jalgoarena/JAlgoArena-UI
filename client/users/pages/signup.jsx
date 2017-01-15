@@ -4,14 +4,14 @@ import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import FontAwesome from '../components/FontAwesome';
+import FontAwesome from '../../components/FontAwesome';
+import WorkInProgress from '../../components/WorkInProgress';
+import {closeWorkInProgressWindow} from "../../actions";
+import {regions, teams, emailErrorMessage} from "../../config"
+
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
-import {attemptSignUp} from "../actions/AuthActions";
-import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
-import WorkInProgress from '../components/WorkInProgress';
-import {startSignup} from "../actions/AuthActions";
-import {closeWorkInProgressWindow} from "../actions/index";
-import {regions, teams, emailErrorMessage} from "../config"
+import {attemptSignUp, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
+import ErrorLabel from "../components/ErrorLabel";
 
 const initialFormState = {
     errorMessage:  null,
@@ -134,21 +134,6 @@ class SignUp extends React.Component {
     }
 
     render() {
-        let errorLabel;
-
-        if(this.state.errorMessage){
-            errorLabel = (
-                <div className={this.getInputContainerClass(true)}>
-                    <label className="control-label">{this.state.errorMessage}</label>
-                </div> );
-        }
-        else if(this.props.userAuthSession.error){
-            errorLabel = (
-                <div className={this.getInputContainerClass(true)}>
-                    <label className="control-label">{this.props.userAuthSession.error}</label>
-                </div> );
-        }
-
         let regionOptions = regions.map(region => <option>{region}</option>);
         let teamOptions = teams.map(team => <option>{team}</option>);
 
@@ -158,7 +143,7 @@ class SignUp extends React.Component {
                 <Col mdOffset={4} md={4}>
                     <form>
                         <PageHeader className="text-center">Create Account</PageHeader>
-                        { errorLabel }
+                        <ErrorLabel validationError={this.state.errorMessage} authError={this.props.userAuthSession.error} />
                         <div className="form-group">
                             <label htmlFor="region" className="control-label">Region</label>
                             <select className="form-control" ref="region" id="region">

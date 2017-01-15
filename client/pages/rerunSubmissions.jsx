@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Grid} from 'react-bootstrap';
 import {fetchAllSubmissions} from "../actions/index";
 import Submission from "../components/Submission";
-import {fetchUsers} from "../actions/AuthActions";
+import {fetchUsers} from "../users/actions";
 import {deleteSubmission} from "../actions/index";
 import {rerunSubmission} from "../actions/index";
 import SubmissionsFilter from "../components/SubmissionsFilter";

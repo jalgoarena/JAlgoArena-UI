@@ -5,13 +5,13 @@ import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import FontAwesome from '../components/FontAwesome';
-import {attemptLogin} from "../actions/AuthActions";
-import {navigatedAwayFromAuthFormPage} from "../actions/AuthActions";
+import FontAwesome from '../../components/FontAwesome';
+import WorkInProgress from '../../components/WorkInProgress';
+import {closeWorkInProgressWindow} from "../../actions";
+
+import {attemptLogin, navigatedAwayFromAuthFormPage, startLogin} from "../actions";
 import {validateUserName, validatePassword} from '../utilities/RegexValidators';
-import WorkInProgress from '../components/WorkInProgress';
-import {startLogin} from "../actions/AuthActions";
-import {closeWorkInProgressWindow} from "../actions";
+import ErrorLabel from "../components/ErrorLabel";
 
 const initialFormState = {
     errorMessage: null,
@@ -101,26 +101,11 @@ class Login extends React.Component {
     }
 
     render() {
-        let errorLabel;
-
-        if(this.state.errorMessage){
-            errorLabel = (
-                <div className={this.getInputContainerClass(true)}>
-                    <label className="control-label">{this.state.errorMessage}</label>
-                </div> );
-        }
-        else if(this.props.userAuthSession.error){
-            errorLabel = (
-                <div className={this.getInputContainerClass(true)}>
-                    <label className="control-label">{this.props.userAuthSession.error}</label>
-                </div> );
-        }
-
         return <Grid>
             <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide} />
             <Col mdOffset={4} md={4}>
                 <PageHeader className="text-center">Sign In</PageHeader>
-                {errorLabel}
+                <ErrorLabel validationError={this.state.errorMessage} authError={this.props.userAuthSession.error} />
                 <form>
                     <div className={this.getInputContainerClass(this.state.isUsernameFieldIncorrect)}>
                         <input className="form-control" type="text" placeholder="Username" ref="username"/>

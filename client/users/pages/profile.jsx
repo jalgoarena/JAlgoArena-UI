@@ -3,12 +3,12 @@ import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import FontAwesome from '../components/FontAwesome';
-import {attemptLogout} from "../actions/AuthActions";
-import {fetchSubmissions} from "../actions/index";
-import WorkInProgress from '../components/WorkInProgress';
-import store from '../store';
-import {closeWorkInProgressWindow} from "../actions/index";
+import FontAwesome from '../../components/FontAwesome';
+import WorkInProgress from '../../components/WorkInProgress';
+import {fetchSubmissions, closeWorkInProgressWindow} from "../../actions";
+import store from '../../store';
+
+import {attemptLogout} from "../actions";
 
 class Profile extends React.Component {
 

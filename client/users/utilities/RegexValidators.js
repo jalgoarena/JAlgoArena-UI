@@ -1,6 +1,6 @@
-import config from '../config'
+import config from '../../config'
 
-const displayNameRegex = /^[a-zA-Z\-\_0-9]+$/; //alphanumerics, "-" and "_"
+const displayNameRegex = /^[a-zA-Z\-_0-9]+$/; //alphanumerics, "-" and "_"
 const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,}$/; // At least 6 characters
 
 /**

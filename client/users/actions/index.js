@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import {hashHistory} from "react-router";
 
-import {fetchSubmissions} from "./index";
-import config from '../config';
-import * as types from "../constants/ActionTypes"
+import config from '../../config';
+import {fetchSubmissions} from "../../actions";
+import * as types from "../../constants/ActionTypes"
 
 const AUTH_SERVER_URL = config.jalgoarenaApiUrl + "/auth";
 
@@ -38,7 +38,7 @@ export function attemptSignUp(email, password, username, region, team) {
             .then(response => response.json())
             .then(json => {
                 if (json.error){
-                    dispatch(signUpFail(json.error));
+                    dispatch(signUpFail(json));
                 } else {
                     dispatch(signUpSuccess());
                 }
@@ -88,7 +88,7 @@ export function attemptLogin(username, password) {
             .then(response => response.json())
             .then(json => {
                 if (json.error){
-                    dispatch(loginFail(json.error));
+                    dispatch(loginFail(json));
                 } else {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
@@ -114,7 +114,7 @@ function fetchUser(token) {
             .then(response => response.json())
             .then(json => {
                 if (json.error){
-                    dispatch(loginFail(json.error));
+                    dispatch(loginFail(json.message));
                 } else {
                     dispatch(loginSuccess(json));
                 }
