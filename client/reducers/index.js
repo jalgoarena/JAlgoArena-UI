@@ -2,9 +2,9 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import * as types from "../constants/ActionTypes";
 
-import {updateUserInfo} from "./AuthReducers";
-import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage} from "../problems/reducers/index";
-import {hideDoneProblems} from "../problems/actions/index";
+import {updateUserInfo} from "../users/reducers";
+import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage} from "../problems/reducers";
+import {hideDoneProblems} from "../problems/actions";
 
 const rootReducer = combineReducers({
     sourceCode,
