@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Row, Col, ButtonToolbar} from 'react-bootstrap';
 
-import FontAwesome from '../../components/FontAwesome';
+import FontAwesome from '../../common/components/FontAwesome';
 
 import SourceCode from './SourceCode';
 

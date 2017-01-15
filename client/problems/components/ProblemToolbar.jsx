@@ -2,7 +2,7 @@ import React from 'react';
 
 import {ButtonToolbar, Button, ButtonGroup} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import FontAwesome from '../../components/FontAwesome';
+import FontAwesome from '../../common/components/FontAwesome';
 
 const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, onLanguageChange, activeLanguage}) => (
     <ButtonToolbar>

@@ -1,6 +1,5 @@
 import React from "react";
 import {Grid, Col} from 'react-bootstrap';
-import FontAwesome from './FontAwesome';
 
 const footerLogoStyle = {
     height: 50,

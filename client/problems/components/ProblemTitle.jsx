@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import FontAwesome from '../../components/FontAwesome';
+import FontAwesome from '../../common/components/FontAwesome';
 
 const ProblemTitle = ({submissions, problem}) => {
     let submittedProblems = _.map(submissions, (submission) => submission.problemId);

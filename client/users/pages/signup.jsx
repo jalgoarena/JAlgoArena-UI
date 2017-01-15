@@ -4,9 +4,9 @@ import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import FontAwesome from '../../components/FontAwesome';
-import WorkInProgress from '../../components/WorkInProgress';
-import {closeWorkInProgressWindow} from "../../actions";
+import FontAwesome from '../../common/components/FontAwesome';
+import WorkInProgress from '../../common/components/WorkInProgress';
+import {closeWorkInProgressWindow} from "../../common/actions";
 import {regions, teams, emailErrorMessage} from "../../config"
 
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';

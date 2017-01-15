@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
-import * as types from "../constants/ActionTypes";
+import * as types from "../../constants/ActionTypes";
 
-import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage, hideDoneProblems} from "../problems/reducers";
-import {updateUserInfo} from "../users/reducers";
-import {ranking, problemRanking} from "../ranking/reducers";
-import {submissions, submissionsFilter} from "../submissions/reducers";
+import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage, hideDoneProblems} from "../../problems/reducers";
+import {updateUserInfo} from "../../users/reducers";
+import {ranking, problemRanking} from "../../ranking/reducers";
+import {submissions, submissionsFilter} from "../../submissions/reducers";
 
 const rootReducer = combineReducers({
     sourceCode,

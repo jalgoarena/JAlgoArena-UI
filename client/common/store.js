@@ -2,9 +2,10 @@ import rootReducer from './reducers';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './devtools';
-import {checkSessionStatus} from "./users/actions";
-import {fetchRanking} from "./actions";
-import {fetchProblems, startFetchingProblems} from "./problems/actions"
+
+import {checkSessionStatus} from "../users/actions";
+import {fetchProblems, startFetchingProblems} from "../problems/actions"
+import {fetchRanking} from "../ranking/actions";
 
 const configureStore = compose(
     applyMiddleware(thunk),

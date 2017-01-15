@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
+
+import {title} from '../../config';
+
 import FontAwesome from '../components/FontAwesome';
-import {title} from '../config';
 
 const starLightStyle = {
     padding: 0,

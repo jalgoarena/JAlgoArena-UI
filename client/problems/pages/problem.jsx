@@ -3,10 +3,10 @@ import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import WorkInProgress from '../../components/WorkInProgress';
-import store from '../../store';
+import WorkInProgress from '../../common/components/WorkInProgress';
+import store from '../../common/store';
 import {sendSubmission, fetchSubmissions, startSubmission} from "../../submissions/actions";
-import {closeWorkInProgressWindow} from "../../actions";
+import {closeWorkInProgressWindow} from "../../common/actions";
 
 import Output from '../components/Output';
 import ProblemToolbar from '../components/ProblemToolbar';

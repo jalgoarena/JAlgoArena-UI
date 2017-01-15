@@ -1,7 +1,8 @@
 import React from "react";
 import {Navbar, Nav, NavItem, NavDropdown} from "react-bootstrap";
-import FontAwesome from './FontAwesome';
 import {LinkContainer} from 'react-router-bootstrap';
+
+import FontAwesome from './FontAwesome';
 
 const logoStyle = {
     display: "inline-block",

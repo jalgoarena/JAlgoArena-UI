@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import Markdown from 'react-remarkable';
 import JSONTree from 'react-json-tree';
 
-import FontAwesome from '../../components/FontAwesome';
+import FontAwesome from '../../common/components/FontAwesome';
 import {createProblem} from "../actions/index";
 
 class NewProblem extends React.Component {

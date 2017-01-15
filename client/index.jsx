@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
-import Router from './router.jsx';
+import Router from './common/router.jsx';
 import 'babel-polyfill';
 
 render(

@@ -2,8 +2,8 @@ import React from 'react';
 import {Row, Col, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
-import FontAwesome from '../../components/FontAwesome';
-import store from '../../store';
+import FontAwesome from '../../common/components/FontAwesome';
+import store from '../../common/store';
 import {setCurrentProblem} from '../actions';
 
 const problemStyle = {

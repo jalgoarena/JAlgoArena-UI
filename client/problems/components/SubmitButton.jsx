@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FontAwesome from '../../components/FontAwesome';
+import FontAwesome from '../../common/components/FontAwesome';
 
 const SubmitButton = ({result, userId, onSubmit, problem, activeLanguage}) => (
     <button

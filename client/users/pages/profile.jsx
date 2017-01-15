@@ -3,11 +3,11 @@ import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import FontAwesome from '../../components/FontAwesome';
-import WorkInProgress from '../../components/WorkInProgress';
-import {closeWorkInProgressWindow} from "../../actions";
+import FontAwesome from '../../common/components/FontAwesome';
+import WorkInProgress from '../../common/components/WorkInProgress';
+import {closeWorkInProgressWindow} from "../../common/actions";
 import {fetchSubmissions} from "../../submissions/actions";
-import store from '../../store';
+import store from '../../common/store';
 
 import {attemptLogout} from "../actions";
 
