@@ -87,37 +87,12 @@ export function attemptLogin(username, password) {
         return fetch(`${AUTH_SERVER_URL}/login`, options)
             .then(response => response.json())
             .then(json => {
-                console.log(json);
                 if (json.error){
                     dispatch(loginFail(json));
                 } else {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
-                    dispatch(fetchUser(token));
-                }
-            });
-    };
-}
-
-function fetchUser(token) {
-    const options = {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache',
-            'X-Authorization': token
-        }
-    };
-
-    return dispatch => {
-        return fetch(`${AUTH_SERVER_URL}/api/user`, options)
-            .then(response => response.json())
-            .then(json => {
-                console.log(json);
-                if (json.error){
-                    dispatch(loginFail(json.message));
-                } else {
-                    dispatch(loginSuccess(json));
+                    dispatch(loginSuccess(json.user));
                 }
             });
     };
@@ -161,7 +136,6 @@ export function checkSessionStatus() {
                     dispatch(checkedSessionStatus(json));
                     dispatch(fetchSubmissions(json.id));
                 } else {
-                    console.log("Error: " + JSON.stringify(json));
                     localStorage.removeItem('jwtToken');
                 }
             });
@@ -178,16 +152,9 @@ function checkedSessionStatus(user) {
 
 export function fetchUsers() {
     return dispatch => {
-        let token = localStorage.getItem('jwtToken');
-
-        if (!token || token === '') {
-            return;
-        }
-
         const options = {
             headers: {
-                'Accept': 'application/json',
-                'X-Authorization': token
+                'Accept': 'application/json'
             },
             method: 'get'
         };
@@ -195,7 +162,6 @@ export function fetchUsers() {
         return fetch(`${AUTH_SERVER_URL}/users`, options)
             .then(response => response.json())
             .then(users => {
-                console.log(users);
                 dispatch(setUsers(users));
             });
     };
