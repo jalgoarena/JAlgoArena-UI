@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "installRequiredGlobalDependencies": "npm install webpack -g & npm install pm2 -g",
-    "test": "jest",
+    "test": "jest & codecov",
     "test:watch": "npm test --watch",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
@@ -88,5 +88,9 @@
     "redux-mock-store": "^1.2.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }

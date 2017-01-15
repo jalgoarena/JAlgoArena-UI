@@ -2,7 +2,8 @@ language: node_js
 node_js:
 - '6'
 before_script:
-- npm install webpack -g
+- npm install -g webpack
+- npm install -g codecov
 before_deploy:
 - npm run deploy
 deploy:
