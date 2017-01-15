@@ -46,7 +46,7 @@ export function fetchAllSubmissions() {
     };
 
     return dispatch => {
-        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/`, options)
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissions(json)))
             .catch(error => console.log(error));
@@ -129,7 +129,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
             .then(json => {
-                dispatch(submissionSaved(json));
+                dispatch(submissionSaved([json]));
                 if (isForAll) {
                     dispatch(fetchAllSubmissions());
                 } else {
@@ -165,15 +165,14 @@ export function deleteSubmission(submissionId) {
 
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${submissionId}`, options)
             .then(response => response.json())
-            .then(json => dispatch(refreshSubmissions(json)))
+            .then(json => dispatch(submissionDeleted()))
             .catch(error => console.log(error));
     };
 }
 
-function refreshSubmissions(submissions) {
+function submissionDeleted() {
     return {
-        type: types.DELETE_SUBMISSION,
-        submissions
+        type: types.DELETE_SUBMISSION
     }
 }
 

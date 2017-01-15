@@ -3,7 +3,6 @@ import * as types from "../../constants/ActionTypes";
 export function submissions(state = [], action) {
     switch (action.type) {
         case types.FETCH_SUBMISSIONS:
-        case types.DELETE_SUBMISSION:
             return action.submissions;
         default:
             return state;
