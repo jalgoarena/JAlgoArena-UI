@@ -42,7 +42,8 @@ export function attemptSignUp(email, password, username, region, team) {
                 } else {
                     dispatch(signUpSuccess());
                 }
-            });
+            })
+            .catch(error => console.log(error));
     };
 }
 
@@ -94,7 +95,8 @@ export function attemptLogin(username, password) {
                     localStorage.setItem('jwtToken', token);
                     dispatch(loginSuccess(json.user));
                 }
-            });
+            })
+            .catch(error => console.log(error));
     };
 }
 
@@ -138,7 +140,8 @@ export function checkSessionStatus() {
                 } else {
                     localStorage.removeItem('jwtToken');
                 }
-            });
+            })
+            .catch(error => console.log(error));
     };
 }
 
@@ -161,9 +164,8 @@ export function fetchUsers() {
 
         return fetch(`${AUTH_SERVER_URL}/users`, options)
             .then(response => response.json())
-            .then(users => {
-                dispatch(setUsers(users));
-            });
+            .then(users => dispatch(setUsers(users)))
+            .catch(error => console.log(error));
     };
 }
 
