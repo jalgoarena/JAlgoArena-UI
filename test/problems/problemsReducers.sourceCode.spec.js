@@ -22,16 +22,6 @@ describe('sourceCode reducer', () => {
         ).toEqual('class Solution2');
     });
 
-    it('should be unchanged for unsupported action type', () => {
-        expect(
-            reducer.sourceCode('class Solution',
-                {
-                    type: "UNSUPPORTED_TYPE"
-                }
-            )
-        ).toEqual('class Solution');
-    });
-
     let actionsCleaningSourceCode = [
         types.SET_CURRENT_PROBLEM,
         types.SET_CURRENT_PROBLEM,

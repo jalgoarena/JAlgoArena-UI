@@ -21,14 +21,4 @@ describe('currentProblemId reducer', () => {
             )
         ).toEqual("stoi");
     });
-
-    it('should be unchanged for unsupported action type', () => {
-        expect(
-            reducer.currentProblemId("fib",
-                {
-                    type: "UNSUPPORTED_TYPE"
-                }
-            )
-        ).toEqual("fib");
-    });
 });

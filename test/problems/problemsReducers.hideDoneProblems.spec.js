@@ -21,14 +21,4 @@ describe('hideDoneProblems reducer', () => {
             )
         ).toEqual(false);
     });
-
-    it('should be unchanged for unsupported action type', () => {
-        expect(
-            reducer.hideDoneProblems(true,
-                {
-                    type: "UNSUPPORTED_TYPE"
-                }
-            )
-        ).toEqual(true);
-    });
 });

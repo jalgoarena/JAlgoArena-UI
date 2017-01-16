@@ -22,16 +22,6 @@ describe('result reducer', () => {
         ).toEqual({statusCode: "COMPILE_ERROR"});
     });
 
-    it('should be unchanged for unsupported action type', () => {
-        expect(
-            reducer.result({statusCode: "ACCEPTED"},
-                {
-                    type: "UNSUPPORTED_TYPE"
-                }
-            )
-        ).toEqual({statusCode: "ACCEPTED"});
-    });
-
     let actionsResettingResult = [
         types.SET_CURRENT_PROBLEM,
         types.SUBMISSION_SAVED,

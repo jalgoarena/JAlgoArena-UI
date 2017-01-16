@@ -21,14 +21,4 @@ describe('problemsFilter reducer', () => {
             )
         ).toEqual(2);
     });
-
-    it('should be unchanged for unsupported action type', () => {
-        expect(
-            reducer.problemsFilter(1,
-                {
-                    type: "UNSUPPORTED_TYPE"
-                }
-            )
-        ).toEqual(1);
-    });
 });

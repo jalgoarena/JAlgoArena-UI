@@ -21,14 +21,4 @@ describe('programmingLanguage reducer', () => {
             )
         ).toEqual('kotlin');
     });
-
-    it('should be unchanged for unsupported action type', () => {
-        expect(
-            reducer.programmingLanguage('java',
-                {
-                    type: "UNSUPPORTED_TYPE"
-                }
-            )
-        ).toEqual('java');
-    });
 });
