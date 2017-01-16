@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
     hideDoneProblems
 });
 
-function showModal(state = false, action) {
+export function showModal(state = false, action) {
     switch (action.type) {
         case types.START_SIGNUP:
         case types.START_LOGIN:
