@@ -1,7 +1,6 @@
 import reducer from '../client/common/reducers';
 
-
-describe('problems reducer', () => {
+describe('root reducer', () => {
     it('should return the initial state', () => {
         expect(
             reducer(undefined, {})
