@@ -104,6 +104,23 @@ describe('updateUserInfo reducer', () => {
             user: { username: "julia", id: "0-0" },
             error: null
         });
+
+        expect(
+            reducer.updateUserInfo({
+                    user: null,
+                    error: { message: "error" },
+                    users: null
+                },
+                {
+                    type: types.CHECKED_SESSION_STATUS,
+                    user: { username: "julia" }
+                }
+            )
+        ).toEqual({
+            user: null,
+            error: null,
+            users: null
+        });
     });
 
     it("should handle LOGOUT_SUCCESS", () => {
