@@ -1,7 +1,7 @@
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
 
-describe('problems sourceCode reducer', () => {
+describe('sourceCode reducer', () => {
     it('should handle CHANGE_SOURCE_CODE', () => {
         expect(
             reducer.sourceCode(null,
@@ -41,7 +41,7 @@ describe('problems sourceCode reducer', () => {
     ];
 
     actionsCleaningSourceCode.forEach(actionType => {
-        it(`should handle${actionType}`, () => {
+        it(`should handle ${actionType}`, () => {
             expect(
                 reducer.sourceCode('class Solution',
                     {
