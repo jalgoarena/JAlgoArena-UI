@@ -1,7 +1,7 @@
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
 
-describe('currentProblemId reducer', () => {
+describe('problemsFilter reducer', () => {
     it('should handle SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER', () => {
         expect(
             reducer.problemsFilter(null,
