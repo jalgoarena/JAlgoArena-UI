@@ -102,10 +102,11 @@ describe("async actions", () => {
     it("creates DELETE_SUBMISSION when deleting submissions has been done", () => {
         nock(submissionsServerUrl)
             .delete("/submissions/0-0")
-            .reply(200, true);
+            .reply(200, []);
 
         const expectedActions = [{
-            type: types.DELETE_SUBMISSION
+            type: types.DELETE_SUBMISSION,
+            submissions: []
         }];
 
         const store = mockStore({submissions: []});

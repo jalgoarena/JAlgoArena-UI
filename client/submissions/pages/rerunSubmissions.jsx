@@ -77,7 +77,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDelete: (submissionId) => {
             dispatch(deleteSubmission(submissionId));
-            dispatch(fetchAllSubmissions());
         },
         onRerun: (sourceCode, userId, problemId, problemLevel, problemLanguage) => {
             dispatch(rerunSubmission(sourceCode, userId, problemId, problemLevel, problemLanguage));

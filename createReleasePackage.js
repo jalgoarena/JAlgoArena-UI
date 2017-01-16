@@ -1,6 +1,6 @@
 var Archiver = require("archiver");
 var fs = require("fs");
-var version = "1.0.14";
+var version = "1.0.15";
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
     version = `${version}.${process.env.TRAVIS_BUILD_NUMBER}`;

@@ -61,8 +61,6 @@ function setSubmissions(submissions) {
     }
 }
 
-
-
 export function setSubmissionsFilter(status) {
     return {
         type: types.SET_SUBMISSIONS_FILTER,
@@ -166,14 +164,15 @@ export function deleteSubmission(submissionId) {
 
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${submissionId}`, options)
             .then(response => response.json())
-            .then(json => dispatch(submissionDeleted()))
+            .then(json => dispatch(refreshSubmissions(json)))
             .catch(error => console.log(error));
     };
 }
 
-function submissionDeleted() {
+function refreshSubmissions(submissions) {
     return {
-        type: types.DELETE_SUBMISSION
+        type: types.DELETE_SUBMISSION,
+        submissions
     }
 }
 
