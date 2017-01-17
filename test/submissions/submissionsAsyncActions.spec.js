@@ -11,6 +11,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 let submissionsServerUrl = config.jalgoarenaApiUrl + "/submissions/api";
+let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
 
 window.localStorage = {
     getItem: function(key) {
@@ -116,4 +117,37 @@ describe("async actions", () => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
+
+    // TODO: think how to solve below issue - with double level dispatch nock/jest does not work :(
+    // it("creates SUBMISSION_SAVED when re-submission has been done", () => {
+    //     let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
+    //     let submission = {
+    //         problemId: "fib",
+    //         elapsedTime: 0.123
+    //     };
+    //
+    //     nock(judgeServerUrl)
+    //         .post("/problems/fib/submit")
+    //         .reply(200, result);
+    //
+    //     nock(submissionsServerUrl)
+    //         .put("/submissions")
+    //         .reply(201, submission);
+    //
+    //     nock(submissionsServerUrl)
+    //         .get("/submissions")
+    //         .reply(200, [submission]);
+    //
+    //     const expectedActions = [{
+    //         type: types.SUBMISSION_SAVED,
+    //         submissions: [submission]
+    //     }];
+    //
+    //     const store = mockStore({submissions: []});
+    //
+    //     return store.dispatch(actions.rerunSubmission("class Solution", "user_id", "fib", 1, "kotlin"))
+    //         .then(() => {
+    //             expect(store.getActions()).toEqual(expectedActions);
+    //         });
+    // });
 });

@@ -11,7 +11,7 @@ export function fetchSubmissions(userId) {
     let token = localStorage.getItem('jwtToken');
 
     if (!token || token === '') {
-        return;
+        return null;
     }
 
     const options = {
@@ -35,7 +35,7 @@ export function fetchAllSubmissions() {
     let token = localStorage.getItem('jwtToken');
 
     if (!token || token === '') {
-        return;
+        return null;
     }
 
     const options = {

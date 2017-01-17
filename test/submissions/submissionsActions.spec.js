@@ -1,6 +1,12 @@
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/submissions/actions";
 
+window.localStorage = {
+    getItem: function() {
+        return null;
+    }
+};
+
 describe("actions", () => {
     it("creates an action to set submissions filter", () => {
         let status = "ACCEPTED";
@@ -19,5 +25,12 @@ describe("actions", () => {
         };
 
         expect(actions.startSubmission()).toEqual(expectedAction)
+    });
+
+    it("fetchSubmissions do nothing if token is absent", () => {
+        const expectedAction = null;
+
+        expect(actions.fetchSubmissions("dummy_user")).toEqual(expectedAction);
+        expect(actions.fetchAllSubmissions()).toEqual(expectedAction);
     });
 });
