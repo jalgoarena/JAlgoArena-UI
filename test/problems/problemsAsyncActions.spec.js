@@ -83,6 +83,28 @@ describe("async actions", () => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
+
+    it("creates FETCH_RAW_PROBLEMS when fetching of raw problems has been done", () => {
+        let problems = [
+            fibProblem
+        ];
+
+        nock(problemsServerUrl)
+            .get("/problems")
+            .reply(200, problems);
+
+        const expectedActions = [{
+            type: types.FETCH_RAW_PROBLEMS,
+            rawProblems: problems
+        }];
+
+        const store = mockStore({rawProblems: []});
+
+        return store.dispatch(actions.fetchRawProblems())
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
 });
 
 let fibProblem = {

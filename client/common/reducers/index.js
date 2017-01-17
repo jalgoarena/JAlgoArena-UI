@@ -2,10 +2,11 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import * as types from "../../constants/ActionTypes";
 
-import {sourceCode, problems, result, currentProblemId, problemsFilter, programmingLanguage, hideDoneProblems} from "../../problems/reducers";
+import {sourceCode, problems, result, currentProblemId, problemsFilter} from "../../problems/reducers";
 import {updateUserInfo} from "../../users/reducers";
 import {ranking, problemRanking} from "../../ranking/reducers";
 import {submissions, submissionsFilter} from "../../submissions/reducers";
+import {rawProblems, programmingLanguage, hideDoneProblems} from "../../problems/reducers";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     problemsFilter,
     submissionsFilter,
     programmingLanguage,
-    hideDoneProblems
+    hideDoneProblems,
+    rawProblems
 });
 
 export function showModal(state = false, action) {

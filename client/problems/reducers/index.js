@@ -71,3 +71,12 @@ export function hideDoneProblems(state = false, action) {
             return state;
     }
 }
+
+export function rawProblems(state = [], action) {
+    switch (action.type) {
+        case types.FETCH_RAW_PROBLEMS:
+            return action.rawProblems;
+        default:
+            return state;
+    }
+}

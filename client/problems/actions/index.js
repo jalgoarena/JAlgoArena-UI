@@ -3,6 +3,7 @@ import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
+const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
 
 export function startJudge() {
     return {
@@ -103,4 +104,27 @@ export function startFetchingProblems() {
     return {
         type: types.START_FETCHING_PROBLEMS
     };
+}
+
+export function fetchRawProblems() {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setRawProblems(json)))
+            .catch(error => console.log(error));
+    };
+}
+
+function setRawProblems(rawProblems) {
+    return {
+        type: types.FETCH_RAW_PROBLEMS,
+        rawProblems
+    }
 }
