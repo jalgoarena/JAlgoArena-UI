@@ -83,23 +83,6 @@ describe("async actions", () => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
-
-    it("creates PROBLEM_CREATED when creating new problem has been done", () => {
-        nock(problemsServerUrl)
-            .put("/problems")
-            .reply(201, true);
-
-        const expectedActions = [{
-            type: types.PROBLEM_CREATED
-        }];
-
-        const store = mockStore({});
-
-        return store.dispatch(actions.createProblem(fibProblem))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            })
-    });
 });
 
 let fibProblem = {

@@ -3,7 +3,6 @@ import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
-const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
 
 export function startJudge() {
     return {
@@ -97,34 +96,6 @@ function setProblems(problems) {
     return {
         type: types.PROBLEMS_RECEIVED,
         problems
-    }
-}
-
-export function createProblem(problem) {
-    return dispatch => {
-
-        let token = localStorage.getItem('jwtToken');
-
-        const options = {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-Authorization': token
-            },
-            method: 'put',
-            body: JSON.stringify(problem)
-        };
-
-        return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
-            .then(response => response.json())
-            .then(() => dispatch(problemCreated()))
-            .catch(error => console.log(error));
-    };
-}
-
-function problemCreated() {
-    return {
-        type: types.PROBLEM_CREATED
     }
 }
 

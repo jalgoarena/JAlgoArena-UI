@@ -1,12 +1,10 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {Grid, Button, Col, PageHeader} from 'react-bootstrap';
-import {connect} from 'react-redux';
 import Markdown from 'react-remarkable';
 import JSONTree from 'react-json-tree';
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {createProblem} from "../actions/index";
 
 class NewProblem extends React.Component {
     constructor(props) {
@@ -41,6 +39,20 @@ class NewProblem extends React.Component {
         });
     }
 
+    saveJSON(data, filename) {
+
+        data = JSON.stringify(data);
+
+        let blob = new Blob([data], {type: 'text/json'}),
+            e = new MouseEvent("click", {bubbles: true, cancelable: false}),
+            a = document.createElement('a');
+
+        a.download = filename;
+        a.href = URL.createObjectURL(blob);
+        a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':');
+        a.dispatchEvent(e);
+    }
+
     onCreateProblem(e) {
         e.preventDefault();
 
@@ -55,7 +67,7 @@ class NewProblem extends React.Component {
             testCases: this.state.testCases
         };
 
-        this.props.onCreateProblem(problemJson);
+        this.saveJSON(problemJson, `${problemJson.id}.json`);
     }
 
     render() {
@@ -176,7 +188,7 @@ class NewProblem extends React.Component {
                             />
                         </div>
                         <Button type="submit" bsStyle="success" className="pull-right" onClick={(e) => this.onCreateProblem(e)}>
-                            <FontAwesome name="book"/> Create Problem
+                            <FontAwesome name="download"/> Download
                         </Button>
                     </form>
                 </Col>
@@ -198,22 +210,4 @@ class NewProblem extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onCreateProblem: (problemJson) => {
-            dispatch(createProblem(problemJson));
-        }
-    }
-};
-
-const NewProblemPage = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NewProblem);
-
-export default NewProblemPage;
+export default NewProblem;
