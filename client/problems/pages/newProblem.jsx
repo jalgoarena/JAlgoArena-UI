@@ -68,8 +68,8 @@ class NewProblem extends React.Component {
             id: this.state.newProblem.id,
             title: this.state.newProblem.title,
             description: this.state.newProblem.description,
-            time_limit: this.state.newProblem.timeLimit,
-            memory_limit: this.state.newProblem.memoryLimit,
+            timeLimit: this.state.newProblem.timeLimit,
+            memoryLimit: this.state.newProblem.memoryLimit,
             level: this.state.newProblem.level,
             function: this.state.newProblem.func,
             testCases: this.state.newProblem.testCases
@@ -162,7 +162,7 @@ class NewProblem extends React.Component {
                             <select className="form-control" id="level" ref="level"
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
-                                            level: e.target.value
+                                            level: parseInt(e.target.value)
                                         })
                                     })}
                             >
