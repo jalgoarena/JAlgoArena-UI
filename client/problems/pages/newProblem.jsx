@@ -140,7 +140,7 @@ class NewProblem extends React.Component {
                                    value={this.state.newProblem.timeLimit}
                                    onChange={(e) => this.setState({
                                        newProblem: Object.assign({}, this.state.newProblem, {
-                                           timeLimit: e.target.value
+                                           timeLimit: parseInt(e.target.value)
                                        })
                                    })}
                             />
@@ -152,7 +152,7 @@ class NewProblem extends React.Component {
                                    value={this.state.newProblem.memoryLimit}
                                    onChange={(e) => this.setState({
                                        newProblem: Object.assign({}, this.state.newProblem, {
-                                           memoryLimit: e.target.value
+                                           memoryLimit: parseInt(e.target.value)
                                        })
                                    })}
                             />
@@ -160,6 +160,7 @@ class NewProblem extends React.Component {
                         <div className="form-group">
                             <label htmlFor="level" className="control-label">Level</label>
                             <select className="form-control" id="level" ref="level"
+                                    value={this.state.newProblem.level}
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             level: parseInt(e.target.value)
@@ -198,6 +199,7 @@ class NewProblem extends React.Component {
                         <div className="form-group">
                             <label htmlFor="returnType" className="control-label">Return Type</label>
                             <select className="form-control" id="returnType" ref="returnType"
+                                    value={this.state.newProblem.func.return.type}
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             func: Object.assign({}, this.state.newProblem.func, {
