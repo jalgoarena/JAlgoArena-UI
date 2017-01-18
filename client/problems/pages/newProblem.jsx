@@ -93,7 +93,7 @@ class NewProblem extends React.Component {
         let problems = this.props.problems || [];
         problems = _.orderBy(problems, ["title"]);
         let problemItems = problems.map(problem => {
-            return <option value={problem.id}>{problem.title}</option>;
+            return <option value={problem.id} selected={problem.id === "fib"}>{problem.title}</option>;
         });
 
         return (
@@ -205,10 +205,9 @@ class NewProblem extends React.Component {
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             func: Object.assign({}, this.state.newProblem.func, {
-                                                return: {
+                                                return: Object.assign({}, this.state.newProblem.func.return, {
                                                     type: e.target.value,
-                                                    comment: this.state.newProblem.func.return.comment
-                                                }
+                                                })
                                             })
                                         })
                                     })}
@@ -223,6 +222,7 @@ class NewProblem extends React.Component {
                                 <option value="void">void</option>
                                 <option value="com.jalgoarena.type.ListNode">ListNode</option>
                                 <option value="com.jalgoarena.type.TreeNode">TreeNode</option>
+                                <option value="java.utils.ArrayList">ArrayList</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -233,10 +233,25 @@ class NewProblem extends React.Component {
                                    onChange={(e) => this.setState({
                                        newProblem: Object.assign({}, this.state.newProblem, {
                                            func: Object.assign({}, this.state.newProblem.func, {
-                                               return: {
-                                                   type: this.state.newProblem.func.return.type,
+                                               return: Object.assign({}, this.state.newProblem.func.return, {
                                                    comment: e.target.value
-                                               }
+                                               })
+                                           })
+                                       })
+                                   })}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="returnGeneric" className="control-label">Return Generic</label>
+                            <input className="form-control" type="text" placeholder="Return Generic" id="returnGeneric"
+                                   ref="returnGeneric"
+                                   value={this.state.newProblem.func.return.generic}
+                                   onChange={(e) => this.setState({
+                                       newProblem: Object.assign({}, this.state.newProblem, {
+                                           func: Object.assign({}, this.state.newProblem.func, {
+                                               return: Object.assign({}, this.state.newProblem.func.return, {
+                                                   generic: e.target.value
+                                               })
                                            })
                                        })
                                    })}
@@ -266,9 +281,9 @@ class NewProblem extends React.Component {
                                       })}
                             />
                         </div>
-                        <Button type="submit" bsStyle="success" className="pull-right"
+                        <Button type="submit" bsStyle="success" block
                                 onClick={(e) => this.onCreateProblem(e)}>
-                            <FontAwesome name="download"/> Download
+                            <FontAwesome name="download"/> {this.state.newProblem.id}.json
                         </Button>
                     </form>
                 </Col>
