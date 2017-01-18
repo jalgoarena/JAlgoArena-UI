@@ -1,5 +1,6 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
+import _ from 'lodash';
 import {Grid, Button, Col, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Markdown from 'react-remarkable';
@@ -90,6 +91,7 @@ class NewProblem extends React.Component {
 
     render() {
         let problems = this.props.problems || [];
+        problems = _.orderBy(problems, ["title"]);
         let problemItems = problems.map(problem => {
             return <option value={problem.id}>{problem.title}</option>;
         });
