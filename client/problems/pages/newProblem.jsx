@@ -222,7 +222,7 @@ class NewProblem extends React.Component {
                                 <option value="void">void</option>
                                 <option value="com.jalgoarena.type.ListNode">ListNode</option>
                                 <option value="com.jalgoarena.type.TreeNode">TreeNode</option>
-                                <option value="java.utils.ArrayList">ArrayList</option>
+                                <option value="java.util.ArrayList">ArrayList</option>
                             </select>
                         </div>
                         <div className="form-group">

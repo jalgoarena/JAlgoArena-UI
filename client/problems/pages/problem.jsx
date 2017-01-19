@@ -17,13 +17,19 @@ import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
 import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
+import IntervalSourceCode from '../components/IntervalSourceCode';
 import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index";
 
 class Problem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {showListNodeSourceCode: false, showTreeNodeSourceCode: false, showPointsLegend: false}
+        this.state = {
+            showListNodeSourceCode: false,
+            showTreeNodeSourceCode: false,
+            showIntervalSourceCode: false,
+            showPointsLegend: false
+        }
     }
 
     transferToLoginIfLoggedOut() {
@@ -69,6 +75,13 @@ class Problem extends React.Component {
         this.setState({showTreeNodeSourceCode: false});
     }
 
+    showIntervalSourceCode() {
+        this.setState({showIntervalSourceCode: true});
+    }
+
+    hideIntervalSourceCode() {
+        this.setState({showIntervalSourceCode: false});
+    }
 
     showPointsLegend() {
         this.setState({showPointsLegend: true});
@@ -76,6 +89,17 @@ class Problem extends React.Component {
 
     hidePointsLegend() {
         this.setState({showPointsLegend: false});
+    }
+
+    sourceCodeButton(skeletonCode, customType, onClick) {
+        if (skeletonCode.includes(customType)) {
+            return <Button
+                bsStyle="success"
+                onClick={onClick}
+            >{customType}</Button>;
+        }
+
+        return null;
     }
 
     render() {
@@ -101,8 +125,9 @@ class Problem extends React.Component {
                     onLanguageChange={this.props.onLanguageChange}
                     activeLanguage={this.props.programmingLanguage}
                 >
-                    {this.listNodeButton(skeletonCode)}
-                    {this.treeNodeButton(skeletonCode)}
+                    {this.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
+                    {this.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
+                    {this.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.sourceCode || skeletonCode}
@@ -128,34 +153,16 @@ class Problem extends React.Component {
                 show={this.state.showTreeNodeSourceCode}
                 onHide={this.hideTreeNodeSourceCode.bind(this)}
             />
+            <IntervalSourceCode
+                show={this.state.showIntervalSourceCode}
+                onHide={this.hideIntervalSourceCode.bind(this)}
+            />
             <PointsLegend
                 show={this.state.showPointsLegend}
                 onHide={this.hidePointsLegend.bind(this)}
             />
             <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
         </Grid>;
-    }
-
-    listNodeButton(skeletonCode) {
-        if (skeletonCode.includes('ListNode')) {
-            return <Button
-                bsStyle="success"
-                onClick={this.showListNodeSourceCode.bind(this)}
-            >ListNode</Button>;
-        }
-
-        return null;
-    }
-
-    treeNodeButton(skeletonCode) {
-        if (skeletonCode.includes('TreeNode')) {
-            return <Button
-                bsStyle="success"
-                onClick={this.showTreeNodeSourceCode.bind(this)}
-            >TreeNode</Button>;
-        }
-
-        return null;
     }
 }
 
