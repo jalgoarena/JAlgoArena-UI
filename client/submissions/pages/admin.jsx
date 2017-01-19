@@ -20,8 +20,7 @@ class Admin extends React.Component {
         let users = this.props.userAuthSession.users;
 
         let submissionNodes = submissions
-            .filter(submission => this.props.submissionsFilter === 'ALL' ||
-                submission.statusCode === this.props.submissionsFilter)
+            .filter(submission => this.filterSubmissions(submission))
             .map((submission, idx) => {
                 let username;
                 if (users) {
@@ -50,15 +49,32 @@ class Admin extends React.Component {
                     onRerun={this.props.onRerun}
                     key={idx}
                 />;
-        });
+            });
 
         return <Grid fluid={true}>
             <PageHeader className="text-center">Submissions ({submissions.length})</PageHeader>
-            <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter} />
-            <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
+            <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter}/>
+            <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600}
+                                     transitionLeaveTimeout={600}>
                 {submissionNodes}
             </ReactCSSTransitionGroup>
         </Grid>
+    }
+
+    filterSubmissions(submission) {
+        return this.showAllSubmissions() ||
+            this.showErrorSubmissions(submission) ||
+            submission.statusCode === this.props.submissionsFilter;
+    }
+
+    showAllSubmissions() {
+        return this.props.submissionsFilter === 'ALL'
+    }
+
+    showErrorSubmissions(submission) {
+        return this.props.submissionsFilter === 'ERROR' &&
+            submission.statusCode !== 'ACCEPTED' &&
+            submission.statusCode !== 'RERUN_ACCEPTED'
     }
 }
 
