@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Grid} from 'react-bootstrap';
+import {Grid, PageHeader} from 'react-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import {fetchUsers} from "../../users/actions";
@@ -52,7 +52,8 @@ class Admin extends React.Component {
                 />;
         });
 
-        return <Grid>
+        return <Grid fluid={true}>
+            <PageHeader className="text-center">Submissions ({submissions.length})</PageHeader>
             <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter} />
             <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
                 {submissionNodes}
@@ -87,9 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const AdminPage = connect(
+const SubmissionsAdminPage = connect(
     mapStateToProps,
     mapDispatchToProps
 )(Admin);
 
-export default AdminPage;
+export default SubmissionsAdminPage;

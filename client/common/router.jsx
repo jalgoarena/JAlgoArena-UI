@@ -10,8 +10,9 @@ import ProblemsPage from "../problems/pages/problems";
 import LoginPage from "../users/pages/login"
 import SignUpPage from "../users/pages/signup";
 import ProblemRankPage from '../ranking/pages/problemRank';
-import AdminPage from "../submissions/pages/rerunSubmissions";
-import NewProblemPage from "../problems/pages/newProblem";
+import SubmissionsAdminPage from "../submissions/pages/admin";
+import ProblemsAdminPage from "../problems/pages/admin";
+import UsersAdminPage from "../users/pages/admin";
 
 import {Layout} from './layout';
 import Home from "./pages/home";
@@ -30,9 +31,10 @@ export default (
                 <Route path="/problem/:id" component={ProblemPage} />
                 <Route path="/problem/:id/rank" component={ProblemRankPage} />
                 <Route path="/login" component={LoginPage} />
-                <Route path="/admin" component={AdminPage} />
                 <Route path="/signup" component={SignUpPage} />
-                <Route path="/newProblem" component={NewProblemPage} />
+                <Route path="/submissionsAdmin" component={SubmissionsAdminPage} />
+                <Route path="/problemsAdmin" component={ProblemsAdminPage} />
+                <Route path="/usersAdmin" component={UsersAdminPage} />
             </Route>
         </Router>
     </Provider>

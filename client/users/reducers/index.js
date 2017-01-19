@@ -10,24 +10,25 @@ export function updateUserInfo(userAuthState = defaultStartState , action) {
     switch (action.type){
 
         case types.LOGIN_SUCCESS:
-            return {
+
+            return Object.assign({}, userAuthState, {
                 user: action.user,
                 error: null
-            };
+            });
 
         case types.LOGIN_FAIL:
         case types.SIGNUP_FAIL:
-            return {
+            return Object.assign({}, userAuthState, {
                 user: null,
                 error: action.error
-            };
+            });
 
         case types.CHECKED_SESSION_STATUS:
             if (action.user && action.user.id){
-                return {
+                return Object.assign({}, userAuthState, {
                     user: action.user,
                     error: null
-                };
+                });
             }
 
             return defaultStartState;

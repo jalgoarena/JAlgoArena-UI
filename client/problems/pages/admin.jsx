@@ -10,7 +10,7 @@ import FontAwesome from '../../common/components/FontAwesome';
 import {fetchRawProblems} from "../actions/index";
 
 
-class NewProblem extends React.Component {
+class ProblemsAdmin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -98,7 +98,7 @@ class NewProblem extends React.Component {
 
         return (
             <Grid fluid={true}>
-                <PageHeader className="text-center">Create New Problem</PageHeader>
+                <PageHeader className="text-center">Problems ({problems.length})</PageHeader>
                 <Col md={4}>
                     <form>
                         <div className="panel panel-danger">
@@ -320,9 +320,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const NewProblemPage = connect(
+const ProblemsAdminPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(NewProblem);
+)(ProblemsAdmin);
 
-export default NewProblemPage;
+export default ProblemsAdminPage;

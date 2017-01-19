@@ -29,7 +29,7 @@ class Submission extends React.Component {
 
     render() {
         return (
-            <Col md={6} style={submissionStyle}>
+            <Col md={4} style={submissionStyle}>
                 <Row>
                     <h4 className="text-success">{this.props.problemId} <span className="pull-right">{`${this.props.username}:${this.props.userId}`}</span></h4>
                 </Row>

@@ -16,7 +16,8 @@ describe('updateUserInfo reducer', () => {
             )
         ).toEqual({
             user: { username: "julia" },
-            error: null
+            error: null,
+            users: null
         });
 
         expect(
@@ -32,7 +33,8 @@ describe('updateUserInfo reducer', () => {
             )
         ).toEqual({
             user: { username: "julia" },
-            error: null
+            error: null,
+            users: null
         });
     });
 
@@ -51,7 +53,8 @@ describe('updateUserInfo reducer', () => {
                 )
             ).toEqual({
                 user: null,
-                error: { message: "error" }
+                error: { message: "error" },
+                users: null
             });
 
             expect(
@@ -67,7 +70,8 @@ describe('updateUserInfo reducer', () => {
                 )
             ).toEqual({
                 user: null,
-                error: { message: "error" }
+                error: { message: "error" },
+                users: null
             });
         });
     });
@@ -86,7 +90,8 @@ describe('updateUserInfo reducer', () => {
             )
         ).toEqual({
             user: { username: "julia", id: "0-0" },
-            error: null
+            error: null,
+            users: null
         });
 
         expect(
@@ -102,7 +107,8 @@ describe('updateUserInfo reducer', () => {
             )
         ).toEqual({
             user: { username: "julia", id: "0-0" },
-            error: null
+            error: null,
+            users: null
         });
 
         expect(
