@@ -169,6 +169,29 @@ export function fetchUsers() {
     };
 }
 
+export function fetchUsersWithAllData() {
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '') {
+        return;
+    }
+
+    return dispatch => {
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'X-Authorization': token
+            },
+            method: 'get'
+        };
+
+        return fetch(`${AUTH_SERVER_URL}/api/users`, options)
+            .then(response => response.json())
+            .then(users => dispatch(setUsers(users)))
+            .catch(error => console.log(error));
+    };
+}
+
 function setUsers(users) {
     return {
         type: types.FETCH_USERS,
@@ -223,6 +246,7 @@ export function updateUser(user) {
             .then(response => response.json())
             .then(json => {
                 dispatch(userUpdated(json));
+                dispatch(fetchUsersWithAllData());
             })
             .catch(error => console.log(error));
     };

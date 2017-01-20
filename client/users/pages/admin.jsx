@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {regions, teams} from "../../config"
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {fetchUsers, updateUser} from "../actions";
+import {fetchUsersWithAllData, updateUser} from "../actions";
 
 
 class UsersAdmin extends React.Component {
@@ -14,16 +14,13 @@ class UsersAdmin extends React.Component {
         super(props);
         this.state = {
             user: {
-                username: "dummy",
+                username: "admin",
                 password: "",
-                email: "dummy@email.com",
+                email: "admin@mail.com",
                 region: "Kraków",
                 team: "Team A",
-                role: "USER",
+                role: "ADMIN",
                 id: "0-0"
-            },
-            result: {
-                "status": "UPDATE USER"
             }
         };
     }
@@ -40,7 +37,7 @@ class UsersAdmin extends React.Component {
 
     setCurrentUser(userId) {
         let users = this.props.userAuthSession.users || [];
-        let user = users.find(user => user.username === userId);
+        let user = users.find(user => user.id === userId);
 
         this.setState({user});
     }
@@ -76,11 +73,7 @@ class UsersAdmin extends React.Component {
                             <input className="form-control" type="text" placeholder="Username" id="username"
                                    ref="username"
                                    value={this.state.user.username}
-                                   onChange={(e) => this.setState({
-                                       user: Object.assign({}, this.state.user, {
-                                           username: e.target.value
-                                       })
-                                   })}
+                                   readOnly="true"
                             />
                         </div>
                         <div className="form-group">
@@ -96,6 +89,14 @@ class UsersAdmin extends React.Component {
                             <input className="form-control" type="text" placeholder="Email" id="email"
                                    ref="email"
                                    value={this.state.user.email}
+                                   readOnly="true"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="role" className="control-label">Role</label>
+                            <input className="form-control" type="text" placeholder="Role" id="role"
+                                   ref="role"
+                                   value={this.state.user.role}
                                    readOnly="true"
                             />
                         </div>
@@ -153,7 +154,7 @@ class UsersAdmin extends React.Component {
                     <div>
                         <PageHeader className="text-center">Result</PageHeader>
                         <span>
-                            {JSON.stringify(this.state.result)}
+                            {JSON.stringify(this.props.userUpdated)}
                         </span>
                     </div>
                 </Col>
@@ -164,7 +165,8 @@ class UsersAdmin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession
+        userAuthSession: state.userAuthSession,
+        userUpdated: state.userUpdated
     };
 };
 
@@ -172,7 +174,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
-            dispatch(fetchUsers());
+            dispatch(fetchUsersWithAllData());
         },
         onUpdateUser: (user) => {
             dispatch(updateUser(user));
