@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {regions, teams} from "../../config"
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {fetchUsers} from "../actions";
+import {fetchUsers, updateUser} from "../actions";
 
 
 class UsersAdmin extends React.Component {
@@ -14,11 +14,13 @@ class UsersAdmin extends React.Component {
         super(props);
         this.state = {
             user: {
-                "id": "0-0",
-                "username": "jacek",
-                "email": "jacek@email.com",
-                "region": "Krakow",
-                "team": "Admins"
+                username: "dummy",
+                password: "",
+                email: "dummy@email.com",
+                region: "Kraków",
+                team: "Team A",
+                role: "USER",
+                id: "0-0"
             },
             result: {
                 "status": "UPDATE USER"
@@ -32,6 +34,8 @@ class UsersAdmin extends React.Component {
 
     onCreateUser(e) {
         e.preventDefault();
+
+        this.props.onUpdateUser(this.state.user);
     }
 
     setCurrentUser(userId) {
@@ -169,6 +173,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
             dispatch(fetchUsers());
+        },
+        onUpdateUser: (user) => {
+            dispatch(updateUser(user));
         }
     }
 };

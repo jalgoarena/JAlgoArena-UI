@@ -1,10 +1,10 @@
 import * as reducer from '../../client/users/reducers';
 import * as types from '../../client/constants/ActionTypes';
 
-describe('updateUserInfo reducer', () => {
+describe('userAuthSession reducer', () => {
     it('should handle LOGIN_SUCCESS', () => {
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: null,
                     users: null
@@ -21,7 +21,7 @@ describe('updateUserInfo reducer', () => {
         });
 
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: "Error",
                     users: null
@@ -41,7 +41,7 @@ describe('updateUserInfo reducer', () => {
     [types.LOGIN_FAIL, types.SIGNUP_FAIL].forEach(actionType => {
         it(`should handle ${actionType}`, () => {
             expect(
-                reducer.updateUserInfo({
+                reducer.userAuthSession({
                         user: null,
                         error: null,
                         users: null
@@ -58,7 +58,7 @@ describe('updateUserInfo reducer', () => {
             });
 
             expect(
-                reducer.updateUserInfo({
+                reducer.userAuthSession({
                         user: { username: "julia" },
                         error: null,
                         users: null
@@ -78,7 +78,7 @@ describe('updateUserInfo reducer', () => {
 
     it("should handle CHECKED_SESSION_STATUS", () => {
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: null,
                     users: null
@@ -95,7 +95,7 @@ describe('updateUserInfo reducer', () => {
         });
 
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: { message: "error" },
                     users: null
@@ -112,7 +112,7 @@ describe('updateUserInfo reducer', () => {
         });
 
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: { message: "error" },
                     users: null
@@ -131,7 +131,7 @@ describe('updateUserInfo reducer', () => {
 
     it("should handle LOGOUT_SUCCESS", () => {
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: { username: "julia", id: "0-0" },
                     error: { message: "error" },
                     users: [{ username: "julia", id: "0-0" }]
@@ -149,7 +149,7 @@ describe('updateUserInfo reducer', () => {
 
     [types.NAVIGATE_AWAY_FROM_AUTH_FORM, types.SIGNUP_SUCCESS].forEach(actionType => {
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: { message: "error" },
                     users: null
@@ -167,7 +167,7 @@ describe('updateUserInfo reducer', () => {
 
     it("should handle FETCH_USERS", () => {
         expect(
-            reducer.updateUserInfo({
+            reducer.userAuthSession({
                     user: null,
                     error: null,
                     users: null

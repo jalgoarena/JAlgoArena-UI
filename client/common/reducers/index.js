@@ -3,7 +3,7 @@ import {routerReducer} from 'react-router-redux';
 import * as types from "../../constants/ActionTypes";
 
 import {sourceCode, problems, result, currentProblemId, problemsFilter} from "../../problems/reducers";
-import {updateUserInfo} from "../../users/reducers";
+import {userAuthSession, userUpdated} from "../../users/reducers";
 import {ranking, problemRanking} from "../../ranking/reducers";
 import {submissions, submissionsFilter} from "../../submissions/reducers";
 import {rawProblems, programmingLanguage, hideDoneProblems} from "../../problems/reducers";
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     showModal,
     currentProblemId,
     routing: routerReducer,
-    userAuthSession: updateUserInfo,
+    userAuthSession,
     submissions,
     ranking,
     problemRanking,
@@ -23,7 +23,8 @@ const rootReducer = combineReducers({
     submissionsFilter,
     programmingLanguage,
     hideDoneProblems,
-    rawProblems
+    rawProblems,
+    userUpdated
 });
 
 export function showModal(state = false, action) {

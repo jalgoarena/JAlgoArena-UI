@@ -154,4 +154,24 @@ describe("async actions", () => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
+
+    it("creates USER_UPDATED when updating user has been done", () => {
+        let user = { username: "user"};
+
+        nock(authServerUrl)
+            .put("/api/users")
+            .reply(200, user);
+
+        const expectedActions = [{
+            type: types.USER_UPDATED,
+            userUpdated: user
+        }];
+
+        const store = mockStore({userUpdated: null});
+
+        return store.dispatch(actions.updateUser(user))
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
 });

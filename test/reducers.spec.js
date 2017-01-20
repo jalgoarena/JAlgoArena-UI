@@ -22,7 +22,8 @@ describe('root reducer', () => {
                 submissionsFilter: 'ALL',
                 userAuthSession: {user: null, error: null, users: null},
                 routing: {"locationBeforeTransitions": null},
-                rawProblems: []
+                rawProblems: [],
+                userUpdated: null,
             }
         )
     });

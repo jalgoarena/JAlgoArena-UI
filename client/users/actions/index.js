@@ -199,3 +199,38 @@ export function navigatedAwayFromAuthFormPage() {
         type: types.NAVIGATE_AWAY_FROM_AUTH_FORM
     };
 }
+
+export function updateUser(user) {
+
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '') {
+        return;
+    }
+
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-Authorization': token
+        },
+        body: JSON.stringify(user)
+    };
+
+    return dispatch => {
+        return fetch(`${AUTH_SERVER_URL}/api/users`, options)
+            .then(response => response.json())
+            .then(json => {
+                dispatch(userUpdated(json));
+            })
+            .catch(error => console.log(error));
+    };
+}
+
+function userUpdated(userUpdated) {
+    return {
+        type: types.USER_UPDATED,
+        userUpdated
+    }
+}
