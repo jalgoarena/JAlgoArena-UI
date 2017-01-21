@@ -97,7 +97,7 @@ class ProblemsAdmin extends React.Component {
         });
 
         return (
-            <Grid>
+            <Grid fluid={true}>
                 <PageHeader className="text-center">Problems ({problems.length})</PageHeader>
                 <Col md={5}>
                     <form>
