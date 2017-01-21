@@ -44,9 +44,8 @@ class Admin extends React.Component {
 
         return <Grid fluid={true}>
             <PageHeader className="text-center">Submissions ({submissions.length})</PageHeader>
-
-            <Col md={5}>
-                <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter}/>
+            <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter}/>
+            <Col md={6}>
                 <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600}
                                          transitionLeaveTimeout={600}>
                     {submissionNodes}
@@ -58,11 +57,11 @@ class Admin extends React.Component {
                             onSelect={(e) => this.handleSelect(e)}
                 />
             </Col>
-            <Col md={7}>
+            <Col md={6}>
                 <AceEditor mode="java" theme="chrome" height="700px" width="100%"
                            value={this.state.sourceCode}
                            readOnly={true}
-                           fontSize={14}
+                           fontSize={13}
                            editorProps={{$blockScrolling: true}}
                 />
             </Col>
