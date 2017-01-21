@@ -1,7 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Grid, PageHeader} from 'react-bootstrap';
+import {Grid, PageHeader, Col, Pagination} from 'react-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import _ from "lodash";
+import AceEditor from 'react-ace';
+import 'brace/theme/chrome';
 
 import {fetchUsers} from "../../users/actions";
 
@@ -10,6 +13,20 @@ import SubmissionsFilter from "../components/SubmissionsFilter";
 import {rerunSubmission, setSubmissionsFilter, deleteSubmission, fetchAllSubmissions} from "../actions";
 
 class Admin extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sourceCode: "class Solution {}",
+            activePage: 1,
+            numberOfItemsToShow: 4
+        }
+    }
+
+    handleSelect(eventKey) {
+        this.setState({
+            activePage: eventKey
+        });
+    }
 
     componentDidMount() {
         this.props.onLoad();
@@ -19,46 +36,82 @@ class Admin extends React.Component {
         let submissions = this.props.submissions || [];
         let users = this.props.userAuthSession.users;
 
-        let submissionNodes = submissions
-            .filter(submission => this.filterSubmissions(submission))
-            .map((submission, idx) => {
-                let username;
-                if (users) {
-                    var user = users.find((user) => {
-                        return user.id === submission.userId;
-                    });
+        let filteredSubmissions = this.filterAndSort(submissions);
+        let submissionsPage = this.calculateSubmissionPage(filteredSubmissions);
 
-                    if (user && user.username) {
-                        username = user.username;
-                    } else {
-                        username = 'Not-Found';
-                    }
-                }
-
-                return <Submission
-                    sourceCode={submission.sourceCode}
-                    problemId={submission.problemId}
-                    username={username}
-                    userId={submission.userId}
-                    elapsedTime={submission.elapsedTime}
-                    statusCode={submission.statusCode}
-                    level={submission.level}
-                    submissionId={submission.id}
-                    language={submission.language}
-                    onDelete={this.props.onDelete}
-                    onRerun={this.props.onRerun}
-                    key={idx}
-                />;
-            });
+        let submissionNodes = submissionsPage
+            .map((submission, idx) => this.submissionNode(users, submission, idx));
 
         return <Grid fluid={true}>
             <PageHeader className="text-center">Submissions ({submissions.length})</PageHeader>
-            <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter}/>
-            <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600}
-                                     transitionLeaveTimeout={600}>
-                {submissionNodes}
-            </ReactCSSTransitionGroup>
+
+            <Col md={5}>
+                <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter}/>
+                <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600}
+                                         transitionLeaveTimeout={600}>
+                    {submissionNodes}
+                </ReactCSSTransitionGroup>
+                <Pagination prev next first last ellipsis
+                            items={Math.ceil(filteredSubmissions.length / this.state.numberOfItemsToShow)}
+                            maxButtons={4}
+                            activePage={this.state.activePage}
+                            onSelect={(e) => this.handleSelect(e)}
+                />
+            </Col>
+            <Col md={7}>
+                <AceEditor mode="java" theme="chrome" height="700px" width="100%"
+                           value={this.state.sourceCode}
+                           readOnly={true}
+                           fontSize={14}
+                           editorProps={{$blockScrolling: true}}
+                />
+            </Col>
         </Grid>
+    }
+
+    filterAndSort(submissions) {
+        let filteredSubmissions = submissions
+            .filter(submission => this.filterSubmissions(submission));
+
+        return _.orderBy(filteredSubmissions, ["problemId", "userId"]);
+    }
+
+    submissionNode(users, submission, idx) {
+        let username;
+        if (users) {
+            let user = users.find((user) => {
+                return user.id === submission.userId;
+            });
+
+            if (user && user.username) {
+                username = user.username;
+            } else {
+                username = 'Not-Found';
+            }
+        }
+
+        return <Submission
+            sourceCode={submission.sourceCode}
+            problemId={submission.problemId}
+            username={username}
+            userId={submission.userId}
+            elapsedTime={submission.elapsedTime}
+            statusCode={submission.statusCode}
+            level={submission.level}
+            submissionId={submission.id}
+            language={submission.language}
+            onDelete={this.props.onDelete}
+            onRerun={this.props.onRerun}
+            onShowSourceCode={() => this.setState({sourceCode: submission.sourceCode})}
+            key={idx}
+        />;
+    }
+
+    calculateSubmissionPage(filteredSubmissions) {
+        return _.take(
+            _.slice(filteredSubmissions, (this.state.activePage - 1) * this.state.numberOfItemsToShow),
+            this.state.numberOfItemsToShow
+        );
     }
 
     filterSubmissions(submission) {

@@ -1,9 +1,7 @@
 import React from 'react';
-import {Button, Row, Col, ButtonToolbar} from 'react-bootstrap';
+import {Button, Row, ButtonToolbar} from 'react-bootstrap';
 
 import FontAwesome from '../../common/components/FontAwesome';
-
-import SourceCode from './SourceCode';
 
 const submissionStyle = {
     margin: "20px 20px 0px",
@@ -12,61 +10,42 @@ const submissionStyle = {
     padding: "1em 2em 1em"
 };
 
-class Submission extends React.Component {
+const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statusCode, level, submissionId, language, onDelete, onRerun, onShowSourceCode}) => (
+    <div style={submissionStyle}>
+        <Row>
+            <h4 className="text-success">{problemId} <span
+                className="pull-right">{`${username}:${userId}`}</span></h4>
+        </Row>
+        <Row>
 
-    constructor(props) {
-        super(props);
-        this.state = {showSourceCode: false}
-    }
+            <ButtonToolbar className="pull-right">
+                <Button bsStyle="success"
+                        onClick={() => onShowSourceCode()}>
+                    <FontAwesome name="bars"/> Source Code
+                </Button>
+                <Button bsStyle="info"
+                        onClick={() =>
+                            onRerun(sourceCode, userId, problemId, level, language)
+                        }>
+                    <FontAwesome name="refresh"/> Re-Run
+                </Button>
+                <Button bsStyle="danger"
+                        onClick={() => onDelete(submissionId)}>
+                    <FontAwesome name="remove"/> Delete
+                </Button>
+            </ButtonToolbar>
 
-    showSourceCode() {
-        this.setState({showSourceCode: true});
-    }
+            <span className="text-muted">Difficulty:</span> <span
+            className="text-primary">{level}</span><br />
+            <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{elapsedTime}
+            ms</span><br />
+            <span className="text-muted">Source Code length:</span> <span
+            className="text-primary">{sourceCode ? sourceCode.length : 0} chars</span><br />
+            <span className="text-muted">Status:</span> <span className="text-primary">{statusCode}</span><br />
+            <span className="text-muted">Language:</span> <span className="text-primary">{language}</span>
+        </Row>
+    </div>
+);
 
-    hideSourceCode() {
-        this.setState({showSourceCode: false});
-    }
-
-    render() {
-        return (
-            <Col md={4} style={submissionStyle}>
-                <Row>
-                    <h4 className="text-success">{this.props.problemId} <span className="pull-right">{`${this.props.username}:${this.props.userId}`}</span></h4>
-                </Row>
-                <Row>
-
-                    <ButtonToolbar className="pull-right">
-                        <Button bsStyle="success"
-                                onClick={this.showSourceCode.bind(this)}>
-                            <FontAwesome name="bars"/> Source Code
-                        </Button>
-                        <Button bsStyle="info"
-                                onClick={() =>
-                                    this.props.onRerun(this.props.sourceCode, this.props.userId, this.props.problemId, this.props.level, this.props.language)
-                                }>
-                            <FontAwesome name="refresh"/> Re-Run
-                        </Button>
-                        <Button bsStyle="danger"
-                                onClick={() => this.props.onDelete(this.props.submissionId)}>
-                            <FontAwesome name="remove"/> Delete
-                        </Button>
-                    </ButtonToolbar>
-
-                    <span className="text-muted">Difficulty:</span> <span className="text-primary">{this.props.level}</span><br />
-                    <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{this.props.elapsedTime} ms</span><br />
-                    <span className="text-muted">Source Code length:</span> <span className="text-primary">{this.props.sourceCode ? this.props.sourceCode.length : 0} chars</span><br />
-                    <span className="text-muted">Status:</span> <span className="text-primary">{this.props.statusCode}</span>
-                </Row>
-                <SourceCode
-                    sourceCode={this.props.sourceCode}
-                    problemId={this.props.problemId}
-                    userId={`${this.props.username}:${this.props.userId}`}
-                    show={this.state.showSourceCode}
-                    onHide={this.hideSourceCode.bind(this)}
-                />
-            </Col>
-        );
-    };
-}
 
 export default Submission;
