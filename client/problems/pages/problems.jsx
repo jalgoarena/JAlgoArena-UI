@@ -9,8 +9,15 @@ import WorkInProgress from "../../common/components/WorkInProgress";
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
 import {closeWorkInProgressWindow} from "../../common/actions/index";
+import {fetchSolvedProblemsRatio} from "../../submissions/actions/index";
+import {fetchUsers} from "../../users/actions/index";
 
 class Problems extends React.Component {
+
+    componentDidMount() {
+        this.props.onLoad();
+    }
+
     render() {
         let problems = this.props.problems || [];
 
@@ -27,9 +34,20 @@ class Problems extends React.Component {
 
                 if (this.props.hideDoneProblems && isDone) return null;
 
+                let solvedProblemRatio = this.props.solvedProblemsRatio.find(ratio => ratio.problemId == problem.id);
+                let users = this.props.userAuthSession.users || [];
+                let usersCount = users.length;
+
+                if (!solvedProblemRatio) {
+                    solvedProblemRatio = {solutionsCount: 0};
+                }
+
+                let solvedBy = parseInt((solvedProblemRatio.solutionsCount / usersCount) * 100);
+
                 return <Problem
                     title={problem.title}
                     level={problem.level}
+                    solvedBy={solvedBy}
                     id={problem.id}
                     key={idx}
                     submissions={this.props.submissions}
@@ -58,12 +76,18 @@ const mapStateToProps = (state) => {
         showModal: state.showModal,
         submissions: state.submissions,
         problemsFilter: state.problemsFilter,
-        hideDoneProblems: state.hideDoneProblems
+        hideDoneProblems: state.hideDoneProblems,
+        solvedProblemsRatio: state.solvedProblemsRatio,
+        userAuthSession: state.userAuthSession
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        onLoad: () => {
+            dispatch(fetchSolvedProblemsRatio());
+            dispatch(fetchUsers());
+        },
         changeFilter: (level) => {
             dispatch(setProblemsDifficultyVisibilityFilter(level));
         },

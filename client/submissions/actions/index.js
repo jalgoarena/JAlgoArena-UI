@@ -6,6 +6,29 @@ import {fetchRanking} from "../../ranking/actions";
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
 
+export function fetchSolvedProblemsRatio() {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return dispatch => {
+        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/solved-ratio`, options)
+            .then(response => response.json())
+            .then(json => dispatch(setSolvedProblemsRatio(json)))
+            .catch(error => console.log(error));
+    };
+}
+
+function setSolvedProblemsRatio(solvedProblemsRatio) {
+    return {
+        type: types.FETCH_SOLVED_PROBLEMS_RATIO,
+        solvedProblemsRatio
+    }
+}
+
 export function fetchSubmissions(userId) {
 
     let token = localStorage.getItem('jwtToken');

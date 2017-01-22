@@ -24,6 +24,7 @@ describe('root reducer', () => {
                 routing: {"locationBeforeTransitions": null},
                 rawProblems: [],
                 userUpdated: null,
+                solvedProblemsRatio: []
             }
         )
     });

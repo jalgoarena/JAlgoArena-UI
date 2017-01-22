@@ -18,3 +18,12 @@ export function submissionsFilter(state = 'ALL', action) {
             return state;
     }
 }
+
+export function solvedProblemsRatio(state = [], action) {
+    switch (action.type) {
+        case types.FETCH_SOLVED_PROBLEMS_RATIO:
+            return action.solvedProblemsRatio;
+        default:
+            return state;
+    }
+}

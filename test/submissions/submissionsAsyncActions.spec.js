@@ -118,6 +118,25 @@ describe("async actions", () => {
             });
     });
 
+    it("creates FETCH_SOLVED_PROBLEMS_RATIO when fetching solved problems ratio has been done", () => {
+        let problemPassRatio = {problemId:"fib",submissionsCount: 10};
+        nock(submissionsServerUrl)
+            .get("/submissions/solved-ratio")
+            .reply(200, [problemPassRatio]);
+
+        const expectedActions = [{
+            type: types.FETCH_SOLVED_PROBLEMS_RATIO,
+            solvedProblemsRatio: [problemPassRatio]
+        }];
+
+        const store = mockStore({solvedProblemsRatio: []});
+
+        return store.dispatch(actions.fetchSolvedProblemsRatio())
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
     // TODO: think how to solve below issue - with double level dispatch nock/jest does not work :(
     // it("creates SUBMISSION_SAVED when re-submission has been done", () => {
     //     let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};

@@ -21,7 +21,7 @@ function difficulty(level) {
     }
 }
 
-const Problem = ({title, id, level, isDone}) => {
+const Problem = ({title, id, solvedBy, level, isDone}) => {
     const checkControl = isDone ? <FontAwesome name="check" /> : null;
 
     return (
@@ -38,7 +38,7 @@ const Problem = ({title, id, level, isDone}) => {
                 </LinkContainer>
 
                 <span className="text-muted">Difficulty:</span> <span className="text-primary">{difficulty(level)}</span><br />
-                <span className="text-muted">Max Score:</span> <span className="text-primary">{level * 10}</span>
+                <span className="text-muted">Solved By:</span> <span className="text-primary">{solvedBy}%</span>
             </Row>
         </Col>
     );

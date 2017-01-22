@@ -7,6 +7,7 @@ import {userAuthSession, userUpdated} from "../../users/reducers";
 import {ranking, problemRanking} from "../../ranking/reducers";
 import {submissions, submissionsFilter} from "../../submissions/reducers";
 import {rawProblems, programmingLanguage, hideDoneProblems} from "../../problems/reducers";
+import {solvedProblemsRatio} from "../../submissions/reducers/index";
 
 const rootReducer = combineReducers({
     sourceCode,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     programmingLanguage,
     hideDoneProblems,
     rawProblems,
-    userUpdated
+    userUpdated,
+    solvedProblemsRatio
 });
 
 export function showModal(state = false, action) {
