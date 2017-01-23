@@ -21,20 +21,24 @@ const PointsLegend = ({show, onHide}) => (
                 <tr>
                     <th>Level</th>
                     <th>Max Score</th>
+                    <th>Max Score (Kotlin)</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>Easy</td>
                     <td>10</td>
+                    <td>15</td>
                 </tr>
                 <tr>
                     <td>Medium</td>
                     <td>20</td>
+                    <td>30</td>
                 </tr>
                 <tr>
                     <td>Hard</td>
                     <td>30</td>
+                    <td>45</td>
                 </tr>
                 </tbody>
             </Table>

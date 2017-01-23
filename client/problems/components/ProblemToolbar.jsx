@@ -11,7 +11,7 @@ const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, onLan
                 <FontAwesome name="refresh"/> Refresh
             </Button>
         </LinkContainer>
-        <Button bsStyle="success" className="pull-right" onClick={onShowPointsLegend}>Max {problem.level * 10} Points</Button>
+        <Button bsStyle="success" className="pull-right" onClick={onShowPointsLegend}>Max {problem.level * 10 * (activeLanguage === 'kotlin' ? 1.5 : 1)} Points</Button>
         <ButtonGroup >
             <Button bsStyle="primary" onClick={() => onLanguageChange('java')} active={activeLanguage === 'java'}>Java</Button>
             <Button bsStyle="primary" onClick={() => onLanguageChange('kotlin')} active={activeLanguage === 'kotlin'}>Kotlin</Button>
