@@ -3,15 +3,31 @@ import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
+import SourceCode from "../components/SourceCode";
+
 import FontAwesome from '../../common/components/FontAwesome';
 import WorkInProgress from '../../common/components/WorkInProgress';
 import {closeWorkInProgressWindow} from "../../common/actions";
 import {fetchSubmissions} from "../../submissions/actions";
 import store from '../../common/store';
 
+
 import {attemptLogout} from "../actions";
 
 class Profile extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {showSourceCode: false, sourceCode: "", problemId: ""}
+    }
+
+    showSourceCode(sourceCode, problemId) {
+        this.setState({showSourceCode: true, sourceCode, problemId});
+    }
+
+    hideSourceCode() {
+        this.setState({showSourceCode: false});
+    }
 
     transferToProfileIfLoggedOut() {
         if (!this.props.userAuthSession.user) {
@@ -33,6 +49,17 @@ class Profile extends React.Component {
         }
     }
 
+    difficulty(level) {
+        switch (level) {
+            case 3:
+                return 'Hard';
+            case 2:
+                return 'Medium';
+            default:
+                return 'Easy';
+        }
+    }
+
     render() {
         const {
             userAuthSession
@@ -48,7 +75,11 @@ class Profile extends React.Component {
 
         let submissionNodes = submissions.map((submission, idx) =>
             <tr key={idx}>
-                <td>{submission.problemId}</td>
+                <td><Button bsStyle="success" onClick={() => this.showSourceCode(submission.sourceCode, submission.problemId)}>
+                    <FontAwesome name="file-text-o"/> {submission.problemId}
+                </Button></td>
+                <td>{this.difficulty(submission.level)}</td>
+                <td>{submission.statusCode}</td>
                 <td>{submission.elapsedTime}</td>
             </tr>
         );
@@ -56,43 +87,51 @@ class Profile extends React.Component {
         return <Grid>
             <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
             <Col mdOffset={3} md={6}>
+                <PageHeader>Profile</PageHeader>
+                <Table striped bordered condensed hover responsive>
+                    <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Region</th>
+                        <th>Team</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{user.id}</td>
+                        <td>{user.username}</td>
+                        <td>{user.email}</td>
+                        <td>{user.region}</td>
+                        <td>{user.team}</td>
+                    </tr>
+                    </tbody>
+                </Table>
+                <Button bsStyle="danger" className="pull-right" onClick={this.props.onLogout}>
+                    <FontAwesome name="sign-out"/> Logout
+                </Button>
                 <PageHeader>Submissions</PageHeader>
                 <Table striped bordered condensed hover responsive>
                     <thead>
                     <tr>
                         <th>Problem ID</th>
-                        <th>Used Time (ms)</th>
+                        <th>Difficulty</th>
+                        <th>Status</th>
+                        <th>Time (ms)</th>
                     </tr>
                     </thead>
                     <tbody>
                     {submissionNodes}
                     </tbody>
                 </Table>
-                <PageHeader>Profile</PageHeader>
-                <Table striped bordered condensed hover responsive>
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            <th>User Name</th>
-                            <th>Email</th>
-                            <th>Region</th>
-                            <th>Team</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{user.id}</td>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                            <td>{user.region}</td>
-                            <td>{user.team}</td>
-                        </tr>
-                    </tbody>
-                </Table>
-                <Button bsStyle="danger" className="pull-right" onClick={this.props.onLogout}>
-                    <FontAwesome name="sign-out"/> Logout
-                </Button>
             </Col>
+            <SourceCode
+                show={this.state.showSourceCode}
+                onHide={this.hideSourceCode.bind(this)}
+                sourceCode={this.state.sourceCode}
+                problemId={this.state.problemId}
+            />
         </Grid>;
     }
 }
