@@ -92,7 +92,7 @@ describe("async actions", () => {
         const store = mockStore({submissions: []});
 
         let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
-        let problem = { id: "fib", level: 1};
+        let problem = { id: "fib"};
 
         return store.dispatch(actions.sendSubmission(result, "user_id", problem, "kotlin"))
             .then(() => {

@@ -49,17 +49,6 @@ class Profile extends React.Component {
         }
     }
 
-    difficulty(level) {
-        switch (level) {
-            case 3:
-                return 'Hard';
-            case 2:
-                return 'Medium';
-            default:
-                return 'Easy';
-        }
-    }
-
     render() {
         const {
             userAuthSession
@@ -78,7 +67,6 @@ class Profile extends React.Component {
                 <td><Button bsStyle="success" onClick={() => this.showSourceCode(submission.sourceCode, submission.problemId)}>
                     <FontAwesome name="file-text-o"/> {submission.problemId}
                 </Button></td>
-                <td>{this.difficulty(submission.level)}</td>
                 <td>{submission.statusCode}</td>
                 <td>{submission.elapsedTime}</td>
             </tr>
@@ -116,7 +104,6 @@ class Profile extends React.Component {
                     <thead>
                     <tr>
                         <th>Problem ID</th>
-                        <th>Difficulty</th>
                         <th>Status</th>
                         <th>Time (ms)</th>
                     </tr>

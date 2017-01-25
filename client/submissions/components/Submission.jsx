@@ -10,7 +10,7 @@ const submissionStyle = {
     padding: "1em 2em 1em"
 };
 
-const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statusCode, level, submissionId, language, onDelete, onRerun, onShowSourceCode}) => (
+const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statusCode, submissionId, language, onDelete, onRerun, onShowSourceCode}) => (
     <div style={submissionStyle}>
         <Row>
             <h4 className="text-success">{problemId} <span
@@ -25,7 +25,7 @@ const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statu
                 </Button>
                 <Button bsStyle="info"
                         onClick={() =>
-                            onRerun(sourceCode, userId, problemId, level, language)
+                            onRerun(sourceCode, userId, problemId, language)
                         }>
                     <FontAwesome name="refresh"/> Re-Run
                 </Button>
@@ -34,9 +34,6 @@ const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statu
                     <FontAwesome name="remove"/> Delete
                 </Button>
             </ButtonToolbar>
-
-            <span className="text-muted">Difficulty:</span> <span
-            className="text-primary">{level}</span><br />
             <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{elapsedTime}
             ms</span><br />
             <span className="text-muted">Source Code length:</span> <span

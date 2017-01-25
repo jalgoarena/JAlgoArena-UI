@@ -9,43 +9,36 @@ describe('ranking reducer', () => {
                     type: types.FETCH_SUBMISSIONS,
                     submissions: [{
                         username: "julia",
-                        level: 1,
                         problemId: "fib"
                     }]
                 }
             )
         ).toEqual([{
             username: "julia",
-            level: 1,
             problemId: "fib"
         }]);
 
         expect(
             reducer.submissions([{
                     username: "julia",
-                    level: 1,
                     problemId: "fib"
                 }],
                 {
                     type: types.FETCH_SUBMISSIONS,
                     submissions: [{
                         username: "julia",
-                        level: 1,
                         problemId: "fib"
                     }, {
                         username: "mikolaj",
-                        level: 2,
                         problemId: "stoi"
                     }]
                 }
             )
         ).toEqual([{
             username: "julia",
-            level: 1,
             problemId: "fib"
         }, {
             username: "mikolaj",
-            level: 2,
             problemId: "stoi"
         }]);
     });
