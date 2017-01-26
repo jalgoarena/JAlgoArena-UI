@@ -1,7 +1,8 @@
 import React from 'react';
-import {Grid, Button, Row} from 'react-bootstrap';
+import {Grid, Button, Row, ButtonGroup} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
+import _ from 'lodash';
 
 import WorkInProgress from '../../common/components/WorkInProgress';
 import store from '../../common/store';
@@ -110,9 +111,21 @@ class Problem extends React.Component {
         const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
 
-        let skeletonCode = this.props.programmingLanguage === 'java'
-            ? this.props.problem.skeletonCode.java
-            : this.props.problem.skeletonCode.kotlin;
+        let skeletonCode = this.props.problem.skeletonCode[this.props.programmingLanguage];
+
+        let programmingLanguages = [];
+        for (let language in this.props.problem.skeletonCode) {
+            programmingLanguages.push(language);
+        }
+
+        let programmingLanguageButtons = programmingLanguages.map(programmingLanguage => {
+            return <Button
+                bsStyle="primary"
+                onClick={() => this.props.onLanguageChange(programmingLanguage)}
+                active={this.props.programmingLanguage === programmingLanguage}>
+                    {_.capitalize(programmingLanguage)}
+            </Button>
+        });
 
         return <Grid>
             <Row>
@@ -122,9 +135,11 @@ class Problem extends React.Component {
                     problem={this.props.problem}
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
-                    onLanguageChange={this.props.onLanguageChange}
                     activeLanguage={this.props.programmingLanguage}
                 >
+                    <ButtonGroup>
+                        {programmingLanguageButtons}
+                    </ButtonGroup>
                     {this.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
                     {this.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
                     {this.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}

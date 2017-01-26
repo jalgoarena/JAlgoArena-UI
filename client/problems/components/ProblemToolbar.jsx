@@ -1,21 +1,17 @@
 import React from 'react';
 
-import {ButtonToolbar, Button, ButtonGroup} from 'react-bootstrap';
+import {ButtonToolbar, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from '../../common/components/FontAwesome';
 
-const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, onLanguageChange, activeLanguage}) => (
+const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, activeLanguage}) => (
     <ButtonToolbar>
         <LinkContainer to={"problem/" + problem.id}>
             <Button bsStyle="danger" className="pull-right" onClick={onRefresh}>
                 <FontAwesome name="refresh"/> Refresh
             </Button>
         </LinkContainer>
-        <Button bsStyle="success" className="pull-right" onClick={onShowPointsLegend}>Max {problem.level * 10 * (activeLanguage === 'kotlin' ? 1.5 : 1)} Points</Button>
-        <ButtonGroup >
-            <Button bsStyle="primary" onClick={() => onLanguageChange('java')} active={activeLanguage === 'java'}>Java</Button>
-            <Button bsStyle="primary" onClick={() => onLanguageChange('kotlin')} active={activeLanguage === 'kotlin'}>Kotlin</Button>
-        </ButtonGroup>
+        <Button bsStyle="success" className="pull-right" onClick={onShowPointsLegend}>Max {problem.level * 10 * (activeLanguage === 'java' ? 1 : 1.5)} Points</Button>
         {children}
     </ButtonToolbar>
 );
