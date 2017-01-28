@@ -92,8 +92,8 @@ class ProblemsAdmin extends React.Component {
     render() {
         let problems = this.props.problems || [];
         problems = _.orderBy(problems, ["title"]);
-        let problemItems = problems.map(problem => {
-            return <option value={problem.id} selected={problem.id === "fib"}>{problem.title}</option>;
+        let problemItems = problems.map((problem, idx) => {
+            return <option value={problem.id} key={idx}>{problem.title}</option>;
         });
 
         return (
@@ -107,6 +107,7 @@ class ProblemsAdmin extends React.Component {
                             </div>
                             <div className="panel-body">
                                 <select className="form-control" id="chosenProblem"
+                                        value="fib"
                                         onChange={(e) => this.setCurrentProblem(e.target.value)}>
                                     {problemItems}
                                 </select>

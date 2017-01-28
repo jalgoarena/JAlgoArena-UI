@@ -16,7 +16,13 @@ export function fetchProblemRanking(problemId) {
     return dispatch => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/${problemId}`, options)
             .then(response => response.json())
-            .then(json => dispatch(setProblemRanking(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get problem ranking: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setProblemRanking(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
@@ -39,7 +45,13 @@ export function fetchRanking() {
     return dispatch => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/`, options)
             .then(response => response.json())
-            .then(json => dispatch(setRanking(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get ranking: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setRanking(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }

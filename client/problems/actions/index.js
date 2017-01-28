@@ -89,7 +89,13 @@ export function fetchProblems() {
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
-            .then(json => dispatch(setProblems(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get problems: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setProblems(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 }

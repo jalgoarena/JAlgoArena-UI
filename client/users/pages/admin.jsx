@@ -45,12 +45,12 @@ class UsersAdmin extends React.Component {
     render() {
         let users = this.props.userAuthSession.users || [];
         users = _.orderBy(users, ["username"]);
-        let userItems = users.map(user => {
-            return <option value={user.id} selected={user.username === "admin"}>{user.username}</option>;
+        let userItems = users.map( (user, idx) => {
+            return <option value={user.id} key={idx}>{user.username}</option>;
         });
 
-        let regionOptions = regions.map(region => <option>{region}</option>);
-        let teamOptions = teams.map(team => <option>{team}</option>);
+        let regionOptions = regions.map((region, idx) => <option key={idx}>{region}</option>);
+        let teamOptions = teams.map((team, idx) => <option key={idx}>{team}</option>);
 
         return (
             <Grid>
@@ -63,6 +63,7 @@ class UsersAdmin extends React.Component {
                             </div>
                             <div className="panel-body">
                                 <select className="form-control" id="chosenUser"
+                                        value="admin"
                                         onChange={(e) => this.setCurrentUser(e.target.value)}>
                                     {userItems}
                                 </select>

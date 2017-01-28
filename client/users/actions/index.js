@@ -165,7 +165,13 @@ export function fetchUsers() {
 
         return fetch(`${AUTH_SERVER_URL}/users`, options)
             .then(response => response.json())
-            .then(users => dispatch(setUsers(users)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get users: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setUsers(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
@@ -188,7 +194,13 @@ export function fetchUsersWithAllData() {
 
         return fetch(`${AUTH_SERVER_URL}/api/users`, options)
             .then(response => response.json())
-            .then(users => dispatch(setUsers(users)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get users with all data: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setUsers(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
@@ -246,8 +258,12 @@ export function updateUser(user) {
         return fetch(`${AUTH_SERVER_URL}/api/users`, options)
             .then(response => response.json())
             .then(json => {
-                dispatch(userUpdated(json));
-                dispatch(fetchUsersWithAllData());
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to update user: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(userUpdated(json));
+                    dispatch(fetchUsersWithAllData());
+                }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };

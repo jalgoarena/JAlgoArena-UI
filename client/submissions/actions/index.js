@@ -18,7 +18,13 @@ export function fetchSolvedProblemsRatio() {
     return dispatch => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/solved-ratio`, options)
             .then(response => response.json())
-            .then(json => dispatch(setSolvedProblemsRatio(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get problems solved ratio: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setSolvedProblemsRatio(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
@@ -49,7 +55,13 @@ export function fetchSubmissions(userId) {
     return dispatch => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${userId}`, options)
             .then(response => response.json())
-            .then(json => dispatch(setSubmissions(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get user submissions: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setSubmissions(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
@@ -73,7 +85,13 @@ export function fetchAllSubmissions() {
     return dispatch => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
-            .then(json => dispatch(setSubmissions(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get submissions: ${json.error}, ${json.message}`));
+                } else {
+                    dispatch(setSubmissions(json));
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
@@ -105,14 +123,18 @@ export function rerunSubmission(sourceCode, userId, problemId, language) {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
             .then(json => {
-                let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to rerun submission: ${json.error}, ${json.message}`))
+                } else {
+                    let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
 
-                if (result.statusCode === 'ACCEPTED') {
-                    result = Object.assign({}, result, {statusCode: 'RERUN_ACCEPTED'});
+                    if (result.statusCode === 'ACCEPTED') {
+                        result = Object.assign({}, result, {statusCode: 'RERUN_ACCEPTED'});
+                    }
+
+                    dispatch(sendSubmission(result, userId, {id: problemId}, language, true));
+                    dispatch(fetchAllSubmissions());
                 }
-
-                dispatch(sendSubmission(result, userId, {id: problemId}, language, true));
-                dispatch(fetchAllSubmissions());
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
@@ -151,13 +173,17 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
             .then(json => {
-                dispatch(submissionSaved([json]));
-                if (isForAll) {
-                    dispatch(fetchAllSubmissions());
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to send submission: ${json.error}, ${json.message}`))
                 } else {
-                    dispatch(fetchSubmissions(userId));
+                    dispatch(submissionSaved([json]));
+                    if (isForAll) {
+                        dispatch(fetchAllSubmissions());
+                    } else {
+                        dispatch(fetchSubmissions(userId));
+                    }
+                    dispatch(fetchRanking());
                 }
-                dispatch(fetchRanking());
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
@@ -187,7 +213,13 @@ export function deleteSubmission(submissionId) {
 
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${submissionId}`, options)
             .then(response => response.json())
-            .then(json => dispatch(refreshSubmissions(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to delete submission: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(refreshSubmissions(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
