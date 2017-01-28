@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
+import {setErrorMessage} from "../../common/actions/index";
 
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
 
@@ -16,7 +17,7 @@ export function fetchProblemRanking(problemId) {
         return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/${problemId}`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblemRanking(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
@@ -39,7 +40,7 @@ export function fetchRanking() {
         return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/`, options)
             .then(response => response.json())
             .then(json => dispatch(setRanking(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 

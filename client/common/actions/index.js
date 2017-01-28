@@ -6,4 +6,15 @@ export function closeWorkInProgressWindow() {
     };
 }
 
+export function setErrorMessage(error) {
+    return {
+        type: types.SET_ERROR_MESSAGE,
+        error: error
+    }
+}
 
+export function clearErrorMessage() {
+    return {
+        type: types.RESET_ERROR_MESSAGE
+    }
+}

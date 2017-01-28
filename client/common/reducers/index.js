@@ -26,10 +26,16 @@ const rootReducer = combineReducers({
     hideDoneProblems,
     rawProblems,
     userUpdated,
-    solvedProblemsRatio
+    solvedProblemsRatio,
+    errorMessage
 });
 
-export function showModal(state = false, action) {
+function showModal(state = false, action) {
+
+    if (action.error) {
+        return false;
+    }
+
     switch (action.type) {
         case types.START_SIGNUP:
         case types.START_LOGIN:
@@ -50,10 +56,23 @@ export function showModal(state = false, action) {
         case types.SIGNUP_FAIL:
         case types.SIGNUP_SUCCESS:
         case types.CLOSE_WORK_IN_PROGRESS_WINDOW:
+        case types.SET_ERROR_MESSAGE:
             return false;
         default:
             return state;
     }
+}
+
+function errorMessage(state = null, action) {
+    const { type, error } = action;
+
+    if (type === types.RESET_ERROR_MESSAGE) {
+        return null;
+    } else if (error) {
+        return error;
+    }
+
+    return state;
 }
 
 export default rootReducer;

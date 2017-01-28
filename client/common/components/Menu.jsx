@@ -1,6 +1,7 @@
 import React from "react";
 import {Navbar, Nav, NavItem, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
+import {connect} from 'react-redux';
 
 import FontAwesome from './FontAwesome';
 
@@ -10,7 +11,7 @@ const logoStyle = {
     marginTop: -5
 };
 
-export default class Menu extends React.Component {
+class Menu extends React.Component {
 
     render() {
         return (
@@ -39,11 +40,11 @@ export default class Menu extends React.Component {
     }
 
     adminMenuItem() {
-        if (!this.props.store.getState().userAuthSession.user) {
+        if (this.props.userAuthSession == null || this.props.userAuthSession.user == null) {
             return null;
         }
 
-        return this.props.store.getState().userAuthSession.user.role === 'ADMIN'
+        return this.props.userAuthSession.user.role === 'ADMIN'
             ? <NavDropdown title={<span><FontAwesome name="cogs" lg={true}/> Admin</span>} id="basic-nav-dropdown">
                 <LinkContainer to="/submissionsAdmin">
                     <NavItem><FontAwesome name="code"/> Submissions</NavItem>
@@ -59,7 +60,7 @@ export default class Menu extends React.Component {
     }
 
     profileOrLoginMenuItem() {
-        return this.props.store.getState().userAuthSession.user
+        return this.props.userAuthSession.user
             ? <LinkContainer to="/profile">
                 <NavItem><FontAwesome name="user" lg={true}/> Profile</NavItem>
             </LinkContainer>
@@ -68,3 +69,16 @@ export default class Menu extends React.Component {
             </LinkContainer>;
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userAuthSession: state.userAuthSession,
+        routing: state.routing
+    };
+};
+
+const MenuPanel = connect(
+    mapStateToProps
+)(Menu);
+
+export default MenuPanel;

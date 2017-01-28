@@ -4,8 +4,9 @@ import {hashHistory} from "react-router";
 import config from '../../config';
 import {fetchSubmissions} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
+import {setErrorMessage} from "../../common/actions/index";
 
-const AUTH_SERVER_URL = config.jalgoarenaApiUrl + "/auth";
+const AUTH_SERVER_URL = `${config.jalgoarenaApiUrl}/auth`;
 
 
 export function startSignup() {
@@ -43,7 +44,7 @@ export function attemptSignUp(email, password, username, region, team) {
                     dispatch(signUpSuccess());
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
 
@@ -96,7 +97,7 @@ export function attemptLogin(username, password) {
                     dispatch(loginSuccess(json.user));
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
 
@@ -141,7 +142,7 @@ export function checkSessionStatus() {
                     localStorage.removeItem('jwtToken');
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
 
@@ -165,7 +166,7 @@ export function fetchUsers() {
         return fetch(`${AUTH_SERVER_URL}/users`, options)
             .then(response => response.json())
             .then(users => dispatch(setUsers(users)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
 
@@ -188,7 +189,7 @@ export function fetchUsersWithAllData() {
         return fetch(`${AUTH_SERVER_URL}/api/users`, options)
             .then(response => response.json())
             .then(users => dispatch(setUsers(users)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
 
@@ -248,7 +249,7 @@ export function updateUser(user) {
                 dispatch(userUpdated(json));
                 dispatch(fetchUsersWithAllData());
             })
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Auth Service")));
     };
 }
 

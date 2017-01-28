@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
+import {setErrorMessage} from "../../common/actions/index";
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
@@ -24,7 +25,7 @@ export function judgeCode(sourceCode, problemId) {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
             .then(json => dispatch(judgeResultReceived(json, sourceCode, problemId)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 
 }
@@ -89,7 +90,7 @@ export function fetchProblems() {
         return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => dispatch(setProblems(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 }
 
@@ -118,7 +119,7 @@ export function fetchRawProblems() {
         return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => dispatch(setRawProblems(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Problems Service")));
     };
 }
 

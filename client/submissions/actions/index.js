@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {fetchRanking} from "../../ranking/actions";
+import {setErrorMessage} from "../../common/actions/index";
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
@@ -18,7 +19,7 @@ export function fetchSolvedProblemsRatio() {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/solved-ratio`, options)
             .then(response => response.json())
             .then(json => dispatch(setSolvedProblemsRatio(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
@@ -49,7 +50,7 @@ export function fetchSubmissions(userId) {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${userId}`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissions(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
@@ -73,7 +74,7 @@ export function fetchAllSubmissions() {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
             .then(json => dispatch(setSubmissions(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
@@ -113,7 +114,7 @@ export function rerunSubmission(sourceCode, userId, problemId, language) {
                 dispatch(sendSubmission(result, userId, {id: problemId}, language, true));
                 dispatch(fetchAllSubmissions());
             })
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 
 }
@@ -158,7 +159,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
                 }
                 dispatch(fetchRanking());
             })
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
@@ -187,7 +188,7 @@ export function deleteSubmission(submissionId) {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${submissionId}`, options)
             .then(response => response.json())
             .then(json => dispatch(refreshSubmissions(json)))
-            .catch(error => console.log(error));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 

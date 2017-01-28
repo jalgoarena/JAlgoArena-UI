@@ -14,7 +14,7 @@ const modalBodyStyle = {
 };
 
 const SourceCode = ({show, onHide, sourceCode, problemId}) => (
-    <Modal show={show || false} onHide={onHide}>
+    <Modal show={show || false} onHide={onHide} bsSize="large">
         <Modal.Header closeButton>
             <h2>{problemId}</h2>
         </Modal.Header>
