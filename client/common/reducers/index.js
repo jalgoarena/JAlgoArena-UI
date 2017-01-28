@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
     errorMessage
 });
 
-function showModal(state = false, action) {
+export function showModal(state = false, action) {
 
     if (action.error) {
         return false;
@@ -63,7 +63,7 @@ function showModal(state = false, action) {
     }
 }
 
-function errorMessage(state = null, action) {
+export function errorMessage(state = null, action) {
     const { type, error } = action;
 
     if (type === types.RESET_ERROR_MESSAGE) {
