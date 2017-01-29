@@ -11,7 +11,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 let submissionsServerUrl = config.jalgoarenaApiUrl + "/submissions/api";
-let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
+// let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
 
 window.localStorage = {
     getItem: function(key) {
@@ -28,7 +28,7 @@ describe("async actions", () => {
     });
 
 
-    it("creates FETCH_SUBMISSIONS when fetching submission for a user has been done", () => {
+    it("creates FETCH_SUBMISSIONS when fetching user submissions has been done", () => {
         let submissions = [{
             problemId: "fib",
             elapsedTime: 0.123
@@ -44,6 +44,24 @@ describe("async actions", () => {
         }];
 
         const store = mockStore({submissions: []});
+
+        return store.dispatch(actions.fetchSubmissions("user1"))
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
+    it("creates SET_ERROR_MESSAGE when fetching user submissions has failed", () => {
+        nock(submissionsServerUrl)
+            .get("/submissions/user1")
+            .reply(500, {error: "bad request"});
+
+        const expectedActions = [{
+            type: types.SET_ERROR_MESSAGE,
+            error: "Cannot connect to Submissions Service"
+        }];
+
+        const store = mockStore();
 
         return store.dispatch(actions.fetchSubmissions("user1"))
             .then(() => {
@@ -74,7 +92,25 @@ describe("async actions", () => {
             });
     });
 
-    it("creates SUBMISSION_SAVED when sending submissions has been done", () => {
+    it("creates SET_ERROR_MESSAGE when fetching all submissions has failed", () => {
+        nock(submissionsServerUrl)
+            .get("/submissions")
+            .reply(200, {error: "bad request"});
+
+        const expectedActions = [{
+            type: types.SET_ERROR_MESSAGE,
+            error: "Cannot connect to Submissions Service"
+        }];
+
+        const store = mockStore();
+
+        return store.dispatch(actions.fetchAllSubmissions())
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
+    it("creates SUBMISSION_SAVED when sending submission has been done", () => {
         let submission = {
             problemId: "fib",
             elapsedTime: 0.123
@@ -100,7 +136,28 @@ describe("async actions", () => {
             });
     });
 
-    it("creates DELETE_SUBMISSION when deleting submissions has been done", () => {
+    it("creates SET_ERROR_MESSAGE when sending submission has failed", () => {
+        nock(submissionsServerUrl)
+            .put("/submissions")
+            .reply(500, {error: "bad request"});
+
+        const expectedActions = [{
+            type: types.SET_ERROR_MESSAGE,
+            error: "Cannot connect to Submissions Service"
+        }];
+
+        const store = mockStore();
+
+        let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
+        let problem = { id: "fib"};
+
+        return store.dispatch(actions.sendSubmission(result, "user_id", problem, "kotlin"))
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
+    it("creates DELETE_SUBMISSION when deleting submission has been done", () => {
         nock(submissionsServerUrl)
             .delete("/submissions/0-0")
             .reply(200, []);
@@ -111,6 +168,24 @@ describe("async actions", () => {
         }];
 
         const store = mockStore({submissions: []});
+
+        return store.dispatch(actions.deleteSubmission("0-0"))
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
+    it("creates SET_ERROR_MESSAGE when deleting submission has failed", () => {
+        nock(submissionsServerUrl)
+            .delete("/submissions/0-0")
+            .reply(500, {error: "bad request"});
+
+        const expectedActions = [{
+            type: types.SET_ERROR_MESSAGE,
+            error: "Cannot connect to Submissions Service"
+        }];
+
+        const store = mockStore();
 
         return store.dispatch(actions.deleteSubmission("0-0"))
             .then(() => {
@@ -130,6 +205,24 @@ describe("async actions", () => {
         }];
 
         const store = mockStore({solvedProblemsRatio: []});
+
+        return store.dispatch(actions.fetchSolvedProblemsRatio())
+            .then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            });
+    });
+
+    it("creates SET_ERROR_MESSAGE when fetching solved problems ratio has failed", () => {
+        nock(submissionsServerUrl)
+            .get("/submissions/solved-ratio")
+            .reply(500, {error: "bad request"});
+
+        const expectedActions = [{
+            type: types.SET_ERROR_MESSAGE,
+            error: "Cannot connect to Submissions Service"
+        }];
+
+        const store = mockStore();
 
         return store.dispatch(actions.fetchSolvedProblemsRatio())
             .then(() => {
