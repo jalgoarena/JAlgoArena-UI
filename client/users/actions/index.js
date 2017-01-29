@@ -56,6 +56,10 @@ function signUpSuccess() {
 }
 
 function signUpFail(error) {
+    if (error.message === 'GENERAL') {
+        error = Object.assign({}, error, { message: "Cannot connect to Auth Service"});
+    }
+
     return {
         type: types.SIGNUP_FAIL,
         error
@@ -109,6 +113,10 @@ function loginSuccess(user) {
 }
 
 function loginFail(error) {
+    if (error.message === 'GENERAL') {
+        error = Object.assign({}, error, { message: "Cannot connect to Auth Service"});
+    }
+
     return {
         type: types.LOGIN_FAIL,
         error

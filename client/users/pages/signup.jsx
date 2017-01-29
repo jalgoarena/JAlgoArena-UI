@@ -48,7 +48,7 @@ class SignUp extends React.Component {
                 newState.isUserNameFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.refs.username).focus();
+            findDOMNode(this.username).focus();
         }
 
         if(this.props.userAuthSession.error === "That email is already being used.") {
@@ -57,7 +57,7 @@ class SignUp extends React.Component {
                 newState.isEmailFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.refs.email).focus();
+            findDOMNode(this.email).focus();
         }
     }
 
@@ -127,7 +127,7 @@ class SignUp extends React.Component {
     }
 
     componentDidMount(){
-        findDOMNode(this.refs.username).focus();
+        findDOMNode(this.username).focus();
     }
 
     render() {
@@ -153,21 +153,21 @@ class SignUp extends React.Component {
                                 {teamOptions}
                             </FormControl>
                         </FormGroup>
-                        <FieldGroup id="username" type="text" placeholder="User Name"
+                        <FieldGroup id="username" type="text" placeholder="Username"
                                     inputRef={ref => { this.username = ref; }}
-                                    validationState={this.state.isUserNameFieldIncorrect ? "error" : ""}
+                                    validationState={this.state.isUserNameFieldIncorrect ? "error" : null}
                         />
                         <FieldGroup id="email" type="text" placeholder="Email"
                                     inputRef={ref => { this.email = ref; }}
-                                    validationState={this.state.isEmailFieldIncorrect ? "error" : ""}
+                                    validationState={this.state.isEmailFieldIncorrect ? "error" : null}
                         />
                         <FieldGroup id="password" type="password" placeholder="Password"
                                     inputRef={ref => { this.password = ref; }}
-                                    validationState={this.state.isPasswordFieldIncorrect ? "error" : ""}
+                                    validationState={this.state.isPasswordFieldIncorrect ? "error" : null}
                         />
                         <FieldGroup id="password" type="password" placeholder="Confirm Password"
                                     inputRef={ref => { this.confirmPassword = ref; }}
-                                    validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : ""}
+                                    validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : null}
                         />
                         <Button type="submit" bsStyle="success" block onClick={this.onSignUp}>
                             <FontAwesome name="user"/> Create Account

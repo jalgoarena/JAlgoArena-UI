@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
 import FontAwesome from '../../common/components/FontAwesome';
+import FieldGroup from '../../common/components/FieldGroup';
 import WorkInProgress from '../../common/components/WorkInProgress';
 import {closeWorkInProgressWindow} from "../../common/actions";
 
@@ -45,7 +46,7 @@ class Login extends React.Component {
                 newState.isUsernameFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.refs.username).focus();
+            findDOMNode(this.username).focus();
         }
     }
 
@@ -54,7 +55,7 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        findDOMNode(this.refs.username).focus();
+        findDOMNode(this.username).focus();
     }
 
     getInputContainerClass(inputIncorrect) {
@@ -89,8 +90,8 @@ class Login extends React.Component {
         e.preventDefault();
 
         const formData = {
-            username: findDOMNode(this.refs.username).value.trim(),
-            password: findDOMNode(this.refs.password).value.trim(),
+            username: findDOMNode(this.username).value.trim(),
+            password: findDOMNode(this.password).value.trim(),
         };
 
         let newState = this.findErrorsInLoginForm(formData);
@@ -107,13 +108,14 @@ class Login extends React.Component {
                 <PageHeader className="text-center">Sign In</PageHeader>
                 <ErrorLabel validationError={this.state.errorMessage} authError={this.props.userAuthSession.error} />
                 <form>
-                    <div className={this.getInputContainerClass(this.state.isUsernameFieldIncorrect)}>
-                        <input className="form-control" type="text" placeholder="Username" ref="username"/>
-                    </div>
-                    <div className={this.getInputContainerClass(this.state.isPasswordFieldIncorrect)}>
-                        <input className="form-control" type="password" placeholder="Password" ref="password" />
-                    </div>
-
+                    <FieldGroup id="username" placeholder="Username" type="text"
+                                inputRef={ref => { this.username = ref; }}
+                                validationState={this.state.isUsernameFieldIncorrect ? "error" : null}
+                    />
+                    <FieldGroup id="password" placeholder="Password" type="password"
+                                inputRef={ref => { this.password = ref; }}
+                                validationState={this.state.isPasswordFieldIncorrect ? "error" : null}
+                    />
                     <FormGroup className="text-center">
                         <Button type="submit" bsStyle="success" onClick={this.onLogin} block>
                             <FontAwesome name="sign-in"/> Sign In
