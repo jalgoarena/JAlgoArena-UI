@@ -175,7 +175,7 @@ export function fetchUsers() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get users: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Auth Service"))
                 } else {
                     dispatch(setUsers(json))
                 }
@@ -204,7 +204,7 @@ export function fetchUsersWithAllData() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get users with all data: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Auth Service"))
                 } else {
                     dispatch(setUsers(json))
                 }
@@ -267,7 +267,7 @@ export function updateUser(user) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to update user: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Auth Service"))
                 } else {
                     dispatch(userUpdated(json));
                     dispatch(fetchUsersWithAllData());

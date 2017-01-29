@@ -18,7 +18,7 @@ export function fetchProblemRanking(problemId) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get problem ranking: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
                     dispatch(setProblemRanking(json))
                 }
@@ -47,7 +47,7 @@ export function fetchRanking() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get ranking: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
                     dispatch(setRanking(json))
                 }

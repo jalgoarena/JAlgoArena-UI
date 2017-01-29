@@ -24,7 +24,13 @@ export function judgeCode(sourceCode, problemId) {
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
-            .then(json => dispatch(judgeResultReceived(json, sourceCode, problemId)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage("Cannot connect to Judge Service"));
+                } else {
+                    dispatch(judgeResultReceived(json, sourceCode, problemId))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 
@@ -91,7 +97,7 @@ export function fetchProblems() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get problems: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Judge Service"));
                 } else {
                     dispatch(setProblems(json))
                 }
@@ -126,9 +132,9 @@ export function fetchRawProblems() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get raw problems: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Problems Service"));
                 } else {
-                    dispatch(setRawProblems(json))
+                    dispatch(setRawProblems(json));
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Problems Service")));

@@ -20,7 +20,7 @@ export function fetchSolvedProblemsRatio() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get problems solved ratio: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
                     dispatch(setSolvedProblemsRatio(json))
                 }
@@ -57,7 +57,7 @@ export function fetchSubmissions(userId) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get user submissions: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
                     dispatch(setSubmissions(json))
                 }
@@ -87,7 +87,7 @@ export function fetchAllSubmissions() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to get submissions: ${json.error}, ${json.message}`));
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"));
                 } else {
                     dispatch(setSubmissions(json));
                 }
@@ -124,7 +124,7 @@ export function rerunSubmission(sourceCode, userId, problemId, language) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to rerun submission: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Judge Service"))
                 } else {
                     let result = Object.assign({sourceCode: sourceCode, problemId: problemId}, json);
 
@@ -174,7 +174,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to send submission: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
                     dispatch(submissionSaved([json]));
                     if (isForAll) {
@@ -215,7 +215,7 @@ export function deleteSubmission(submissionId) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage(`Failed to delete submission: ${json.error}, ${json.message}`))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
                     dispatch(refreshSubmissions(json))
                 }
