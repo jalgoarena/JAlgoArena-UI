@@ -16,3 +16,6 @@ deploy:
   on:
     repo: spolnik/JAlgoArena-UI
     tags: true
+addons:
+    code_climate:
+        repo_token: 9e2995be6eae3d6663fd00f8db738c4bf306f9f7779c8f1c4fb0f5d0d56c17e0
