@@ -1,12 +1,13 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 import _ from 'lodash';
-import {Grid, Button, Col, PageHeader} from 'react-bootstrap';
+import {Grid, Button, Col, PageHeader, FormControl, FormGroup, ControlLabel, Panel} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Markdown from 'react-remarkable';
 import JSONTree from 'react-json-tree';
 
 import FontAwesome from '../../common/components/FontAwesome';
+import FieldGroup from '../../common/components/FieldGroup';
 import {fetchRawProblems} from "../actions/index";
 
 
@@ -92,127 +93,101 @@ class ProblemsAdmin extends React.Component {
     render() {
         let problems = this.props.problems || [];
         problems = _.orderBy(problems, ["title"]);
+
         let problemItems = problems.map((problem, idx) => {
             return <option value={problem.id} key={idx}>{problem.title}</option>;
         });
+
+        const panelTitle = <h3 className="panel-title">Choose problem as a base for edition</h3>;
 
         return (
             <Grid fluid={true}>
                 <PageHeader className="text-center">Problems ({problems.length})</PageHeader>
                 <Col md={5}>
                     <form>
-                        <div className="panel panel-danger">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Choose problem as a base for edition</h3>
-                            </div>
-                            <div className="panel-body">
-                                <select className="form-control" id="chosenProblem"
-                                        value="fib"
-                                        onChange={(e) => this.setCurrentProblem(e.target.value)}>
-                                    {problemItems}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="title" className="control-label">Title </label>
-                            <input className="form-control" type="text" placeholder="Title" id="title" ref="title"
-                                   value={this.state.newProblem.title}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           title: e.target.value
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="problemId" className="control-label">Problem ID</label>
-                            <input className="form-control" type="text" placeholder="Problem ID" id="problemId"
-                                   ref="problemId"
-                                   value={this.state.newProblem.id}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           id: e.target.value
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="timeLimit" className="control-label">Time Limit</label>
-                            <input className="form-control" type="number" placeholder="Time Limit" id="timeLimit"
-                                   ref="timeLimit"
-                                   value={this.state.newProblem.timeLimit}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           timeLimit: parseInt(e.target.value)
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="memoryLimit" className="control-label">Memory Limit</label>
-                            <input className="form-control" type="number" placeholder="Memory Limit" id="memoryLimit"
-                                   ref="memoryLimit"
-                                   value={this.state.newProblem.memoryLimit}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           memoryLimit: parseInt(e.target.value)
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="level" className="control-label">Level</label>
-                            <select className="form-control" id="level" ref="level"
-                                    value={this.state.newProblem.level}
+                        <Panel header={panelTitle}>
+                            <select className="form-control" id="chosenProblem"
+                                    value={this.state.newProblem.id}
+                                    onChange={(e) => this.setCurrentProblem(e.target.value)}>
+                                {problemItems}
+                            </select>
+                        </Panel>
+                        <FieldGroup id="title" type="text" placeholder="Title" label="Title"
+                                    value={this.state.newProblem.title}
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
-                                            level: parseInt(e.target.value)
+                                            title: e.target.value
                                         })
                                     })}
-                            >
+                        />
+                        <FieldGroup id="problemId" type="text" placeholder="Problem ID" label="Problem ID"
+                                    value={this.state.newProblem.id}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            id: e.target.value
+                                        })
+                                    })}
+                        />
+                        <FieldGroup id="timeLimit" type="number" placeholder="Time Limit" label="Time Limit"
+                                    value={this.state.newProblem.timeLimit}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            timeLimit: parseInt(e.target.value)
+                                        })
+                                    })}
+                        />
+                        <FieldGroup id="memoryLimit" type="number" placeholder="Memory Limit" label="Memory Limit"
+                                    value={this.state.newProblem.memoryLimit}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            memoryLimit: parseInt(e.target.value)
+                                        })
+                                    })}
+                        />
+                        <FormGroup controlId="level">
+                            <ControlLabel>Level</ControlLabel>
+                            <FormControl componentClass="select"
+                                         value={this.state.newProblem.level}
+                                         onChange={(e) => this.setState({
+                                             newProblem: Object.assign({}, this.state.newProblem, {
+                                                 level: parseInt(e.target.value)
+                                             })
+                                         })}>
                                 <option value={1}>Easy</option>
                                 <option value={2}>Medium</option>
                                 <option value={3}>Hard</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="description" className="control-label">Description</label>
-                            <textarea className="form-control" type="text" placeholder="Description" id="description"
-                                      ref="description"
-                                      value={this.state.newProblem.description}
-                                      onChange={(e) => this.setState({
-                                          newProblem: Object.assign({}, this.state.newProblem, {
-                                              description: e.target.value
-                                          })
-                                      })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="functionName" className="control-label">Function Name</label>
-                            <input className="form-control" type="text" placeholder="Function Name" id="functionName"
-                                   ref="functionName"
-                                   value={this.state.newProblem.func.name}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           func: Object.assign({}, this.state.newProblem.func, {name: e.target.value})
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="returnType" className="control-label">Return Type</label>
-                            <select className="form-control" id="returnType" ref="returnType"
-                                    value={this.state.newProblem.func.return.type}
+                            </FormControl>
+                        </FormGroup>
+                        <FieldGroup id="description" placeholder="Description" label="Description"
+                                    componentClass="textarea"
+                                    value={this.state.newProblem.description}
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
-                                            func: Object.assign({}, this.state.newProblem.func, {
-                                                return: Object.assign({}, this.state.newProblem.func.return, {
-                                                    type: e.target.value,
-                                                })
-                                            })
+                                            description: e.target.value
                                         })
                                     })}
-                            >
+                        />
+                        <FieldGroup id="functionName" label="Function Name" placeholder="Function Name" type="text"
+                                    value={this.state.newProblem.func.name}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            func: Object.assign({}, this.state.newProblem.func, {name: e.target.value})
+                                        })
+                                    })}
+                        />
+                        <FormGroup controlId="returnType">
+                            <ControlLabel>Return Type</ControlLabel>
+                            <FormControl componentClass="select"
+                                         value={this.state.newProblem.func.return.type}
+                                         onChange={(e) => this.setState({
+                                             newProblem: Object.assign({}, this.state.newProblem, {
+                                                 func: Object.assign({}, this.state.newProblem.func, {
+                                                     return: Object.assign({}, this.state.newProblem.func.return, {
+                                                         type: e.target.value,
+                                                     })
+                                                 })
+                                             })
+                                         })}>
                                 <option value="java.lang.Integer">int</option>
                                 <option value="java.lang.Long">long</option>
                                 <option value="java.lang.Double">double</option>
@@ -224,64 +199,50 @@ class ProblemsAdmin extends React.Component {
                                 <option value="com.jalgoarena.type.ListNode">ListNode</option>
                                 <option value="com.jalgoarena.type.TreeNode">TreeNode</option>
                                 <option value="java.util.ArrayList">ArrayList</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="returnComment" className="control-label">Return Comment</label>
-                            <input className="form-control" type="text" placeholder="Return Comment" id="returnComment"
-                                   ref="returnComment"
-                                   value={this.state.newProblem.func.return.comment}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           func: Object.assign({}, this.state.newProblem.func, {
-                                               return: Object.assign({}, this.state.newProblem.func.return, {
-                                                   comment: e.target.value
-                                               })
-                                           })
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="returnGeneric" className="control-label">Return Generic</label>
-                            <input className="form-control" type="text" placeholder="Return Generic" id="returnGeneric"
-                                   ref="returnGeneric"
-                                   value={this.state.newProblem.func.return.generic}
-                                   onChange={(e) => this.setState({
-                                       newProblem: Object.assign({}, this.state.newProblem, {
-                                           func: Object.assign({}, this.state.newProblem.func, {
-                                               return: Object.assign({}, this.state.newProblem.func.return, {
-                                                   generic: e.target.value
-                                               })
-                                           })
-                                       })
-                                   })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="parameters" className="control-label">Parameters</label>
-                            <textarea className="form-control" type="text" placeholder="Parameters" id="parameters"
-                                      ref="parameters"
-                                      value={JSON.stringify(this.state.newProblem.func.parameters)}
-                                      onChange={(e) => this.setState({
-                                          newProblem: Object.assign({}, this.state.newProblem, {
-                                              func: Object.assign({}, this.state.newProblem.func, {parameters: JSON.parse(e.target.value)})
-                                          })
-                                      })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="testCases" className="control-label">Test Cases</label>
-                            <textarea className="form-control" type="text" placeholder="Test Cases" id="testCases"
-                                      ref="testCases"
-                                      value={JSON.stringify(this.state.newProblem.testCases)}
-                                      onChange={(e) => this.setState({
-                                          newProblem: Object.assign({}, this.state.newProblem, {
-                                              testCases: JSON.parse(e.target.value)
-                                          })
-                                      })}
-                            />
-                        </div>
+                            </FormControl>
+                        </FormGroup>
+                        <FieldGroup id="returnComment" label="Return Comment" placeholder="Return Comment" type="text"
+                                    value={this.state.newProblem.func.return.comment}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            func: Object.assign({}, this.state.newProblem.func, {
+                                                return: Object.assign({}, this.state.newProblem.func.return, {
+                                                    comment: e.target.value
+                                                })
+                                            })
+                                        })
+                                    })}
+                        />
+                        <FieldGroup id="returnGeneric" label="Return Generic" placeholder="Return Generic" type="text"
+                                    value={this.state.newProblem.func.return.generic}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            func: Object.assign({}, this.state.newProblem.func, {
+                                                return: Object.assign({}, this.state.newProblem.func.return, {
+                                                    generic: e.target.value
+                                                })
+                                            })
+                                        })
+                                    })}
+                        />
+                        <FieldGroup id="parameters" label="Parameters" placeholder="Parameters"
+                                    componentClass="textarea"
+                                    value={JSON.stringify(this.state.newProblem.func.parameters)}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            func: Object.assign({}, this.state.newProblem.func, {parameters: JSON.parse(e.target.value)})
+                                        })
+                                    })}
+                        />
+                        <FieldGroup id="testCases" label="Test Cases" placeholder="Test Cases"
+                                    componentClass="textarea"
+                                    value={JSON.stringify(this.state.newProblem.testCases)}
+                                    onChange={(e) => this.setState({
+                                        newProblem: Object.assign({}, this.state.newProblem, {
+                                            testCases: JSON.parse(e.target.value)
+                                        })
+                                    })}
+                        />
                         <Button type="submit" bsStyle="success" block
                                 onClick={(e) => this.onCreateProblem(e)}>
                             <FontAwesome name="download"/> {this.state.newProblem.id}.json

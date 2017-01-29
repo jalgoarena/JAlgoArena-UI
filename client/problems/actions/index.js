@@ -124,7 +124,13 @@ export function fetchRawProblems() {
     return dispatch => {
         return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
             .then(response => response.json())
-            .then(json => dispatch(setRawProblems(json)))
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage(`Failed to get raw problems: ${json.error}, ${json.message}`))
+                } else {
+                    dispatch(setRawProblems(json))
+                }
+            })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Problems Service")));
     };
 }
