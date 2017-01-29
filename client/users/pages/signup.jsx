@@ -1,10 +1,11 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
-import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
+import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
 import FontAwesome from '../../common/components/FontAwesome';
+import FieldGroup from '../../common/components/FieldGroup';
 import WorkInProgress from '../../common/components/WorkInProgress';
 import {closeWorkInProgressWindow} from "../../common/actions";
 import {regions, teams, emailErrorMessage} from "../../config"
@@ -64,10 +65,6 @@ class SignUp extends React.Component {
         this.props.onUnmount();
     }
 
-    getInputContainerClass(inputIncorrect){
-        return ("form-group " + (inputIncorrect ? "has-error" : "") );
-    }
-
     findErrorsInSignupForm(formData) {
 
         let newState = Object.assign({}, initialFormState);
@@ -114,12 +111,12 @@ class SignUp extends React.Component {
         e.preventDefault();
 
         let formData = {
-            username : findDOMNode(this.refs.username).value.trim(),
-            email : findDOMNode(this.refs.email).value.trim(),
-            password : findDOMNode(this.refs.password).value.trim(),
-            confirmedPassword : findDOMNode(this.refs.confirmPassword).value.trim(),
-            region : findDOMNode(this.refs.region).value.trim(),
-            team : findDOMNode(this.refs.team).value.trim()
+            username : findDOMNode(this.username).value.trim(),
+            email : findDOMNode(this.email).value.trim(),
+            password : findDOMNode(this.password).value.trim(),
+            confirmedPassword : findDOMNode(this.confirmPassword).value.trim(),
+            region : findDOMNode(this.region).value.trim(),
+            team : findDOMNode(this.team).value.trim()
         };
 
         let newState = this.findErrorsInSignupForm(formData);
@@ -144,30 +141,34 @@ class SignUp extends React.Component {
                     <form>
                         <PageHeader className="text-center">Create Account</PageHeader>
                         <ErrorLabel validationError={this.state.errorMessage} authError={this.props.userAuthSession.error} />
-                        <div className="form-group">
-                            <label htmlFor="region" className="control-label">Region</label>
-                            <select className="form-control" ref="region" id="region">
+                        <FormGroup controlId="region">
+                            <ControlLabel>Region</ControlLabel>
+                            <FormControl componentClass="select" inputRef={ref => { this.region = ref; }}>
                                 {regionOptions}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Team" className="control-label">Team</label>
-                            <select className="form-control" ref="team" id="team">
+                            </FormControl>
+                        </FormGroup>
+                        <FormGroup controlId="team">
+                            <ControlLabel>Team</ControlLabel>
+                            <FormControl componentClass="select" inputRef={ref => { this.team = ref; }}>
                                 {teamOptions}
-                            </select>
-                        </div>
-                        <div className={this.getInputContainerClass(this.state.isUserNameFieldIncorrect)}>
-                            <input className="form-control" type="text" placeholder="User Name" ref="username"/>
-                        </div>
-                        <div className={this.getInputContainerClass(this.state.isEmailFieldIncorrect)}>
-                            <input className="form-control" type="text" placeholder="Email" ref="email"/>
-                        </div>
-                        <div className={this.getInputContainerClass(this.state.isPasswordFieldIncorrect)}>
-                            <input className="form-control" type="password" placeholder="Password" ref="password" />
-                        </div>
-                        <div className={this.getInputContainerClass(this.state.isConfirmPasswordFieldIncorrect)}>
-                            <input className="form-control" type="password" placeholder="Confirm Password" ref="confirmPassword" />
-                        </div>
+                            </FormControl>
+                        </FormGroup>
+                        <FieldGroup id="username" type="text" placeholder="User Name"
+                                    inputRef={ref => { this.username = ref; }}
+                                    validationState={this.state.isUserNameFieldIncorrect ? "error" : ""}
+                        />
+                        <FieldGroup id="email" type="text" placeholder="Email"
+                                    inputRef={ref => { this.email = ref; }}
+                                    validationState={this.state.isEmailFieldIncorrect ? "error" : ""}
+                        />
+                        <FieldGroup id="password" type="password" placeholder="Password"
+                                    inputRef={ref => { this.password = ref; }}
+                                    validationState={this.state.isPasswordFieldIncorrect ? "error" : ""}
+                        />
+                        <FieldGroup id="password" type="password" placeholder="Confirm Password"
+                                    inputRef={ref => { this.confirmPassword = ref; }}
+                                    validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : ""}
+                        />
                         <Button type="submit" bsStyle="success" block onClick={this.onSignUp}>
                             <FontAwesome name="user"/> Create Account
                         </Button>
