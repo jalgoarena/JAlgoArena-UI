@@ -60,7 +60,7 @@ class UsersAdmin extends React.Component {
                     <form>
                         <Panel header={<h3 className="panel-title">Choose user</h3>}>
                             <select className="form-control" id="chosenUser"
-                                    value="admin"
+                                    value={this.state.user.id}
                                     onChange={(e) => this.setCurrentUser(e.target.value)}>
                                 {userItems}
                             </select>
