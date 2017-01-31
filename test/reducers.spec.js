@@ -8,7 +8,9 @@ describe('root reducer', () => {
             reducer(undefined, {})
         ).toEqual(
             {
-                sourceCode: null,
+                editor: {
+                    sourceCode: null
+                },
                 problems: [],
                 result: {statusCode: 'WAITING'},
                 showModal: false,

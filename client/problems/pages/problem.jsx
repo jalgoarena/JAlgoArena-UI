@@ -56,7 +56,7 @@ class Problem extends React.Component {
     isSubmitDisabled() {
         return !(this.props.problem &&
                 this.props.result.statusCode === 'ACCEPTED' &&
-                this.props.sourceCode &&
+                this.props.editor.sourceCode &&
                 this.props.userAuthSession.user)
     }
 
@@ -145,14 +145,14 @@ class Problem extends React.Component {
                     {this.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
-                    sourceCode={this.props.sourceCode || skeletonCode}
+                    sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
                 />
                 <SubmissionPanel
                     problem={this.props.problem}
                     userId={userId}
                     result={this.props.result}
-                    sourceCode={this.props.sourceCode || skeletonCode}
+                    sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onRun={this.props.onRun}
                     onSubmit={this.props.onSubmit}
                     isSubmitDisabled={isSubmitDisabled}
@@ -190,7 +190,7 @@ const mapStateToProps = (state) => {
         problem,
         showModal: state.showModal,
         result: state.result,
-        sourceCode: state.sourceCode,
+        editor: state.editor,
         userAuthSession: state.userAuthSession,
         submissions: state.submissions,
         programmingLanguage: state.programmingLanguage

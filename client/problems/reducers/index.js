@@ -1,14 +1,14 @@
 import * as types from "../../constants/ActionTypes";
 
-export function sourceCode(state = null, action) {
+export function editor(state = {sourceCode: null}, action) {
     switch (action.type) {
         case types.CHANGE_SOURCE_CODE:
-            return action.sourceCode;
+            return Object.assign({}, state, {sourceCode: action.sourceCode});
         case types.SET_CURRENT_PROBLEM:
         case types.SUBMISSION_SAVED:
         case types.PROBLEM_REFRESH:
         case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return null;
+            return Object.assign({}, state, {sourceCode: null});
         default:
             return state;
     }
