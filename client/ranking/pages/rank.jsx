@@ -103,7 +103,7 @@ class Leaderboard extends React.Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        ranking: state.ranking
+        ranking: state.ranking.general
     };
 };
 

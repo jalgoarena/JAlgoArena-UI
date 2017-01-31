@@ -11,6 +11,10 @@ export function editor(state = {
         case types.SET_CURRENT_PROBLEM:
         case types.SUBMISSION_SAVED:
         case types.PROBLEM_REFRESH:
+            return Object.assign({}, state, {
+                sourceCode: null,
+                judgeResult: { statusCode: 'WAITING' }
+            });
         case types.CHANGE_PROGRAMMING_LANGUAGE:
             return Object.assign({}, state, {
                 sourceCode: null,

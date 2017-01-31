@@ -21,8 +21,10 @@ describe('root reducer', () => {
                     rawItems: []
                 },
                 showModal: false,
-                ranking: [],
-                problemRanking: [],
+                ranking: {
+                    general: [],
+                    problemRanking: []
+                },
                 submissions: [],
                 submissionsFilter: 'ALL',
                 auth: {

@@ -93,7 +93,7 @@ class Problem extends React.Component {
     }
 
     sourceCodeButton(skeletonCode, customType, onClick) {
-        if (skeletonCode.includes(customType)) {
+        if (skeletonCode && skeletonCode.includes(customType)) {
             return <Button
                 bsStyle="success"
                 onClick={onClick}
@@ -182,9 +182,13 @@ class Problem extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const problem = state.problems.currentProblemId
-        ? state.problems.items.find((problem) => problem.id === state.problems.currentProblemId)
+    let currentProblemId = state.problems.currentProblemId;
+
+    const problem = currentProblemId
+        ? state.problems.items.find((problem) => problem.id === currentProblemId)
         : null;
+
+    let programmingLanguage = state.editor.programmingLanguage;
 
     return {
         problem,
@@ -192,7 +196,7 @@ const mapStateToProps = (state) => {
         editor: state.editor,
         auth: state.auth,
         submissions: state.submissions,
-        programmingLanguage: state.editor.programmingLanguage
+        programmingLanguage
     }
 };
 
