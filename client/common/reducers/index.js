@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import * as types from "../../constants/ActionTypes";
 
-import {editor, problems, result, currentProblemId, problemsFilter} from "../../problems/reducers";
+import {editor, problems, currentProblemId, problemsFilter} from "../../problems/reducers";
 import {userAuthSession, userUpdated} from "../../users/reducers";
 import {ranking, problemRanking} from "../../ranking/reducers";
 import {submissions, submissionsFilter} from "../../submissions/reducers";
@@ -12,7 +12,6 @@ import {solvedProblemsRatio} from "../../submissions/reducers/index";
 const rootReducer = combineReducers({
     editor,
     problems,
-    result,
     showModal,
     currentProblemId,
     routing: routerReducer,

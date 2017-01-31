@@ -9,10 +9,10 @@ describe('root reducer', () => {
         ).toEqual(
             {
                 editor: {
-                    sourceCode: null
+                    sourceCode: null,
+                    judgeResult: {statusCode: 'WAITING'},
                 },
                 problems: [],
-                result: {statusCode: 'WAITING'},
                 showModal: false,
                 currentProblemId: null,
                 problemsFilter: 0,

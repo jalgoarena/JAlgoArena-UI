@@ -55,7 +55,7 @@ class Problem extends React.Component {
 
     isSubmitDisabled() {
         return !(this.props.problem &&
-                this.props.result.statusCode === 'ACCEPTED' &&
+                this.props.editor.judgeResult.statusCode === 'ACCEPTED' &&
                 this.props.editor.sourceCode &&
                 this.props.userAuthSession.user)
     }
@@ -151,7 +151,7 @@ class Problem extends React.Component {
                 <SubmissionPanel
                     problem={this.props.problem}
                     userId={userId}
-                    result={this.props.result}
+                    result={this.props.editor.judgeResult}
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onRun={this.props.onRun}
                     onSubmit={this.props.onSubmit}
@@ -159,7 +159,7 @@ class Problem extends React.Component {
                     activeLanguage={this.props.programmingLanguage}
                 />
             </Row>
-            <Output result={this.props.result}/>
+            <Output result={this.props.editor.judgeResult}/>
             <ListNodeSourceCode
                 show={this.state.showListNodeSourceCode}
                 onHide={this.hideListNodeSourceCode.bind(this)}
@@ -189,7 +189,6 @@ const mapStateToProps = (state) => {
     return {
         problem,
         showModal: state.showModal,
-        result: state.result,
         editor: state.editor,
         userAuthSession: state.userAuthSession,
         submissions: state.submissions,

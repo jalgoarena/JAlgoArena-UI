@@ -38,7 +38,45 @@ describe('editor reducer', () => {
                         type: actionType
                     }
                 )
-            ).toEqual({sourceCode: null});
+            ).toEqual({judgeResult: {statusCode: "WAITING"}, sourceCode: null});
+        });
+    });
+
+    it('should handle JUDGE_RESULT_RECEIVED', () => {
+        expect(
+            reducer.editor(null,
+                {
+                    type: types.JUDGE_RESULT_RECEIVED,
+                    result: {statusCode: "ACCEPTED"}
+                }
+            )
+        ).toEqual({judgeResult: {statusCode: "ACCEPTED"}});
+
+        expect(
+            reducer.editor({judgeResult: {statusCode: "ACCEPTED"}},
+                {
+                    type: types.JUDGE_RESULT_RECEIVED,
+                    result: {statusCode: "COMPILE_ERROR"}
+                }
+            )
+        ).toEqual({judgeResult: {statusCode: "COMPILE_ERROR"}});
+    });
+
+    let actionsResettingResult = [
+        types.SET_CURRENT_PROBLEM,
+        types.SUBMISSION_SAVED,
+        types.PROBLEM_REFRESH
+    ];
+
+    actionsResettingResult.forEach(actionType => {
+        it(`should handle ${actionType}`, () => {
+            expect(
+                reducer.editor({judgeResult: {statusCode: "ACCEPTED"}},
+                    {
+                        type: actionType
+                    }
+                )
+            ).toEqual({judgeResult: {statusCode: "WAITING"}, sourceCode: null});
         });
     });
 });

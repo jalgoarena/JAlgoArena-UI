@@ -1,6 +1,6 @@
 import * as types from "../../constants/ActionTypes";
 
-export function editor(state = {sourceCode: null}, action) {
+export function editor(state = {sourceCode: null, judgeResult: { statusCode: 'WAITING' }}, action) {
     switch (action.type) {
         case types.CHANGE_SOURCE_CODE:
             return Object.assign({}, state, {sourceCode: action.sourceCode});
@@ -8,7 +8,9 @@ export function editor(state = {sourceCode: null}, action) {
         case types.SUBMISSION_SAVED:
         case types.PROBLEM_REFRESH:
         case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return Object.assign({}, state, {sourceCode: null});
+            return Object.assign({}, state, {sourceCode: null, judgeResult: { statusCode: 'WAITING' }});
+        case types.JUDGE_RESULT_RECEIVED:
+            return Object.assign({}, state, {judgeResult: action.result});
         default:
             return state;
     }
@@ -18,19 +20,6 @@ export function problems(state = [], action) {
     switch (action.type) {
         case types.PROBLEMS_RECEIVED:
             return action.problems;
-        default:
-            return state;
-    }
-}
-
-export function result(state = { statusCode: 'WAITING' }, action) {
-    switch (action.type) {
-        case types.JUDGE_RESULT_RECEIVED:
-            return action.result;
-        case types.SET_CURRENT_PROBLEM:
-        case types.SUBMISSION_SAVED:
-        case types.PROBLEM_REFRESH:
-            return { statusCode: 'WAITING' };
         default:
             return state;
     }
