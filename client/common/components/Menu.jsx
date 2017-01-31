@@ -40,11 +40,11 @@ class Menu extends React.Component {
     }
 
     adminMenuItem() {
-        if (this.props.userAuthSession == null || this.props.userAuthSession.user == null) {
+        if (this.props.auth == null || this.props.auth.user == null) {
             return null;
         }
 
-        return this.props.userAuthSession.user.role === 'ADMIN'
+        return this.props.auth.user.role === 'ADMIN'
             ? <NavDropdown title={<span><FontAwesome name="cogs" lg={true}/> Admin</span>} id="basic-nav-dropdown">
                 <LinkContainer to="/submissionsAdmin">
                     <NavItem><FontAwesome name="code"/> Submissions</NavItem>
@@ -60,7 +60,7 @@ class Menu extends React.Component {
     }
 
     profileOrLoginMenuItem() {
-        return this.props.userAuthSession.user
+        return this.props.auth.user
             ? <LinkContainer to="/profile">
                 <NavItem><FontAwesome name="user" lg={true}/> Profile</NavItem>
             </LinkContainer>
@@ -72,7 +72,7 @@ class Menu extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         routing: state.routing
     };
 };

@@ -28,7 +28,7 @@ class Login extends React.Component {
     }
 
     transferToDashboardIfLoggedIn() {
-        if (this.props.userAuthSession.user) {
+        if (this.props.auth.user) {
             hashHistory.push('/profile');
         }
     }
@@ -40,7 +40,7 @@ class Login extends React.Component {
     componentDidUpdate() {
         this.transferToDashboardIfLoggedIn();
 
-        if (this.props.userAuthSession.error === "Incorrect login or password.") {
+        if (this.props.auth.error === "Incorrect login or password.") {
             if (!this.state.isUsernameFieldIncorrect) {
                 let newState = Object.assign({}, this.state);
                 newState.isUsernameFieldIncorrect = true;
@@ -106,7 +106,7 @@ class Login extends React.Component {
             <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide} />
             <Col mdOffset={4} md={4}>
                 <PageHeader className="text-center">Sign In</PageHeader>
-                <ErrorLabel validationError={this.state.errorMessage} authError={this.props.userAuthSession.error} />
+                <ErrorLabel validationError={this.state.errorMessage} authError={this.props.auth.error} />
                 <form>
                     <FieldGroup id="username" placeholder="Username" type="text"
                                 inputRef={ref => { this.username = ref; }}
@@ -137,7 +137,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         showModal: state.showModal
     };
 };

@@ -52,7 +52,7 @@ class ProblemRank extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         problemRanking: state.problemRanking
     };
 };

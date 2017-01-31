@@ -35,7 +35,7 @@ class Problems extends React.Component {
                 if (this.props.hideDoneProblems && isDone) return null;
 
                 let solvedProblemRatio = this.props.solvedProblemsRatio.find(ratio => ratio.problemId == problem.id);
-                let users = this.props.userAuthSession.users || [];
+                let users = this.props.auth.users || [];
                 let usersCount = users.length;
 
                 if (!solvedProblemRatio) {
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => {
         problemsFilter: state.problems.difficultyFilter,
         hideDoneProblems: state.problems.doneProblemsFilter,
         solvedProblemsRatio: state.solvedProblemsRatio,
-        userAuthSession: state.userAuthSession
+        auth: state.auth
     }
 };
 

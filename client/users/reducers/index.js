@@ -3,29 +3,23 @@ import * as types from "../../constants/ActionTypes";
 const defaultStartState = {
     user: null,
     error: null,
-    users: null
+    users: null,
+    updatedUser: null
 };
 
-export function userAuthSession(userAuthSession = defaultStartState , action) {
+export function auth(state = defaultStartState , action) {
     switch (action.type){
 
         case types.LOGIN_SUCCESS:
-
-            return Object.assign({}, userAuthSession, {
-                user: action.user,
-                error: null
-            });
+            return Object.assign({}, state, { user: action.user, error: null });
 
         case types.LOGIN_FAIL:
         case types.SIGNUP_FAIL:
-            return Object.assign({}, userAuthSession, {
-                user: null,
-                error: action.error
-            });
+            return Object.assign({}, state, { user: null, error: action.error });
 
         case types.CHECKED_SESSION_STATUS:
             if (action.user && action.user.id){
-                return Object.assign({}, userAuthSession, {
+                return Object.assign({}, state, {
                     user: action.user,
                     error: null
                 });
@@ -38,25 +32,15 @@ export function userAuthSession(userAuthSession = defaultStartState , action) {
 
         case types.NAVIGATE_AWAY_FROM_AUTH_FORM:
         case types.SIGNUP_SUCCESS:
-            return Object.assign({}, userAuthSession, {
-                error: null
-            });
+            return Object.assign({}, state, { error: null });
 
         case types.FETCH_USERS:
-            return Object.assign({}, userAuthSession, {
-                users: action.users
-            });
+            return Object.assign({}, state, { users: action.users });
 
-        default:
-            return userAuthSession;
-    }
-}
-
-export function userUpdated(userUpdated = null , action) {
-    switch (action.type) {
         case types.USER_UPDATED:
-            return action.userUpdated;
+            return Object.assign({}, state, { updatedUser: action.userUpdated});
+
         default:
-            return userUpdated;
+            return state;
     }
 }

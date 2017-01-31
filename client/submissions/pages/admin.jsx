@@ -34,7 +34,7 @@ class Admin extends React.Component {
 
     render() {
         let submissions = this.props.submissions || [];
-        let users = this.props.userAuthSession.users;
+        let users = this.props.auth.users;
 
         let filteredSubmissions = this.filterAndSort(submissions);
         let submissionsPage = this.calculateSubmissionPage(filteredSubmissions);
@@ -131,7 +131,7 @@ class Admin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         submissions: state.submissions,
         submissionsFilter: state.submissionsFilter
     };

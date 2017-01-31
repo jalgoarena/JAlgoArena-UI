@@ -30,7 +30,7 @@ class SignUp extends React.Component {
     }
 
     transferToProfileIfLoggedIn(){
-        if (this.props.userAuthSession.user){
+        if (this.props.auth.user){
             hashHistory.push('/profile');
         }
     }
@@ -42,7 +42,7 @@ class SignUp extends React.Component {
     componentDidUpdate() {
         this.transferToProfileIfLoggedIn();
 
-        if(this.props.userAuthSession.error === 'That username is already being used.') {
+        if(this.props.auth.error === 'That username is already being used.') {
             if(!this.state.isUserNameFieldIncorrect){
                 let newState = Object.assign({}, this.state);
                 newState.isUserNameFieldIncorrect = true;
@@ -51,7 +51,7 @@ class SignUp extends React.Component {
             findDOMNode(this.username).focus();
         }
 
-        if(this.props.userAuthSession.error === "That email is already being used.") {
+        if(this.props.auth.error === "That email is already being used.") {
             if(!this.state.isEmailFieldIncorrect){
                 let newState = Object.assign({}, this.state);
                 newState.isEmailFieldIncorrect = true;
@@ -140,7 +140,7 @@ class SignUp extends React.Component {
                 <Col mdOffset={4} md={4}>
                     <form>
                         <PageHeader className="text-center">Create Account</PageHeader>
-                        <ErrorLabel validationError={this.state.errorMessage} authError={this.props.userAuthSession.error} />
+                        <ErrorLabel validationError={this.state.errorMessage} authError={this.props.auth.error} />
                         <FormGroup controlId="region">
                             <ControlLabel>Region</ControlLabel>
                             <FormControl componentClass="select" inputRef={ref => { this.region = ref; }}>
@@ -181,7 +181,7 @@ class SignUp extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         showModal: state.showModal
     };
 };

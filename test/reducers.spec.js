@@ -25,9 +25,13 @@ describe('root reducer', () => {
                 problemRanking: [],
                 submissions: [],
                 submissionsFilter: 'ALL',
-                userAuthSession: {user: null, error: null, users: null},
+                auth: {
+                    user: null,
+                    error: null,
+                    users: null,
+                    updatedUser: null
+                },
                 routing: {"locationBeforeTransitions": null},
-                userUpdated: null,
                 solvedProblemsRatio: [],
                 errorMessage: null
             }

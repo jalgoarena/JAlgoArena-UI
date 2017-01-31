@@ -30,7 +30,7 @@ class Profile extends React.Component {
     }
 
     transferToProfileIfLoggedOut() {
-        if (!this.props.userAuthSession.user) {
+        if (!this.props.auth.user) {
             hashHistory.push('/login');
         }
     }
@@ -44,19 +44,19 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.userAuthSession.user) {
-            store.dispatch(fetchSubmissions(this.props.userAuthSession.user.id));
+        if (this.props.auth.user) {
+            store.dispatch(fetchSubmissions(this.props.auth.user.id));
         }
     }
 
     render() {
         const {
-            userAuthSession
+            auth
         } = this.props;
 
         let {
             user
-        } = userAuthSession;
+        } = auth;
 
         user = user || {username: "", email: "", id: "", region: "", team: ""};
 
@@ -125,7 +125,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         submissions: state.submissions
     };
 };

@@ -34,7 +34,7 @@ class Problem extends React.Component {
     }
 
     transferToLoginIfLoggedOut() {
-        if (!this.props.userAuthSession.user) {
+        if (!this.props.auth.user) {
             hashHistory.push('/login');
         }
     }
@@ -48,8 +48,8 @@ class Problem extends React.Component {
         if (store.getState().currentProblemId !== this.props.params.id) {
             store.dispatch(setCurrentProblem(this.props.params.id));
         }
-        if (this.props.userAuthSession.user) {
-            store.dispatch(fetchSubmissions(this.props.userAuthSession.user.id));
+        if (this.props.auth.user) {
+            store.dispatch(fetchSubmissions(this.props.auth.user.id));
         }
     }
 
@@ -57,7 +57,7 @@ class Problem extends React.Component {
         return !(this.props.problem &&
                 this.props.editor.judgeResult.statusCode === 'ACCEPTED' &&
                 this.props.editor.sourceCode &&
-                this.props.userAuthSession.user)
+                this.props.auth.user)
     }
 
     showListNodeSourceCode() {
@@ -109,7 +109,7 @@ class Problem extends React.Component {
         }
 
         const isSubmitDisabled = this.isSubmitDisabled();
-        const userId = this.props.userAuthSession.user ? this.props.userAuthSession.user.id : null;
+        const userId = this.props.auth.user ? this.props.auth.user.id : null;
 
         let skeletonCode = this.props.problem.skeletonCode[this.props.programmingLanguage];
 
@@ -190,7 +190,7 @@ const mapStateToProps = (state) => {
         problem,
         showModal: state.showModal,
         editor: state.editor,
-        userAuthSession: state.userAuthSession,
+        auth: state.auth,
         submissions: state.submissions,
         programmingLanguage: state.editor.programmingLanguage
     }

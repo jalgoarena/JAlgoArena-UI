@@ -1,10 +1,10 @@
 import * as reducer from '../../client/users/reducers';
 import * as types from '../../client/constants/ActionTypes';
 
-describe('userAuthSession reducer', () => {
+describe('auth reducer', () => {
     it('should handle LOGIN_SUCCESS', () => {
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: null,
                     users: null
@@ -21,7 +21,7 @@ describe('userAuthSession reducer', () => {
         });
 
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: "Error",
                     users: null
@@ -41,7 +41,7 @@ describe('userAuthSession reducer', () => {
     [types.LOGIN_FAIL, types.SIGNUP_FAIL].forEach(actionType => {
         it(`should handle ${actionType}`, () => {
             expect(
-                reducer.userAuthSession({
+                reducer.auth({
                         user: null,
                         error: null,
                         users: null
@@ -58,7 +58,7 @@ describe('userAuthSession reducer', () => {
             });
 
             expect(
-                reducer.userAuthSession({
+                reducer.auth({
                         user: { username: "julia" },
                         error: null,
                         users: null
@@ -78,7 +78,7 @@ describe('userAuthSession reducer', () => {
 
     it("should handle CHECKED_SESSION_STATUS", () => {
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: null,
                     users: null
@@ -95,7 +95,7 @@ describe('userAuthSession reducer', () => {
         });
 
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: { message: "error" },
                     users: null
@@ -112,7 +112,7 @@ describe('userAuthSession reducer', () => {
         });
 
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: { message: "error" },
                     users: null
@@ -125,13 +125,14 @@ describe('userAuthSession reducer', () => {
         ).toEqual({
             user: null,
             error: null,
-            users: null
+            users: null,
+            updatedUser: null
         });
     });
 
     it("should handle LOGOUT_SUCCESS", () => {
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: { username: "julia", id: "0-0" },
                     error: { message: "error" },
                     users: [{ username: "julia", id: "0-0" }]
@@ -143,13 +144,14 @@ describe('userAuthSession reducer', () => {
         ).toEqual({
             user: null,
             error: null,
-            users: null
+            users: null,
+            updatedUser: null
         });
     });
 
     [types.NAVIGATE_AWAY_FROM_AUTH_FORM, types.SIGNUP_SUCCESS].forEach(actionType => {
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: { message: "error" },
                     users: null
@@ -167,7 +169,7 @@ describe('userAuthSession reducer', () => {
 
     it("should handle FETCH_USERS", () => {
         expect(
-            reducer.userAuthSession({
+            reducer.auth({
                     user: null,
                     error: null,
                     users: null
@@ -182,5 +184,25 @@ describe('userAuthSession reducer', () => {
             error: null,
             users: [{ username: "julia", id: "0-0" }]
         });
+    });
+
+    it('should handle USER_UPDATED', () => {
+        expect(
+            reducer.auth(null,
+                {
+                    type: types.USER_UPDATED,
+                    userUpdated: { username: "julia" }
+                }
+            )
+        ).toEqual({updatedUser: { username: "julia" }});
+
+        expect(
+            reducer.auth({updatedUser: { username: "julia" }},
+                {
+                    type: types.USER_UPDATED,
+                    userUpdated: { username: "mikolaj" }
+                }
+            )
+        ).toEqual({updatedUser: { username: "mikolaj" }});
     });
 });

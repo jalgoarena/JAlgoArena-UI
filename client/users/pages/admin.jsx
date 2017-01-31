@@ -37,14 +37,14 @@ class UsersAdmin extends React.Component {
     }
 
     setCurrentUser(userId) {
-        let users = this.props.userAuthSession.users || [];
+        let users = this.props.auth.users || [];
         let user = users.find(user => user.id === userId);
 
         this.setState({user});
     }
 
     render() {
-        let users = this.props.userAuthSession.users || [];
+        let users = this.props.auth.users || [];
         users = _.orderBy(users, ["username"]);
         let userItems = users.map( (user, idx) => {
             return <option value={user.id} key={idx}>{user.username}</option>;
@@ -116,7 +116,7 @@ class UsersAdmin extends React.Component {
                     <div>
                         <PageHeader className="text-center">Result</PageHeader>
                         <span>
-                            {JSON.stringify(this.props.userUpdated || {})}
+                            {JSON.stringify(this.props.auth.updatedUser || {})}
                         </span>
                     </div>
                 </Col>
@@ -127,8 +127,7 @@ class UsersAdmin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAuthSession: state.userAuthSession,
-        userUpdated: state.userUpdated
+        auth: state.auth
     };
 };
 
