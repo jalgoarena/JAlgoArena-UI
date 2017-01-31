@@ -72,11 +72,11 @@ class Problems extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        problems: state.problems,
+        problems: state.problems.items,
         showModal: state.showModal,
         submissions: state.submissions,
-        problemsFilter: state.problemsFilter,
-        hideDoneProblems: state.hideDoneProblems,
+        problemsFilter: state.problems.difficultyFilter,
+        hideDoneProblems: state.problems.doneProblemsFilter,
         solvedProblemsRatio: state.solvedProblemsRatio,
         userAuthSession: state.userAuthSession
     }

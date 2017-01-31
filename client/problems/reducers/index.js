@@ -1,6 +1,10 @@
 import * as types from "../../constants/ActionTypes";
 
-export function editor(state = {sourceCode: null, judgeResult: { statusCode: 'WAITING' }}, action) {
+export function editor(state = {
+    sourceCode: null,
+    judgeResult: { statusCode: 'WAITING' },
+    programmingLanguage: 'java'
+}, action) {
     switch (action.type) {
         case types.CHANGE_SOURCE_CODE:
             return Object.assign({}, state, {sourceCode: action.sourceCode});
@@ -8,7 +12,11 @@ export function editor(state = {sourceCode: null, judgeResult: { statusCode: 'WA
         case types.SUBMISSION_SAVED:
         case types.PROBLEM_REFRESH:
         case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return Object.assign({}, state, {sourceCode: null, judgeResult: { statusCode: 'WAITING' }});
+            return Object.assign({}, state, {
+                sourceCode: null,
+                judgeResult: { statusCode: 'WAITING' },
+                programmingLanguage: action.programmingLanguage
+            });
         case types.JUDGE_RESULT_RECEIVED:
             return Object.assign({}, state, {judgeResult: action.result});
         default:
@@ -16,55 +24,24 @@ export function editor(state = {sourceCode: null, judgeResult: { statusCode: 'WA
     }
 }
 
-export function problems(state = [], action) {
+export function problems(state = {
+    items: [],
+    currentProblemId: null,
+    difficultyFilter: 0,
+    doneProblemsFilter: false,
+    rawItems: []
+}, action) {
     switch (action.type) {
         case types.PROBLEMS_RECEIVED:
-            return action.problems;
-        default:
-            return state;
-    }
-}
-
-export function currentProblemId(state = null, action) {
-    switch (action.type) {
+            return Object.assign({}, state, { items: action.problems });
         case types.SET_CURRENT_PROBLEM:
-            return action.problemId;
-        default:
-            return state;
-    }
-}
-
-export function problemsFilter(state = 0, action) {
-    switch (action.type) {
+            return Object.assign({}, state, { currentProblemId: action.problemId });
         case types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER:
-            return action.level;
-        default:
-            return state;
-    }
-}
-
-export function programmingLanguage(state = 'java', action) {
-    switch (action.type) {
-        case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return action.programmingLanguage;
-        default:
-            return state;
-    }
-}
-
-export function hideDoneProblems(state = false, action) {
-    switch (action.type) {
+            return Object.assign({}, state, { difficultyFilter: action.level });
         case types.HIDE_DONE_PROBLEMS:
-            return action.hideDoneProblems;
-        default:
-            return state;
-    }
-}
-
-export function rawProblems(state = [], action) {
-    switch (action.type) {
+            return Object.assign({}, state, { doneProblemsFilter: action.hideDoneProblems });
         case types.FETCH_RAW_PROBLEMS:
-            return action.rawProblems;
+            return Object.assign({}, state, { rawItems: action.rawProblems });
         default:
             return state;
     }

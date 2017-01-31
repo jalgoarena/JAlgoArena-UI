@@ -182,8 +182,8 @@ class Problem extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const problem = state.currentProblemId
-        ? state.problems.find((problem) => problem.id === state.currentProblemId)
+    const problem = state.problems.currentProblemId
+        ? state.problems.items.find((problem) => problem.id === state.problems.currentProblemId)
         : null;
 
     return {
@@ -192,7 +192,7 @@ const mapStateToProps = (state) => {
         editor: state.editor,
         userAuthSession: state.userAuthSession,
         submissions: state.submissions,
-        programmingLanguage: state.programmingLanguage
+        programmingLanguage: state.editor.programmingLanguage
     }
 };
 

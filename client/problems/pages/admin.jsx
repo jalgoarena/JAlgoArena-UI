@@ -269,7 +269,7 @@ class ProblemsAdmin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        problems: state.rawProblems
+        problems: state.problems.rawItems
     };
 };
 

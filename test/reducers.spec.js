@@ -11,20 +11,22 @@ describe('root reducer', () => {
                 editor: {
                     sourceCode: null,
                     judgeResult: {statusCode: 'WAITING'},
+                    programmingLanguage: 'java'
                 },
-                problems: [],
+                problems: {
+                    currentProblemId: null,
+                    items: [],
+                    difficultyFilter: 0,
+                    doneProblemsFilter: false,
+                    rawItems: []
+                },
                 showModal: false,
-                currentProblemId: null,
-                problemsFilter: 0,
-                programmingLanguage: 'java',
-                hideDoneProblems: false,
                 ranking: [],
                 problemRanking: [],
                 submissions: [],
                 submissionsFilter: 'ALL',
                 userAuthSession: {user: null, error: null, users: null},
                 routing: {"locationBeforeTransitions": null},
-                rawProblems: [],
                 userUpdated: null,
                 solvedProblemsRatio: [],
                 errorMessage: null

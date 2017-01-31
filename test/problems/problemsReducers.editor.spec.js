@@ -79,4 +79,24 @@ describe('editor reducer', () => {
             ).toEqual({judgeResult: {statusCode: "WAITING"}, sourceCode: null});
         });
     });
+
+    it('should handle CHANGE_PROGRAMMING_LANGUAGE', () => {
+        expect(
+            reducer.editor(null,
+                {
+                    type: types.CHANGE_PROGRAMMING_LANGUAGE,
+                    programmingLanguage: 'kotlin'
+                }
+            )
+        ).toEqual({"judgeResult": {"statusCode": "WAITING"}, "programmingLanguage": "kotlin", "sourceCode": null});
+
+        expect(
+            reducer.editor({programmingLanguage: 'java'},
+                {
+                    type: types.CHANGE_PROGRAMMING_LANGUAGE,
+                    programmingLanguage: 'kotlin'
+                }
+            )
+        ).toEqual({"judgeResult": {"statusCode": "WAITING"}, "programmingLanguage": "kotlin", "sourceCode": null});
+    });
 });
