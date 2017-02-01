@@ -195,7 +195,7 @@ const mapStateToProps = (state) => {
         showModal: state.showModal,
         editor: state.editor,
         auth: state.auth,
-        submissions: state.submissions,
+        submissions: state.submissions.items,
         programmingLanguage
     }
 };

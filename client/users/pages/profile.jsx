@@ -126,7 +126,7 @@ class Profile extends React.Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        submissions: state.submissions
+        submissions: state.submissions.items
     };
 };
 

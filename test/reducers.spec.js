@@ -25,7 +25,9 @@ describe('root reducer', () => {
                     general: [],
                     problemRanking: []
                 },
-                submissions: [],
+                submissions: {
+                    items: []
+                },
                 submissionsFilter: 'ALL',
                 auth: {
                     user: null,

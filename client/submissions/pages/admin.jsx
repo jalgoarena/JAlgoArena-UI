@@ -132,7 +132,7 @@ class Admin extends React.Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        submissions: state.submissions,
+        submissions: state.submissions.items,
         submissionsFilter: state.submissionsFilter
     };
 };

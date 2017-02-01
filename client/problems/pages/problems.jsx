@@ -74,7 +74,7 @@ const mapStateToProps = (state) => {
     return {
         problems: state.problems.items,
         showModal: state.showModal,
-        submissions: state.submissions,
+        submissions: state.submissions.items,
         problemsFilter: state.problems.difficultyFilter,
         hideDoneProblems: state.problems.doneProblemsFilter,
         solvedProblemsRatio: state.solvedProblemsRatio,

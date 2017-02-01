@@ -4,7 +4,7 @@ import * as types from '../../client/constants/ActionTypes';
 describe('ranking reducer', () => {
     it('should handle FETCH_SUBMISSIONS', () => {
         expect(
-            reducer.submissions([],
+            reducer.submissions({items: []},
                 {
                     type: types.FETCH_SUBMISSIONS,
                     submissions: [{
@@ -13,16 +13,16 @@ describe('ranking reducer', () => {
                     }]
                 }
             )
-        ).toEqual([{
+        ).toEqual({items: [{
             username: "julia",
             problemId: "fib"
-        }]);
+        }]});
 
         expect(
-            reducer.submissions([{
+            reducer.submissions({items: [{
                     username: "julia",
                     problemId: "fib"
-                }],
+                }]},
                 {
                     type: types.FETCH_SUBMISSIONS,
                     submissions: [{
@@ -34,12 +34,12 @@ describe('ranking reducer', () => {
                     }]
                 }
             )
-        ).toEqual([{
+        ).toEqual({items: [{
             username: "julia",
             problemId: "fib"
         }, {
             username: "mikolaj",
             problemId: "stoi"
-        }]);
+        }]});
     });
 });
