@@ -8,11 +8,17 @@ export function submissions(state = {
     switch (action.type) {
         case types.FETCH_SUBMISSIONS:
         case types.DELETE_SUBMISSION:
-            return Object.assign({}, state, { items: action.submissions});
+            return Object.assign({}, state, {
+                items: action.submissions
+            });
         case types.SET_SUBMISSIONS_FILTER:
-            return Object.assign({}, state, { statusFilter: action.status});
+            return Object.assign({}, state, {
+                statusFilter: action.status
+            });
         case types.FETCH_PROBLEMS_SOLUTION_RATIO:
-            return Object.assign({}, state, { problemsSolutionsRatio: action.solvedProblemsRatio });
+            return Object.assign({}, state, {
+                problemsSolutionsRatio: action.solvedProblemsRatio
+            });
         default:
             return state;
     }

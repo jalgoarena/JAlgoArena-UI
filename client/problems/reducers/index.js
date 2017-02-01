@@ -7,7 +7,9 @@ export function editor(state = {
 }, action) {
     switch (action.type) {
         case types.CHANGE_SOURCE_CODE:
-            return Object.assign({}, state, {sourceCode: action.sourceCode});
+            return Object.assign({}, state, {
+                sourceCode: action.sourceCode
+            });
         case types.SET_CURRENT_PROBLEM:
         case types.SUBMISSION_SAVED:
         case types.PROBLEM_REFRESH:
@@ -22,7 +24,9 @@ export function editor(state = {
                 programmingLanguage: action.programmingLanguage
             });
         case types.JUDGE_RESULT_RECEIVED:
-            return Object.assign({}, state, {judgeResult: action.result});
+            return Object.assign({}, state, {
+                judgeResult: action.result
+            });
         default:
             return state;
     }
@@ -37,15 +41,25 @@ export function problems(state = {
 }, action) {
     switch (action.type) {
         case types.PROBLEMS_RECEIVED:
-            return Object.assign({}, state, { items: action.problems });
+            return Object.assign({}, state, {
+                items: action.problems
+            });
         case types.SET_CURRENT_PROBLEM:
-            return Object.assign({}, state, { currentProblemId: action.problemId });
+            return Object.assign({}, state, {
+                currentProblemId: action.problemId
+            });
         case types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER:
-            return Object.assign({}, state, { difficultyFilter: action.level });
+            return Object.assign({}, state, {
+                difficultyFilter: action.level
+            });
         case types.HIDE_DONE_PROBLEMS:
-            return Object.assign({}, state, { doneProblemsFilter: action.hideDoneProblems });
+            return Object.assign({}, state, {
+                doneProblemsFilter: action.hideDoneProblems
+            });
         case types.FETCH_RAW_PROBLEMS:
-            return Object.assign({}, state, { rawItems: action.rawProblems });
+            return Object.assign({}, state, {
+                rawItems: action.rawProblems
+            });
         default:
             return state;
     }
