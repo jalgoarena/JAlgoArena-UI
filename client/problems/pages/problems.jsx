@@ -5,10 +5,8 @@ import _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Problem from '../components/Problem';
-import WorkInProgress from "../../common/components/WorkInProgress";
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
-import {closeWorkInProgressWindow} from "../../common/actions/index";
 import {fetchSolvedProblemsRatio} from "../../submissions/actions/index";
 import {fetchUsers} from "../../users/actions/index";
 
@@ -56,7 +54,6 @@ class Problems extends React.Component {
         });
 
         return <Grid>
-            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
             <ProblemsFilter
                 changeFilter={this.props.changeFilter}
                 filter={this.props.problemsFilter}
@@ -73,7 +70,6 @@ class Problems extends React.Component {
 const mapStateToProps = (state) => {
     return {
         problems: state.problems.items,
-        showModal: state.showModal,
         submissions: state.submissions.items,
         problemsFilter: state.problems.difficultyFilter,
         hideDoneProblems: state.problems.doneProblemsFilter,
@@ -90,9 +86,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeFilter: (level) => {
             dispatch(setProblemsDifficultyVisibilityFilter(level));
-        },
-        onHide: () => {
-            dispatch(closeWorkInProgressWindow());
         },
         onHideDoneProblems: (value) => {
             dispatch(hideDoneProblems(value));

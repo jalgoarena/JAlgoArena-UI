@@ -6,8 +6,6 @@ import {hashHistory} from 'react-router';
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
-import WorkInProgress from '../../common/components/WorkInProgress';
-import {closeWorkInProgressWindow} from "../../common/actions";
 import {regions, teams, emailErrorMessage} from "../../config"
 
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
@@ -136,7 +134,6 @@ class SignUp extends React.Component {
 
         return (
             <Grid>
-                <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
                 <Col mdOffset={4} md={4}>
                     <form>
                         <PageHeader className="text-center">Create Account</PageHeader>
@@ -181,8 +178,7 @@ class SignUp extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth,
-        showModal: state.showModal
+        auth: state.auth
     };
 };
 
@@ -194,9 +190,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
-        },
-        onHide: () => {
-            dispatch(closeWorkInProgressWindow());
         }
     }
 };

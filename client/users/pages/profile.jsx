@@ -6,8 +6,6 @@ import {hashHistory} from 'react-router';
 import SourceCode from "../components/SourceCode";
 
 import FontAwesome from '../../common/components/FontAwesome';
-import WorkInProgress from '../../common/components/WorkInProgress';
-import {closeWorkInProgressWindow} from "../../common/actions";
 import {fetchSubmissions} from "../../submissions/actions";
 import store from '../../common/store';
 
@@ -73,7 +71,6 @@ class Profile extends React.Component {
         );
 
         return <Grid>
-            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
             <Col mdOffset={3} md={6}>
                 <PageHeader>Profile</PageHeader>
                 <Table striped bordered condensed hover responsive>
@@ -134,9 +131,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => {
             dispatch(attemptLogout());
-        },
-        onHide: () => {
-            dispatch(closeWorkInProgressWindow());
         }
     }
 };

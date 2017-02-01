@@ -1,6 +1,8 @@
 import React from 'react';
 import Spinner from 'react-spin';
 import {Modal} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {closeWorkInProgressWindow} from "../actions/index";
 
 const spinnerOpts = {
     lines: 13,
@@ -46,4 +48,23 @@ const WorkInProgress = ({showModal, onHide}) => (
     </Modal>
 );
 
-export default WorkInProgress;
+const mapStateToProps = (state) => {
+    return {
+        showModal: state.showModal
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onHide: () => {
+            dispatch(closeWorkInProgressWindow());
+        }
+    }
+};
+
+const WorkInProgressModal = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WorkInProgress);
+
+export default WorkInProgressModal;

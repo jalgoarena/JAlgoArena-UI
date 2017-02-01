@@ -4,10 +4,8 @@ import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 import _ from 'lodash';
 
-import WorkInProgress from '../../common/components/WorkInProgress';
 import store from '../../common/store';
 import {sendSubmission, fetchSubmissions, startSubmission} from "../../submissions/actions";
-import {closeWorkInProgressWindow} from "../../common/actions";
 
 import Output from '../components/Output';
 import ProblemToolbar from '../components/ProblemToolbar';
@@ -176,7 +174,6 @@ class Problem extends React.Component {
                 show={this.state.showPointsLegend}
                 onHide={this.hidePointsLegend.bind(this)}
             />
-            <WorkInProgress showModal={this.props.showModal} onHide={this.props.onHide}/>
         </Grid>;
     }
 }
@@ -192,7 +189,6 @@ const mapStateToProps = (state) => {
 
     return {
         problem,
-        showModal: state.showModal,
         editor: state.editor,
         auth: state.auth,
         submissions: state.submissions.items,
@@ -215,9 +211,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         onRefresh: () => {
             dispatch(problemRefresh());
-        },
-        onHide: () => {
-            dispatch(closeWorkInProgressWindow());
         },
         onLanguageChange: (language) => {
             dispatch(changeCurrentProgrammingLanguage(language));
