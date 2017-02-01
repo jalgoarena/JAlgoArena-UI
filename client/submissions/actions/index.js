@@ -31,7 +31,7 @@ export function fetchSolvedProblemsRatio() {
 
 function setSolvedProblemsRatio(solvedProblemsRatio) {
     return {
-        type: types.FETCH_SOLVED_PROBLEMS_RATIO,
+        type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
         solvedProblemsRatio
     }
 }

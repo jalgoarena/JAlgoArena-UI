@@ -5,8 +5,7 @@ import * as types from "../../constants/ActionTypes";
 import {editor, problems} from "../../problems/reducers";
 import {auth} from "../../users/reducers";
 import {ranking} from "../../ranking/reducers";
-import {submissions, submissionsFilter} from "../../submissions/reducers";
-import {solvedProblemsRatio} from "../../submissions/reducers/index";
+import {submissions} from "../../submissions/reducers";
 
 const rootReducer = combineReducers({
     editor,
@@ -16,8 +15,6 @@ const rootReducer = combineReducers({
     auth,
     submissions,
     ranking,
-    submissionsFilter,
-    solvedProblemsRatio,
     errorMessage
 });
 

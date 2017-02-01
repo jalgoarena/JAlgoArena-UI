@@ -133,7 +133,7 @@ const mapStateToProps = (state) => {
     return {
         auth: state.auth,
         submissions: state.submissions.items,
-        submissionsFilter: state.submissionsFilter
+        submissionsFilter: state.submissions.statusFilter
     };
 };
 

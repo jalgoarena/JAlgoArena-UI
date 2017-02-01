@@ -42,4 +42,26 @@ describe('ranking reducer', () => {
             problemId: "stoi"
         }]});
     });
+
+    it('should handle SET_SUBMISSIONS_FILTER', () => {
+        expect(
+            reducer.submissions({statusFilter: 'ALL'},
+                {
+                    type: types.SET_SUBMISSIONS_FILTER,
+                    status: "ACCEPTED"
+                }
+            )
+        ).toEqual({statusFilter: "ACCEPTED"});
+    });
+
+    it('should handle FETCH_PROBLEMS_SOLUTION_RATIO', () => {
+        expect(
+            reducer.submissions({problemsSolutionsRatio: []},
+                {
+                    type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
+                    solvedProblemsRatio: [{problemId: "fib", count: 1}]
+                }
+            )
+        ).toEqual({problemsSolutionsRatio: [{problemId: "fib", count: 1}]});
+    });
 });

@@ -193,14 +193,14 @@ describe("async actions", () => {
             });
     });
 
-    it("creates FETCH_SOLVED_PROBLEMS_RATIO when fetching solved problems ratio has been done", () => {
+    it("creates FETCH_PROBLEMS_SOLUTION_RATIO when fetching solved problems ratio has been done", () => {
         let problemPassRatio = {problemId:"fib",submissionsCount: 10};
         nock(submissionsServerUrl)
             .get("/submissions/solved-ratio")
             .reply(200, [problemPassRatio]);
 
         const expectedActions = [{
-            type: types.FETCH_SOLVED_PROBLEMS_RATIO,
+            type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
             solvedProblemsRatio: [problemPassRatio]
         }];
 
