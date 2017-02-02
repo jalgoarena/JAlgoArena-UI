@@ -2,11 +2,11 @@ import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
 
 describe('problems reducer', () => {
-    it('should handle PROBLEMS_RECEIVED', () => {
+    it('should handle FETCH_PROBLEMS_SUCCESS', () => {
         expect(
             reducer.problems({items: []},
                 {
-                    type: types.PROBLEMS_RECEIVED,
+                    type: types.FETCH_PROBLEMS_SUCCESS,
                     problems: [{problemId: "fib"}]
                 }
             )
@@ -15,7 +15,7 @@ describe('problems reducer', () => {
         expect(
             reducer.problems({items: [{problemId: "fib"}]},
                 {
-                    type: types.PROBLEMS_RECEIVED,
+                    type: types.FETCH_PROBLEMS_SUCCESS,
                     problems: [{problemId: "fib"}, {problemId: "stoi"}]
                 }
             )

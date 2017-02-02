@@ -8,7 +8,7 @@ const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
 
 export function startJudge() {
     return {
-        type: types.START_JUDGE
+        type: types.JUDGE_REQUEST
     };
 }
 
@@ -108,14 +108,14 @@ export function fetchProblems() {
 
 function setProblems(problems) {
     return {
-        type: types.PROBLEMS_RECEIVED,
+        type: types.FETCH_PROBLEMS_SUCCESS,
         problems
     }
 }
 
 export function startFetchingProblems() {
     return {
-        type: types.START_FETCHING_PROBLEMS
+        type: types.FETCH_PROBLEMS_REQUEST
     };
 }
 

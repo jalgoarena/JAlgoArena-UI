@@ -25,7 +25,7 @@ describe('editor reducer', () => {
     let actionsCleaningSourceCode = [
         types.SET_CURRENT_PROBLEM,
         types.SET_CURRENT_PROBLEM,
-        types.SUBMISSION_SAVED,
+        types.SUBMISSION_SUCCESS,
         types.PROBLEM_REFRESH,
         types.CHANGE_PROGRAMMING_LANGUAGE
     ];
@@ -64,7 +64,7 @@ describe('editor reducer', () => {
 
     let actionsResettingResult = [
         types.SET_CURRENT_PROBLEM,
-        types.SUBMISSION_SAVED,
+        types.SUBMISSION_SUCCESS,
         types.PROBLEM_REFRESH
     ];
 

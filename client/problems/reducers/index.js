@@ -11,7 +11,7 @@ export function editor(state = {
                 sourceCode: action.sourceCode
             });
         case types.SET_CURRENT_PROBLEM:
-        case types.SUBMISSION_SAVED:
+        case types.SUBMISSION_SUCCESS:
         case types.PROBLEM_REFRESH:
             return Object.assign({}, state, {
                 sourceCode: null,
@@ -40,7 +40,7 @@ export function problems(state = {
     rawItems: []
 }, action) {
     switch (action.type) {
-        case types.PROBLEMS_RECEIVED:
+        case types.FETCH_PROBLEMS_SUCCESS:
             return Object.assign({}, state, {
                 items: action.problems
             });

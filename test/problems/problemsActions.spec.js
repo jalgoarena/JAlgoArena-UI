@@ -4,7 +4,7 @@ import * as actions from "../../client/problems/actions";
 describe("actions", () => {
     it("creates an action to start judge", () => {
         const expectedAction = {
-            type: types.START_JUDGE
+            type: types.JUDGE_REQUEST
         };
 
         expect(actions.startJudge()).toEqual(expectedAction);
@@ -75,7 +75,7 @@ describe("actions", () => {
 
     it("creates an action to start fetching problems", () => {
         const expectedAction = {
-            type: types.START_FETCHING_PROBLEMS
+            type: types.FETCH_PROBLEMS_REQUEST
         };
 
         expect(actions.startFetchingProblems()).toEqual(expectedAction);

@@ -62,7 +62,7 @@ describe("async actions", () => {
             });
     });
 
-    it("creates PROBLEMS_RECEIVED when fetching of problems has been done", () => {
+    it("creates FETCH_PROBLEMS_SUCCESS when fetching of problems has been done", () => {
         let problems = [
             fibProblem
         ];
@@ -72,7 +72,7 @@ describe("async actions", () => {
             .reply(200, problems);
 
         const expectedActions = [{
-            type: types.PROBLEMS_RECEIVED,
+            type: types.FETCH_PROBLEMS_SUCCESS,
             problems
         }];
 

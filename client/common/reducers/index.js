@@ -27,14 +27,14 @@ export function showModal(state = false, action) {
     switch (action.type) {
         case types.SIGNUP_REQUEST:
         case types.LOGIN_REQUEST:
-        case types.START_JUDGE:
-        case types.START_FETCHING_PROBLEMS:
-        case types.START_SUBMISSION:
+        case types.JUDGE_REQUEST:
+        case types.FETCH_PROBLEMS_REQUEST:
+        case types.SUBMISSION_REQUEST:
             return true;
         case types.SET_CURRENT_PROBLEM:
-        case types.PROBLEMS_RECEIVED:
+        case types.FETCH_PROBLEMS_SUCCESS:
         case types.JUDGE_RESULT_RECEIVED:
-        case types.SUBMISSION_SAVED:
+        case types.SUBMISSION_SUCCESS:
         case types.FETCH_SUBMISSIONS:
         case types.FETCH_RANKING:
         case types.CHECKED_SESSION_STATUS:

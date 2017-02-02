@@ -143,7 +143,7 @@ export function rerunSubmission(sourceCode, userId, problemId, language) {
 
 export function startSubmission() {
     return {
-        type: types.START_SUBMISSION
+        type: types.SUBMISSION_REQUEST
     };
 }
 
@@ -191,7 +191,7 @@ export function sendSubmission(result, userId, problem, activeLanguage, isForAll
 
 function submissionSaved(submissions) {
     return {
-        type: types.SUBMISSION_SAVED,
+        type: types.SUBMISSION_SUCCESS,
         submissions
     }
 }

@@ -44,9 +44,9 @@ describe('root reducer', () => {
 
     [types.SIGNUP_REQUEST,
         types.LOGIN_REQUEST,
-        types.START_JUDGE,
-        types.START_FETCHING_PROBLEMS,
-        types.START_SUBMISSION
+        types.JUDGE_REQUEST,
+        types.FETCH_PROBLEMS_REQUEST,
+        types.SUBMISSION_REQUEST
     ].forEach(actionType => {
         expect(
             showModal({},
@@ -56,9 +56,9 @@ describe('root reducer', () => {
     });
 
     [types.SET_CURRENT_PROBLEM,
-        types.PROBLEMS_RECEIVED,
+        types.FETCH_PROBLEMS_SUCCESS,
         types.JUDGE_RESULT_RECEIVED,
-        types.SUBMISSION_SAVED,
+        types.SUBMISSION_SUCCESS,
         types.FETCH_SUBMISSIONS,
         types.FETCH_RANKING,
         types.CHECKED_SESSION_STATUS,

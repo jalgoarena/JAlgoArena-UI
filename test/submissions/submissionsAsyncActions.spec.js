@@ -110,7 +110,7 @@ describe("async actions", () => {
             });
     });
 
-    it("creates SUBMISSION_SAVED when sending submission has been done", () => {
+    it("creates SUBMISSION_SUCCESS when sending submission has been done", () => {
         let submission = {
             problemId: "fib",
             elapsedTime: 0.123
@@ -121,7 +121,7 @@ describe("async actions", () => {
             .reply(200, submission);
 
         const expectedActions = [{
-            type: types.SUBMISSION_SAVED,
+            type: types.SUBMISSION_SUCCESS,
             submissions: [submission]
         }];
 
@@ -231,7 +231,7 @@ describe("async actions", () => {
     });
 
     // TODO: think how to solve below issue - with double level dispatch nock/jest does not work :(
-    // it("creates SUBMISSION_SAVED when re-submission has been done", () => {
+    // it("creates SUBMISSION_SUCCESS when re-submission has been done", () => {
     //     let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
     //     let submission = {
     //         problemId: "fib",
@@ -251,7 +251,7 @@ describe("async actions", () => {
     //         .reply(200, [submission]);
     //
     //     const expectedActions = [{
-    //         type: types.SUBMISSION_SAVED,
+    //         type: types.SUBMISSION_SUCCESS,
     //         submissions: [submission]
     //     }];
     //

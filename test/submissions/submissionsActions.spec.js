@@ -21,7 +21,7 @@ describe("actions", () => {
 
     it("creates an action to start submission", () => {
         const expectedAction = {
-            type: types.START_SUBMISSION
+            type: types.SUBMISSION_REQUEST
         };
 
         expect(actions.startSubmission()).toEqual(expectedAction)
