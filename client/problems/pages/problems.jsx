@@ -8,7 +8,6 @@ import Problem from '../components/Problem';
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
 import {fetchSolvedProblemsRatio} from "../../submissions/actions/index";
-import {fetchUsers} from "../../users/actions/index";
 
 class Problems extends React.Component {
 
@@ -33,19 +32,15 @@ class Problems extends React.Component {
                 if (this.props.hideDoneProblems && isDone) return null;
 
                 let solvedProblemRatio = this.props.problemsSolutionsRatio.find(ratio => ratio.problemId == problem.id);
-                let users = this.props.auth.users || [];
-                let usersCount = users.length;
 
                 if (!solvedProblemRatio) {
                     solvedProblemRatio = {solutionsCount: 0};
                 }
 
-                let solvedBy = parseInt((solvedProblemRatio.solutionsCount / usersCount) * 100);
-
                 return <Problem
                     title={problem.title}
                     level={problem.level}
-                    solvedBy={solvedBy}
+                    solvedBy={solvedProblemRatio.solutionsCount}
                     id={problem.id}
                     key={idx}
                     submissions={this.props.submissions}
@@ -73,8 +68,7 @@ const mapStateToProps = (state) => {
         submissions: state.submissions.items,
         problemsFilter: state.problems.difficultyFilter,
         hideDoneProblems: state.problems.doneProblemsFilter,
-        problemsSolutionsRatio: state.submissions.problemsSolutionsRatio,
-        auth: state.auth
+        problemsSolutionsRatio: state.submissions.problemsSolutionsRatio
     }
 };
 
@@ -82,7 +76,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
             dispatch(fetchSolvedProblemsRatio());
-            dispatch(fetchUsers());
         },
         changeFilter: (level) => {
             dispatch(setProblemsDifficultyVisibilityFilter(level));

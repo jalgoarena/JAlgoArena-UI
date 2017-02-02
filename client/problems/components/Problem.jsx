@@ -38,7 +38,7 @@ const Problem = ({title, id, solvedBy, level, isDone}) => {
                 </LinkContainer>
 
                 <span className="text-muted">Difficulty:</span> <span className="text-primary">{difficulty(level)}</span><br />
-                <span className="text-muted">Solved By:</span> <span className="text-primary">{solvedBy}%</span>
+                <span className="text-muted">Solved By:</span> <span className="text-primary">{solvedBy} user{solvedBy === 1 ? "" : "s"}</span>
             </Row>
         </Col>
     );
