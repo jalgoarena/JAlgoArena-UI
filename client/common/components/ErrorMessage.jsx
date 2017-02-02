@@ -8,26 +8,21 @@ const style = {
     margin: 10
 };
 
-class ErrorMessage extends React.Component {
+const ErrorMessage = ({error, onDismiss}) => (
+    error === null
+        ? null
+        : <Col mdOffset={1} md={10}>
+            <Alert bsStyle="danger" onDismiss={() => onDismiss()} style={style}>
+                <h4>Error</h4>
+                <p>{error}</p>
+            </Alert>
+        </Col>
+);
 
-    render() {
-        let error = this.props.errorMessage;
-
-        return error === null
-            ? null
-            : ( <Col mdOffset={1} md={10}>
-                    <Alert bsStyle="danger" onDismiss={() => this.props.onDismiss()} style={style}>
-                        <h4>Error</h4>
-                        <p>{error}</p>
-                    </Alert>
-                </Col>
-            );
-    }
-}
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage: state.errorMessage
+        error: state.errorMessage
     };
 };
 
