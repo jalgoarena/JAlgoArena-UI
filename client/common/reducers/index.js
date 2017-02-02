@@ -25,8 +25,8 @@ export function showModal(state = false, action) {
     }
 
     switch (action.type) {
-        case types.START_SIGNUP:
-        case types.START_LOGIN:
+        case types.SIGNUP_REQUEST:
+        case types.LOGIN_REQUEST:
         case types.START_JUDGE:
         case types.START_FETCHING_PROBLEMS:
         case types.START_SUBMISSION:

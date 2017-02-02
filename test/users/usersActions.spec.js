@@ -18,7 +18,7 @@ window.localStorage = {
 describe("actions", () => {
     it("creates an action to start signup", () => {
         const expectedAction = {
-            type: types.START_SIGNUP
+            type: types.SIGNUP_REQUEST
         };
 
         expect(actions.startSignup()).toEqual(expectedAction);
@@ -26,7 +26,7 @@ describe("actions", () => {
 
     it("creates an action to start login", () => {
         const expectedAction = {
-            type: types.START_LOGIN
+            type: types.LOGIN_REQUEST
         };
 
         expect(actions.startLogin()).toEqual(expectedAction);

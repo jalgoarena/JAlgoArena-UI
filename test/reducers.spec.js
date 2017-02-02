@@ -42,8 +42,8 @@ describe('root reducer', () => {
         )
     });
 
-    [types.START_SIGNUP,
-        types.START_LOGIN,
+    [types.SIGNUP_REQUEST,
+        types.LOGIN_REQUEST,
         types.START_JUDGE,
         types.START_FETCHING_PROBLEMS,
         types.START_SUBMISSION

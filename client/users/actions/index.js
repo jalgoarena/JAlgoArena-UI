@@ -11,7 +11,7 @@ const AUTH_SERVER_URL = `${config.jalgoarenaApiUrl}/auth`;
 
 export function startSignup() {
     return {
-        type: types.START_SIGNUP
+        type: types.SIGNUP_REQUEST
     };
 }
 
@@ -68,7 +68,7 @@ function signUpFail(error) {
 
 export function startLogin() {
     return {
-        type: types.START_LOGIN
+        type: types.LOGIN_REQUEST
     }
 }
 
