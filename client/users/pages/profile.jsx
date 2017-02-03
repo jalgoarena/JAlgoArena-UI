@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
@@ -67,6 +68,9 @@ class Profile extends React.Component {
                 </Button></td>
                 <td>{submission.statusCode}</td>
                 <td>{submission.elapsedTime}</td>
+                <td>{<Link to={"/problem/" + submission.problemId} className="btn btn-primary btn-block">
+                    Go
+                </Link>}</td>
             </tr>
         );
 
@@ -103,6 +107,7 @@ class Profile extends React.Component {
                         <th>Problem ID</th>
                         <th>Status</th>
                         <th>Time (ms)</th>
+                        <th>Problem Page</th>
                     </tr>
                     </thead>
                     <tbody>
