@@ -10,7 +10,9 @@ describe('errorMessage reducer', () => {
                 }
             )
         ).toEqual(null);
+    });
 
+    it("should handle any action with error", () => {
         expect(
             reducer.errorMessage(null,
                 {
