@@ -5,6 +5,7 @@ import AceEditor from 'react-ace';
 import 'brace/mode/java';
 import 'brace/mode/kotlin';
 import 'brace/theme/tomorrow_night_eighties';
+import 'brace/ext/language_tools';
 
 export default class AceCodeEditor extends React.Component {
     constructor(props) {
@@ -43,6 +44,7 @@ export default class AceCodeEditor extends React.Component {
                 height={this.state.fullScreen ? "auto" : "350px"}
                 width={this.state.fullScreen ? "auto" : "100%"}
                 editorProps={{$blockScrolling: true}}
+                enableBasicAutocompletion={true}
                 commands={[
                     {
                         name: "Show Fullscreen",

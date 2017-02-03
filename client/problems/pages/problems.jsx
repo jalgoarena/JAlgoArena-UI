@@ -16,44 +16,42 @@ class Problems extends React.Component {
     }
 
     render() {
-        let problems = this.props.problems || [];
+        const {
+            problems,
+            problemsFilter,
+            submissions,
+            hideDoneProblems,
+            changeFilter,
+            onHideDoneProblems
+        } = this.props;
 
-        let problemNodes = problems
-            .filter(problem =>
-                this.props.problemsFilter === 0 ||
-                problem.level === this.props.problemsFilter
-            )
+        let problemNodes = _.orderBy(problems, ['solutionsCount'], ['desc'])
             .map((problem, idx) => {
 
-                let submittedProblems = _.map(this.props.submissions, (submission) => submission.problemId);
+                let submittedProblems = _.map(submissions, (submission) => submission.problemId);
 
                 const isDone = _.includes(submittedProblems, problem.id);
 
-                if (this.props.hideDoneProblems && isDone) return null;
-
-                let solvedProblemRatio = this.props.problemsSolutionsRatio.find(ratio => ratio.problemId == problem.id);
-
-                if (!solvedProblemRatio) {
-                    solvedProblemRatio = {solutionsCount: 0};
-                }
+                if (hideDoneProblems && isDone) return null;
+                if (problemsFilter !== 0 && problem.level !== problemsFilter) return null;
 
                 return <Problem
                     title={problem.title}
                     level={problem.level}
-                    solvedBy={solvedProblemRatio.solutionsCount}
+                    solvedBy={problem.solutionsCount}
                     id={problem.id}
                     key={idx}
-                    submissions={this.props.submissions}
+                    submissions={submissions}
                     isDone={isDone}
                 />;
         });
 
         return <Grid>
             <ProblemsFilter
-                changeFilter={this.props.changeFilter}
-                filter={this.props.problemsFilter}
-                onHideDoneProblems={this.props.onHideDoneProblems}
-                hideDoneProblems={this.props.hideDoneProblems}
+                changeFilter={changeFilter}
+                filter={problemsFilter}
+                onHideDoneProblems={onHideDoneProblems}
+                hideDoneProblems={hideDoneProblems}
             />
             <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
                 {problemNodes}
@@ -63,12 +61,22 @@ class Problems extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+
+    let problems = state.problems.items || [];
+
+    problems = problems.map(problem => {
+        let solvedProblemRatio = state.submissions.problemsSolutionsRatio.find(
+            ratio => ratio.problemId == problem.id
+        );
+        return Object.assign({}, problem, {
+            solutionsCount: solvedProblemRatio && solvedProblemRatio.solutionsCount || 0})
+    });
+
     return {
-        problems: state.problems.items,
+        problems,
         submissions: state.submissions.items,
         problemsFilter: state.problems.difficultyFilter,
-        hideDoneProblems: state.problems.doneProblemsFilter,
-        problemsSolutionsRatio: state.submissions.problemsSolutionsRatio
+        hideDoneProblems: state.problems.doneProblemsFilter
     }
 };
 
