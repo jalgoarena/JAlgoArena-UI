@@ -19,14 +19,6 @@ describe("actions", () => {
         expect(actions.setSubmissionsFilter(status)).toEqual(expectedAction);
     });
 
-    it("creates an action to start submission", () => {
-        const expectedAction = {
-            type: types.SUBMISSION_REQUEST
-        };
-
-        expect(actions.startSubmission()).toEqual(expectedAction)
-    });
-
     it("fetchSubmissions do nothing if token is absent", () => {
         const expectedAction = null;
 

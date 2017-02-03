@@ -11,7 +11,6 @@ export function editor(state = {
                 sourceCode: action.sourceCode
             });
         case types.SET_CURRENT_PROBLEM:
-        case types.SUBMISSION_SUCCESS:
         case types.PROBLEM_REFRESH:
             return Object.assign({}, state, {
                 sourceCode: null,

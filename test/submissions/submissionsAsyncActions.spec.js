@@ -110,53 +110,6 @@ describe("async actions", () => {
             });
     });
 
-    it("creates SUBMISSION_SUCCESS when sending submission has been done", () => {
-        let submission = {
-            problemId: "fib",
-            elapsedTime: 0.123
-        };
-
-        nock(submissionsServerUrl)
-            .put("/submissions")
-            .reply(200, submission);
-
-        const expectedActions = [{
-            type: types.SUBMISSION_SUCCESS,
-            submissions: [submission]
-        }];
-
-        const store = mockStore({submissions: []});
-
-        let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
-        let problem = { id: "fib"};
-
-        return store.dispatch(actions.sendSubmission(result, "user_id", problem, "kotlin"))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
-    it("creates SET_ERROR_MESSAGE when sending submission has failed", () => {
-        nock(submissionsServerUrl)
-            .put("/submissions")
-            .reply(500, {error: "bad request"});
-
-        const expectedActions = [{
-            type: types.SET_ERROR_MESSAGE,
-            error: "Cannot connect to Submissions Service"
-        }];
-
-        const store = mockStore();
-
-        let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
-        let problem = { id: "fib"};
-
-        return store.dispatch(actions.sendSubmission(result, "user_id", problem, "kotlin"))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
     it("creates DELETE_SUBMISSION when deleting submission has been done", () => {
         nock(submissionsServerUrl)
             .delete("/submissions/0-0")
@@ -229,37 +182,4 @@ describe("async actions", () => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
-
-    // TODO: think how to solve below issue - with double level dispatch nock/jest does not work :(
-    // it("creates SUBMISSION_SUCCESS when re-submission has been done", () => {
-    //     let result = { elapsedTime: 0.2, sourceCode: "dummy code", statusCode: "ACCEPTED"};
-    //     let submission = {
-    //         problemId: "fib",
-    //         elapsedTime: 0.123
-    //     };
-    //
-    //     nock(judgeServerUrl)
-    //         .post("/problems/fib/submit")
-    //         .reply(200, result);
-    //
-    //     nock(submissionsServerUrl)
-    //         .put("/submissions")
-    //         .reply(201, submission);
-    //
-    //     nock(submissionsServerUrl)
-    //         .get("/submissions")
-    //         .reply(200, [submission]);
-    //
-    //     const expectedActions = [{
-    //         type: types.SUBMISSION_SUCCESS,
-    //         submissions: [submission]
-    //     }];
-    //
-    //     const store = mockStore({submissions: []});
-    //
-    //     return store.dispatch(actions.rerunSubmission("class Solution", "user_id", "fib", 1, "kotlin"))
-    //         .then(() => {
-    //             expect(store.getActions()).toEqual(expectedActions);
-    //         });
-    // });
 });

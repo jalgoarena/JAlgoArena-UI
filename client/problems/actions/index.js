@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
+import {fetchSubmissions} from "../../submissions/actions/index";
+import {fetchRanking} from "../../ranking/actions/index";
 
 const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
 const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
@@ -12,14 +14,22 @@ export function startJudge() {
     };
 }
 
-export function judgeCode(sourceCode, problemId) {
+export function judgeCode(sourceCode, problemId, userId, language) {
+
+    let token = localStorage.getItem('jwtToken');
+
     const options = {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json',
+            'X-Authorization': token
         },
         method: 'post',
-        body: sourceCode
+        body: JSON.stringify({
+            sourceCode,
+            userId,
+            language
+        })
     };
     return dispatch => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
@@ -28,7 +38,9 @@ export function judgeCode(sourceCode, problemId) {
                 if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Judge Service"));
                 } else {
-                    dispatch(judgeResultReceived(json, sourceCode, problemId))
+                    dispatch(judgeResultReceived(json, sourceCode, problemId));
+                    dispatch(fetchSubmissions(userId));
+                    dispatch(fetchRanking());
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));

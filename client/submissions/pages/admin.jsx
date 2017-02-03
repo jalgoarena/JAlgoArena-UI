@@ -10,7 +10,8 @@ import {fetchUsers} from "../../users/actions";
 
 import Submission from "../components/Submission";
 import SubmissionsFilter from "../components/SubmissionsFilter";
-import {rerunSubmission, setSubmissionsFilter, deleteSubmission, fetchAllSubmissions} from "../actions";
+import {setSubmissionsFilter, deleteSubmission, fetchAllSubmissions} from "../actions";
+import {judgeCode, startJudge} from "../../problems/actions/index";
 
 class Admin extends React.Component {
     constructor(props) {
@@ -147,7 +148,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(deleteSubmission(submissionId));
         },
         onRerun: (sourceCode, userId, problemId, problemLanguage) => {
-            dispatch(rerunSubmission(sourceCode, userId, problemId, problemLanguage));
+            dispatch(startJudge());
+            dispatch(judgeCode(sourceCode, problemId, userId, problemLanguage));
         },
         changeFilter: (status) => {
             dispatch(setSubmissionsFilter(status));

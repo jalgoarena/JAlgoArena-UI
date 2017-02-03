@@ -1,24 +1,24 @@
 import React from 'react';
+import {Link} from 'react-router';
+
+import FontAwesome from '../../common/components/FontAwesome';
 
 import RunButton from './RunButton';
-import SubmitButton from './SubmitButton';
 import MemoryLimit from './MemoryLimit';
 import TimeLimit from './TimeLimit';
 
-const SubmissionPanel = ({problem, sourceCode, result, userId, onRun, onSubmit, isSubmitDisabled, activeLanguage}) => {
+const SubmissionPanel = ({problem, sourceCode, userId, onRun, activeLanguage, isAlreadySolved}) => {
 
-    let button = isSubmitDisabled
-        ? <RunButton
+    const button = isAlreadySolved
+        ? <Link to="/problems" className="pulse-button btn btn-lg btn-success pull-right">
+            <FontAwesome name="reply"/> Back to Problems
+        </Link>
+        : <RunButton
             problemId={problem.id}
             sourceCode={sourceCode}
-            onRun={onRun}
-        />
-        : <SubmitButton
-            problem={problem}
-            result={result}
             userId={userId}
-            onSubmit={onSubmit}
-            activeLanguage={activeLanguage}
+            language={activeLanguage}
+            onRun={onRun}
         />;
 
     return <div>

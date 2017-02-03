@@ -5,7 +5,7 @@ import {hashHistory} from 'react-router';
 import _ from 'lodash';
 
 import store from '../../common/store';
-import {sendSubmission, fetchSubmissions, startSubmission} from "../../submissions/actions";
+import {fetchSubmissions} from "../../submissions/actions";
 
 import Output from '../components/Output';
 import ProblemToolbar from '../components/ProblemToolbar';
@@ -51,11 +51,11 @@ class Problem extends React.Component {
         }
     }
 
-    isSubmitDisabled() {
-        return !(this.props.problem &&
+    isAlreadySolved() {
+        return this.props.problem &&
                 this.props.editor.judgeResult.statusCode === 'ACCEPTED' &&
                 this.props.editor.sourceCode &&
-                this.props.auth.user)
+                this.props.auth.user
     }
 
     showListNodeSourceCode() {
@@ -106,7 +106,6 @@ class Problem extends React.Component {
             return null;
         }
 
-        const isSubmitDisabled = this.isSubmitDisabled();
         const userId = this.props.auth.user ? this.props.auth.user.id : null;
 
         let skeletonCode = this.props.problem.skeletonCode[this.props.programmingLanguage];
@@ -149,11 +148,9 @@ class Problem extends React.Component {
                 <SubmissionPanel
                     problem={this.props.problem}
                     userId={userId}
-                    result={this.props.editor.judgeResult}
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onRun={this.props.onRun}
-                    onSubmit={this.props.onSubmit}
-                    isSubmitDisabled={isSubmitDisabled}
+                    isAlreadySolved={this.isAlreadySolved()}
                     activeLanguage={this.props.programmingLanguage}
                 />
             </Row>
@@ -198,13 +195,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRun: (sourceCode, problemId) => {
+        onRun: (sourceCode, problemId, userId, language) => {
             dispatch(startJudge());
-            dispatch(judgeCode(sourceCode, problemId));
-        },
-        onSubmit: (result, userId, problem, activeLanguage) => {
-            dispatch(startSubmission());
-            dispatch(sendSubmission(result, userId, problem, activeLanguage));
+            dispatch(judgeCode(sourceCode, problemId, userId, language));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))
