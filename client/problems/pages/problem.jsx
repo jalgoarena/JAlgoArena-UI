@@ -144,6 +144,7 @@ class Problem extends React.Component {
                 <AceCodeEditor
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
+                    activeLanguage={this.props.programmingLanguage}
                 />
                 <SubmissionPanel
                     problem={this.props.problem}

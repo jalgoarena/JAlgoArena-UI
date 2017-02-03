@@ -3,6 +3,7 @@ import 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/java';
+import 'brace/mode/kotlin';
 import 'brace/theme/tomorrow_night_eighties';
 
 export default class AceCodeEditor extends React.Component {
@@ -34,7 +35,7 @@ export default class AceCodeEditor extends React.Component {
         return <div style={editorStyle}>
             <AceEditor
                 className={this.state.fullScreen ? "fullScreen" : ""}
-                mode="java"
+                mode={this.props.activeLanguage}
                 theme="tomorrow_night_eighties"
                 name="editor"
                 value={this.props.sourceCode}
