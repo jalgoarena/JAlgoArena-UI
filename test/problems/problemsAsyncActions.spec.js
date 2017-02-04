@@ -1,3 +1,5 @@
+// @flow
+
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
@@ -7,6 +9,11 @@ import config from "../../client/config"
 
 import nock from "nock"
 import JudgeResponse from "../../client/domain/JudgeResponse";
+import Method from "../../client/domain/Method";
+import Return from "../../client/domain/Return";
+import TestCase from "../../client/domain/TestCase";
+import Parameter from "../../client/domain/Parameter";
+import RawProblem from "../../client/domain/RawProblem";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -51,7 +58,7 @@ describe("async actions", () => {
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});
 
-        return store.dispatch(actions.judgeCode(SOURCE_CODE, PROBLEM_ID))
+        return store.dispatch(actions.judgeCode(SOURCE_CODE, PROBLEM_ID, "0-0", "java"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -59,7 +66,7 @@ describe("async actions", () => {
 
     it("creates FETCH_PROBLEMS_SUCCESS when fetching of problems has been done", () => {
         let problems = [
-            fibProblem
+            FIB_PROBLEM
         ];
 
         nock(judgeServerUrl)
@@ -81,7 +88,7 @@ describe("async actions", () => {
 
     it("creates FETCH_RAW_PROBLEMS when fetching of raw problems has been done", () => {
         let problems = [
-            fibProblem
+            FIB_PROBLEM
         ];
 
         nock(problemsServerUrl)
@@ -102,75 +109,35 @@ describe("async actions", () => {
     });
 });
 
-let fibProblem = {
-    "id": "fib",
-    "title": "Fibonacci",
-    "description": "Write the `fib` function to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
-    "timeLimit": 1,
-    "memoryLimit": 32,
-    "function": {
-        "name": "fib",
-        "return": {
-            "type": "java.lang.Long",
-            "comment": " N'th term of Fibonacci sequence"
-        },
-        "parameters": [
-            {
-                "name": "n",
-                "type": "java.lang.Integer",
-                "comment": "id of fibonacci term to be returned"
-            }
+let FIB_PROBLEM = new RawProblem(
+    "fib",
+    "Fibonacci",
+    "Write the `fib` function to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
+    1,
+    32,
+    new Method(
+        "fib",
+        new Return(
+            "java.lang.Long",
+            " N'th term of Fibonacci sequence"
+        ),
+        [
+            new Parameter(
+                "n",
+                "java.lang.Integer",
+                "id of fibonacci term to be returned"
+            )
         ]
-    },
-    "testCases": [
-        {
-            "input": [
-                "0"
-            ],
-            "output": 0
-        },
-        {
-            "input": [
-                "1"
-            ],
-            "output": 1
-        },
-        {
-            "input": [
-                "2"
-            ],
-            "output": 1
-        },
-        {
-            "input": [
-                "3"
-            ],
-            "output": 2
-        },
-        {
-            "input": [
-                "4"
-            ],
-            "output": 3
-        },
-        {
-            "input": [
-                "5"
-            ],
-            "output": 5
-        },
-        {
-            "input": [
-                "6"
-            ],
-            "output": 8
-        },
-        {
-            "input": [
-                "20"
-            ],
-            "output": 6765
-        }
+    ),
+    [
+        new TestCase(["0"], 0),
+        new TestCase(["1"], 1),
+        new TestCase(["2"], 1),
+        new TestCase(["3"], 2),
+        new TestCase(["4"], 3),
+        new TestCase(["5"], 5),
+        new TestCase(["6"], 8),
+        new TestCase(["20"], 6765)
     ],
-    "level": 1
-};
+    1
+);

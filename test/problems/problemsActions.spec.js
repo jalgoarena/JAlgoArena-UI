@@ -1,3 +1,5 @@
+// @flow
+
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/problems/actions";
 

@@ -2,13 +2,13 @@
 
 export default class JudgeResponse {
     statusCode: string;
-    errorMessage: string;
+    errorMessage: ?string;
     elapsedTime: number;
     consumedMemory: number;
     testcaseResults: Array<boolean>;
 
     constructor(statusCode: string,
-                errorMessage: string,
+                errorMessage: ?string,
                 elapsedTime: number,
                 consumedMemory: number,
                 testcasesResults: Array<boolean>) {

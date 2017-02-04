@@ -4,7 +4,7 @@ type Action = {type:string}
     | {type:string, sourceCode:string}
     | {type:string, problemId:string}
     | {type:string, problems:Array<Problem>}
-    | {type:string, rawProblems:Array<any>}
+    | {type:string, rawProblems:Array<RawProblem>}
     | {type:string, level:number}
     | {type:string, hideDoneProblems:boolean}
     | {type:string, programmingLanguage:string}
@@ -21,6 +21,7 @@ import {fetchRanking} from "../../ranking/actions/index";
 import JudgeRequest from "../../domain/JudgeRequest";
 import JudgeResponse from "../../domain/JudgeResponse";
 import Problem from "../../domain/Problem";
+import RawProblem from "../../domain/RawProblem";
 
 const JUDGE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/judge/api`;
 const PROBLEMS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/problems/api`;
@@ -33,7 +34,11 @@ export function startJudge(): Action {
 
 export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string) {
 
-    let token = localStorage.getItem('jwtToken');
+    let token: ?string = localStorage.getItem('jwtToken');
+
+    if (token == null) {
+        return setErrorMessage("You have to be logged in");
+    }
 
     const options = {
         headers: {
@@ -163,14 +168,14 @@ export function fetchRawProblems() {
                 if ((json: Error).error) {
                     dispatch(setErrorMessage("Cannot connect to Problems Service"));
                 } else {
-                    dispatch(setRawProblems((json: Array<any>)));
+                    dispatch(setRawProblems((json: Array<RawProblem>)));
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Problems Service")));
     };
 }
 
-function setRawProblems(rawProblems: Array<any>): Action {
+function setRawProblems(rawProblems: Array<RawProblem>): Action {
     return {
         type: types.FETCH_RAW_PROBLEMS,
         rawProblems

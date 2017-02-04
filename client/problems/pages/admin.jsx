@@ -84,9 +84,6 @@ class ProblemsAdmin extends React.Component {
         let problems = this.props.problems || [];
         let problem = problems.find(problem => problem.id === problemId);
 
-        problem = Object.assign({}, problem, {func: problem.function});
-        delete problem.function;
-
         this.setState({newProblem: problem});
     }
 
@@ -178,11 +175,11 @@ class ProblemsAdmin extends React.Component {
                         <FormGroup controlId="returnType">
                             <ControlLabel>Return Type</ControlLabel>
                             <FormControl componentClass="select"
-                                         value={this.state.newProblem.func.return.type}
+                                         value={this.state.newProblem.func.returnStatement.type}
                                          onChange={(e) => this.setState({
                                              newProblem: Object.assign({}, this.state.newProblem, {
                                                  func: Object.assign({}, this.state.newProblem.func, {
-                                                     return: Object.assign({}, this.state.newProblem.func.return, {
+                                                     return: Object.assign({}, this.state.newProblem.func.returnStatement, {
                                                          type: e.target.value,
                                                      })
                                                  })
@@ -202,11 +199,11 @@ class ProblemsAdmin extends React.Component {
                             </FormControl>
                         </FormGroup>
                         <FieldGroup id="returnComment" label="Return Comment" placeholder="Return Comment" type="text"
-                                    value={this.state.newProblem.func.return.comment}
+                                    value={this.state.newProblem.func.returnStatement.comment}
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             func: Object.assign({}, this.state.newProblem.func, {
-                                                return: Object.assign({}, this.state.newProblem.func.return, {
+                                                return: Object.assign({}, this.state.newProblem.func.returnStatement, {
                                                     comment: e.target.value
                                                 })
                                             })
@@ -214,11 +211,11 @@ class ProblemsAdmin extends React.Component {
                                     })}
                         />
                         <FieldGroup id="returnGeneric" label="Return Generic" placeholder="Return Generic" type="text"
-                                    value={this.state.newProblem.func.return.generic}
+                                    value={this.state.newProblem.func.returnStatement.generic}
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             func: Object.assign({}, this.state.newProblem.func, {
-                                                return: Object.assign({}, this.state.newProblem.func.return, {
+                                                return: Object.assign({}, this.state.newProblem.func.returnStatement, {
                                                     generic: e.target.value
                                                 })
                                             })
