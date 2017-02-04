@@ -9,8 +9,6 @@ type Action = {type:string}
     | {type:string, hideDoneProblems:boolean}
     | {type:string, programmingLanguage:string}
 
-type Dispatch = (action: Action) => void;
-
 import fetch from 'isomorphic-fetch';
 
 import config from '../../config';

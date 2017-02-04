@@ -1,86 +1,59 @@
+// @flow
+
 import * as reducer from '../../client/ranking/reducers';
 import * as types from '../../client/constants/ActionTypes';
+import {RankingEntry} from "../../client/domain/RankingEntry";
+import {ProblemRankingEntry} from "../../client/domain/ProblemRankingEntry";
+
+let defaultState = {
+    general: [],
+    problemRanking: []
+};
 
 describe('ranking reducer', () => {
     it('should handle FETCH_RANKING', () => {
         expect(
-            reducer.ranking({general: []},
+            reducer.ranking(defaultState,
                 {
                     type: types.FETCH_RANKING,
-                    ranking: [{
-                        username: "julia",
-                        score: 20
-                    }]
+                    ranking: [RANK_ENTRY_JULIA]
                 }
             )
-        ).toEqual({general: [{
-            username: "julia",
-            score: 20
-        }]});
+        ).toEqual({general: [RANK_ENTRY_JULIA], problemRanking: []});
 
         expect(
-            reducer.ranking({general: [{
-                    username: "julia",
-                    score: 20
-                }]},
+            reducer.ranking({problemRanking: [], general: [RANK_ENTRY_JULIA]},
                 {
                     type: types.FETCH_RANKING,
-                    ranking: [{
-                        username: "julia",
-                        score: 20
-                    }, {
-                        username: "mikolaj",
-                        score: 10
-                    }]
+                    ranking: [RANK_ENTRY_JULIA, RANK_ENTRY_MIKOLAJ]
                 }
             )
-        ).toEqual({general: [{
-            username: "julia",
-            score: 20
-        }, {
-            username: "mikolaj",
-            score: 10
-        }]});
+        ).toEqual({general: [RANK_ENTRY_JULIA, RANK_ENTRY_MIKOLAJ], problemRanking: []});
     });
 
     it('should handle FETCH_PROBLEM_RANKING', () => {
         expect(
-            reducer.ranking({problemRanking: []},
+            reducer.ranking(defaultState,
                 {
                     type: types.FETCH_PROBLEM_RANKING,
-                    problemRanking: [{
-                        username: "julia",
-                        score: 20
-                    }]
+                    problemRanking: [PROBLEM_RANK_ENTRY_JULIA]
                 }
             )
-        ).toEqual({problemRanking: [{
-            username: "julia",
-            score: 20
-        }]});
+        ).toEqual({general: [], problemRanking: [PROBLEM_RANK_ENTRY_JULIA]});
 
         expect(
-            reducer.ranking({problemRanking: [{
-                    username: "julia",
-                    score: 20
-                }]},
+            reducer.ranking({problemRanking: [PROBLEM_RANK_ENTRY_JULIA], general: []},
                 {
                     type: types.FETCH_PROBLEM_RANKING,
-                    problemRanking: [{
-                        username: "julia",
-                        score: 20
-                    }, {
-                        username: "mikolaj",
-                        score: 10
-                    }]
+                    problemRanking: [PROBLEM_RANK_ENTRY_JULIA, PROBLEM_RANK_ENTRY_MIKOLAJ]
                 }
             )
-        ).toEqual({problemRanking: [{
-            username: "julia",
-            score: 20
-        }, {
-            username: "mikolaj",
-            score: 10
-        }]});
+        ).toEqual({problemRanking: [PROBLEM_RANK_ENTRY_JULIA, PROBLEM_RANK_ENTRY_MIKOLAJ], general: []});
     });
 });
+
+let RANK_ENTRY_JULIA = new RankingEntry("julia", 20, [], "Kraków", "Team A");
+let RANK_ENTRY_MIKOLAJ = new RankingEntry("mikolaj", 10, [], "Kraków", "Team A");
+
+let PROBLEM_RANK_ENTRY_JULIA = new ProblemRankingEntry("julia", 20.0, 0.1, "kotlin");
+let PROBLEM_RANK_ENTRY_MIKOLAJ = new ProblemRankingEntry("mikolaj", 10.0, 0.1, "java");

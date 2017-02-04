@@ -1,9 +1,24 @@
-import * as types from "../../constants/ActionTypes";
+// @flow
 
-export function ranking(state = {
+import * as types from "../../constants/ActionTypes";
+import {RankingEntry} from "../../domain/RankingEntry";
+import {ProblemRankingEntry} from "../../domain/ProblemRankingEntry";
+
+type RankingState = {
+    general: Array<RankingEntry>,
+    problemRanking: Array<ProblemRankingEntry>
+}
+
+type RankingAction = {
+    type: string,
+    ranking?: Array<RankingEntry>,
+    problemRanking?: Array<ProblemRankingEntry>
+}
+
+export function ranking(state: RankingState = {
     general: [],
     problemRanking: []
-}, action) {
+}, action: RankingAction): RankingState {
     switch (action.type) {
         case types.FETCH_RANKING:
             return Object.assign({}, state, {
