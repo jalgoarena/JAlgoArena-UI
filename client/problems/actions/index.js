@@ -1,20 +1,37 @@
+// @flow
+type Action = {type:string}
+    | {type:string, result:JudgeResponse}
+    | {type:string, sourceCode:string}
+    | {type:string, problemId:string}
+    | {type:string, problems:Array<Problem>}
+    | {type:string, rawProblems:Array<any>}
+    | {type:string, level:number}
+    | {type:string, hideDoneProblems:boolean}
+    | {type:string, programmingLanguage:string}
+
+type Dispatch = (action: Action) => void;
+
 import fetch from 'isomorphic-fetch';
+
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import {fetchSubmissions} from "../../submissions/actions/index";
 import {fetchRanking} from "../../ranking/actions/index";
+import JudgeRequest from "../../domain/JudgeRequest";
+import JudgeResponse from "../../domain/JudgeResponse";
+import Problem from "../../domain/Problem";
 
-const JUDGE_SERVER_URL = config.jalgoarenaApiUrl + "/judge/api";
-const PROBLEMS_SERVER_URL = config.jalgoarenaApiUrl + "/problems/api";
+const JUDGE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/judge/api`;
+const PROBLEMS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/problems/api`;
 
-export function startJudge() {
+export function startJudge(): Action {
     return {
         type: types.JUDGE_REQUEST
     };
 }
 
-export function judgeCode(sourceCode, problemId, userId, language) {
+export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string) {
 
     let token = localStorage.getItem('jwtToken');
 
@@ -25,20 +42,20 @@ export function judgeCode(sourceCode, problemId, userId, language) {
             'X-Authorization': token
         },
         method: 'post',
-        body: JSON.stringify({
+        body: JSON.stringify(new JudgeRequest(
             sourceCode,
             userId,
             language
-        })
+        ))
     };
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
             .then(response => response.json())
             .then(json => {
-                if (json.error) {
+                if ((json: Error).error) {
                     dispatch(setErrorMessage("Cannot connect to Judge Service"));
                 } else {
-                    dispatch(judgeResultReceived(json, sourceCode, problemId));
+                    dispatch(judgeResultReceived((json: JudgeResponse)));
                     dispatch(fetchSubmissions(userId));
                     dispatch(fetchRanking());
                 }
@@ -48,48 +65,48 @@ export function judgeCode(sourceCode, problemId, userId, language) {
 
 }
 
-function judgeResultReceived(result, sourceCode, problemId) {
+function judgeResultReceived(result: JudgeResponse): Action {
     return {
         type: types.JUDGE_RESULT_RECEIVED,
-        result: Object.assign({sourceCode: sourceCode, problemId: problemId}, result)
+        result
     }
 }
 
-export function changeSourceCode(newValue) {
+export function changeSourceCode(newValue: string): Action {
     return {
         type: types.CHANGE_SOURCE_CODE,
         sourceCode: newValue
     }
 }
 
-export function problemRefresh() {
+export function problemRefresh(): Action {
     return {
         type: types.PROBLEM_REFRESH
     }
 }
 
-export function setCurrentProblem(problemId) {
+export function setCurrentProblem(problemId: string): Action {
     return {
         type: types.SET_CURRENT_PROBLEM,
         problemId
     }
 }
 
-export function setProblemsDifficultyVisibilityFilter(level) {
+export function setProblemsDifficultyVisibilityFilter(level: number): Action {
     return {
         type: types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER,
         level
     }
 }
 
-export function changeCurrentProgrammingLanguage(language) {
+export function changeCurrentProgrammingLanguage(language: string): Action {
     return {
         type: types.CHANGE_PROGRAMMING_LANGUAGE,
         programmingLanguage: language
     }
 }
 
-export function hideDoneProblems(value) {
+export function hideDoneProblems(value: boolean): Action {
     return {
         type: types.HIDE_DONE_PROBLEMS,
         hideDoneProblems: value
@@ -104,28 +121,28 @@ export function fetchProblems() {
         method: 'get'
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => {
-                if (json.error) {
+                if ((json: Error).error) {
                     dispatch(setErrorMessage("Cannot connect to Judge Service"));
                 } else {
-                    dispatch(setProblems(json))
+                    dispatch(setProblems((json: Array<Problem>)))
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 }
 
-function setProblems(problems) {
+function setProblems(problems: Array<Problem>): Action {
     return {
         type: types.FETCH_PROBLEMS_SUCCESS,
         problems
     }
 }
 
-export function startFetchingProblems() {
+export function startFetchingProblems(): Action {
     return {
         type: types.FETCH_PROBLEMS_REQUEST
     };
@@ -139,21 +156,21 @@ export function fetchRawProblems() {
         method: 'get'
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => {
-                if (json.error) {
+                if ((json: Error).error) {
                     dispatch(setErrorMessage("Cannot connect to Problems Service"));
                 } else {
-                    dispatch(setRawProblems(json));
+                    dispatch(setRawProblems((json: Array<any>)));
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Problems Service")));
     };
 }
 
-function setRawProblems(rawProblems) {
+function setRawProblems(rawProblems: Array<any>): Action {
     return {
         type: types.FETCH_RAW_PROBLEMS,
         rawProblems

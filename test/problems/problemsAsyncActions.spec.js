@@ -6,6 +6,7 @@ import * as actions from "../../client/problems/actions"
 import config from "../../client/config"
 
 import nock from "nock"
+import JudgeResponse from "../../client/domain/JudgeResponse";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -14,7 +15,7 @@ let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
 let problemsServerUrl = config.jalgoarenaApiUrl + "/problems/api";
 
 window.localStorage = {
-    getItem: function(key) {
+    getItem: function (key) {
         if (key === "jwtToken")
             return "dummy_value";
         else
@@ -28,30 +29,24 @@ describe("async actions", () => {
     });
 
     it("creates JUDGE_RESULT_RECEIVED when judgement has been done", () => {
-        let result = {
-            "statusCode": "ACCEPTED",
-            "elapsedTime": 0.24,
-            "consumedMemory": 0,
-            "testcaseResults": [true, true, true, true, true]
-        };
+        let judgeResponse = new JudgeResponse(
+            "ACCEPTED",
+            null,
+            0.24,
+            0,
+            [true, true, true, true, true]
+        );
 
         nock(judgeServerUrl)
             .post("/problems/fib/submit")
-            .reply(200, result);
+            .reply(200, judgeResponse);
 
         const SOURCE_CODE = "dummy_source_code";
         const PROBLEM_ID = "fib";
 
         const expectedActions = [{
             type: types.JUDGE_RESULT_RECEIVED,
-            result: {
-                sourceCode: SOURCE_CODE,
-                problemId: PROBLEM_ID,
-                statusCode: "ACCEPTED",
-                elapsedTime: 0.24,
-                consumedMemory: 0,
-                testcaseResults: [true, true, true, true, true]
-            }
+            result: judgeResponse
         }];
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});

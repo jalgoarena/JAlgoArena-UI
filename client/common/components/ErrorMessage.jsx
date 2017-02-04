@@ -1,3 +1,4 @@
+// @flow
 import React from "react";
 import {Alert, Col} from 'react-bootstrap';
 import {connect} from 'react-redux';
@@ -8,7 +9,7 @@ const style = {
     margin: 10
 };
 
-const ErrorMessage = ({error, onDismiss}) => (
+const ErrorMessage = ({error, onDismiss}: {error: string, onDismiss: () => void}) => (
     error === null
         ? null
         : <Col mdOffset={1} md={10}>

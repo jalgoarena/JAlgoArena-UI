@@ -1,10 +1,12 @@
+// @flow
 import React from "react";
 import {NavDropdown} from "react-bootstrap";
 
 import FontAwesome from './FontAwesome';
 import MenuItem from './MenuItem';
+import User from '../../domain/User';
 
-const AdminMenuItem = ({user}) => (
+const AdminMenuItem = ({user}: {user: User}) => (
     user && user.role === 'ADMIN'
         ? <NavDropdown title={<span><FontAwesome name="cogs" lg={true}/> Admin</span>} id="basic-nav-dropdown">
             <MenuItem path="/submissionsAdmin" icon="code" title="Submissions"/>

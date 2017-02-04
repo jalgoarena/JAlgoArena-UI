@@ -6,6 +6,7 @@
   "scripts": {
     "installRequiredGlobalDependencies": "npm install webpack -g & npm install pm2 -g",
     "test": "jest && codecov",
+    "pretest": "./node_modules/.bin/flow check",
     "test:watch": "jest --watch",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node server.js",
@@ -81,6 +82,8 @@
   },
   "devDependencies": {
     "babel-jest": "^18.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "flow-bin": "^0.38.0",
     "jest": "^18.1.0",
     "nock": "^9.0.2",
     "react-transform-catch-errors": "^1.0.2",
