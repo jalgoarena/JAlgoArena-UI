@@ -18,12 +18,12 @@ class ProblemsAdmin extends React.Component {
             newProblem: {
                 "id": "fib",
                 "title": "Fibonacci",
-                "description": "Write the `fib` function to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
+                "description": "Write the `fib` method to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
                 "timeLimit": 1,
                 "memoryLimit": 32,
                 "func": {
                     "name": "fib",
-                    "return": {"type": "java.lang.Long", "comment": " N'th term of Fibonacci sequence"},
+                    "returnStatement": {"type": "java.lang.Long", "comment": " N'th term of Fibonacci sequence"},
                     "parameters": [{
                         "name": "n",
                         "type": "java.lang.Integer",
@@ -73,7 +73,7 @@ class ProblemsAdmin extends React.Component {
             timeLimit: this.state.newProblem.timeLimit,
             memoryLimit: this.state.newProblem.memoryLimit,
             level: this.state.newProblem.level,
-            function: this.state.newProblem.func,
+            func: this.state.newProblem.func,
             testCases: this.state.newProblem.testCases
         };
 
