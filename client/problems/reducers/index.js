@@ -1,10 +1,28 @@
-import * as types from "../../constants/ActionTypes";
+// @flow
 
-export function editor(state = {
+import * as types from "../../constants/ActionTypes";
+import JudgeResponse from "../../domain/JudgeResponse";
+import Problem from "../../domain/Problem";
+import RawProblem from "../../domain/RawProblem";
+
+type EditorState = {
+    sourceCode: ?string;
+    judgeResult: JudgeResponse | {statusCode: string};
+    programmingLanguage: string;
+}
+
+type EditorAction = {
+    type: string,
+    sourceCode?: string,
+    programmingLanguage?: string,
+    result?: JudgeResponse
+}
+
+export function editor(state: EditorState = {
     sourceCode: null,
-    judgeResult: { statusCode: 'WAITING' },
+    judgeResult: {statusCode: 'WAITING'},
     programmingLanguage: 'java'
-}, action) {
+}, action: EditorAction): EditorState {
     switch (action.type) {
         case types.CHANGE_SOURCE_CODE:
             return Object.assign({}, state, {
@@ -14,12 +32,12 @@ export function editor(state = {
         case types.PROBLEM_REFRESH:
             return Object.assign({}, state, {
                 sourceCode: null,
-                judgeResult: { statusCode: 'WAITING' }
+                judgeResult: {statusCode: 'WAITING'}
             });
         case types.CHANGE_PROGRAMMING_LANGUAGE:
             return Object.assign({}, state, {
                 sourceCode: null,
-                judgeResult: { statusCode: 'WAITING' },
+                judgeResult: {statusCode: 'WAITING'},
                 programmingLanguage: action.programmingLanguage
             });
         case types.JUDGE_RESULT_RECEIVED:
@@ -31,13 +49,30 @@ export function editor(state = {
     }
 }
 
-export function problems(state = {
+type ProblemsState = {
+    items: Array<Problem>,
+    currentProblemId: ?string,
+    difficultyFilter: number,
+    doneProblemsFilter: boolean,
+    rawItems: Array<RawProblem>
+}
+
+type ProblemsAction = {
+    type: string,
+    problems?: Array<Problem>,
+    problemId?: string,
+    level?: number,
+    hideDoneProblems?: boolean,
+    rawProblems?: Array<RawProblem>
+}
+
+export function problems(state: ProblemsState = {
     items: [],
     currentProblemId: null,
     difficultyFilter: 0,
     doneProblemsFilter: false,
     rawItems: []
-}, action) {
+}, action: ProblemsAction): ProblemsState {
     switch (action.type) {
         case types.FETCH_PROBLEMS_SUCCESS:
             return Object.assign({}, state, {

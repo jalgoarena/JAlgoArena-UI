@@ -6,7 +6,7 @@ export default class Problem {
     description: string;
     timeLimit: number;
     memoryLimit: number;
-    skeletonCode: Map<string, string>;
+    skeletonCode: Object;
     level: number;
 
     constructor(id: string,
@@ -14,7 +14,7 @@ export default class Problem {
                 description: string,
                 timeLimit: number,
                 memoryLimit: number,
-                skeletonCode: Map<string, string>,
+                skeletonCode: Object,
                 level: number) {
         this.id = id;
         this.title = title;

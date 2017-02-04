@@ -1,3 +1,5 @@
+// @flow
+
 import * as reducer from '../../client/common/reducers';
 import * as types from '../../client/constants/ActionTypes'
 

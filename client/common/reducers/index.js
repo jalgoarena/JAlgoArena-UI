@@ -1,3 +1,6 @@
+// @flow
+type Action = {type:string, error?: string}
+
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import * as types from "../../constants/ActionTypes";
@@ -18,7 +21,7 @@ const rootReducer = combineReducers({
     errorMessage
 });
 
-export function showModal(state = false, action) {
+export function showModal(state: boolean = false, action: Action) {
 
     if (action.error) {
         return false;
@@ -49,7 +52,7 @@ export function showModal(state = false, action) {
     }
 }
 
-export function errorMessage(state = null, action) {
+export function errorMessage(state: ?string = null, action: Action) {
     const { type, error } = action;
 
     if (type === types.RESET_ERROR_MESSAGE) {

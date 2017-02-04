@@ -1,104 +1,180 @@
+// @flow
+
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
+import Problem from "../../client/domain/Problem";
+import RawProblem from "../../client/domain/RawProblem";
+import Method from "../../client/domain/Method";
+import Return from "../../client/domain/Return";
+import Parameter from "../../client/domain/Parameter";
+import TestCase from "../../client/domain/TestCase";
+
+let defaultState = {
+    items: [],
+    currentProblemId: null,
+    difficultyFilter: 0,
+    doneProblemsFilter: false,
+    rawItems: []
+};
 
 describe('problems reducer', () => {
     it('should handle FETCH_PROBLEMS_SUCCESS', () => {
         expect(
-            reducer.problems({items: []},
+            reducer.problems(defaultState,
                 {
                     type: types.FETCH_PROBLEMS_SUCCESS,
-                    problems: [{problemId: "fib"}]
+                    problems: [FIB_PROBLEM]
                 }
             )
-        ).toEqual({items: [{problemId: "fib"}]});
+        ).toEqual(Object.assign({}, defaultState, {items: [FIB_PROBLEM]}));
 
         expect(
-            reducer.problems({items: [{problemId: "fib"}]},
+            reducer.problems(Object.assign({}, defaultState, {
+                    items: [FIB_PROBLEM]
+                }),
                 {
                     type: types.FETCH_PROBLEMS_SUCCESS,
-                    problems: [{problemId: "fib"}, {problemId: "stoi"}]
+                    problems: [FIB_PROBLEM, STOI_PROBLEM]
                 }
             )
-        ).toEqual({items: [{problemId: "fib"}, {problemId: "stoi"}]});
+        ).toEqual(Object.assign({}, defaultState, {items: [FIB_PROBLEM, STOI_PROBLEM]}));
     });
 
     it('should handle SET_CURRENT_PROBLEM', () => {
         expect(
-            reducer.problems({currentProblemId: null},
+            reducer.problems(defaultState,
                 {
                     type: types.SET_CURRENT_PROBLEM,
                     problemId: "fib"
                 }
             )
-        ).toEqual({currentProblemId: "fib"});
+        ).toEqual(Object.assign({}, defaultState, {currentProblemId: "fib"}));
 
         expect(
-            reducer.problems({currentProblemId: "fib"},
+            reducer.problems(Object.assign({}, defaultState, {
+                    currentProblemId: "fib"
+                }),
                 {
                     type: types.SET_CURRENT_PROBLEM,
                     problemId: "stoi"
                 }
             )
-        ).toEqual({currentProblemId: "stoi"});
+        ).toEqual(Object.assign({}, defaultState, {currentProblemId: "stoi"}));
     });
 
     it('should handle SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER', () => {
         expect(
-            reducer.problems(null,
+            reducer.problems(defaultState,
                 {
                     type: types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER,
                     level: 1
                 }
             )
-        ).toEqual({difficultyFilter: 1});
+        ).toEqual(Object.assign({}, defaultState, {difficultyFilter: 1}));
 
         expect(
-            reducer.problems({difficultyFilter: 1},
+            reducer.problems(Object.assign({}, defaultState, {
+                    difficultyFilter: 1
+                }),
                 {
                     type: types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER,
                     level: 2
                 }
             )
-        ).toEqual({difficultyFilter: 2});
+        ).toEqual(Object.assign({}, defaultState, {difficultyFilter: 2}));
     });
 
     it('should handle CHANGE_PROGRAMMING_LANGUAGE', () => {
         expect(
-            reducer.problems(null,
+            reducer.problems(defaultState,
                 {
                     type: types.HIDE_DONE_PROBLEMS,
                     hideDoneProblems: true
                 }
             )
-        ).toEqual({doneProblemsFilter: true});
+        ).toEqual(Object.assign({}, defaultState, {doneProblemsFilter: true}));
 
         expect(
-            reducer.problems(true,
+            reducer.problems(Object.assign({}, defaultState, {
+                    doneProblemsFilter: true
+                }),
                 {
                     type: types.HIDE_DONE_PROBLEMS,
                     hideDoneProblems: false
                 }
             )
-        ).toEqual({doneProblemsFilter: false});
+        ).toEqual(defaultState);
     });
 
     it('should handle FETCH_RAW_PROBLEMS', () => {
         expect(
-            reducer.problems({rawItems: []},
+            reducer.problems(defaultState,
                 {
                     type: types.FETCH_RAW_PROBLEMS,
-                    rawProblems: [{problemId: "fib"}]
+                    rawProblems: [FIB_RAW_PROBLEM]
                 }
             )
-        ).toEqual({rawItems: [{problemId: "fib"}]});
+        ).toEqual(Object.assign({}, defaultState, {rawItems: [FIB_RAW_PROBLEM]}));
 
         expect(
-            reducer.problems({rawItems: [{problemId: "fib"}]},
+            reducer.problems(Object.assign({}, defaultState, {
+                    rawItems: [FIB_RAW_PROBLEM]
+                }),
                 {
                     type: types.FETCH_RAW_PROBLEMS,
-                    rawProblems: [{problemId: "fib"}, {problemId: "stoi"}]
+                    rawProblems: [FIB_RAW_PROBLEM, STOI_RAW_PROBLEM]
                 }
             )
-        ).toEqual({rawItems: [{problemId: "fib"}, {problemId: "stoi"}]});
+        ).toEqual(Object.assign({}, defaultState, {rawItems: [FIB_RAW_PROBLEM, STOI_RAW_PROBLEM]}));
     });
 });
+
+let FIB_PROBLEM = new Problem(
+    "fib",
+    "Fibonacci",
+    "description",
+    1,
+    32,
+    {"java": "dummy code"},
+    1
+);
+
+let STOI_PROBLEM = new Problem(
+    "stoi",
+    "STOI",
+    "description",
+    1,
+    32,
+    {"java": "dummy code"},
+    1
+);
+
+let FIB_RAW_PROBLEM = new RawProblem(
+    "fib",
+    "Fibonacci",
+    "description",
+    1,
+    32,
+    new Method(
+        "fib",
+        new Return("java.lang.Integer", "Comment"),
+        [new Parameter("n", "java.lang.Integer", "Comment")]
+    ),
+    [new TestCase(["0"], 0)],
+    1
+);
+
+let STOI_RAW_PROBLEM = new RawProblem(
+    "stoi",
+    "STOI",
+    "description",
+    1,
+    32,
+    new Method(
+        "stoi",
+        new Return("java.lang.Integer", "Comment"),
+        [new Parameter("n", "java.lang.Integer", "Comment")]
+    ),
+    [new TestCase(["0"], 0)],
+    1
+);
