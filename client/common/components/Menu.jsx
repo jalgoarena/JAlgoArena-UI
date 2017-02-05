@@ -1,3 +1,5 @@
+// @flow
+
 import React from "react";
 import {Navbar, Nav} from "react-bootstrap";
 import {connect} from 'react-redux';
@@ -5,6 +7,7 @@ import {connect} from 'react-redux';
 import AdminMenuItem from "./AdminMenuItem";
 import ProfileOrLoginMenuItem from "./ProfileOrLoginMenuItem";
 import MenuItem from "./MenuItem";
+import User from "../../users/domain/User";
 
 const logoStyle = {
     display: "inline-block",
@@ -12,7 +15,7 @@ const logoStyle = {
     marginTop: -5
 };
 
-const Menu = ({user}) => (
+const Menu = ({user}: {user: User}) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>

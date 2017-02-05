@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import Spinner from 'react-spin';
 import {Modal} from 'react-bootstrap';
@@ -32,7 +34,7 @@ const modalBodyStyle = {
     height: 200
 };
 
-const WorkInProgress = ({showModal, onHide}) => (
+const WorkInProgress = ({showModal, onHide}: {showModal: boolean, onHide: () => void}) => (
     <Modal show={showModal || false} onHide={onHide}>
         <Modal.Header style={modalTextCenterStyle} closeButton>
             <h3>{"Loading ..."}</h3>
@@ -48,13 +50,13 @@ const WorkInProgress = ({showModal, onHide}) => (
     </Modal>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: {showModal: boolean}) => {
     return {
         showModal: state.showModal
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onHide: () => {
             dispatch(closeWorkInProgressWindow());
