@@ -12,7 +12,7 @@ import {setErrorMessage} from "../../common/actions/index";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
 
-const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
+const SUBMISSIONS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/submissions/api`;
 
 export function fetchSolvedProblemsRatio() {
     const options = {

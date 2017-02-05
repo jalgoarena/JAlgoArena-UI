@@ -1,3 +1,5 @@
+// @flow
+
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
@@ -7,6 +9,7 @@ import * as actions from "../../client/users/actions";
 import config from "../../client/config"
 
 import nock from "nock"
+import User from "../../client/users/domain/User";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -156,7 +159,9 @@ describe("async actions", () => {
     });
 
     it("creates USER_UPDATED when updating user has been done", () => {
-        let user = { username: "user"};
+        let user = new User(
+            "username", "password", "email", "region", "team"
+        );
 
         nock(authServerUrl)
             .put("/api/users")

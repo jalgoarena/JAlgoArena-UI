@@ -1,3 +1,12 @@
+// @flow
+type Action = {
+    type: string,
+    error?: Object,
+    user?: User,
+    users?: Array<User>,
+    userUpdated?: User
+}
+
 import fetch from 'isomorphic-fetch';
 import {hashHistory} from "react-router";
 
@@ -5,25 +14,26 @@ import config from '../../config';
 import {fetchSubmissions} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
+import User from "../domain/User";
 
 const AUTH_SERVER_URL = `${config.jalgoarenaApiUrl}/auth`;
 
 
-export function startSignup() {
+export function startSignup(): Action {
     return {
         type: types.SIGNUP_REQUEST
     };
 }
 
-export function attemptSignUp(email, password, username, region, team) {
+export function attemptSignUp(email: string, password: string, username: string, region: string, team: string) {
 
-    const body = {
-        username: username,
-        email: email,
-        password: password,
-        region: region,
-        team: team
-    };
+    const user = new User(
+        username,
+        password,
+        email,
+        region,
+        team
+    );
 
     const options = {
         headers: {
@@ -31,10 +41,10 @@ export function attemptSignUp(email, password, username, region, team) {
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(body)
+        body: JSON.stringify(user)
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${AUTH_SERVER_URL}/signup`, options)
             .then(response => response.json())
             .then(json => {
@@ -48,14 +58,14 @@ export function attemptSignUp(email, password, username, region, team) {
     };
 }
 
-function signUpSuccess() {
+function signUpSuccess(): Action {
     hashHistory.push('/login');
     return {
         type: types.SIGNUP_SUCCESS
     };
 }
 
-function signUpFail(error) {
+function signUpFail(error: {message: string}): Action {
     if (error.message === 'GENERAL') {
         error = Object.assign({}, error, { message: "Cannot connect to Auth Service"});
     }
@@ -66,13 +76,13 @@ function signUpFail(error) {
     };
 }
 
-export function startLogin() {
+export function startLogin(): Action {
     return {
         type: types.LOGIN_REQUEST
     }
 }
 
-export function attemptLogin(username, password) {
+export function attemptLogin(username: string, password: string) {
 
     const body = {
         username: username,
@@ -89,7 +99,7 @@ export function attemptLogin(username, password) {
         body: JSON.stringify(body)
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${AUTH_SERVER_URL}/login`, options)
             .then(response => response.json())
             .then(json => {
@@ -105,14 +115,14 @@ export function attemptLogin(username, password) {
     };
 }
 
-function loginSuccess(user) {
+function loginSuccess(user: User): Action {
     return {
         type: types.LOGIN_SUCCESS,
         user
     };
 }
 
-function loginFail(error) {
+function loginFail(error: {message: string}): Action {
     if (error.message === 'GENERAL') {
         error = Object.assign({}, error, { message: "Cannot connect to Auth Service"});
     }
@@ -124,7 +134,7 @@ function loginFail(error) {
 }
 
 export function checkSessionStatus() {
-    return dispatch => {
+    return (dispatch: Dispatch) => {
 
         let token = localStorage.getItem('jwtToken');
 
@@ -155,7 +165,7 @@ export function checkSessionStatus() {
 }
 
 
-function checkedSessionStatus(user) {
+function checkedSessionStatus(user): Action {
     return {
         type: types.CHECKED_SESSION_STATUS,
         user
@@ -163,7 +173,7 @@ function checkedSessionStatus(user) {
 }
 
 export function fetchUsers() {
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         const options = {
             headers: {
                 'Accept': 'application/json'
@@ -191,7 +201,7 @@ export function fetchUsersWithAllData() {
         return;
     }
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         const options = {
             headers: {
                 'Accept': 'application/json',
@@ -213,38 +223,37 @@ export function fetchUsersWithAllData() {
     };
 }
 
-function setUsers(users) {
+function setUsers(users): Action {
     return {
         type: types.FETCH_USERS,
         users
     }
 }
 
-export function attemptLogout(){
+export function attemptLogout(): Action {
 
     let token = localStorage.getItem('jwtToken');
 
-    if (!token || token === '') {
-        return;
+    if (token) {
+        localStorage.removeItem('jwtToken');
     }
 
-    localStorage.removeItem('jwtToken');
     return logoutSuccess();
 }
 
-function logoutSuccess() {
+function logoutSuccess(): Action {
     return {
         type: types.LOGOUT_SUCCESS
     };
 }
 
-export function navigatedAwayFromAuthFormPage() {
+export function navigatedAwayFromAuthFormPage(): Action {
     return {
         type: types.NAVIGATE_AWAY_FROM_AUTH_FORM
     };
 }
 
-export function updateUser(user) {
+export function updateUser(user: User) {
 
     let token = localStorage.getItem('jwtToken');
 
@@ -262,7 +271,7 @@ export function updateUser(user) {
         body: JSON.stringify(user)
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${AUTH_SERVER_URL}/api/users`, options)
             .then(response => response.json())
             .then(json => {
@@ -277,7 +286,7 @@ export function updateUser(user) {
     };
 }
 
-function userUpdated(userUpdated) {
+function userUpdated(userUpdated: User): Action {
     return {
         type: types.USER_UPDATED,
         userUpdated

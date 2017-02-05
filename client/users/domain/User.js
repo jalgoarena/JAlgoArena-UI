@@ -6,8 +6,8 @@ export default class User {
     email: string;
     region: string;
     team: string;
-    role: string;
-    id: string;
+    role: ?string;
+    id: ?string;
 
     constructor(
         username: string,
@@ -15,8 +15,8 @@ export default class User {
         email: string,
         region: string,
         team: string,
-        role: string,
-        id: string
+        role: ?string,
+        id: ?string
     ) {
         this.username = username;
         this.password = password;
