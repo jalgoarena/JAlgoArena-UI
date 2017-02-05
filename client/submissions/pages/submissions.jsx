@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
+import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
@@ -17,17 +18,6 @@ function maxScore(level: number) {
             return 31;
         default:
             return 16;
-    }
-}
-
-function difficulty(level: number) {
-    switch (level) {
-        case 3:
-            return 'Hard';
-        case 2:
-            return 'Medium';
-        default:
-            return 'Easy';
     }
 }
 
@@ -67,50 +57,89 @@ class Submissions extends React.Component {
         }
     }
 
+    static linkFormatter(cell) {
+        return <Link to={"/problem/" + cell} className="btn btn-primary btn-block">
+            Go
+        </Link>
+    }
+
+    buttonFormatter(cell) {
+        return <Button bsStyle="success" block
+                       onClick={() => this.showSourceCode(cell.sourceCode, cell.problemId)}>
+            <FontAwesome name="file-text-o"/>
+        </Button>;
+    }
+
     render() {
         const {submissions} = this.props;
 
-        let submissionNodes = submissions.map((submission, idx) =>
-            <tr key={idx}>
-                <td>{submission.id}</td>
-                <td><Button bsStyle="success" onClick={() => this.showSourceCode(submission.sourceCode, submission.problemId)}>
-                    <FontAwesome name="file-text-o"/> {submission.problemId}
-                </Button></td>
-                <td>{submission.statusCode}</td>
-                <td>{difficulty(submission.level)}</td>
-                <td>{submission.problemRankPlace}</td>
-                <td>{submission.score}</td>
-                <td>{maxScore(submission.level)}</td>
-                <td>{submission.elapsedTime}</td>
-                <td>{submission.language}</td>
-                <td>{<Link to={"/problem/" + submission.problemId} className="btn btn-primary btn-block">
-                    Go
-                </Link>}</td>
-            </tr>
-        );
+        let submissionData = submissions.map((submission) => {
+            return {
+                id: submission.id,
+                problemId: submission.problemId,
+                sourceCode: {
+                    sourceCode: submission.sourceCode,
+                    problemId: submission.problemId
+                },
+                level: submission.level,
+                problemRankPlace: submission.problemRankPlace,
+                score: submission.score,
+                maxScore: maxScore(submission.level),
+                elapsedTime: submission.elapsedTime,
+                language: submission.language,
+                problemLink: submission.problemId
+            }
+        });
+
+        const levelType = {
+            1: 'Easy',
+            2: 'Medium',
+            3: 'Hard'
+        };
+
+        function levelFormatter(cell, row, enumObject) {
+            return enumObject[cell];
+        }
 
         return <Grid>
-            <Col mdOffset={1} md={10}>
+            <Col>
                 <PageHeader>Submissions</PageHeader>
-                <Table striped bordered condensed hover responsive>
-                    <thead>
-                    <tr>
-                        <th>Submission ID</th>
-                        <th>Problem ID</th>
-                        <th>Status</th>
-                        <th>Level</th>
-                        <th>Ranking #</th>
-                        <th>Score</th>
-                        <th>Max</th>
-                        <th>Time (ms)</th>
-                        <th>Language</th>
-                        <th>Problem</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {submissionNodes}
-                    </tbody>
-                </Table>
+                <BootstrapTable data={submissionData} stripped hover pagination search>
+                    <TableHeaderColumn isKey dataField='id'>ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='problemId'
+                                       width='200'
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>Problem ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='level'
+                                       dataSort={true}
+                                       filterFormatted dataFormat={ levelFormatter }
+                                       formatExtraData={ levelType }
+                                       filter={ { type: 'SelectFilter', options: levelType }}>Level</TableHeaderColumn>
+                    <TableHeaderColumn dataField='problemRankPlace'
+                                       width='80'
+                                       dataSort={true}>Rank #</TableHeaderColumn>
+                    <TableHeaderColumn dataField='score'
+                                       width='70'
+                                       dataSort={true}>Score</TableHeaderColumn>
+                    <TableHeaderColumn dataField='maxScore'
+                                       width='70'
+                                       dataSort={true}>Max</TableHeaderColumn>
+                    <TableHeaderColumn dataField='elapsedTime'
+                                       width='150'
+                                       filter={ {
+                                            type: 'NumberFilter',
+                                            delay: 1000,
+                                            numberComparators: [ '=', '>', '<=' ]
+                                       }}
+                                       dataSort={true}>Elapsed Time (ms)</TableHeaderColumn>
+                    <TableHeaderColumn dataField='language'
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>Lang</TableHeaderColumn>
+                    <TableHeaderColumn dataField='sourceCode'
+                                       dataFormat={this.buttonFormatter.bind(this)}>Source Code</TableHeaderColumn>
+                    <TableHeaderColumn dataField='problemLink'
+                                       dataFormat={Submissions.linkFormatter}>Problem</TableHeaderColumn>
+                </BootstrapTable>
             </Col>
             <SourceCode
                 show={this.state.showSourceCode}
