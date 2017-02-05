@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 
 import {ButtonGroup, Button, Col, Row} from 'react-bootstrap';
@@ -6,7 +8,14 @@ const filterStyle = {
     marginRight: "30px"
 };
 
-const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems}) => (
+type ProblemsFilterInputType = {
+    changeFilter: (number) => void,
+    filter: number,
+    onHideDoneProblems: (boolean) => void,
+    hideDoneProblems: boolean
+}
+
+const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems}: ProblemsFilterInputType) => (
     <Row>
         <Col md={11}>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">

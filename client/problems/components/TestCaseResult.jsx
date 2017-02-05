@@ -1,8 +1,10 @@
+// @flow
+
 import React from 'react';
 import {Col} from 'react-bootstrap';
 import FontAwesome from '../../common/components/FontAwesome';
 
-const TestCaseResult = ({passed, id}) => {
+const TestCaseResult = ({passed, id}: {passed: boolean, id: number}) => {
     if (passed) {
         return <Col md={3}>
             <span className="text-success">

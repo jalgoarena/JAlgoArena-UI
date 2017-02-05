@@ -1,6 +1,8 @@
+// @flow
+
 import React from 'react';
 
-const TimeLimit = ({timeLimit}) => (
+const TimeLimit = ({timeLimit}: {timeLimit: number}) => (
     <span>
         Time limit is
         {" "}

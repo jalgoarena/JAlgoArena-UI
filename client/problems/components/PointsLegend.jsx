@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {Modal, Table} from 'react-bootstrap';
 
@@ -10,7 +12,7 @@ const modalBodyStyle = {
     height: 150
 };
 
-const PointsLegend = ({show, onHide}) => (
+const PointsLegend = ({show, onHide}: {show: boolean, onHide: () => void}) => (
     <Modal show={show || false} onHide={onHide}>
         <Modal.Header closeButton>
             <h2>{"Score Points"}</h2>

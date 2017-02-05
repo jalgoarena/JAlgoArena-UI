@@ -13,7 +13,7 @@ const modalBodyStyle = {
     height: 200
 };
 
-const ListNodeSourceCode = ({show, onHide}) => (
+const ListNodeSourceCode = ({show, onHide}: {show: boolean, onHide: () => void}) => (
     <Modal show={show || false} onHide={onHide}>
         <Modal.Header closeButton>
             <h2>{"ListNode"}</h2>

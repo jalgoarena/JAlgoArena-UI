@@ -1,10 +1,14 @@
+// @flow
+
 import React from 'react';
 import * as _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from '../../common/components/FontAwesome';
+import {Submission} from "../../submissions/domain/Submission";
+import Problem from "../domain/Problem";
 
-const ProblemTitle = ({submissions, problem}) => {
+const ProblemTitle = ({submissions, problem}: {submissions: Array<Submission>, problem: Problem}) => {
     let submittedProblems = _.map(submissions, (submission) => submission.problemId);
 
     let isProblemDone = _.includes(submittedProblems, problem.id);

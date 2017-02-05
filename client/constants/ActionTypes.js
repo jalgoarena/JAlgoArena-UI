@@ -1,3 +1,5 @@
+// @flow
+
 export const JUDGE_REQUEST = 'JUDGE_REQUEST';
 export const JUDGE_RESULT_RECEIVED = 'JUDGE_RESULT_RECEIVED';
 

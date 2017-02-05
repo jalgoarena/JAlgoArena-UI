@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {Row, Col, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
@@ -13,16 +15,21 @@ const problemStyle = {
     padding: "1em 2em 1em"
 };
 
-function difficulty(level) {
+function difficulty(level: number) {
     switch (level) {
-        case 3: return 'Hard';
-        case 2: return 'Medium';
-        default:  return 'Easy';
+        case 3:
+            return 'Hard';
+        case 2:
+            return 'Medium';
+        default:
+            return 'Easy';
     }
 }
 
-const Problem = ({title, id, solvedBy, level, isDone}) => {
-    const checkControl = isDone ? <FontAwesome name="check" /> : null;
+const Problem = ({title, id, solvedBy, level, isDone}:
+    {title: string, id: string, solvedBy: number, level: number, isDone: boolean}) => {
+
+    const checkControl = isDone ? <FontAwesome name="check"/> : null;
 
     return (
         <Col md={5} style={problemStyle}>
@@ -31,14 +38,16 @@ const Problem = ({title, id, solvedBy, level, isDone}) => {
             </Row>
             <Row>
                 <LinkContainer to={{pathname: `/problem/${id}`}}>
-                    <Button  bsStyle="success" className="pull-right"
-                             onClick={() => store.dispatch(setCurrentProblem(id))}>
+                    <Button bsStyle="success" className="pull-right"
+                            onClick={() => store.dispatch(setCurrentProblem(id))}>
                         <FontAwesome name="bars"/> Solve Problem
                     </Button>
                 </LinkContainer>
 
-                <span className="text-muted">Difficulty:</span> <span className="text-primary">{difficulty(level)}</span><br />
-                <span className="text-muted">Solved By:</span> <span className="text-primary">{solvedBy} user{solvedBy === 1 ? "" : "s"}</span>
+                <span className="text-muted">Difficulty:</span> <span
+                className="text-primary">{difficulty(level)}</span><br />
+                <span className="text-muted">Solved By:</span> <span className="text-primary">{solvedBy}
+                user{solvedBy === 1 ? "" : "s"}</span>
             </Row>
         </Col>
     );

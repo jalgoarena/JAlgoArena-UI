@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 import AceEditor from 'react-ace';
@@ -13,7 +15,7 @@ const modalBodyStyle = {
     height: 200
 };
 
-const ListNodeSourceCode = ({show, onHide}) => (
+const ListNodeSourceCode = ({show, onHide}: {show: boolean, onHide: () => void}) => (
     <Modal show={show || false} onHide={onHide}>
         <Modal.Header closeButton>
             <h2>{"TreeNode"}</h2>

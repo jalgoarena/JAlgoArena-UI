@@ -1,8 +1,18 @@
+// @flow
+
 import React from 'react';
 
 import FontAwesome from '../../common/components/FontAwesome';
 
-const RunButton = ({sourceCode, problemId, userId, language, onRun}) => (
+type RunButtonInputType = {
+    sourceCode: string,
+    problemId: string,
+    userId: string,
+    language: string,
+    onRun: (string, string, string, string) => void
+}
+
+const RunButton = ({sourceCode, problemId, userId, language, onRun}: RunButtonInputType) => (
     <button
         style={{width: '200px'}}
         className="btn btn-lg btn-primary pull-right"

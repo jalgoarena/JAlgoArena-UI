@@ -1,6 +1,8 @@
+// @flow
+
 import React from 'react';
 
-const MemoryLimit = ({memoryLimit}) => (
+const MemoryLimit = ({memoryLimit}: {memoryLimit: number}) => (
     <span>Memory limit is
         {" "}
         <span className="text-success"> {memoryLimit}</span>
