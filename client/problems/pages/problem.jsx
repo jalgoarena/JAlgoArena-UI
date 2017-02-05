@@ -53,9 +53,9 @@ class Problem extends React.Component {
 
     isAlreadySolved() {
         return this.props.problem &&
-                this.props.editor.judgeResult.statusCode === 'ACCEPTED' &&
-                this.props.editor.sourceCode &&
-                this.props.auth.user
+            this.props.editor.judgeResult.statusCode === 'ACCEPTED' &&
+            this.props.editor.sourceCode &&
+            this.props.auth.user
     }
 
     showListNodeSourceCode() {
@@ -115,19 +115,19 @@ class Problem extends React.Component {
             programmingLanguages.push(language);
         }
 
-        let programmingLanguageButtons = programmingLanguages.map(programmingLanguage => {
-            return <Button
-                bsStyle="primary"
-                onClick={() => this.props.onLanguageChange(programmingLanguage)}
-                active={this.props.programmingLanguage === programmingLanguage}>
-                    {_.capitalize(programmingLanguage)}
+        let programmingLanguageButtons = programmingLanguages.map((programmingLanguage, idx) => {
+            return <Button bsStyle="primary"
+                           onClick={() => this.props.onLanguageChange(programmingLanguage)}
+                           active={this.props.programmingLanguage === programmingLanguage}
+                           key={idx}>
+                {_.capitalize(programmingLanguage)}
             </Button>
         });
 
         return <Grid>
             <Row>
-                <ProblemTitle submissions={this.props.submissions} problem={this.props.problem} />
-                <ProblemDescription description={this.props.problem.description} />
+                <ProblemTitle submissions={this.props.submissions} problem={this.props.problem}/>
+                <ProblemDescription description={this.props.problem.description}/>
                 <ProblemToolbar
                     problem={this.props.problem}
                     onRefresh={this.props.onRefresh}

@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {Modal} from 'react-bootstrap';
 import AceEditor from 'react-ace';
@@ -13,7 +15,14 @@ const modalBodyStyle = {
     height: 450
 };
 
-const SourceCode = ({show, onHide, sourceCode, problemId}) => (
+type SourceCodeInput = {
+    show: boolean,
+    onHide: () => void,
+    sourceCode: string,
+    problemId: string
+}
+
+const SourceCode = ({show, onHide, sourceCode, problemId}: SourceCodeInput) => (
     <Modal show={show || false} onHide={onHide} bsSize="large">
         <Modal.Header closeButton>
             <h2>{problemId}</h2>

@@ -9,10 +9,6 @@ import JudgeResponse from "../domain/JudgeResponse";
 
 const SubmissionResult = ({result}: {result: JudgeResponse}) => {
 
-    if (result) {
-        return <h2 className="text-info text-center">Run your code to see results</h2>;
-    }
-
     switch (result.statusCode) {
         case 'WAITING':
             return <h2 className="text-info text-center">Run your code to see results</h2>;

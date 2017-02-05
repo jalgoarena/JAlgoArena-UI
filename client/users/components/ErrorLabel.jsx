@@ -1,6 +1,8 @@
+// @flow
+
 import React from 'react';
 
-const ErrorLabel = ({validationError, authError}) => {
+const ErrorLabel = ({validationError, authError}: {validationError: ?string, authError: {message: string}}) => {
     if (validationError) {
         return (
             <div className="form-group has-error">
@@ -17,7 +19,7 @@ const ErrorLabel = ({validationError, authError}) => {
         );
     }
 
-    return null;
+    return <div></div>;
 };
 
 export default ErrorLabel;
