@@ -1,3 +1,5 @@
+// @flow
+
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
@@ -11,7 +13,6 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 let submissionsServerUrl = config.jalgoarenaApiUrl + "/submissions/api";
-// let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
 
 window.localStorage = {
     getItem: function(key) {

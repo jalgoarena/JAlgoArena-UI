@@ -1,10 +1,27 @@
-import * as types from "../../constants/ActionTypes";
+// @flow
 
-export function submissions(state = {
+import * as types from "../../constants/ActionTypes";
+import {Submission} from "../domain/Submission";
+import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
+
+type SubmissionsState = {
+    items: Array<Submission>,
+    statusFilter: string,
+    problemsSolutionsRatio: Array<ProblemSubmissionRatio>
+}
+
+type SubmissionsAction = {
+    type: string,
+    submissions?: Array<Submission>,
+    status?: string,
+    solvedProblemsRatio?: Array<ProblemSubmissionRatio>
+}
+
+export function submissions(state: SubmissionsState = {
     items: [],
     statusFilter: 'ALL',
     problemsSolutionsRatio: []
-}, action) {
+}, action: SubmissionsAction): SubmissionsState {
     switch (action.type) {
         case types.FETCH_SUBMISSIONS:
         case types.DELETE_SUBMISSION:

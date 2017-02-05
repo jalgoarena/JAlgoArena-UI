@@ -1,7 +1,7 @@
 // @flow
 type Action = {
     type: string,
-    solvedProblemsRatio?: Array<SolvedProblemRatio>,
+    solvedProblemsRatio?: Array<ProblemSubmissionRatio>,
     submissions?: Array<Submission>
 }
 
@@ -9,7 +9,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
-import {SolvedProblemRatio} from "../domain/SolvedProblemRatio";
+import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
 
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
@@ -29,14 +29,14 @@ export function fetchSolvedProblemsRatio() {
                 if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
-                    dispatch(setSolvedProblemsRatio((json: Array<SolvedProblemRatio>)))
+                    dispatch(setSolvedProblemsRatio((json: Array<ProblemSubmissionRatio>)))
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
-function setSolvedProblemsRatio(solvedProblemsRatio: Array<SolvedProblemRatio>): Action {
+function setSolvedProblemsRatio(solvedProblemsRatio: Array<ProblemSubmissionRatio>): Action {
     return {
         type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
         solvedProblemsRatio

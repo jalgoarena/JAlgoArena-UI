@@ -1,67 +1,62 @@
+// @flow
+
 import * as reducer from '../../client/submissions/reducers';
 import * as types from '../../client/constants/ActionTypes';
+import {Submission} from "../../client/submissions/domain/Submission";
+import {ProblemSubmissionRatio} from "../../client/submissions/domain/ProblemSubmissionRatio";
+
+let defaultState = {
+    items: [],
+    statusFilter: 'ALL',
+    problemsSolutionsRatio: []
+};
+
+let SUBMISSION_JULIA = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-0", "java");
+let SUBMISSION_MIKOLAJ = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-1", "java");
+let PROBLEM_SUBMISSION_RATIO = new ProblemSubmissionRatio("fib", 4);
 
 describe('ranking reducer', () => {
     it('should handle FETCH_SUBMISSIONS', () => {
         expect(
-            reducer.submissions({items: []},
+            reducer.submissions(defaultState,
                 {
                     type: types.FETCH_SUBMISSIONS,
-                    submissions: [{
-                        username: "julia",
-                        problemId: "fib"
-                    }]
+                    submissions: [SUBMISSION_JULIA]
                 }
             )
-        ).toEqual({items: [{
-            username: "julia",
-            problemId: "fib"
-        }]});
+        ).toEqual(Object.assign({}, defaultState, {items: [SUBMISSION_JULIA]}));
 
         expect(
-            reducer.submissions({items: [{
-                    username: "julia",
-                    problemId: "fib"
-                }]},
+            reducer.submissions(Object.assign({}, defaultState, {
+                    items: [SUBMISSION_JULIA]
+                }),
                 {
                     type: types.FETCH_SUBMISSIONS,
-                    submissions: [{
-                        username: "julia",
-                        problemId: "fib"
-                    }, {
-                        username: "mikolaj",
-                        problemId: "stoi"
-                    }]
+                    submissions: [SUBMISSION_JULIA, SUBMISSION_MIKOLAJ]
                 }
             )
-        ).toEqual({items: [{
-            username: "julia",
-            problemId: "fib"
-        }, {
-            username: "mikolaj",
-            problemId: "stoi"
-        }]});
+        ).toEqual(Object.assign({}, defaultState, {items: [SUBMISSION_JULIA, SUBMISSION_MIKOLAJ]}));
     });
 
     it('should handle SET_SUBMISSIONS_FILTER', () => {
         expect(
-            reducer.submissions({statusFilter: 'ALL'},
+            reducer.submissions(defaultState,
                 {
                     type: types.SET_SUBMISSIONS_FILTER,
                     status: "ACCEPTED"
                 }
             )
-        ).toEqual({statusFilter: "ACCEPTED"});
+        ).toEqual(Object.assign({}, defaultState, {statusFilter: "ACCEPTED"}));
     });
 
     it('should handle FETCH_PROBLEMS_SOLUTION_RATIO', () => {
         expect(
-            reducer.submissions({problemsSolutionsRatio: []},
+            reducer.submissions(defaultState,
                 {
                     type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
-                    solvedProblemsRatio: [{problemId: "fib", count: 1}]
+                    solvedProblemsRatio: [PROBLEM_SUBMISSION_RATIO]
                 }
             )
-        ).toEqual({problemsSolutionsRatio: [{problemId: "fib", count: 1}]});
+        ).toEqual(Object.assign({}, defaultState, {problemsSolutionsRatio: [PROBLEM_SUBMISSION_RATIO]}));
     });
 });

@@ -1,6 +1,6 @@
 // @flow
 
-export class SolvedProblemRatio {
+export class ProblemSubmissionRatio {
     problemId: string;
     solutionsCount: number;
 
