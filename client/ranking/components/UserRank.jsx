@@ -1,6 +1,16 @@
+// @flow
+
 import React from 'react';
 
-const UserRank = ({idx, hacker, score, team, region}) => (
+type UserRankInputType = {
+    idx: number,
+    hacker: string,
+    score: number,
+    team: string,
+    region: string
+}
+
+const UserRank = ({idx, hacker, score, team, region}: UserRankInputType) => (
     <tr>
         <td>{idx + 1}</td>
         <td>{hacker}</td>
