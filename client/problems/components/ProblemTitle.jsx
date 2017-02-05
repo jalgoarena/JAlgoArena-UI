@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from '../../common/components/FontAwesome';

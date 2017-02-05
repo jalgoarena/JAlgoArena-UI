@@ -1,5 +1,5 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
+import dom from 'react-dom';
 import {Grid, Col, Button, FormGroup, PageHeader} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
@@ -44,7 +44,7 @@ class Login extends React.Component {
                 newState.isUsernameFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.username).focus();
+            dom.findDOMNode(this.username).focus();
         }
     }
 
@@ -53,14 +53,10 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        findDOMNode(this.username).focus();
+        dom.findDOMNode(this.username).focus();
     }
 
-    getInputContainerClass(inputIncorrect) {
-        return ("form-group " + (inputIncorrect ? "has-error" : "") );
-    }
-
-    findErrorsInLoginForm(formData) {
+    static findErrorsInLoginForm(formData) {
         // Only finding one error at a time.
         let newState = Object.assign({}, initialFormState);
 
@@ -88,11 +84,11 @@ class Login extends React.Component {
         e.preventDefault();
 
         const formData = {
-            username: findDOMNode(this.username).value.trim(),
-            password: findDOMNode(this.password).value.trim(),
+            username: dom.findDOMNode(this.username).value.trim(),
+            password: dom.findDOMNode(this.password).value.trim(),
         };
 
-        let newState = this.findErrorsInLoginForm(formData);
+        let newState = Login.findErrorsInLoginForm(formData);
         this.setState(newState);
         if (!newState.errorMessage) {
             this.props.onLogin(formData);
@@ -119,7 +115,9 @@ class Login extends React.Component {
                         </Button>
                     </FormGroup>
                     <FormGroup>
-                        <span>Don't have account?</span>
+                        <span>
+                            Don't have account?
+                        </span>
                         <LinkContainer to='/signup'>
                             <Button className="pull-right">
                                 <FontAwesome name="user"/> Create Account

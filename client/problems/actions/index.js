@@ -16,10 +16,10 @@ import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import {fetchSubmissions} from "../../submissions/actions/index";
 import {fetchRanking} from "../../ranking/actions/index";
-import JudgeRequest from "../../domain/JudgeRequest";
-import JudgeResponse from "../../domain/JudgeResponse";
-import Problem from "../../domain/Problem";
-import RawProblem from "../../domain/RawProblem";
+import JudgeRequest from "../domain/JudgeRequest";
+import JudgeResponse from "../domain/JudgeResponse";
+import Problem from "../domain/Problem";
+import RawProblem from "../domain/RawProblem";
 
 const JUDGE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/judge/api`;
 const PROBLEMS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/problems/api`;

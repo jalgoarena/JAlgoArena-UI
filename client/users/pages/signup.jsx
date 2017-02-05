@@ -1,5 +1,5 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
+import dom from 'react-dom';
 import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
@@ -46,7 +46,7 @@ class SignUp extends React.Component {
                 newState.isUserNameFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.username).focus();
+            dom.findDOMNode(this.username).focus();
         }
 
         if(this.props.auth.error === "That email is already being used.") {
@@ -55,7 +55,7 @@ class SignUp extends React.Component {
                 newState.isEmailFieldIncorrect = true;
                 this.setState(newState);
             }
-            findDOMNode(this.email).focus();
+            dom.findDOMNode(this.email).focus();
         }
     }
 
@@ -63,7 +63,7 @@ class SignUp extends React.Component {
         this.props.onUnmount();
     }
 
-    findErrorsInSignupForm(formData) {
+    static findErrorsInSignupForm(formData) {
 
         let newState = Object.assign({}, initialFormState);
 
@@ -109,15 +109,15 @@ class SignUp extends React.Component {
         e.preventDefault();
 
         let formData = {
-            username : findDOMNode(this.username).value.trim(),
-            email : findDOMNode(this.email).value.trim(),
-            password : findDOMNode(this.password).value.trim(),
-            confirmedPassword : findDOMNode(this.confirmPassword).value.trim(),
-            region : findDOMNode(this.region).value.trim(),
-            team : findDOMNode(this.team).value.trim()
+            username : dom.findDOMNode(this.username).value.trim(),
+            email : dom.findDOMNode(this.email).value.trim(),
+            password : dom.findDOMNode(this.password).value.trim(),
+            confirmedPassword : dom.findDOMNode(this.confirmPassword).value.trim(),
+            region : dom.findDOMNode(this.region).value.trim(),
+            team : dom.findDOMNode(this.team).value.trim()
         };
 
-        let newState = this.findErrorsInSignupForm(formData);
+        let newState = SignUp.findErrorsInSignupForm(formData);
         this.setState(newState);
         if (!newState.errorMessage){
             this.props.onSignUp(formData);
@@ -125,7 +125,7 @@ class SignUp extends React.Component {
     }
 
     componentDidMount(){
-        findDOMNode(this.username).focus();
+        dom.findDOMNode(this.username).focus();
     }
 
     render() {

@@ -7,14 +7,14 @@ const TestCaseResult = ({passed, id}) => {
         return <Col md={3}>
             <span className="text-success">
                 <FontAwesome name="check"/>
-            </span> Test Case #{id}
+            </span> Test Case {`#${id}`}
         </Col>;
     }
 
     return <Col md={3}>
         <span className="text-danger">
             <FontAwesome name="times"/>
-        </span> Test Case #{id}
+        </span> Test Case {`#${id}`}
     </Col>;
 };
 

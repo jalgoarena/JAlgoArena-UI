@@ -7,8 +7,8 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
-import {RankingEntry} from "../../domain/RankingEntry";
-import {ProblemRankingEntry} from "../../domain/ProblemRankingEntry";
+import {RankingEntry} from "../domain/RankingEntry";
+import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 
 const SUBMISSIONS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/submissions/api`;
 

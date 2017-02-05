@@ -1,8 +1,8 @@
 // @flow
 
 import * as types from "../../constants/ActionTypes";
-import {RankingEntry} from "../../domain/RankingEntry";
-import {ProblemRankingEntry} from "../../domain/ProblemRankingEntry";
+import {RankingEntry} from "../domain/RankingEntry";
+import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 
 type RankingState = {
     general: Array<RankingEntry>,

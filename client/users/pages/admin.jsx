@@ -1,6 +1,5 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import {Grid, Button, Col, PageHeader, Panel, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {regions, teams} from "../../config"

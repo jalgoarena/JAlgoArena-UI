@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid, Button, Row, ButtonGroup} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import store from '../../common/store';
 import {fetchSubmissions} from "../../submissions/actions";
@@ -90,7 +90,7 @@ class Problem extends React.Component {
         this.setState({showPointsLegend: false});
     }
 
-    sourceCodeButton(skeletonCode, customType, onClick) {
+    static sourceCodeButton(skeletonCode, customType, onClick) {
         if (skeletonCode && skeletonCode.includes(customType)) {
             return <Button
                 bsStyle="success"
@@ -137,9 +137,9 @@ class Problem extends React.Component {
                     <ButtonGroup>
                         {programmingLanguageButtons}
                     </ButtonGroup>
-                    {this.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
-                    {this.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
-                    {this.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
+                    {Problem.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
+                    {Problem.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
+                    {Problem.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.editor.sourceCode || skeletonCode}

@@ -1,7 +1,7 @@
 // @flow
 type Action = {type:string, error?: string}
 
-import {combineReducers} from 'redux';
+import * as redux from 'redux';
 import {routerReducer} from 'react-router-redux';
 import * as types from "../../constants/ActionTypes";
 
@@ -10,7 +10,7 @@ import {auth} from "../../users/reducers";
 import {ranking} from "../../ranking/reducers";
 import {submissions} from "../../submissions/reducers";
 
-const rootReducer = combineReducers({
+const rootReducer = redux.combineReducers({
     editor,
     problems,
     showModal,

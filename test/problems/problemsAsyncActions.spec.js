@@ -8,12 +8,12 @@ import * as actions from "../../client/problems/actions"
 import config from "../../client/config"
 
 import nock from "nock"
-import JudgeResponse from "../../client/domain/JudgeResponse";
-import Method from "../../client/domain/Method";
-import Return from "../../client/domain/Return";
-import TestCase from "../../client/domain/TestCase";
-import Parameter from "../../client/domain/Parameter";
-import RawProblem from "../../client/domain/RawProblem";
+import JudgeResponse from "../../client/problems/domain/JudgeResponse";
+import Method from "../../client/problems/domain/Method";
+import Return from "../../client/problems/domain/Return";
+import TestCase from "../../client/problems/domain/TestCase";
+import Parameter from "../../client/problems/domain/Parameter";
+import RawProblem from "../../client/problems/domain/RawProblem";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

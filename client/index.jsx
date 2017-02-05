@@ -1,9 +1,9 @@
 import React from 'react'
-import {render} from 'react-dom'
+import dom from 'react-dom'
 import Router from './common/router.jsx';
 import 'babel-polyfill';
 
-render(
+dom.render(
     Router,
     document.getElementById('app')
 );

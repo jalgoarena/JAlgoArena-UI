@@ -1,5 +1,5 @@
 import rootReducer from './reducers';
-import { compose, createStore, applyMiddleware } from 'redux';
+import * as redux from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './devtools';
 
@@ -7,10 +7,10 @@ import {checkSessionStatus} from "../users/actions";
 import {fetchProblems, startFetchingProblems} from "../problems/actions"
 import {fetchRanking} from "../ranking/actions";
 
-const configureStore = compose(
-    applyMiddleware(thunk),
+const configureStore = redux.compose(
+    redux.applyMiddleware(thunk),
     DevTools.instrument()
-)(createStore);
+)(redux.createStore);
 
 const store = configureStore(rootReducer);
 store.dispatch(startFetchingProblems());

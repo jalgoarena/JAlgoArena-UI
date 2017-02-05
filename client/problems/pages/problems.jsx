@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Problem from '../components/Problem';

@@ -2,7 +2,7 @@
 
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
-import JudgeResponse from "../../client/domain/JudgeResponse";
+import JudgeResponse from "../../client/problems/domain/JudgeResponse";
 
 let defaultEditorState = {
     sourceCode: null,

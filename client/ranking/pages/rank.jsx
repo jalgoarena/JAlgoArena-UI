@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
@@ -62,7 +62,7 @@ class Leaderboard extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.rankNodes(ranking)}
+                        {Leaderboard.rankNodes(ranking)}
                         </tbody>
                     </Table>
                 </Col>
@@ -92,7 +92,7 @@ class Leaderboard extends React.Component {
         );
     }
 
-    rankNodes(ranking) {
+    static rankNodes(ranking) {
         return ranking.map((user, idx) =>
             <UserRank key={idx} idx={idx} hacker={user.hacker} score={user.score} region={user.region}
                       team={user.team}/>

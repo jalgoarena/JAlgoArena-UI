@@ -1,6 +1,5 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import {Grid, Button, Col, PageHeader, FormControl, FormGroup, ControlLabel, Panel} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Markdown from 'react-remarkable';
@@ -49,7 +48,7 @@ class ProblemsAdmin extends React.Component {
         this.props.onLoad();
     }
 
-    saveJSON(problem) {
+    static saveJSON(problem) {
         let filename = `${problem.id}.json`;
         problem = JSON.stringify(problem);
 
@@ -77,7 +76,7 @@ class ProblemsAdmin extends React.Component {
             testCases: this.state.newProblem.testCases
         };
 
-        this.saveJSON(problemJson);
+        ProblemsAdmin.saveJSON(problemJson);
     }
 
     setCurrentProblem(problemId) {

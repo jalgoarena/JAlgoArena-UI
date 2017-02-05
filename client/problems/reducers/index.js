@@ -1,9 +1,9 @@
 // @flow
 
 import * as types from "../../constants/ActionTypes";
-import JudgeResponse from "../../domain/JudgeResponse";
-import Problem from "../../domain/Problem";
-import RawProblem from "../../domain/RawProblem";
+import JudgeResponse from "../domain/JudgeResponse";
+import Problem from "../domain/Problem";
+import RawProblem from "../domain/RawProblem";
 
 type EditorState = {
     sourceCode: ?string;

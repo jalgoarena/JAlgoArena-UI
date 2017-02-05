@@ -2,12 +2,12 @@
 
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
-import Problem from "../../client/domain/Problem";
-import RawProblem from "../../client/domain/RawProblem";
-import Method from "../../client/domain/Method";
-import Return from "../../client/domain/Return";
-import Parameter from "../../client/domain/Parameter";
-import TestCase from "../../client/domain/TestCase";
+import Problem from "../../client/problems/domain/Problem";
+import RawProblem from "../../client/problems/domain/RawProblem";
+import Method from "../../client/problems/domain/Method";
+import Return from "../../client/problems/domain/Return";
+import Parameter from "../../client/problems/domain/Parameter";
+import TestCase from "../../client/problems/domain/TestCase";
 
 let defaultState = {
     items: [],

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Grid, PageHeader, Col, Pagination} from 'react-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import _ from "lodash";
+import * as _ from "lodash";
 import AceEditor from 'react-ace';
 import 'brace/theme/chrome';
 
