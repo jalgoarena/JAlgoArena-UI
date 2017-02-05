@@ -1,13 +1,31 @@
-import * as types from "../../constants/ActionTypes";
+// @flow
 
-const defaultStartState = {
+import * as types from "../../constants/ActionTypes";
+import User from "../domain/User";
+
+type AuthState = {
+    user: ?User,
+    error: ?Object,
+    users: ?Array<User>,
+    updatedUser: ?User
+}
+
+type AuthAction = {
+    type: string,
+    user?: User,
+    error?: Object,
+    users?: Array<User>,
+    userUpdated?: User
+}
+
+const defaultStartState: AuthState = {
     user: null,
     error: null,
     users: null,
     updatedUser: null
 };
 
-export function auth(state = defaultStartState , action) {
+export function auth(state: AuthState = defaultStartState , action: AuthAction) {
     switch (action.type){
 
         case types.LOGIN_SUCCESS:
