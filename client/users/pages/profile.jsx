@@ -1,32 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router';
 import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import SourceCode from "../components/SourceCode";
-
 import FontAwesome from '../../common/components/FontAwesome';
-import {fetchSubmissions} from "../../submissions/actions";
-import store from '../../common/store';
 
 
 import {attemptLogout} from "../actions";
 
 class Profile extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {showSourceCode: false, sourceCode: "", problemId: ""}
-    }
-
-    showSourceCode(sourceCode, problemId) {
-        this.setState({showSourceCode: true, sourceCode, problemId});
-    }
-
-    hideSourceCode() {
-        this.setState({showSourceCode: false});
-    }
 
     transferToProfileIfLoggedOut() {
         if (!this.props.auth.user) {
@@ -42,12 +24,6 @@ class Profile extends React.Component {
         this.transferToProfileIfLoggedOut();
     }
 
-    componentDidMount() {
-        if (this.props.auth.user) {
-            store.dispatch(fetchSubmissions(this.props.auth.user.id));
-        }
-    }
-
     render() {
         const {
             auth
@@ -58,21 +34,6 @@ class Profile extends React.Component {
         } = auth;
 
         user = user || {username: "", email: "", id: "", region: "", team: ""};
-
-        let submissions = this.props.submissions.map ? this.props.submissions : [];
-
-        let submissionNodes = submissions.map((submission, idx) =>
-            <tr key={idx}>
-                <td><Button bsStyle="success" onClick={() => this.showSourceCode(submission.sourceCode, submission.problemId)}>
-                    <FontAwesome name="file-text-o"/> {submission.problemId}
-                </Button></td>
-                <td>{submission.statusCode}</td>
-                <td>{submission.elapsedTime}</td>
-                <td>{<Link to={"/problem/" + submission.problemId} className="btn btn-primary btn-block">
-                    Go
-                </Link>}</td>
-            </tr>
-        );
 
         return <Grid>
             <Col mdOffset={3} md={6}>
@@ -100,35 +61,14 @@ class Profile extends React.Component {
                 <Button bsStyle="danger" className="pull-right" onClick={this.props.onLogout}>
                     <FontAwesome name="sign-out"/> Logout
                 </Button>
-                <PageHeader>Submissions</PageHeader>
-                <Table striped bordered condensed hover responsive>
-                    <thead>
-                    <tr>
-                        <th>Problem ID</th>
-                        <th>Status</th>
-                        <th>Time (ms)</th>
-                        <th>Problem Page</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {submissionNodes}
-                    </tbody>
-                </Table>
             </Col>
-            <SourceCode
-                show={this.state.showSourceCode}
-                onHide={this.hideSourceCode.bind(this)}
-                sourceCode={this.state.sourceCode}
-                problemId={this.state.problemId}
-            />
         </Grid>;
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth,
-        submissions: state.submissions.items
+        auth: state.auth
     };
 };
 

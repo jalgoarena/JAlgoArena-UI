@@ -15,6 +15,7 @@ import ProblemRankPage from '../ranking/pages/problemRank';
 import SubmissionsAdminPage from "../submissions/pages/admin";
 import ProblemsAdminPage from "../problems/pages/admin";
 import UsersAdminPage from "../users/pages/admin";
+import SubmissionsPage from "../submissions/pages/submissions";
 
 import {Layout} from './layout';
 import Home from "./pages/home";
@@ -34,6 +35,7 @@ export default (
                 <Route path="/problem/:id/rank" component={ProblemRankPage} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
+                <Route path="/submissions" component={SubmissionsPage} />
                 <Route path="/submissionsAdmin" component={SubmissionsAdminPage} />
                 <Route path="/problemsAdmin" component={ProblemsAdminPage} />
                 <Route path="/usersAdmin" component={UsersAdminPage} />

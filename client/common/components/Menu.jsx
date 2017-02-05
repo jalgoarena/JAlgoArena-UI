@@ -26,6 +26,7 @@ const Menu = ({user}: {user: User}) => (
                 <MenuItem path="/" icon="home" title="Home" />
                 <MenuItem path="/problems" icon="lightbulb-o" title="Problems"/>
                 <MenuItem path="/leaderboard" icon="trophy" title="Rank"/>
+                { user ? <MenuItem path="/submissions" icon="code" title="Submissions" /> : null }
                 <ProfileOrLoginMenuItem user={user}/>
                 <AdminMenuItem user={user}/>
             </Nav>
