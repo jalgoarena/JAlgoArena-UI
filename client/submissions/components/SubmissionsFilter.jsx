@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 
 import {ButtonGroup, Button, Col, Row} from 'react-bootstrap';
@@ -6,7 +8,7 @@ const filterStyle = {
     marginLeft: "30px"
 };
 
-const SubmissionsFilter = ({changeFilter, filter}) => (
+const SubmissionsFilter = ({changeFilter, filter}: {changeFilter: (string) => void, filter: string}) => (
     <Row>
         <Col md={6}>
             <ButtonGroup style={filterStyle}>

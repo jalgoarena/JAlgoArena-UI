@@ -8,7 +8,7 @@ import 'brace/theme/chrome';
 
 import {fetchUsers} from "../../users/actions";
 
-import Submission from "../components/Submission";
+import SubmissionNode from "../components/Submission";
 import SubmissionsFilter from "../components/SubmissionsFilter";
 import {setSubmissionsFilter, deleteSubmission, fetchAllSubmissions} from "../actions";
 import {judgeCode, startJudge} from "../../problems/actions/index";
@@ -90,15 +90,9 @@ class Admin extends React.Component {
             }
         }
 
-        return <Submission
-            sourceCode={submission.sourceCode}
-            problemId={submission.problemId}
+        return <SubmissionNode
+            submission={submission}
             username={username}
-            userId={submission.userId}
-            elapsedTime={submission.elapsedTime}
-            statusCode={submission.statusCode}
-            submissionId={submission.id}
-            language={submission.language}
             onDelete={this.props.onDelete}
             onRerun={this.props.onRerun}
             onShowSourceCode={() => this.setState({sourceCode: submission.sourceCode})}

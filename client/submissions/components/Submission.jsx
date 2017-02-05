@@ -1,7 +1,10 @@
+// @flow
+
 import React from 'react';
 import {Button, Row, ButtonToolbar} from 'react-bootstrap';
 
 import FontAwesome from '../../common/components/FontAwesome';
+import {Submission} from "../domain/Submission";
 
 const submissionStyle = {
     margin: "20px 20px 0px",
@@ -10,11 +13,19 @@ const submissionStyle = {
     padding: "1em 2em 1em"
 };
 
-const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statusCode, submissionId, language, onDelete, onRerun, onShowSourceCode}) => (
+type SubmissionInput = {
+    submission: Submission,
+    username: string,
+    onDelete: (submissionId: ?string) => void,
+    onRerun: (string, string, string, string) => void,
+    onShowSourceCode: () => void
+}
+
+const SubmissionNode = ({submission, username, onDelete, onRerun, onShowSourceCode}: SubmissionInput) => (
     <div style={submissionStyle}>
         <Row>
-            <h4 className="text-success">{problemId} <span
-                className="pull-right">{`${username}:${userId}`}</span></h4>
+            <h4 className="text-success">{submission.problemId} <span
+                className="pull-right">{`${username}:${submission.userId}`}</span></h4>
         </Row>
         <Row>
 
@@ -25,24 +36,29 @@ const Submission = ({sourceCode, problemId, username, userId, elapsedTime, statu
                 </Button>
                 <Button bsStyle="info"
                         onClick={() =>
-                            onRerun(sourceCode, userId, problemId, language)
+                            onRerun(
+                                submission.sourceCode,
+                                submission.userId,
+                                submission.problemId,
+                                submission.language
+                            )
                         }>
                     <FontAwesome name="refresh"/> Re-Run
                 </Button>
                 <Button bsStyle="danger"
-                        onClick={() => onDelete(submissionId)}>
+                        onClick={() => onDelete(submission.id)}>
                     <FontAwesome name="remove"/> Delete
                 </Button>
             </ButtonToolbar>
-            <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{elapsedTime}
+            <span className="text-muted">Elapsed Time:</span> <span className="text-primary">{submission.elapsedTime}
             ms</span><br />
             <span className="text-muted">Source Code length:</span> <span
-            className="text-primary">{sourceCode ? sourceCode.length : 0} chars</span><br />
-            <span className="text-muted">Status:</span> <span className="text-primary">{statusCode}</span><br />
-            <span className="text-muted">Language:</span> <span className="text-primary">{language}</span>
+            className="text-primary">{submission.sourceCode ? submission.sourceCode.length : 0} chars</span><br />
+            <span className="text-muted">Status:</span> <span className="text-primary">{submission.statusCode}</span><br />
+            <span className="text-muted">Language:</span> <span className="text-primary">{submission.language}</span>
         </Row>
     </div>
 );
 
 
-export default Submission;
+export default SubmissionNode;
