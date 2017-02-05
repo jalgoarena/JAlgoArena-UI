@@ -1,7 +1,16 @@
+// @flow
+type Action = {
+    type: string,
+    solvedProblemsRatio?: Array<SolvedProblemRatio>,
+    submissions?: Array<Submission>
+}
+
 import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
+import {SolvedProblemRatio} from "../domain/SolvedProblemRatio";
+import {Submission} from "../domain/Submission";
 
 const SUBMISSIONS_SERVER_URL = config.jalgoarenaApiUrl + "/submissions/api";
 
@@ -13,28 +22,28 @@ export function fetchSolvedProblemsRatio() {
         method: 'get'
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/solved-ratio`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
-                    dispatch(setSolvedProblemsRatio(json))
+                    dispatch(setSolvedProblemsRatio((json: Array<SolvedProblemRatio>)))
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
-function setSolvedProblemsRatio(solvedProblemsRatio) {
+function setSolvedProblemsRatio(solvedProblemsRatio: Array<SolvedProblemRatio>): Action {
     return {
         type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
         solvedProblemsRatio
     }
 }
 
-export function fetchSubmissions(userId) {
+export function fetchSubmissions(userId: string) {
 
     let token = localStorage.getItem('jwtToken');
 
@@ -50,7 +59,7 @@ export function fetchSubmissions(userId) {
         method: 'get'
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${userId}`, options)
             .then(response => response.json())
             .then(json => {
@@ -80,36 +89,36 @@ export function fetchAllSubmissions() {
         method: 'get'
     };
 
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Submissions Service"));
                 } else {
-                    dispatch(setSubmissions(json));
+                    dispatch(setSubmissions((json: Array<Submission>)));
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
-function setSubmissions(submissions) {
+function setSubmissions(submissions: Array<Submission>): Action {
     return {
         type: types.FETCH_SUBMISSIONS,
         submissions
     }
 }
 
-export function setSubmissionsFilter(status) {
+export function setSubmissionsFilter(status: string): Action {
     return {
         type: types.SET_SUBMISSIONS_FILTER,
         status
     }
 }
 
-export function deleteSubmission(submissionId) {
-    return dispatch => {
+export function deleteSubmission(submissionId: string) {
+    return (dispatch: Dispatch) => {
 
         let token = localStorage.getItem('jwtToken');
 
@@ -129,14 +138,14 @@ export function deleteSubmission(submissionId) {
                 if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Submissions Service"))
                 } else {
-                    dispatch(refreshSubmissions(json))
+                    dispatch(refreshSubmissions((json: Array<Submission>)))
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 
-function refreshSubmissions(submissions) {
+function refreshSubmissions(submissions: Array<Submission>): Action {
     return {
         type: types.DELETE_SUBMISSION,
         submissions
