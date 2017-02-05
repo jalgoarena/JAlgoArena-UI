@@ -48,7 +48,7 @@ describe('root reducer', () => {
         types.FETCH_PROBLEMS_REQUEST
     ].forEach(actionType => {
         expect(
-            showModal({},
+            showModal(false,
                 {type: actionType}
             )
         ).toEqual(true);
@@ -68,7 +68,7 @@ describe('root reducer', () => {
         types.CLOSE_WORK_IN_PROGRESS_WINDOW
     ].forEach(actionType => {
         expect(
-            showModal({},
+            showModal(true,
                 {type: actionType}
             )
         ).toEqual(false);
