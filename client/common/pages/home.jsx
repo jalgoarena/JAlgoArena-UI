@@ -52,7 +52,7 @@ const Home = () => (
                 <div className="intro-text">
                     <span className="name" style={introTextNameStyle}>{title}</span>
                     <hr className="star-light" style={starLightStyle}/>
-                    <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Java Hacker</span>
+                    <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Algo Hacker</span>
                 </div>
                 <Link to="/problems" className="btn btn-lg btn-outline">
                     <FontAwesome name="bars"/>  Learn More
