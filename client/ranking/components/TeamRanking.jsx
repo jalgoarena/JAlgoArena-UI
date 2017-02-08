@@ -5,8 +5,9 @@ import * as _ from 'lodash';
 import {Table} from 'react-bootstrap';
 
 import TeamRankEntry from '../components/TeamRankEntry';
+import {RankingEntry} from "../domain/RankingEntry";
 
-const RegionRanking = ({ranking}) => {
+const RegionRanking = ({ranking}: {ranking: Array<RankingEntry>}) => {
     let teams = _.groupBy(ranking, 'team');
     let teamsRank = _.orderBy(_.map(teams, (rankNodes, team) => {
         return {team: team, score: _.sumBy(rankNodes, 'score')};
