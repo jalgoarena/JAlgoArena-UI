@@ -1,12 +1,11 @@
 import React from 'react';
-import * as _ from 'lodash';
 import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import {fetchRanking} from "../actions";
 import UserRank from '../components/UserRank';
-import RegionRank from '../components/RegionRank';
-import TeamRank from '../components/TeamRank';
+import RegionRanking from '../components/RegionRanking';
+import TeamRanking from '../components/TeamRanking';
 
 class Leaderboard extends React.Component {
 
@@ -20,36 +19,14 @@ class Leaderboard extends React.Component {
 
         return (
             <Grid>
-                <Col md={3}>
+                <Col md={4}>
                     <PageHeader>Region Ranking</PageHeader>
-                    <Table striped bordered condensed hover responsive>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Region</th>
-                            <th>Score</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.regionRankNodes(ranking)}
-                        </tbody>
-                    </Table>
+                    <RegionRanking ranking={ranking} />
 
                     <PageHeader>Team Ranking</PageHeader>
-                    <Table striped bordered condensed hover responsive>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Team</th>
-                            <th>Score</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.teamRankNodes(ranking)}
-                        </tbody>
-                    </Table>
+                    <TeamRanking ranking={ranking} />
                 </Col>
-                <Col mdOffset={3} md={6}>
+                <Col mdOffset={2} md={6}>
                     <PageHeader>Individual Ranking</PageHeader>
                     <Table striped bordered condensed hover responsive>
                         <thead>
@@ -67,28 +44,6 @@ class Leaderboard extends React.Component {
                     </Table>
                 </Col>
             </Grid>
-        );
-    }
-
-    teamRankNodes(ranking) {
-        let teams = _.groupBy(ranking, 'team');
-        let teamsRank = _.orderBy(_.map(teams, (rankNodes, team) => {
-            return {team: team, score: _.sumBy(rankNodes, 'score')};
-        }), ['score'], ['desc']);
-
-        return teamsRank.map((teamRank, idx) =>
-            <TeamRank key={idx} idx={idx} team={teamRank.team} score={teamRank.score}/>
-        );
-    }
-
-    regionRankNodes(ranking) {
-        let regions = _.groupBy(ranking, 'region');
-        let regionsRank = _.orderBy(_.map(regions, (rankNodes, region) => {
-            return {region: region, score: _.sumBy(rankNodes, 'score')};
-        }), ['score'], ['desc']);
-
-        return regionsRank.map((regionRank, idx) =>
-            <RegionRank key={idx} idx={idx} region={regionRank.region} score={regionRank.score}/>
         );
     }
 
