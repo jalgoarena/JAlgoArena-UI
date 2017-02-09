@@ -15,31 +15,31 @@ class ProblemsAdmin extends React.Component {
         super(props);
         this.state = {
             newProblem: {
-                "id": "fib",
-                "title": "Fibonacci",
-                "description": "Write the `fib` method to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
-                "timeLimit": 1,
-                "memoryLimit": 32,
-                "func": {
-                    "name": "fib",
-                    "returnStatement": {"type": "java.lang.Long", "comment": " N'th term of Fibonacci sequence"},
-                    "parameters": [{
-                        "name": "n",
-                        "type": "java.lang.Integer",
-                        "comment": "id of fibonacci term to be returned"
+                id: "fib",
+                title: "Fibonacci",
+                description: "Write the `fib` method to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
+                timeLimit: 1,
+                memoryLimit: 32,
+                func: {
+                    name: "fib",
+                    returnStatement: {type: "java.lang.Long", comment: " N'th term of Fibonacci sequence"},
+                    parameters: [{
+                        name: "n",
+                        type: "java.lang.Integer",
+                        comment: "id of fibonacci term to be returned"
                     }]
                 },
-                "testCases": [{"input": ["0"], "output": 0}, {"input": ["1"], "output": 1}, {
-                    "input": ["2"],
-                    "output": 1
-                }, {"input": ["3"], "output": 2}, {"input": ["4"], "output": 3}, {
-                    "input": ["5"],
-                    "output": 5
-                }, {"input": ["6"], "output": 8}, {"input": ["20"], "output": 6765}, {
-                    "input": ["40"],
-                    "output": 102334155
+                testCases: [{input: ["0"], output: 0}, {input: ["1"], output: 1}, {
+                    input: ["2"],
+                    output: 1
+                }, {input: ["3"], output: 2}, {input: ["4"], output: 3}, {
+                    input: ["5"],
+                    output: 5
+                }, {input: ["6"], output: 8}, {input: ["20"], output: 6765}, {
+                    input: ["40"],
+                    output: 102334155
                 }],
-                "level": 1
+                level: 1
             }
         };
     }
@@ -178,7 +178,7 @@ class ProblemsAdmin extends React.Component {
                                          onChange={(e) => this.setState({
                                              newProblem: Object.assign({}, this.state.newProblem, {
                                                  func: Object.assign({}, this.state.newProblem.func, {
-                                                     return: Object.assign({}, this.state.newProblem.func.returnStatement, {
+                                                     returnStatement: Object.assign({}, this.state.newProblem.func.returnStatement, {
                                                          type: e.target.value,
                                                      })
                                                  })
@@ -202,7 +202,7 @@ class ProblemsAdmin extends React.Component {
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             func: Object.assign({}, this.state.newProblem.func, {
-                                                return: Object.assign({}, this.state.newProblem.func.returnStatement, {
+                                                returnStatement: Object.assign({}, this.state.newProblem.func.returnStatement, {
                                                     comment: e.target.value
                                                 })
                                             })
@@ -214,7 +214,7 @@ class ProblemsAdmin extends React.Component {
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             func: Object.assign({}, this.state.newProblem.func, {
-                                                return: Object.assign({}, this.state.newProblem.func.returnStatement, {
+                                                returnStatement: Object.assign({}, this.state.newProblem.func.returnStatement, {
                                                     generic: e.target.value
                                                 })
                                             })
