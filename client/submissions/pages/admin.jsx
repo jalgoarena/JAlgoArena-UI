@@ -1,136 +1,184 @@
 import React from 'react';
+import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
-import {Grid, PageHeader, Col, Pagination} from 'react-bootstrap';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import * as _ from "lodash";
-import AceEditor from 'react-ace';
-import 'brace/theme/chrome';
+import {hashHistory} from 'react-router';
 
-import {fetchUsers} from "../../users/actions";
+import SourceCode from "../components/SourceCode";
 
-import SubmissionNode from "../components/Submission";
-import SubmissionsFilter from "../components/SubmissionsFilter";
-import {setSubmissionsFilter, deleteSubmission, fetchAllSubmissions} from "../actions";
-import {judgeCode, startJudge} from "../../problems/actions/index";
+import FontAwesome from '../../common/components/FontAwesome';
+import {fetchAllSubmissions, deleteSubmission, setSubmissionsFilter} from "../actions/index";
+import {fetchUsers} from "../../users/actions/index";
+import {startJudge, judgeCode} from "../../problems/actions/index";
 
 class Admin extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state = {
-            sourceCode: "class Solution {}",
-            activePage: 1,
-            numberOfItemsToShow: 4
+        this.state = {showSourceCode: false, sourceCode: "", problemId: ""}
+    }
+
+    showSourceCode(sourceCode, problemId) {
+        this.setState({showSourceCode: true, sourceCode, problemId});
+    }
+
+    hideSourceCode() {
+        this.setState({showSourceCode: false});
+    }
+
+    transferToProfileIfLoggedOut() {
+        if (!this.props.auth.user) {
+            hashHistory.push('/login');
         }
     }
 
-    handleSelect(eventKey) {
-        this.setState({
-            activePage: eventKey
-        });
+    componentWillMount() {
+        this.transferToProfileIfLoggedOut();
+    }
+
+    componentDidUpdate() {
+        this.transferToProfileIfLoggedOut();
     }
 
     componentDidMount() {
-        this.props.onLoad();
+        const {auth, onLoad} = this.props;
+        if (auth.user) {
+            onLoad(auth.user.id);
+        }
+    }
+
+    sourceCodeButtonFormatter(cell) {
+        return <Button bsStyle="success" block
+                       onClick={() => this.showSourceCode(cell.sourceCode, cell.problemId)}>
+            <FontAwesome name="file-text-o"/>
+        </Button>;
+    }
+
+    rerunCodeButtonFormatter(cell) {
+        let submission = cell;
+
+        return <Button bsStyle="info" block
+                       onClick={() =>
+                            this.props.onRerun(
+                                submission.sourceCode,
+                                submission.userId,
+                                submission.problemId,
+                                submission.language
+                            )
+                        }>
+            <FontAwesome name="refresh"/>
+        </Button>
+    }
+
+    deleteButtonFormatter(cell) {
+        let submissionId = cell;
+
+        return <Button bsStyle="danger" block
+                       onClick={() => this.props.onDelete(submissionId)}>
+            <FontAwesome name="remove"/>
+        </Button>;
+    }
+
+    findUsername(users, submission) {
+        let user = users.find((user) => {
+            return user.id === submission.userId;
+        });
+
+        if (user && user.username) {
+            return user.username;
+        } else {
+            return 'Not-Found';
+        }
     }
 
     render() {
-        let submissions = this.props.submissions || [];
-        let users = this.props.auth.users;
+        const {submissions, auth} = this.props;
+        let users = auth.users || [];
 
-        let filteredSubmissions = this.filterAndSort(submissions);
-        let submissionsPage = this.calculateSubmissionPage(filteredSubmissions);
-
-        let submissionNodes = submissionsPage
-            .map((submission, idx) => this.submissionNode(users, submission, idx));
-
-        return <Grid fluid={true}>
-            <PageHeader className="text-center">Submissions ({submissions.length})</PageHeader>
-            <SubmissionsFilter changeFilter={this.props.changeFilter} filter={this.props.submissionsFilter}/>
-            <Col md={6}>
-                <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600}
-                                         transitionLeaveTimeout={600}>
-                    {submissionNodes}
-                </ReactCSSTransitionGroup>
-                <Pagination prev next first last ellipsis
-                            items={Math.ceil(filteredSubmissions.length / this.state.numberOfItemsToShow)}
-                            maxButtons={4}
-                            activePage={this.state.activePage}
-                            onSelect={(e) => this.handleSelect(e)}
-                />
-            </Col>
-            <Col md={6}>
-                <AceEditor mode="java" theme="chrome" height="700px" width="100%"
-                           value={this.state.sourceCode}
-                           readOnly={true}
-                           fontSize={13}
-                           editorProps={{$blockScrolling: true}}
-                />
-            </Col>
-        </Grid>
-    }
-
-    filterAndSort(submissions) {
-        let filteredSubmissions = submissions
-            .filter(submission => this.filterSubmissions(submission));
-
-        return _.orderBy(filteredSubmissions, ["problemId", "userId"]);
-    }
-
-    submissionNode(users, submission, idx) {
-        let username;
-        if (users) {
-            let user = users.find((user) => {
-                return user.id === submission.userId;
-            });
-
-            if (user && user.username) {
-                username = user.username;
-            } else {
-                username = 'Not-Found';
+        let submissionData = submissions.map((submission) => {
+            return {
+                id: submission.id,
+                problemId: submission.problemId,
+                sourceCode: {
+                    sourceCode: submission.sourceCode,
+                    problemId: submission.problemId
+                },
+                level: submission.level,
+                sourceCodeLength: submission.sourceCode ? submission.sourceCode.length : 0,
+                statusCode: submission.statusCode,
+                username: this.findUsername(users, submission),
+                userId: submission.userId,
+                elapsedTime: submission.elapsedTime,
+                language: submission.language,
+                submission
             }
-        }
+        });
 
-        return <SubmissionNode
-            submission={submission}
-            username={username}
-            onDelete={this.props.onDelete}
-            onRerun={this.props.onRerun}
-            onShowSourceCode={() => this.setState({sourceCode: submission.sourceCode})}
-            key={idx}
-        />;
-    }
-
-    calculateSubmissionPage(filteredSubmissions) {
-        return _.take(
-            _.slice(filteredSubmissions, (this.state.activePage - 1) * this.state.numberOfItemsToShow),
-            this.state.numberOfItemsToShow
-        );
-    }
-
-    filterSubmissions(submission) {
-        return this.showAllSubmissions() ||
-            this.showErrorSubmissions(submission) ||
-            submission.statusCode === this.props.submissionsFilter;
-    }
-
-    showAllSubmissions() {
-        return this.props.submissionsFilter === 'ALL'
-    }
-
-    showErrorSubmissions(submission) {
-        return this.props.submissionsFilter === 'ERROR' &&
-            submission.statusCode !== 'ACCEPTED' &&
-            submission.statusCode !== 'RERUN_ACCEPTED'
+        return <Grid fluid>
+            <Col>
+                <PageHeader>Submissions Admin</PageHeader>
+                <BootstrapTable data={submissionData} stripped hover pagination search>
+                    <TableHeaderColumn isKey
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataField='id'>ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='problemId'
+                                       width={200}
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>Problem ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='statusCode'
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>Status</TableHeaderColumn>
+                    <TableHeaderColumn dataField='sourceCodeLength'
+                                       filter={ {
+                                            type: 'NumberFilter',
+                                            delay: 1000,
+                                            numberComparators: [ '=', '>', '<=' ]
+                                       }}
+                                       dataSort={true}>Source Code Length</TableHeaderColumn>
+                    <TableHeaderColumn dataField='username'
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>Username</TableHeaderColumn>
+                    <TableHeaderColumn dataField='userId'
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>User ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='elapsedTime'
+                                       filter={ {
+                                            type: 'NumberFilter',
+                                            delay: 1000,
+                                            numberComparators: [ '=', '>', '<=' ]
+                                       }}
+                                       dataSort={true}>Elapsed Time (ms)</TableHeaderColumn>
+                    <TableHeaderColumn dataField='language'
+                                       filter={ { type: 'TextFilter', delay: 1000 } }
+                                       dataSort={true}>Lang</TableHeaderColumn>
+                    <TableHeaderColumn dataField='sourceCode'
+                                       width={80}
+                                       dataFormat={this.sourceCodeButtonFormatter.bind(this)}>Code</TableHeaderColumn>
+                    <TableHeaderColumn dataField='submission'
+                                       width={80}
+                                       dataFormat={this.rerunCodeButtonFormatter.bind(this)}>Rerun</TableHeaderColumn>
+                    <TableHeaderColumn dataField='id'
+                                       width={80}
+                                       dataFormat={this.deleteButtonFormatter.bind(this)}>Delete</TableHeaderColumn>
+                </BootstrapTable>
+            </Col>
+            <SourceCode
+                show={this.state.showSourceCode}
+                onHide={this.hideSourceCode.bind(this)}
+                sourceCode={this.state.sourceCode}
+                problemId={this.state.problemId}
+            />
+        </Grid>;
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        submissions: state.submissions.items,
-        submissionsFilter: state.submissions.statusFilter
+        submissions: state.submissions.items || []
     };
 };
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -143,7 +191,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         onRerun: (sourceCode, userId, problemId, problemLanguage) => {
             dispatch(startJudge());
-            dispatch(judgeCode(sourceCode, problemId, userId, problemLanguage));
+            dispatch(judgeCode(sourceCode, problemId, userId, problemLanguage, true));
         },
         changeFilter: (status) => {
             dispatch(setSubmissionsFilter(status));

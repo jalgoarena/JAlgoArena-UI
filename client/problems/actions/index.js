@@ -14,7 +14,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
-import {fetchSubmissions} from "../../submissions/actions/index";
+import {fetchSubmissions, fetchAllSubmissions} from "../../submissions/actions/index";
 import {fetchRanking} from "../../ranking/actions/index";
 import JudgeRequest from "../domain/JudgeRequest";
 import JudgeResponse from "../domain/JudgeResponse";
@@ -30,7 +30,7 @@ export function startJudge(): Action {
     };
 }
 
-export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string) {
+export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string, isAdmin: boolean = false) {
 
     let token: ?string = localStorage.getItem('jwtToken');
 
@@ -59,7 +59,11 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
                     dispatch(setErrorMessage("Cannot connect to Judge Service"));
                 } else {
                     dispatch(judgeResultReceived((json: JudgeResponse)));
-                    dispatch(fetchSubmissions(userId));
+                    if (isAdmin) {
+                        dispatch(fetchAllSubmissions());
+                    } else {
+                        dispatch(fetchSubmissions(userId));
+                    }
                     dispatch(fetchRanking());
                 }
             })

@@ -107,7 +107,7 @@ class Submissions extends React.Component {
                 <BootstrapTable data={submissionData} stripped hover pagination search>
                     <TableHeaderColumn isKey dataField='id'>ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='problemId'
-                                       width='200'
+                                       width={200}
                                        filter={ { type: 'TextFilter', delay: 1000 } }
                                        dataSort={true}>Problem ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='level'
@@ -116,16 +116,16 @@ class Submissions extends React.Component {
                                        formatExtraData={ levelType }
                                        filter={ { type: 'SelectFilter', options: levelType }}>Level</TableHeaderColumn>
                     <TableHeaderColumn dataField='problemRankPlace'
-                                       width='80'
+                                       width={80}
                                        dataSort={true}>Rank #</TableHeaderColumn>
                     <TableHeaderColumn dataField='score'
-                                       width='70'
+                                       width={70}
                                        dataSort={true}>Score</TableHeaderColumn>
                     <TableHeaderColumn dataField='maxScore'
-                                       width='70'
+                                       width={70}
                                        dataSort={true}>Max</TableHeaderColumn>
                     <TableHeaderColumn dataField='elapsedTime'
-                                       width='150'
+                                       width={150}
                                        filter={ {
                                             type: 'NumberFilter',
                                             delay: 1000,
