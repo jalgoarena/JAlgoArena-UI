@@ -116,7 +116,7 @@ class Admin extends React.Component {
 
         return <Grid fluid>
             <Col>
-                <PageHeader>Submissions Admin</PageHeader>
+                <PageHeader>Submissions ({submissions.length})</PageHeader>
                 <BootstrapTable data={submissionData} stripped hover pagination search>
                     <TableHeaderColumn isKey
                                        filter={ { type: 'TextFilter', delay: 1000 } }
