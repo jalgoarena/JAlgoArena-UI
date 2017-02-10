@@ -19,14 +19,14 @@ class Leaderboard extends React.Component {
 
         return (
             <Grid>
-                <Col md={4}>
+                <Col md={3}>
                     <PageHeader>Region Ranking</PageHeader>
                     <RegionRanking ranking={ranking} />
 
                     <PageHeader>Team Ranking</PageHeader>
                     <TeamRanking ranking={ranking} />
                 </Col>
-                <Col mdOffset={2} md={6}>
+                <Col mdOffset={1} md={8}>
                     <PageHeader>Individual Ranking</PageHeader>
                     <Table striped bordered condensed hover responsive>
                         <thead>
@@ -36,6 +36,8 @@ class Leaderboard extends React.Component {
                             <th>Region</th>
                             <th>Team</th>
                             <th>Score</th>
+                            <th>Java</th>
+                            <th>Kotlin</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,9 +50,9 @@ class Leaderboard extends React.Component {
     }
 
     static rankNodes(ranking) {
-        return ranking.map((user, idx) =>
-            <UserRank key={idx} idx={idx} hacker={user.hacker} score={user.score} region={user.region}
-                      team={user.team}/>
+        return ranking.map((rankEntry, idx) =>
+            <UserRank key={idx} idx={idx} hacker={rankEntry.hacker} score={rankEntry.score} region={rankEntry.region}
+                      team={rankEntry.team} numberOfSolutionsPerLanguage={rankEntry.numberOfSolutionsPerLanguage} />
         );
     }
 }

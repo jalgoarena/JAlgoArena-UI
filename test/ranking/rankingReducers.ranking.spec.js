@@ -52,8 +52,8 @@ describe('ranking reducer', () => {
     });
 });
 
-let RANK_ENTRY_JULIA = new RankingEntry("julia", 20, [], "Kraków", "Team A");
-let RANK_ENTRY_MIKOLAJ = new RankingEntry("mikolaj", 10, [], "Kraków", "Team A");
+let RANK_ENTRY_JULIA = new RankingEntry("julia", 20, [], "Kraków", "Team A", []);
+let RANK_ENTRY_MIKOLAJ = new RankingEntry("mikolaj", 10, [], "Kraków", "Team A", []);
 
 let PROBLEM_RANK_ENTRY_JULIA = new ProblemRankingEntry("julia", 20.0, 0.1, "kotlin");
 let PROBLEM_RANK_ENTRY_MIKOLAJ = new ProblemRankingEntry("mikolaj", 10.0, 0.1, "java");
