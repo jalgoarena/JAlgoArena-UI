@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react';
-import Markdown from 'react-remarkable';
+import Markdown from '../../common/components/Remarkable';
 
 const ProblemDescription = ({description}: {description: string}) => (
     <div className="lead">
-        <Markdown source={description}/>
+        <Markdown source={description} />
     </div>
 );
 

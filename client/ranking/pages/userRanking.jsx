@@ -33,7 +33,7 @@ class IndividualRanking extends React.Component {
 
         return <Grid>
             <Col>
-                <PageHeader>Individual Ranking</PageHeader>
+                <PageHeader>User Ranking</PageHeader>
                 <BootstrapTable data={rankingData} stripped hover pagination search>
                     <TableHeaderColumn isKey
                                        width={50}

@@ -15,7 +15,7 @@ import SubmissionsAdminPage from "../submissions/pages/admin";
 import ProblemsAdminPage from "../problems/pages/admin";
 import UsersAdminPage from "../users/pages/admin";
 import SubmissionsPage from "../submissions/pages/submissions";
-import IndividualRankingPage from "../ranking/pages/individualRanking";
+import IndividualRankingPage from "../ranking/pages/userRanking";
 import TeamRankingPage from "../ranking/pages/teamRanking";
 import RegionRankingPage from "../ranking/pages/regionRanking";
 
@@ -40,7 +40,7 @@ export default (
                 <Route path="/submissionsAdmin" component={SubmissionsAdminPage} />
                 <Route path="/problemsAdmin" component={ProblemsAdminPage} />
                 <Route path="/usersAdmin" component={UsersAdminPage} />
-                <Route path="/individualRanking" component={IndividualRankingPage} />
+                <Route path="/userRanking" component={IndividualRankingPage} />
                 <Route path="/teamRanking" component={TeamRankingPage} />
                 <Route path="/regionRanking" component={RegionRankingPage} />
             </Route>

@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import AdminMenuItem from "./AdminMenuItem";
 import ProfileOrLoginMenuItem from "./ProfileOrLoginMenuItem";
 import MenuItem from "./MenuItem";
+import RankingMenuItem from "./RankingMenuItem";
 import User from "../../users/domain/User";
 
 const logoStyle = {
@@ -25,9 +26,7 @@ const Menu = ({user}: {user: User}) => (
             <Nav role="navigation" pullRight id="menu">
                 <MenuItem path="/" icon="home" title="Home" />
                 <MenuItem path="/problems" icon="lightbulb-o" title="Problems"/>
-                <MenuItem path="/individualRanking" icon="trophy" title="Ranking"/>
-                <MenuItem path="/teamRanking" icon="users" title="Teams"/>
-                <MenuItem path="/regionRanking" icon="globe" title="Regions"/>
+                <RankingMenuItem />
                 { user ? <MenuItem path="/submissions" icon="code" title="Submissions" /> : null }
                 <ProfileOrLoginMenuItem user={user}/>
                 <AdminMenuItem user={user}/>

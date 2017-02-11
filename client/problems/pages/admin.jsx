@@ -2,7 +2,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import {Grid, Button, Col, PageHeader, FormControl, FormGroup, ControlLabel, Panel} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import Markdown from 'react-remarkable';
+import Markdown from '../../common/components/Remarkable';
 import JSONTree from 'react-json-tree';
 
 import FontAwesome from '../../common/components/FontAwesome';
