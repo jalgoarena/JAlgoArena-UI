@@ -5,7 +5,6 @@ import { Router, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Provider } from 'react-redux'
 
-import RankPage from "../ranking/pages/rank";
 import ProfilePage from "../users/pages/profile";
 import ProblemPage from "../problems/pages/problem";
 import ProblemsPage from "../problems/pages/problems";
@@ -16,6 +15,9 @@ import SubmissionsAdminPage from "../submissions/pages/admin";
 import ProblemsAdminPage from "../problems/pages/admin";
 import UsersAdminPage from "../users/pages/admin";
 import SubmissionsPage from "../submissions/pages/submissions";
+import IndividualRankingPage from "../ranking/pages/individualRanking";
+import TeamRankingPage from "../ranking/pages/teamRanking";
+import RegionRankingPage from "../ranking/pages/regionRanking";
 
 import {Layout} from './layout';
 import Home from "./pages/home";
@@ -29,7 +31,6 @@ export default (
             <Route component={Layout}>
                 <Route path="/" component={Home} />
                 <Route path="/problems" component={ProblemsPage} />
-                <Route path="/leaderboard" component={RankPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/problem/:id" component={ProblemPage} />
                 <Route path="/problem/:id/rank" component={ProblemRankPage} />
@@ -39,6 +40,9 @@ export default (
                 <Route path="/submissionsAdmin" component={SubmissionsAdminPage} />
                 <Route path="/problemsAdmin" component={ProblemsAdminPage} />
                 <Route path="/usersAdmin" component={UsersAdminPage} />
+                <Route path="/individualRanking" component={IndividualRankingPage} />
+                <Route path="/teamRanking" component={TeamRankingPage} />
+                <Route path="/regionRanking" component={RegionRankingPage} />
             </Route>
         </Router>
     </Provider>
