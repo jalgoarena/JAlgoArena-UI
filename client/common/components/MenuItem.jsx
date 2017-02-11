@@ -6,9 +6,9 @@ import {LinkContainer} from 'react-router-bootstrap';
 
 import FontAwesome from './FontAwesome';
 
-const MenuItem = ({path, icon, title, sm}: {path: string, icon: string, title: string, sm: boolean}) => (
+const MenuItem = ({path, icon, title}: {path: string, icon: string, title: string}) => (
     <LinkContainer to={path}>
-        <NavItem><FontAwesome name={icon} lg={!sm}/> {title}</NavItem>
+        <NavItem><FontAwesome name={icon} lg={true}/> {title}</NavItem>
     </LinkContainer>
 );
 
