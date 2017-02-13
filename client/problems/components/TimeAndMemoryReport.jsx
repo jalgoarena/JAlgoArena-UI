@@ -12,7 +12,7 @@ const TimeAndMemoryReport = ({elapsedTime, consumedMemory}: {elapsedTime: number
             <span>
                 <FontAwesome name="clock-o"/> {`${Math.round(elapsedTime)} ms`}
                 {" | "}
-                <FontAwesome name="database"/> {`${consumedMemory} kb`}
+                <FontAwesome name="database"/> {`${consumedMemory} bytes`}
             </span>
     </div>
 );
