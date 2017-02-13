@@ -19,7 +19,7 @@ const SubmissionResult = ({result}: {result: JudgeResponse}) => {
                     <TestCaseResult key={i} passed={result} id={i + 1}/>
                 )}
                 <TimeAndMemoryReport elapsedTime={result.elapsedTime}
-                                     consumedMemory={result.consumedMemory}/>
+                                     consumedMemory={result.consumedMemory < 0 ? 0 : result.consumedMemory}/>
             </div>;
         case 'WRONG_ANSWER':
             return <div>

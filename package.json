@@ -1,6 +1,6 @@
 {
   "name": "jalgoarena",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "description": "JAlgoArena UI",
   "main": "server.js",
   "scripts": {

@@ -134,7 +134,6 @@ let FIB_PROBLEM = new Problem(
     "Fibonacci",
     "description",
     1,
-    32,
     {"java": "dummy code"},
     1
 );
@@ -144,7 +143,6 @@ let STOI_PROBLEM = new Problem(
     "STOI",
     "description",
     1,
-    32,
     {"java": "dummy code"},
     1
 );
@@ -154,7 +152,6 @@ let FIB_RAW_PROBLEM = new RawProblem(
     "Fibonacci",
     "description",
     1,
-    32,
     new Method(
         "fib",
         new Return("java.lang.Integer", "Comment"),
@@ -169,7 +166,6 @@ let STOI_RAW_PROBLEM = new RawProblem(
     "STOI",
     "description",
     1,
-    32,
     new Method(
         "stoi",
         new Return("java.lang.Integer", "Comment"),

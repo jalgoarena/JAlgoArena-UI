@@ -5,7 +5,6 @@ export default class Problem {
     title: string;
     description: string;
     timeLimit: number;
-    memoryLimit: number;
     skeletonCode: Object;
     level: number;
 
@@ -13,14 +12,12 @@ export default class Problem {
                 title: string,
                 description: string,
                 timeLimit: number,
-                memoryLimit: number,
                 skeletonCode: Object,
                 level: number) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.timeLimit = timeLimit;
-        this.memoryLimit = memoryLimit;
         this.skeletonCode = skeletonCode;
         this.level = level;
     }

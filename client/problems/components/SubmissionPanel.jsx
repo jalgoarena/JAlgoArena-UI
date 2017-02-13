@@ -37,7 +37,7 @@ const SubmissionPanel = ({problem, sourceCode, userId, onRun, activeLanguage, is
         {button}
         <TimeLimit timeLimit={problem.timeLimit}/>
         <br />
-        <MemoryLimit memoryLimit={problem.memoryLimit}/>
+        <MemoryLimit />
     </div>;
 };
 

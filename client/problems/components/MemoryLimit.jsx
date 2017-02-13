@@ -2,12 +2,11 @@
 
 import React from 'react';
 
-const MemoryLimit = ({memoryLimit}: {memoryLimit: number}) => (
-    <span>Memory limit is
-        {" "}
-        <span className="text-success"> {memoryLimit}</span>
-        {" "}
-        kilobytes.
+const MemoryLimit = () => (
+    <span>
+        {"Memory limit is "}
+        <span className="text-success">32</span>
+        {" MB."}
     </span>
 );
 

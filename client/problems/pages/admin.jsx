@@ -19,7 +19,6 @@ class ProblemsAdmin extends React.Component {
                 title: "Fibonacci",
                 description: "Write the `fib` method to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
                 timeLimit: 1,
-                memoryLimit: 32,
                 func: {
                     name: "fib",
                     returnStatement: {type: "java.lang.Long", comment: " N'th term of Fibonacci sequence"},
@@ -70,7 +69,6 @@ class ProblemsAdmin extends React.Component {
             title: this.state.newProblem.title,
             description: this.state.newProblem.description,
             timeLimit: this.state.newProblem.timeLimit,
-            memoryLimit: this.state.newProblem.memoryLimit,
             level: this.state.newProblem.level,
             func: this.state.newProblem.func,
             testCases: this.state.newProblem.testCases
@@ -129,14 +127,6 @@ class ProblemsAdmin extends React.Component {
                                     onChange={(e) => this.setState({
                                         newProblem: Object.assign({}, this.state.newProblem, {
                                             timeLimit: parseInt(e.target.value)
-                                        })
-                                    })}
-                        />
-                        <FieldGroup id="memoryLimit" type="number" placeholder="Memory Limit" label="Memory Limit"
-                                    value={this.state.newProblem.memoryLimit}
-                                    onChange={(e) => this.setState({
-                                        newProblem: Object.assign({}, this.state.newProblem, {
-                                            memoryLimit: parseInt(e.target.value)
                                         })
                                     })}
                         />
@@ -249,7 +239,6 @@ class ProblemsAdmin extends React.Component {
                     <PageHeader className="text-center">{this.state.newProblem.title}</PageHeader>
                     <h4>ID: {this.state.newProblem.id}</h4>
                     <h4>Time Limit: {this.state.newProblem.timeLimit}</h4>
-                    <h4>Memory Limit: {this.state.newProblem.memoryLimit}</h4>
                     <h4>Level: {this.state.newProblem.level}</h4>
                     <h4>Description</h4>
                     <Markdown source={this.state.newProblem.description}/>

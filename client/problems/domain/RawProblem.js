@@ -7,7 +7,6 @@ export default class RawProblem {
     title: string;
     description: string;
     timeLimit: number;
-    memoryLimit: number;
     func: Method;
     testCases: Array<TestCase>;
     level: number;
@@ -16,7 +15,6 @@ export default class RawProblem {
                 title: string,
                 description: string,
                 timeLimit: number,
-                memoryLimit: number,
                 func: Method,
                 testCases: Array<TestCase>,
                 level: number) {
@@ -24,7 +22,6 @@ export default class RawProblem {
         this.title = title;
         this.description = description;
         this.timeLimit = timeLimit;
-        this.memoryLimit = memoryLimit;
         this.func = func;
         this.testCases = testCases;
         this.level = level;
