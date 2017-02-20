@@ -13,9 +13,9 @@ import {fetchSubmissions} from "../../submissions/actions";
 function maxScore(level: number) {
     switch (level) {
         case 3:
-            return 46;
+            return 76;
         case 2:
-            return 31;
+            return 46;
         default:
             return 16;
     }

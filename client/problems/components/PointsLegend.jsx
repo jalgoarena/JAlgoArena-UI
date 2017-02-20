@@ -34,13 +34,13 @@ const PointsLegend = ({show, onHide}: {show: boolean, onHide: () => void}) => (
                 </tr>
                 <tr>
                     <td>Medium</td>
-                    <td>20</td>
                     <td>30</td>
+                    <td>45</td>
                 </tr>
                 <tr>
                     <td>Hard</td>
-                    <td>30</td>
-                    <td>45</td>
+                    <td>50</td>
+                    <td>75</td>
                 </tr>
                 </tbody>
             </Table>
