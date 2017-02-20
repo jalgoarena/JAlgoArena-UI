@@ -11,7 +11,11 @@ const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, activ
                 <FontAwesome name="refresh"/> Refresh
             </Button>
         </LinkContainer>
-        <Button bsStyle="success" className="pull-right" onClick={onShowPointsLegend}>Max {problem.level * 10 * (activeLanguage === 'java' ? 1 : 1.5)} Points</Button>
+        <Button bsStyle="success"
+                className="pull-right"
+                onClick={onShowPointsLegend}>
+            Max {(10 + ((problem.level - 1) * 20)) * (activeLanguage === 'java' ? 1 : 1.5)} Points
+        </Button>
         {children}
     </ButtonToolbar>
 );
