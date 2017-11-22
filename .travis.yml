@@ -9,12 +9,12 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: foqTgIx6YXj0SjpnrIItIOqHtZ1a4O8bn1Tq38/SdbzrAlvGz2KWe4d2ZXKpi34ijwUOTOcFilMOV5GvkiAmMact6dEdU3PXsGaQ9Wp2yR0YtiYgJseJ3MIGa381FRclIZVnMgbf5Li6D0YbyZzQFS8YibY0BT4bWWyRf3wRkAUc4It9QWlECxMCBh/P5JCcHxTDwcxMhFWesI03pVRfidJIMl8lVGzeFo2aklKBtlGc3Hikdtqxa/eONrnKittXtMpDxNN5HoJXCz2nkKyf3vjob3NII3BOf/L/w3gudRBFX62MTp0dK3furT70QBwWfzvsiZUoarvmRYLGFNvUIqyxyBZ10WNMVqQBuZN7n+KC6daVBNMIIeSzMfXBSdhEXgXqnOg5iCjE1Is3E9/YOIFYzb62Bd5TrZTszom1G6guIgqGzragDOjluRJ1nzTlvZHDwVVG3XyJKQQzQ3tMyAOKNYpmWOh2dNw5DUhWZoHIF+GmDealKnMeBa9rqduDVz54TeZRy/tVlWDY5FkisSgpKwDnaroi4UuQqBrpGWhACibGAmjZH84oT4ooGdkpWa8BqCxjOZVCKQXM29kuADL4e+z6B7awSitKmZK3zdvcNWi4/jkAwHavQy7E4ir+K4l/ChMFgSi2bg/cnWf0zDkF6b0fNfy2R62dp0NIga0=
+    secure: 6879384a-0b0e-4f39-8d4c-4dcc0d4f61bc
   file_glob: true
   file: ./dist/JAlgoArena-UI-*.zip
   skip_cleanup: true
   on:
-    repo: spolnik/JAlgoArena-UI
+    repo: antonina18/JAlgoArena-UI
     tags: true
 addons:
     code_climate:
