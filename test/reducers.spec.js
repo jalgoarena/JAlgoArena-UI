@@ -56,7 +56,7 @@ describe('root reducer', () => {
 
     [types.SET_CURRENT_PROBLEM,
         types.FETCH_PROBLEMS_SUCCESS,
-        types.JUDGE_RESULT_RECEIVED,
+        types.SUBMISSION_PUBLISHED,
         types.FETCH_SUBMISSIONS,
         types.FETCH_RANKING,
         types.CHECKED_SESSION_STATUS,

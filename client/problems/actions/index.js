@@ -1,6 +1,8 @@
 // @flow
+import Submission from "../domain/Submission";
+
 type Action = {type:string}
-    | {type:string, result:JudgeResponse}
+    | {type:string, result:Submission}
     | {type:string, sourceCode:string}
     | {type:string, problemId:string}
     | {type:string, problems:Array<Problem>}
@@ -17,11 +19,11 @@ import {setErrorMessage} from "../../common/actions/index";
 import {fetchSubmissions, fetchAllSubmissions} from "../../submissions/actions/index";
 import {fetchRanking} from "../../ranking/actions/index";
 import JudgeRequest from "../domain/JudgeRequest";
-import JudgeResponse from "../domain/JudgeResponse";
 import Problem from "../domain/Problem";
 import RawProblem from "../domain/RawProblem";
 
 const JUDGE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/judge/api`;
+const QUEUE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/queue/api`;
 const PROBLEMS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/problems/api`;
 
 export function startJudge(): Action {
@@ -52,13 +54,13 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
         ))
     };
     return (dispatch: Dispatch) => {
-        return fetch(`${JUDGE_SERVER_URL}/problems/${problemId}/submit`, options)
+        return fetch(`${QUEUE_SERVER_URL}/problems/${problemId}/publish`, options)
             .then(response => response.json())
             .then(json => {
                 if ((json: Error).error) {
-                    dispatch(setErrorMessage("Cannot connect to Judge Service"));
+                    dispatch(setErrorMessage("Cannot connect to Queue Service"));
                 } else {
-                    dispatch(judgeResultReceived((json: JudgeResponse)));
+                    dispatch(submissionPublished((json: Submission)));
                     if (isAdmin) {
                         dispatch(fetchAllSubmissions());
                     } else {
@@ -72,9 +74,9 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
 
 }
 
-function judgeResultReceived(result: JudgeResponse): Action {
+function submissionPublished(result: Submission): Action {
     return {
-        type: types.JUDGE_RESULT_RECEIVED,
+        type: types.SUBMISSION_PUBLISHED,
         result
     }
 }

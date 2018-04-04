@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import TimeAndMemoryReport from './TimeAndMemoryReport';
+import DisplaySubmissionId from './DisplaySubmissionId';
 import SubmissionFailed from './SubmissionFailed';
 import TestCaseResult from './TestCaseResult';
 import JudgeResponse from "../domain/JudgeResponse";
@@ -12,13 +12,13 @@ const SubmissionResult = ({result}: {result: JudgeResponse}) => {
     switch (result.statusCode) {
         case 'WAITING':
             return <h2 className="text-info text-center">Run your code to see results</h2>;
-        case 'ACCEPTED':
+        case 'PUBLISHED':
             return <div>
-                <h2 className="text-success text-center">Congrats, you solved this problem!</h2>
+                <h2 className="text-success text-center">Published, check submissions</h2>
                 {result.testcaseResults.map((result, i) =>
                     <TestCaseResult key={i} passed={result} id={i + 1}/>
                 )}
-                <TimeAndMemoryReport elapsedTime={result.elapsedTime}
+                <DisplaySubmissionId elapsedTime={result.elapsedTime}
                                      consumedMemory={result.consumedMemory < 0 ? 0 : result.consumedMemory}/>
             </div>;
         case 'WRONG_ANSWER':

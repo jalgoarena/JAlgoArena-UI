@@ -35,7 +35,7 @@ describe("async actions", () => {
         nock.cleanAll()
     });
 
-    it("creates JUDGE_RESULT_RECEIVED when judgement has been done", () => {
+    it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
         let judgeResponse = new JudgeResponse(
             "ACCEPTED",
             null,
@@ -52,7 +52,7 @@ describe("async actions", () => {
         const PROBLEM_ID = "fib";
 
         const expectedActions = [{
-            type: types.JUDGE_RESULT_RECEIVED,
+            type: types.SUBMISSION_PUBLISHED,
             result: judgeResponse
         }];
 

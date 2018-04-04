@@ -35,7 +35,7 @@ export function showModal(state: boolean = false, action: Action) {
             return true;
         case types.SET_CURRENT_PROBLEM:
         case types.FETCH_PROBLEMS_SUCCESS:
-        case types.JUDGE_RESULT_RECEIVED:
+        case types.SUBMISSION_PUBLISHED:
         case types.FETCH_SUBMISSIONS:
         case types.FETCH_RANKING:
         case types.CHECKED_SESSION_STATUS:

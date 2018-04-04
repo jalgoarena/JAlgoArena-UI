@@ -4,6 +4,7 @@ import * as types from "../../constants/ActionTypes";
 import JudgeResponse from "../domain/JudgeResponse";
 import Problem from "../domain/Problem";
 import RawProblem from "../domain/RawProblem";
+import Submission from "../domain/Submission";
 
 type EditorState = {
     sourceCode: ?string;
@@ -15,7 +16,7 @@ type EditorAction = {
     type: string,
     sourceCode?: string,
     programmingLanguage?: string,
-    result?: JudgeResponse
+    result?: Submission
 }
 
 export function editor(state: EditorState = {
@@ -40,9 +41,10 @@ export function editor(state: EditorState = {
                 judgeResult: {statusCode: 'WAITING'},
                 programmingLanguage: action.programmingLanguage
             });
-        case types.JUDGE_RESULT_RECEIVED:
+        case types.SUBMISSION_PUBLISHED:
             return Object.assign({}, state, {
-                judgeResult: action.result
+                judgeResult: {statusCode: 'PUBLISHED'},
+                submissionId: action.result.submissionId
             });
         default:
             return state;

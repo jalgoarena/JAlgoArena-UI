@@ -54,12 +54,12 @@ describe('editor reducer', () => {
 
 
 
-    it('should handle JUDGE_RESULT_RECEIVED', () => {
+    it('should handle SUBMISSION_PUBLISHED', () => {
         let acceptedJudgeResponse = new JudgeResponse("ACCEPTED", null, 0.1, 0, [true, true]);
         expect(
             reducer.editor(defaultEditorState,
                 {
-                    type: types.JUDGE_RESULT_RECEIVED,
+                    type: types.SUBMISSION_PUBLISHED,
                     result: acceptedJudgeResponse
                 }
             )
@@ -71,7 +71,7 @@ describe('editor reducer', () => {
                     judgeResult: {statusCode: "ACCEPTED"}
                 }),
                 {
-                    type: types.JUDGE_RESULT_RECEIVED,
+                    type: types.SUBMISSION_PUBLISHED,
                     result: compileErrorJudgeResponse
                 }
             )

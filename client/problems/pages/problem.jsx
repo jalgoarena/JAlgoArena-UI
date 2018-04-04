@@ -53,7 +53,7 @@ class Problem extends React.Component {
 
     isAlreadySolved() {
         return this.props.problem &&
-            this.props.editor.judgeResult.statusCode === 'ACCEPTED' &&
+            this.props.editor.judgeResult.statusCode === 'PUBLISHED' &&
             this.props.editor.sourceCode &&
             this.props.auth.user
     }
