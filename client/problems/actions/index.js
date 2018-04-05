@@ -2,7 +2,7 @@
 import Submission from "../domain/Submission";
 
 type Action = {type:string}
-    | {type:string, result:Submission}
+    | {type:string, submissionId:string}
     | {type:string, sourceCode:string}
     | {type:string, problemId:string}
     | {type:string, problems:Array<Problem>}
@@ -77,7 +77,7 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
 function submissionPublished(result: Submission): Action {
     return {
         type: types.SUBMISSION_PUBLISHED,
-        result
+        submissionId: result.submissionId
     }
 }
 

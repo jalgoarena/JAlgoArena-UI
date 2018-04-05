@@ -1,14 +1,12 @@
 // @flow
 
 import * as types from "../../constants/ActionTypes";
-import JudgeResponse from "../domain/JudgeResponse";
 import Problem from "../domain/Problem";
 import RawProblem from "../domain/RawProblem";
-import Submission from "../domain/Submission";
 
 type EditorState = {
     sourceCode: ?string;
-    judgeResult: JudgeResponse | {statusCode: string};
+    submissionId: ?string;
     programmingLanguage: string;
 }
 
@@ -16,12 +14,12 @@ type EditorAction = {
     type: string,
     sourceCode?: string,
     programmingLanguage?: string,
-    result?: Submission
+    submissionId?: string
 }
 
 export function editor(state: EditorState = {
     sourceCode: null,
-    judgeResult: {statusCode: 'WAITING'},
+    submissionId: null,
     programmingLanguage: 'java'
 }, action: EditorAction): EditorState {
     switch (action.type) {
@@ -33,18 +31,17 @@ export function editor(state: EditorState = {
         case types.PROBLEM_REFRESH:
             return Object.assign({}, state, {
                 sourceCode: null,
-                judgeResult: {statusCode: 'WAITING'}
+                submissionId: null
             });
         case types.CHANGE_PROGRAMMING_LANGUAGE:
             return Object.assign({}, state, {
                 sourceCode: null,
-                judgeResult: {statusCode: 'WAITING'},
+                submissionId: null,
                 programmingLanguage: action.programmingLanguage
             });
         case types.SUBMISSION_PUBLISHED:
             return Object.assign({}, state, {
-                judgeResult: {statusCode: 'PUBLISHED'},
-                submissionId: action.result.submissionId
+                submissionId: action.submissionId
             });
         default:
             return state;

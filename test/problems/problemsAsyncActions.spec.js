@@ -14,11 +14,13 @@ import Return from "../../client/problems/domain/Return";
 import TestCase from "../../client/problems/domain/TestCase";
 import Parameter from "../../client/problems/domain/Parameter";
 import RawProblem from "../../client/problems/domain/RawProblem";
+import Submission from "../../client/problems/domain/Submission";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
+let queueServerUrl = config.jalgoarenaApiUrl + "/queue/api";
 let problemsServerUrl = config.jalgoarenaApiUrl + "/problems/api";
 
 window.localStorage = {
@@ -36,24 +38,20 @@ describe("async actions", () => {
     });
 
     it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
-        let judgeResponse = new JudgeResponse(
-            "ACCEPTED",
-            null,
-            0.24,
-            0,
-            [true, true, true, true, true]
+        let submission = new Submission(
+            "dummy source code", "user-id", "java", "fib", "submission-id", "token"
         );
 
-        nock(judgeServerUrl)
-            .post("/problems/fib/submit")
-            .reply(200, judgeResponse);
+        nock(queueServerUrl)
+            .post("/problems/fib/publish")
+            .reply(200, submission);
 
         const SOURCE_CODE = "dummy_source_code";
         const PROBLEM_ID = "fib";
 
         const expectedActions = [{
             type: types.SUBMISSION_PUBLISHED,
-            result: judgeResponse
+            submissionId: "submission-id"
         }];
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});

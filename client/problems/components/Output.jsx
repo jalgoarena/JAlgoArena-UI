@@ -3,8 +3,7 @@
 import React from 'react';
 import {Row} from 'react-bootstrap';
 
-import SubmissionResult from './SubmissionResult';
-import JudgeResponse from "../domain/JudgeResponse";
+import SubmissionPublished from './SubmissionPublished';
 
 const outputStyle = {
     marginTop: 30,
@@ -13,9 +12,9 @@ const outputStyle = {
     padding: "0 10px 10px",
 };
 
-const Output = ({result}: {result: JudgeResponse}) => (
+const Output = ({submissionId}: {submissionId: string}) => (
     <Row style={outputStyle}>
-        <SubmissionResult result={result}/>
+        <SubmissionPublished submissionId={submissionId}/>
     </Row>
 );
 

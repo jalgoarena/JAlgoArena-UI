@@ -10,7 +10,7 @@ describe('root reducer', () => {
             {
                 editor: {
                     sourceCode: null,
-                    judgeResult: {statusCode: 'WAITING'},
+                    submissionId: null,
                     programmingLanguage: 'java'
                 },
                 problems: {

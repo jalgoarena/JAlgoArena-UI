@@ -3,10 +3,11 @@
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
 import JudgeResponse from "../../client/problems/domain/JudgeResponse";
+import Submission from "../../client/problems/domain/Submission";
 
 let defaultEditorState = {
     sourceCode: null,
-    judgeResult: {statusCode: 'WAITING'},
+    submissionId: null,
     programmingLanguage: 'java'
 };
 
@@ -19,7 +20,7 @@ describe('editor reducer', () => {
                     sourceCode: 'class Solution'
                 }
             )
-        ).toEqual({judgeResult: {statusCode: "WAITING"}, programmingLanguage: "java", sourceCode: "class Solution"});
+        ).toEqual({submissionId: null, programmingLanguage: "java", sourceCode: "class Solution"});
 
         expect(
             reducer.editor(Object.assign({}, defaultEditorState, {
@@ -30,7 +31,7 @@ describe('editor reducer', () => {
                     sourceCode: 'class Solution2'
                 }
             )
-        ).toEqual({judgeResult: {statusCode: "WAITING"}, programmingLanguage: "java", sourceCode: 'class Solution2'});
+        ).toEqual({submissionId: null, programmingLanguage: "java", sourceCode: 'class Solution2'});
     });
 
     let actionsCleaningSourceCode = [
@@ -48,34 +49,25 @@ describe('editor reducer', () => {
                         type: actionType
                     }
                 )
-            ).toEqual({judgeResult: {statusCode: "WAITING"}, sourceCode: null, programmingLanguage: "java"});
+            ).toEqual({submissionId: null, sourceCode: null, programmingLanguage: "java"});
         });
     });
 
 
 
     it('should handle SUBMISSION_PUBLISHED', () => {
-        let acceptedJudgeResponse = new JudgeResponse("ACCEPTED", null, 0.1, 0, [true, true]);
+        let submission = new Submission(
+            "dummy source code", "user-id", "java", "fib", "submission-id", "token"
+        );
+
         expect(
             reducer.editor(defaultEditorState,
                 {
                     type: types.SUBMISSION_PUBLISHED,
-                    result: acceptedJudgeResponse
+                    submissionId: submission.submissionId
                 }
             )
-        ).toEqual({judgeResult: acceptedJudgeResponse, programmingLanguage: "java", sourceCode: null});
-
-        let compileErrorJudgeResponse = new JudgeResponse("COMPILER_ERROR", "error", 0.0, 0, []);
-        expect(
-            reducer.editor(Object.assign({}, defaultEditorState, {
-                    judgeResult: {statusCode: "ACCEPTED"}
-                }),
-                {
-                    type: types.SUBMISSION_PUBLISHED,
-                    result: compileErrorJudgeResponse
-                }
-            )
-        ).toEqual({judgeResult: compileErrorJudgeResponse, programmingLanguage: "java", sourceCode: null});
+        ).toEqual({submissionId: "submission-id", programmingLanguage: "java", sourceCode: null});
     });
 
     let actionsResettingResult = [
@@ -87,7 +79,7 @@ describe('editor reducer', () => {
         it(`should handle ${actionType}`, () => {
             expect(
                 reducer.editor(Object.assign({}, defaultEditorState, {
-                        judgeResult: {statusCode: "ACCEPTED"}
+                        submissionId: "submission-id"
                     }),
                     {
                         type: actionType
@@ -105,7 +97,7 @@ describe('editor reducer', () => {
                     programmingLanguage: 'kotlin'
                 }
             )
-        ).toEqual({"judgeResult": {"statusCode": "WAITING"}, "programmingLanguage": "kotlin", "sourceCode": null});
+        ).toEqual({submissionId: null, "programmingLanguage": "kotlin", "sourceCode": null});
 
         expect(
             reducer.editor(Object.assign({}, defaultEditorState, {
@@ -117,6 +109,6 @@ describe('editor reducer', () => {
                     programmingLanguage: 'kotlin'
                 }
             )
-        ).toEqual({"judgeResult": {"statusCode": "WAITING"}, "programmingLanguage": "kotlin", "sourceCode": null});
+        ).toEqual({submissionId: null, "programmingLanguage": "kotlin", "sourceCode": null});
     });
 });
