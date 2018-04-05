@@ -36,7 +36,7 @@ class IndividualRanking extends React.Component {
                 <PageHeader>User Ranking</PageHeader>
                 <BootstrapTable data={rankingData} stripped hover pagination search>
                     <TableHeaderColumn isKey
-                                       width={50}
+                                       width={'50'}
                                        dataSort={true}
                                        dataField='place'>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='hacker'

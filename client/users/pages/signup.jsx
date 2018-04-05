@@ -162,7 +162,7 @@ class SignUp extends React.Component {
                                     inputRef={ref => { this.password = ref; }}
                                     validationState={this.state.isPasswordFieldIncorrect ? "error" : null}
                         />
-                        <FieldGroup id="password" type="password" placeholder="Confirm Password"
+                        <FieldGroup id="confirmPassword" type="password" placeholder="Confirm Password"
                                     inputRef={ref => { this.confirmPassword = ref; }}
                                     validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : null}
                         />

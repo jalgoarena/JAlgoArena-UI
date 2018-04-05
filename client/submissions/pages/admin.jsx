@@ -122,7 +122,7 @@ class Admin extends React.Component {
                                        filter={ { type: 'TextFilter', delay: 1000 } }
                                        dataField='id'>ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='problemId'
-                                       width={200}
+                                       width={'200'}
                                        filter={ { type: 'TextFilter', delay: 1000 } }
                                        dataSort={true}>Problem ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='statusCode'
@@ -152,13 +152,13 @@ class Admin extends React.Component {
                                        filter={ { type: 'TextFilter', delay: 1000 } }
                                        dataSort={true}>Lang</TableHeaderColumn>
                     <TableHeaderColumn dataField='sourceCode'
-                                       width={80}
+                                       width={'80'}
                                        dataFormat={this.sourceCodeButtonFormatter.bind(this)}>Code</TableHeaderColumn>
                     <TableHeaderColumn dataField='submission'
-                                       width={80}
+                                       width={'80'}
                                        dataFormat={this.rerunCodeButtonFormatter.bind(this)}>Rerun</TableHeaderColumn>
                     <TableHeaderColumn dataField='id'
-                                       width={80}
+                                       width={'80'}
                                        dataFormat={this.deleteButtonFormatter.bind(this)}>Delete</TableHeaderColumn>
                 </BootstrapTable>
             </Col>

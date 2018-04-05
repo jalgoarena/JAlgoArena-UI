@@ -53,7 +53,7 @@ class Problem extends React.Component {
 
     isAlreadySolved() {
         return this.props.problem &&
-            this.props.editor.submission.submissionId !== null &&
+            this.props.editor.submissionId !== null &&
             this.props.editor.sourceCode &&
             this.props.auth.user
     }
@@ -155,7 +155,7 @@ class Problem extends React.Component {
                     activeLanguage={this.props.programmingLanguage}
                 />
             </Row>
-            <Output result={this.props.editor.submissionId}/>
+            <Output submissionId={this.props.editor.submissionId}/>
             <ListNodeSourceCode
                 show={this.state.showListNodeSourceCode}
                 onHide={this.hideListNodeSourceCode.bind(this)}

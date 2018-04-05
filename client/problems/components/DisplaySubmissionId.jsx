@@ -10,7 +10,7 @@ const style = {
 const DisplaySubmissionId = ({submissionId}: {submissionId: string}) => (
     <div className="col-md-12 text-center" style={style}>
             <span>
-                <FontAwesome name="envelope"/> {submissionId}
+                Submission id: {submissionId}
             </span>
     </div>
 );
