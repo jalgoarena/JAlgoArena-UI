@@ -9,12 +9,32 @@ import {Submission} from "../../submissions/domain/Submission";
 import Problem from "../domain/Problem";
 
 const ProblemTitle = ({submissions, problem}: {submissions: Array<Submission>, problem: Problem}) => {
-    let submittedProblems = _.map(submissions, (submission) => submission.problemId);
+    let acceptedSubmissions = _.filter(submissions,
+        (submission: Submission) => submission.statusCode === 'ACCEPTED'
+    );
+    let failedSubmissions = _.filter(submissions,
+        (submission: Submission) => submission.statusCode !== 'ACCEPTED'
+    );
 
-    let isProblemDone = _.includes(submittedProblems, problem.id);
-    let doneCheck = isProblemDone ? <FontAwesome name="check-circle" /> : null;
+    let submittedAcceptedProblems = _.map(acceptedSubmissions, (submission) => submission.problemId);
+    let submittedFailedProblems = _.map(failedSubmissions, (submission) => submission.problemId);
 
-    return <PageHeader className={isProblemDone ? "text-success" : ""}>
+    const isSuccess = _.includes(submittedAcceptedProblems, problem.id);
+    const isFailure = _.includes(submittedFailedProblems, problem.id);
+
+    let doneCheck = isSuccess
+        ? <FontAwesome name="check-circle" />
+        : isFailure
+            ? <FontAwesome name="times-circle" />
+            : null;
+
+    const successOrDangerStyle = isSuccess
+        ? "text-success"
+        : isFailure
+            ? "text-danger"
+            : "";
+
+    return <PageHeader className={successOrDangerStyle}>
         {problem.title} {doneCheck}
         <LinkContainer to={"problem/" + problem.id + "/rank"} className="pull-right">
             <Button

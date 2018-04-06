@@ -26,15 +26,25 @@ function difficulty(level: number) {
     }
 }
 
-const Problem = ({title, id, solvedBy, level, isDone}:
+const Problem = ({title, id, solvedBy, level, isSuccess, isFailure}:
     {title: string, id: string, solvedBy: number, level: number, isDone: boolean}) => {
 
-    const checkControl = isDone ? <FontAwesome name="check"/> : null;
+    const checkControl = isSuccess
+        ? <FontAwesome name="check"/>
+        : isFailure
+            ? <FontAwesome name="times"/>
+            : null;
+
+    const successOrDangerStyle = isSuccess
+        ? "text-success"
+        : isFailure
+            ? "text-danger"
+            : "text-success";
 
     return (
         <Col md={5} style={problemStyle}>
             <Row>
-                <h4 className="text-success">{title} <span className="pull-right">{checkControl}</span></h4>
+                <h4 className={successOrDangerStyle}>{title} <span className="pull-right">{checkControl}</span></h4>
             </Row>
             <Row>
                 <LinkContainer to={{pathname: `/problem/${id}`}}>

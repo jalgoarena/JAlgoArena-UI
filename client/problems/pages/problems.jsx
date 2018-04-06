@@ -8,6 +8,7 @@ import Problem from '../components/Problem';
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
 import {fetchSolvedProblemsRatio} from "../../submissions/actions/index";
+import {Submission} from "../../submissions/domain/Submission";
 
 class Problems extends React.Component {
 
@@ -28,11 +29,20 @@ class Problems extends React.Component {
         let problemNodes = _.orderBy(problems, ['solutionsCount'], ['desc'])
             .map((problem, idx) => {
 
-                let submittedProblems = _.map(submissions, (submission) => submission.problemId);
+                let acceptedSubmissions = _.filter(submissions,
+                    (submission: Submission) => submission.statusCode === 'ACCEPTED'
+                );
+                let failedSubmissions = _.filter(submissions,
+                    (submission: Submission) => submission.statusCode !== 'ACCEPTED'
+                );
 
-                const isDone = _.includes(submittedProblems, problem.id);
+                let submittedAcceptedProblems = _.map(acceptedSubmissions, (submission) => submission.problemId);
+                let submittedFailedProblems = _.map(failedSubmissions, (submission) => submission.problemId);
 
-                if (hideDoneProblems && isDone) return null;
+                const isSuccess = _.includes(submittedAcceptedProblems, problem.id);
+                const isFailure = _.includes(submittedFailedProblems, problem.id);
+
+                if (hideDoneProblems && isSuccess) return null;
                 if (problemsFilter !== 0 && problem.level !== problemsFilter) return null;
 
                 return <Problem
@@ -42,7 +52,8 @@ class Problems extends React.Component {
                     id={problem.id}
                     key={idx}
                     submissions={submissions}
-                    isDone={isDone}
+                    isSuccess={isSuccess}
+                    isFailure={isFailure}
                 />;
         });
 
@@ -66,7 +77,7 @@ const mapStateToProps = (state) => {
 
     problems = problems.map(problem => {
         let solvedProblemRatio = state.submissions.problemsSolutionsRatio.find(
-            ratio => ratio.problemId == problem.id
+            ratio => ratio.problemId === problem.id
         );
         return Object.assign({}, problem, {
             solutionsCount: solvedProblemRatio && solvedProblemRatio.solutionsCount || 0})
