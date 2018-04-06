@@ -8,6 +8,7 @@ export class Submission {
     userId: string;
     language: string;
     submissionId: string;
+    submissionTime: string;
     consumedMemory: number;
     passedTestCases: number;
     failedTestCases: number;
@@ -21,6 +22,7 @@ export class Submission {
                 userId: string,
                 language: string,
                 submissionId: string,
+                submissionTime: string,
                 consumedMemory: number,
                 passedTestCases: number,
                 failedTestCases: number,
@@ -33,6 +35,7 @@ export class Submission {
         this.userId = userId;
         this.language = language;
         this.submissionId = submissionId;
+        this.submissionTime = submissionTime;
         this.consumedMemory = consumedMemory;
         this.passedTestCases = passedTestCases;
         this.failedTestCases = failedTestCases;

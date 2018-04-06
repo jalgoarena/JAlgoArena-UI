@@ -92,6 +92,7 @@ class Submissions extends React.Component {
         let submissionData = submissions.map((submission) => {
             return {
                 id: submission.submissionId,
+                submissionTime: submission.submissionTime,
                 problemId: submission.problemId,
                 sourceCode: {
                     sourceCode: submission.sourceCode,
@@ -119,8 +120,13 @@ class Submissions extends React.Component {
                     <TableHeaderColumn isKey dataField='id' width={'140'}>
                         Submission ID
                     </TableHeaderColumn>
-                    <TableHeaderColumn dataField='problemId' width={'150'}>Problem ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='language'>Lang</TableHeaderColumn>
+                    <TableHeaderColumn dataField='submissionTime'
+                                       width={'150'}
+                                       dataSort>
+                        Submission Time
+                    </TableHeaderColumn>
+                    <TableHeaderColumn dataField='problemId' width={'150'} dataSort>Problem ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='language' width={'80'} dataSort>Lang</TableHeaderColumn>
                     <TableHeaderColumn dataField='statusCode'
                                        width={'150'}>
                         Status
