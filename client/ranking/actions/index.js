@@ -10,7 +10,7 @@ import {setErrorMessage} from "../../common/actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 
-const SUBMISSIONS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/submissions/api`;
+const RANKING_SERVER_URL: string = `${config.jalgoarenaApiUrl}/ranking/api`;
 
 export function fetchProblemRanking(problemId: string) {
     const options = {
@@ -21,16 +21,16 @@ export function fetchProblemRanking(problemId: string) {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/${problemId}`, options)
+        return fetch(`${RANKING_SERVER_URL}/ranking/${problemId}`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
                 } else {
                     dispatch(setProblemRanking((json: Array<ProblemRankingEntry>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 
@@ -50,16 +50,16 @@ export function fetchRanking() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${SUBMISSIONS_SERVER_URL}/ranking/`, options)
+        return fetch(`${RANKING_SERVER_URL}/ranking/`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
                 } else {
                     dispatch(setRanking((json: Array<RankingEntry>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 

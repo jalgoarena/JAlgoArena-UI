@@ -13,6 +13,7 @@ import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
 
 const SUBMISSIONS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/submissions/api`;
+const RANKING_SERVER_URL: string = `${config.jalgoarenaApiUrl}/ranking/api`;
 
 export function fetchSolvedProblemsRatio() {
     const options = {
@@ -23,16 +24,16 @@ export function fetchSolvedProblemsRatio() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/solved-ratio`, options)
+        return fetch(`${RANKING_SERVER_URL}/solved-ratio`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
                 } else {
                     dispatch(setSolvedProblemsRatio((json: Array<ProblemSubmissionRatio>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 
@@ -73,36 +74,6 @@ export function fetchSubmissions(userId: string) {
     };
 }
 
-export function fetchAllSubmissions() {
-
-    let token = localStorage.getItem('jwtToken');
-
-    if (!token || token === '') {
-        return null;
-    }
-
-    const options = {
-        headers: {
-            'Accept': 'application/json',
-            'X-Authorization': token
-        },
-        method: 'get'
-    };
-
-    return (dispatch: Dispatch) => {
-        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions`, options)
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Submissions Service"));
-                } else {
-                    dispatch(setSubmissions((json: Array<Submission>)));
-                }
-            })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
-    };
-}
-
 function setSubmissions(submissions: Array<Submission>): Action {
     return {
         type: types.FETCH_SUBMISSIONS,
@@ -116,39 +87,3 @@ export function setSubmissionsFilter(status: string): Action {
         status
     }
 }
-
-export function deleteSubmission(submissionId: string) {
-    return (dispatch: Dispatch) => {
-
-        let token = localStorage.getItem('jwtToken');
-
-        const options = {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-Authorization': token
-            },
-            method: 'delete',
-            body: JSON.stringify({})
-        };
-
-        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${submissionId}`, options)
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Submissions Service"))
-                } else {
-                    dispatch(refreshSubmissions((json: Array<Submission>)))
-                }
-            })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
-    };
-}
-
-function refreshSubmissions(submissions: Array<Submission>): Action {
-    return {
-        type: types.DELETE_SUBMISSION,
-        submissions
-    }
-}
-

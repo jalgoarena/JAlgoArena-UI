@@ -24,7 +24,6 @@ export function submissions(state: SubmissionsState = {
 }, action: SubmissionsAction): SubmissionsState {
     switch (action.type) {
         case types.FETCH_SUBMISSIONS:
-        case types.DELETE_SUBMISSION:
             return Object.assign({}, state, {
                 items: action.submissions
             });

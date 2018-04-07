@@ -111,24 +111,6 @@ describe("async actions", () => {
             });
     });
 
-    it("creates DELETE_SUBMISSION when deleting submission has been done", () => {
-        nock(submissionsServerUrl)
-            .delete("/submissions/0-0")
-            .reply(200, []);
-
-        const expectedActions = [{
-            type: types.DELETE_SUBMISSION,
-            submissions: []
-        }];
-
-        const store = mockStore({submissions: []});
-
-        return store.dispatch(actions.deleteSubmission("0-0"))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
     it("creates SET_ERROR_MESSAGE when deleting submission has failed", () => {
         nock(submissionsServerUrl)
             .delete("/submissions/0-0")
