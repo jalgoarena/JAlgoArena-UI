@@ -178,11 +178,11 @@ class Submissions extends React.Component {
                                        width={'80'}
                                        dataSort>
                         Lang</TableHeaderColumn>
+                    <TableHeaderColumn dataField='elapsedTime'>
+                        Elapsed Time (ms)</TableHeaderColumn>
                     <TableHeaderColumn dataField='statusCode'
                                        dataFormat={Submissions.statusFormatter.bind(this)}>
                         Status</TableHeaderColumn>
-                    <TableHeaderColumn dataField='elapsedTime'>
-                        Elapsed Time (ms)</TableHeaderColumn>
                     <TableHeaderColumn dataField='testCases'
                                        dataFormat={Submissions.testCasesFormatter.bind(this)}>
                         Test Cases</TableHeaderColumn>

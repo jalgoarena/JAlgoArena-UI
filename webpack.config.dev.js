@@ -2,6 +2,7 @@ var webpack = require("webpack");
 var path = require("path");
 
 module.exports = {
+    mode: 'development',
     entry: [
         "babel-polyfill",
         "webpack-hot-middleware/client",
@@ -20,21 +21,21 @@ module.exports = {
     devtool: "cheap-module-eval-source-map",
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin()
     ],
     module: {
-        loaders: [
+        rules: [
             {
-                tests: /\.js?$/,
-                loaders: ["babel"],
-                include: path.join(__dirname, "client")
-            },
-            {
-                test: /\.json$/,
-                loader: 'json'
+                loader: "babel-loader",
+                query: {
+                    presets: ["es2015", "react"]
+                },
+                include: path.resolve(__dirname, "client"),
+                exclude: /node_modules/,
+                test: /\.jsx?$/
             }]
     },
     resolve: {
-        extensions: ["", ".js", ".jsx"]
+        extensions: [".js", ".jsx"]
     }
 };
