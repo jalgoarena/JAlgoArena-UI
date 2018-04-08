@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import Spinner from 'react-spin';
 import {Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {closeWorkInProgressWindow} from "../actions/index";
+import ReactSpinner from "./ReactSpinner";
 
 const spinnerOpts = {
     lines: 13,
@@ -40,7 +40,7 @@ const WorkInProgress = ({showModal, onHide}: {showModal: boolean, onHide: () => 
             <h3>{"Loading ..."}</h3>
         </Modal.Header>
         <Modal.Body style={modalBodyStyle}>
-            <Spinner config={spinnerOpts} stopped={false} style={searchingSpinnerCenterStyle} />
+            <ReactSpinner config={spinnerOpts} style={searchingSpinnerCenterStyle} />
         </Modal.Body>
         <Modal.Footer style={modalTextCenterStyle}>
             <div className="col-md-offset-4 col-md-8">

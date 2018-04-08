@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {Transition, TransitionGroup} from 'react-transition-group';
 
 import Problem from '../components/Problem';
 import ProblemsFilter from '../components/ProblemsFilter';
@@ -26,6 +26,17 @@ class Problems extends React.Component {
             onHideDoneProblems
         } = this.props;
 
+        const duration = 300;
+        const defaultStyle = {
+            transition: `opacity ${duration}ms ease-in`,
+            opacity: 0,
+        };
+
+        const transitionStyles = {
+            entering: { opacity: 0 },
+            entered:  { opacity: 1 },
+        };
+
         let problemNodes = _.orderBy(problems, ['solutionsCount'], ['desc'])
             .map((problem, idx) => {
 
@@ -45,7 +56,12 @@ class Problems extends React.Component {
                 if (hideDoneProblems && isSuccess) return null;
                 if (problemsFilter !== 0 && problem.level !== problemsFilter) return null;
 
-                return <Problem
+                return <Transition in timeout={duration} key={idx}>
+                    {(state) => (
+                        <div style={{
+                            ...defaultStyle,
+                            ...transitionStyles[state]
+                        }}><Problem
                     title={problem.title}
                     level={problem.level}
                     solvedBy={problem.solutionsCount}
@@ -54,7 +70,8 @@ class Problems extends React.Component {
                     submissions={submissions}
                     isSuccess={isSuccess}
                     isFailure={isFailure}
-                />;
+                        /></div>)}
+                </Transition>;
         });
 
         return <Grid>
@@ -64,9 +81,9 @@ class Problems extends React.Component {
                 onHideDoneProblems={onHideDoneProblems}
                 hideDoneProblems={hideDoneProblems}
             />
-            <ReactCSSTransitionGroup transitionName="problems-filter" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
+            <TransitionGroup>
                 {problemNodes}
-            </ReactCSSTransitionGroup>
+            </TransitionGroup>
         </Grid>;
     }
 }
