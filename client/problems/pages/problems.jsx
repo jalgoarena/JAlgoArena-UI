@@ -7,7 +7,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Problem from '../components/Problem';
 import ProblemsFilter from '../components/ProblemsFilter';
 import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
-import {fetchSolvedProblemsRatio} from "../../submissions/actions/index";
+import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
 import {Submission} from "../../submissions/domain/Submission";
 
 class Problems extends React.Component {

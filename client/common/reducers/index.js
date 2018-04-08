@@ -1,5 +1,6 @@
 // @flow
 type Action = {type:string, error?: string}
+    | {type:string, isConnected: boolean}
 
 import * as redux from 'redux';
 import {routerReducer} from 'react-router-redux';
@@ -18,8 +19,18 @@ const rootReducer = redux.combineReducers({
     auth,
     submissions,
     ranking,
-    errorMessage
+    errorMessage,
+    webSocketConnected
 });
+
+export function webSocketConnected(state: boolean = false, action: Action) {
+    switch (action.type) {
+        case types.WEBSOCKET_CONNECTED:
+            return action.isConnected;
+        default:
+            return state;
+    }
+}
 
 export function showModal(state: boolean = false, action: Action) {
 

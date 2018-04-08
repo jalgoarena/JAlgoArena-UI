@@ -23,11 +23,16 @@ module.exports = {
         new webpack.NoErrorsPlugin()
     ],
     module: {
-        loaders: [{
-            tests: /\.js?$/,
-            loaders: ["babel"],
-            include: path.join(__dirname, "client")
-        }]
+        loaders: [
+            {
+                tests: /\.js?$/,
+                loaders: ["babel"],
+                include: path.join(__dirname, "client")
+            },
+            {
+                test: /\.json$/,
+                loader: 'json'
+            }]
     },
     resolve: {
         extensions: ["", ".js", ".jsx"]

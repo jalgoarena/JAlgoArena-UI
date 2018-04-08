@@ -9,6 +9,7 @@ import ProfileOrLoginMenuItem from "./ProfileOrLoginMenuItem";
 import MenuItem from "./MenuItem";
 import RankingMenuItem from "./RankingMenuItem";
 import User from "../../users/domain/User";
+import WebSocketConnectionIndicator from "./WebSocketConnectionIndicator";
 
 const logoStyle = {
     display: "inline-block",
@@ -16,11 +17,14 @@ const logoStyle = {
     marginTop: -5
 };
 
-const Menu = ({user}: {user: User}) => (
+const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
-            <a className="navbar-brand" href="/"><img src="img/logo.png" style={logoStyle}/></a>
+            <a className="navbar-brand" href="/">
+                <img src="img/logo.png" style={logoStyle}/>&nbsp;
+                <WebSocketConnectionIndicator isConnected={isConnected}/>
+            </a>
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav role="navigation" pullRight id="menu">
@@ -38,6 +42,7 @@ const Menu = ({user}: {user: User}) => (
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
+        isConnected: state.webSocketConnected,
         routing: state.routing
     };
 };

@@ -33,6 +33,10 @@ module.exports = {
                 include: path.join(__dirname, "client"),
                 exclude: /node_modules/,
                 test: /\.jsx?$/
+            },
+            {
+                test: /\.json$/,
+                loader: 'json'
             }
         ]
     },

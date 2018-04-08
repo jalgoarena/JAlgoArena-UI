@@ -8,6 +8,7 @@ import * as actions from "../../client/submissions/actions";
 import config from "../../client/config"
 
 import nock from "nock"
+import {fetchSolvedProblemsRatio} from "../../client/ranking/actions";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -142,7 +143,7 @@ describe("async actions", () => {
 
         const store = mockStore({solvedProblemsRatio: []});
 
-        return store.dispatch(actions.fetchSolvedProblemsRatio())
+        return store.dispatch(fetchSolvedProblemsRatio())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -160,7 +161,7 @@ describe("async actions", () => {
 
         const store = mockStore();
 
-        return store.dispatch(actions.fetchSolvedProblemsRatio())
+        return store.dispatch(fetchSolvedProblemsRatio())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
