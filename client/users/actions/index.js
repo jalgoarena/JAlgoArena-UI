@@ -16,9 +16,6 @@ import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import User from "../domain/User";
 
-const AUTH_SERVER_URL = `${config.jalgoarenaApiUrl}/auth`;
-
-
 export function startSignup(): Action {
     return {
         type: types.SIGNUP_REQUEST
@@ -45,7 +42,7 @@ export function attemptSignUp(email: string, password: string, username: string,
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${AUTH_SERVER_URL}/signup`, options)
+        return fetch(`${config.jalgoarenaApiUrl}/auth/signup`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -100,7 +97,7 @@ export function attemptLogin(username: string, password: string) {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${AUTH_SERVER_URL}/login`, options)
+        return fetch(`${config.jalgoarenaApiUrl}/auth/login`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error){
@@ -150,7 +147,7 @@ export function checkSessionStatus() {
             method: 'get'
         };
 
-        return fetch(`${AUTH_SERVER_URL}/api/user`, options)
+        return fetch(`${config.jalgoarenaApiUrl}/auth/api/user`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.username) {
@@ -210,7 +207,7 @@ export function fetchUsersWithAllData() {
             method: 'get'
         };
 
-        return fetch(`${AUTH_SERVER_URL}/api/users`, options)
+        return fetch(`${config.jalgoarenaApiUrl}/auth/api/users`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -272,7 +269,7 @@ export function updateUser(user: User) {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${AUTH_SERVER_URL}/api/users`, options)
+        return fetch(`${config.jalgoarenaApiUrl}/auth/api/users`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {

@@ -37,38 +37,20 @@ class IndividualRanking extends React.Component {
                 <BootstrapTable data={rankingData} stripped hover pagination search>
                     <TableHeaderColumn isKey
                                        width={'50'}
-                                       dataSort={true}
+                                       dataSort
                                        dataField='place'>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='hacker'
-                                       filter={ { type: 'TextFilter', delay: 1000 } }
-                                       >Hacker</TableHeaderColumn>
+                                       >User Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='region'
-                                       filter={ { type: 'TextFilter', delay: 1000 } }
-                                       dataSort={true}>Region</TableHeaderColumn>
+                                       dataSort>Region</TableHeaderColumn>
                     <TableHeaderColumn dataField='team'
-                                       filter={ { type: 'TextFilter', delay: 1000 } }
-                                       dataSort={true}>Team</TableHeaderColumn>
+                                       dataSort>Team</TableHeaderColumn>
                     <TableHeaderColumn dataField='javaSolutionsCount'
-                                       filter={ {
-                                            type: 'NumberFilter',
-                                            delay: 1000,
-                                            numberComparators: [ '=', '>', '<=' ]
-                                       }}
-                                       dataSort={true}>Java</TableHeaderColumn>
+                                       dataSort># Java</TableHeaderColumn>
                     <TableHeaderColumn dataField='kotlinSolutionsCount'
-                                       filter={ {
-                                            type: 'NumberFilter',
-                                            delay: 1000,
-                                            numberComparators: [ '=', '>', '<=' ]
-                                       }}
-                                       dataSort={true}>Kotlin</TableHeaderColumn>
+                                       dataSort># Kotlin</TableHeaderColumn>
                     <TableHeaderColumn dataField='score'
-                                       filter={ {
-                                            type: 'NumberFilter',
-                                            delay: 1000,
-                                            numberComparators: [ '>', '<=' ]
-                                       }}
-                                       dataSort={true}>Score</TableHeaderColumn>
+                                       dataSort>Score</TableHeaderColumn>
                 </BootstrapTable>
             </Col>
         </Grid>;

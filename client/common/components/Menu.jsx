@@ -28,10 +28,10 @@ const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav role="navigation" pullRight id="menu">
-                <MenuItem path="/" icon="home" title="Home" />
-                <MenuItem path="/problems" icon="lightbulb-o" title="Problems"/>
+                <MenuItem path="/" prefix="fas" icon="home" title="Home" />
+                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems"/>
                 <RankingMenuItem />
-                { user ? <MenuItem path="/submissions" icon="code" title="Submissions" /> : null }
+                { user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions" /> : null }
                 <ProfileOrLoginMenuItem user={user}/>
                 <AdminMenuItem user={user}/>
             </Nav>

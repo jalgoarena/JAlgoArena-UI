@@ -98,7 +98,7 @@ class UsersAdmin extends React.Component {
                         />
                         <Button type="submit" bsStyle="success" block
                                 onClick={(e) => this.onCreateUser(e)}>
-                            <FontAwesome name="send"/> Update
+                            <FontAwesome prefix="fas" name="paper-plane"/> Update
                         </Button>
                     </form>
                 </Col>

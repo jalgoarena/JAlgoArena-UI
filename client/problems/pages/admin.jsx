@@ -231,7 +231,7 @@ class ProblemsAdmin extends React.Component {
                         />
                         <Button type="submit" bsStyle="success" block
                                 onClick={(e) => this.onCreateProblem(e)}>
-                            <FontAwesome name="download"/> {this.state.newProblem.id}.json
+                            <FontAwesome prefix="fas" name="download"/> {this.state.newProblem.id}.json
                         </Button>
                     </form>
                 </Col>

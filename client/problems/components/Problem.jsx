@@ -30,9 +30,9 @@ const Problem = ({title, id, solvedBy, level, isSuccess, isFailure}:
     {title: string, id: string, solvedBy: number, level: number, isDone: boolean}) => {
 
     const checkControl = isSuccess
-        ? <FontAwesome name="check"/>
+        ? <FontAwesome prefix="fas" name="check"/>
         : isFailure
-            ? <FontAwesome name="times"/>
+            ? <FontAwesome prefix="fas" name="times"/>
             : null;
 
     const successOrDangerStyle = isSuccess
@@ -50,7 +50,7 @@ const Problem = ({title, id, solvedBy, level, isSuccess, isFailure}:
                 <LinkContainer to={{pathname: `/problem/${id}`}}>
                     <Button bsStyle="success" className="pull-right"
                             onClick={() => store.dispatch(setCurrentProblem(id))}>
-                        <FontAwesome name="bars"/> Solve Problem
+                        <FontAwesome prefix="fas" name="bars"/> Solve Problem
                     </Button>
                 </LinkContainer>
 

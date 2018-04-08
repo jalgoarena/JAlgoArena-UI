@@ -111,7 +111,7 @@ class Login extends React.Component {
                     />
                     <FormGroup className="text-center">
                         <Button type="submit" bsStyle="success" onClick={this.onLogin} block>
-                            <FontAwesome name="sign-in"/> Sign In
+                            <FontAwesome prefix="fas" name="sign-in-alt"/> Sign In
                         </Button>
                     </FormGroup>
                     <FormGroup>
@@ -120,7 +120,7 @@ class Login extends React.Component {
                         </span>
                         <LinkContainer to='/signup'>
                             <Button className="pull-right">
-                                <FontAwesome name="user"/> Create Account
+                                <FontAwesome prefix="fas" name="user"/> Create Account
                             </Button>
                         </LinkContainer>
                     </FormGroup>

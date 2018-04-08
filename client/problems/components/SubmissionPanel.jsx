@@ -23,7 +23,7 @@ const SubmissionPanel = ({problem, sourceCode, userId, onRun, activeLanguage, is
 
     const button = isAlreadySolved
         ? <Link to="/problems" className="pulse-button btn btn-lg btn-success pull-right">
-            <FontAwesome name="reply"/> Back to Problems
+            <FontAwesome prefix="fas" name="reply"/> Back to Problems
         </Link>
         : <RunButton
             problemId={problem.id}

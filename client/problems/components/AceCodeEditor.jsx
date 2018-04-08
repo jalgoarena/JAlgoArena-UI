@@ -6,6 +6,7 @@ import AceEditor from 'react-ace';
 
 import 'brace/mode/java';
 import 'brace/mode/kotlin';
+import 'brace/mode/ruby';
 import 'brace/theme/tomorrow_night_eighties';
 import 'brace/ext/language_tools';
 

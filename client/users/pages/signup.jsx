@@ -167,7 +167,7 @@ class SignUp extends React.Component {
                                     validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : null}
                         />
                         <Button type="submit" bsStyle="success" block onClick={this.onSignUp}>
-                            <FontAwesome name="user"/> Create Account
+                            <FontAwesome prefix="fas" name="user"/> Create Account
                         </Button>
                     </form>
                 </Col>

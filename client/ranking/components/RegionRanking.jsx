@@ -26,32 +26,16 @@ const RegionRanking = ({ranking}: {ranking: Array<RankingEntry>}) => {
     return <BootstrapTable data={regionRankingData} stripped hover pagination search>
         <TableHeaderColumn isKey
                            width={'50'}
-                           dataSort={true}
+                           dataSort
                            dataField='place'>#</TableHeaderColumn>
         <TableHeaderColumn dataField='region'
-                           filter={ { type: 'TextFilter', delay: 1000 } }
-                           dataSort={true}>Region</TableHeaderColumn>
+                           dataSort>Region</TableHeaderColumn>
         <TableHeaderColumn dataField='score'
-                           filter={ {
-                                            type: 'NumberFilter',
-                                            delay: 1000,
-                                            numberComparators: [ '>', '<=' ]
-                                       }}
-                           dataSort={true}>Score</TableHeaderColumn>
+                           dataSort>Score</TableHeaderColumn>
         <TableHeaderColumn dataField='size'
-                           filter={ {
-                                            type: 'NumberFilter',
-                                            delay: 1000,
-                                            numberComparators: [ '>', '<=' ]
-                                       }}
-                           dataSort={true}>Team Size</TableHeaderColumn>
+                           dataSort>Team Size</TableHeaderColumn>
         <TableHeaderColumn dataField='avg'
-                           filter={ {
-                                            type: 'NumberFilter',
-                                            delay: 1000,
-                                            numberComparators: [ '>', '<=' ]
-                                       }}
-                           dataSort={true}>Avg</TableHeaderColumn>
+                           dataSort>Avg</TableHeaderColumn>
     </BootstrapTable>;
 };
 

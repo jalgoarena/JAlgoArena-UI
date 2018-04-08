@@ -4,6 +4,7 @@ import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
+import * as _ from 'lodash';
 
 import SourceCode from "../components/SourceCode";
 
@@ -59,14 +60,14 @@ class Submissions extends React.Component {
 
     static linkFormatter(cell) {
         return <Link to={"/problem/" + cell} className="btn btn-primary btn-block">
-            Go
+            {cell}
         </Link>
     }
 
     sourceCodeButtonFormatter(cell) {
         return <Button bsStyle="success" block
                        onClick={() => this.showSourceCode(cell.sourceCode, cell.problemId)}>
-            <FontAwesome name="file-text-o"/>
+            <FontAwesome prefix="far" name="file-alt"/>
         </Button>;
     }
 
@@ -75,19 +76,67 @@ class Submissions extends React.Component {
                        onClick={() => {
                            this.showErrorMessage(cell.errorMessage, cell.problemId)
                        }}>
-            <FontAwesome name="exclamation-triangle"/>
+            <FontAwesome prefix="fas" name="exclamation-triangle"/>
         </Button>;
+    }
+
+    static statusFormatter(cell) {
+        let status;
+        let style;
+        let icon;
+        switch (cell) {
+            case 'ACCEPTED':
+                status = 'Accepted';
+                style = 'text-success';
+                icon = 'check';
+                break;
+            case 'WRONG_ANSWER':
+                status = 'Wrong Answer';
+                style = 'text-danger';
+                icon = 'times';
+                break;
+            case 'COMPILE_ERROR':
+                status = 'Compile Error';
+                style = 'text-danger';
+                icon = 'times';
+                break;
+            case 'RUNTIME_ERROR':
+                status = 'Runtime Error';
+                style = 'text-danger';
+                icon = 'times';
+                break;
+            case 'TIME_LIMIT_EXCEEDED':
+                status = 'Time Limit';
+                style = 'text-warning';
+                icon = 'exclamation-triangle';
+                break;
+            case 'MEMORY_LIMIT_EXCEEDED':
+                status = 'Memory Limit';
+                style = 'text-warning';
+                icon = 'exclamation-triangle';
+                break;
+            default:
+                status = 'Waiting';
+                style = 'text-primary';
+                icon = 'clock';
+                break;
+        }
+
+
+        return <span className={style}>
+            <FontAwesome prefix="fas" name={icon}/> {status}
+        </span>
     }
 
     static testCasesFormatter(cell) {
         return <h4>
-            <span className={"label label-success"}><FontAwesome name="check"/> {cell.passedTestCases}</span>
-            <span className={"label label-danger"}><FontAwesome name="times"/> {cell.failedTestCases}</span>
+            <span className={"label label-success"}><FontAwesome prefix="fas" name="check"/> {cell.passedTestCases}</span>
+            <span className={"label label-danger"}><FontAwesome prefix="fas" name="times"/> {cell.failedTestCases}</span>
         </h4>;
     }
 
     render() {
-        const {submissions} = this.props;
+        const submissions = _.orderBy(this.props.submissions, ['submissionTime'], ['desc']);
 
         let submissionData = submissions.map((submission) => {
             return {
@@ -117,39 +166,37 @@ class Submissions extends React.Component {
             <Col>
                 <PageHeader>Submissions</PageHeader>
                 <BootstrapTable data={submissionData} stripped hover pagination search>
-                    <TableHeaderColumn isKey dataField='id' width={'140'}>
-                        Submission ID
-                    </TableHeaderColumn>
+                    <TableHeaderColumn isKey
+                                       dataField='id'
+                                       width={'140'}>
+                        ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='submissionTime'
                                        width={'150'}
                                        dataSort>
-                        Submission Time
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='problemId' width={'150'} dataSort>Problem ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='language' width={'80'} dataSort>Lang</TableHeaderColumn>
+                        Run At</TableHeaderColumn>
+                    <TableHeaderColumn dataField='language'
+                                       width={'80'}
+                                       dataSort>
+                        Lang</TableHeaderColumn>
                     <TableHeaderColumn dataField='statusCode'
-                                       width={'150'}>
-                        Status
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField='elapsedTime'
-                                       width={'140'}>
-                        Elapsed Time (ms)
-                    </TableHeaderColumn>
+                                       dataFormat={Submissions.statusFormatter.bind(this)}>
+                        Status</TableHeaderColumn>
+                    <TableHeaderColumn dataField='elapsedTime'>
+                        Elapsed Time (ms)</TableHeaderColumn>
                     <TableHeaderColumn dataField='testCases'
-                                       width={'100'}
                                        dataFormat={Submissions.testCasesFormatter.bind(this)}>
-                        Test Cases
-                    </TableHeaderColumn>
+                        Test Cases</TableHeaderColumn>
                     <TableHeaderColumn dataField='sourceCode'
                                        dataFormat={this.sourceCodeButtonFormatter.bind(this)}>
-                        Source Code
-                    </TableHeaderColumn>
+                        Source Code</TableHeaderColumn>
                     <TableHeaderColumn dataField='errorMessage'
                                        dataFormat={this.errorCodeButtonFormatter.bind(this)}>
-                        Error
-                    </TableHeaderColumn>
+                        Error</TableHeaderColumn>
                     <TableHeaderColumn dataField='problemLink'
-                                       dataFormat={Submissions.linkFormatter}>Problem</TableHeaderColumn>
+                                       dataFormat={Submissions.linkFormatter}
+                                       width={'150'}
+                                       dataSort>
+                        Problem ID</TableHeaderColumn>
                 </BootstrapTable>
             </Col>
             <SourceCode

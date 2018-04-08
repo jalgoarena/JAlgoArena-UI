@@ -17,7 +17,7 @@ const RunButton = ({sourceCode, problemId, userId, language, onRun}: RunButtonIn
         style={{width: '200px'}}
         className="btn btn-lg btn-primary pull-right"
         onClick={() => onRun(sourceCode, problemId, userId, language)}>
-        <FontAwesome name="flash"/> Run
+        <FontAwesome prefix="fas" name="bolt"/> Run
     </button>
 );
 

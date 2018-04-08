@@ -10,10 +10,10 @@ import User from "../../users/domain/User";
 const ProfileOrLoginMenuItem = ({user}: {user: User}) => (
     user
         ? <LinkContainer to="/profile">
-            <NavItem><FontAwesome name="user" lg={true}/> Profile</NavItem>
+            <NavItem><FontAwesome prefix="fas" name="user" lg={true}/> Profile</NavItem>
         </LinkContainer>
         : <LinkContainer to="/login">
-            <NavItem><FontAwesome name="sign-in" lg={true}/> Login</NavItem>
+            <NavItem><FontAwesome prefix="fas" name="sign-in-alt" lg={true}/> Login</NavItem>
         </LinkContainer>
 );
 

@@ -59,7 +59,7 @@ class Profile extends React.Component {
                     </tbody>
                 </Table>
                 <Button bsStyle="danger" className="pull-right" onClick={this.props.onLogout}>
-                    <FontAwesome name="sign-out"/> Logout
+                    <FontAwesome prefix="fas" name="sign-out-alt"/> Logout
                 </Button>
             </Col>
         </Grid>;

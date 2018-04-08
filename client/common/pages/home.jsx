@@ -51,11 +51,11 @@ const Home = () => (
                 <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle}/>
                 <div className="intro-text">
                     <span className="name" style={introTextNameStyle}>{title}</span>
-                    <hr className="star-light" style={starLightStyle}/>
+                    <hr className="" style={starLightStyle}/>
                     <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Algo Hacker</span>
                 </div>
                 <Link to="/problems" className="btn btn-lg btn-outline">
-                    <FontAwesome name="bars"/>  Learn More
+                    <FontAwesome prefix="fas" name="bars"/>  Learn More
                 </Link>
             </Col>
         </Row>

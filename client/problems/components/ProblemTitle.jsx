@@ -23,9 +23,9 @@ const ProblemTitle = ({submissions, problem}: {submissions: Array<Submission>, p
     const isFailure = _.includes(submittedFailedProblems, problem.id);
 
     let doneCheck = isSuccess
-        ? <FontAwesome name="check-circle" />
+        ? <FontAwesome prefix="fas" name="check-circle" />
         : isFailure
-            ? <FontAwesome name="times-circle" />
+            ? <FontAwesome prefix="fas" name="times-circle" />
             : null;
 
     const successOrDangerStyle = isSuccess
@@ -39,7 +39,7 @@ const ProblemTitle = ({submissions, problem}: {submissions: Array<Submission>, p
         <LinkContainer to={"problem/" + problem.id + "/rank"} className="pull-right">
             <Button
                 bsStyle="info"
-            ><FontAwesome name="trophy" lg={true}/> Problem Ranking</Button>
+            ><FontAwesome prefix="fas" name="trophy" lg={true}/> Problem Ranking</Button>
         </LinkContainer>
     </PageHeader>;
 };

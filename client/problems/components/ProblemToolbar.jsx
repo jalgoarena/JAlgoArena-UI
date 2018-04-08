@@ -8,7 +8,7 @@ const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, activ
     <ButtonToolbar>
         <LinkContainer to={"problem/" + problem.id}>
             <Button bsStyle="danger" className="pull-right" onClick={onRefresh}>
-                <FontAwesome name="refresh"/> Refresh
+                <FontAwesome prefix="fas" name="sync"/> Refresh
             </Button>
         </LinkContainer>
         <Button bsStyle="success"
