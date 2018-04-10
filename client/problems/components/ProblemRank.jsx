@@ -1,14 +1,27 @@
 import React from 'react';
-import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
+import {Table, Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import UserProblemRank from '../components/UserProblemRank';
-import {fetchProblemRanking} from "../actions";
+import UserProblemRank from './UserProblemRank';
+import {fetchProblemRanking} from "../../ranking/actions/index";
+
+const logoStyle = {
+    height: 50,
+    marginBottom: 15
+};
+
+const modalBodyStyle = {
+    height: 150
+};
 
 class ProblemRank extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
-        this.props.onLoad(this.props.params.id);
+        this.props.onLoad(this.props.problemId);
     }
 
     render() {
@@ -27,9 +40,11 @@ class ProblemRank extends React.Component {
         );
 
         return (
-            <Grid>
-                <Col mdOffset={3} md={6}>
-                    <PageHeader>Problem Ranking - {this.props.params.id}</PageHeader>
+            <Modal show={this.props.show || false} onHide={this.props.onHide}>
+                <Modal.Header closeButton>
+                    <h2>Problem Ranking - {this.props.problemId}</h2>
+                </Modal.Header>
+                <Modal.Body style={modalBodyStyle}>
                     <Table striped bordered condensed hover responsive>
                         <thead>
                         <tr>
@@ -44,8 +59,13 @@ class ProblemRank extends React.Component {
                             {rankNodes}
                         </tbody>
                     </Table>
-                </Col>
-            </Grid>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="col-md-offset-4 col-md-4">
+                        <img src="../img/logo.png" className="img-responsive" style={logoStyle} />
+                    </div>
+                </Modal.Footer>
+            </Modal>
         );
     }
 }
@@ -65,9 +85,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const ProblemRankPage = connect(
+const ProblemRankModal = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ProblemRank);
 
-export default ProblemRankPage;
+export default ProblemRankModal;

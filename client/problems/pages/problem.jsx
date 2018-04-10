@@ -19,6 +19,7 @@ import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
 import IntervalSourceCode from '../components/IntervalSourceCode';
 import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index";
+import ProblemRank from '../components/ProblemRank'
 
 class Problem extends React.Component {
     constructor(props) {
@@ -27,7 +28,8 @@ class Problem extends React.Component {
             showListNodeSourceCode: false,
             showTreeNodeSourceCode: false,
             showIntervalSourceCode: false,
-            showPointsLegend: false
+            showPointsLegend: false,
+            showProblemRanking: false,
         }
     }
 
@@ -90,6 +92,14 @@ class Problem extends React.Component {
         this.setState({showPointsLegend: false});
     }
 
+    showProblemRanking() {
+        this.setState({showProblemRanking: true});
+    }
+
+    hideProblemRanking() {
+        this.setState({showProblemRanking: false});
+    }
+
     static sourceCodeButton(skeletonCode, customType, onClick) {
         if (skeletonCode && skeletonCode.includes(customType)) {
             return <Button
@@ -126,7 +136,12 @@ class Problem extends React.Component {
 
         return <Grid>
             <Row>
-                <ProblemTitle submissions={this.props.submissions} problem={this.props.problem}/>
+                <ProblemTitle
+                    submissions={this.props.submissions}
+                    problem={this.props.problem}
+                    onShowProblemRanking={this.showProblemRanking.bind(this)}
+                    onHideProblemRanking={this.hideProblemRanking.bind(this)}
+                />
                 <ProblemDescription description={this.props.problem.description}/>
                 <ProblemToolbar
                     problem={this.props.problem}
@@ -171,6 +186,11 @@ class Problem extends React.Component {
             <PointsLegend
                 show={this.state.showPointsLegend}
                 onHide={this.hidePointsLegend.bind(this)}
+            />
+            <ProblemRank
+                problemId={this.props.problem.id}
+                show={this.state.showProblemRanking}
+                onHide={this.hideProblemRanking.bind(this)}
             />
         </Grid>;
     }

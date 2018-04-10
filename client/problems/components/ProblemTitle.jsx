@@ -8,7 +8,7 @@ import FontAwesome from '../../common/components/FontAwesome';
 import {Submission} from "../../submissions/domain/Submission";
 import Problem from "../domain/Problem";
 
-const ProblemTitle = ({submissions, problem}: {submissions: Array<Submission>, problem: Problem}) => {
+const ProblemTitle = ({submissions, problem, onShowProblemRanking}: {submissions: Array<Submission>, problem: Problem}) => {
     let acceptedSubmissions = _.filter(submissions,
         (submission: Submission) => submission.statusCode === 'ACCEPTED'
     );
@@ -36,11 +36,11 @@ const ProblemTitle = ({submissions, problem}: {submissions: Array<Submission>, p
 
     return <PageHeader className={successOrDangerStyle}>
         {problem.title} {doneCheck}
-        <LinkContainer to={"problem/" + problem.id + "/rank"} className="pull-right">
-            <Button
-                bsStyle="info"
-            ><FontAwesome prefix="fas" name="trophy" lg={true}/> Problem Ranking</Button>
-        </LinkContainer>
+        <Button bsStyle="info"
+                className="pull-right"
+                onClick={onShowProblemRanking}>
+            <FontAwesome prefix="fas" name="trophy" lg={true}/> Problem Ranking
+        </Button>
     </PageHeader>;
 };
 
