@@ -56,7 +56,6 @@ class Problem extends React.Component {
     isAlreadySolved() {
         return this.props.problem &&
             this.props.editor.submissionId !== null &&
-            this.props.editor.sourceCode &&
             this.props.auth.user
     }
 
