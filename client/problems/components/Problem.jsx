@@ -27,7 +27,7 @@ function difficulty(level: number) {
 }
 
 const Problem = ({title, id, solvedBy, level, isSuccess, isFailure}:
-    {title: string, id: string, solvedBy: number, level: number, isDone: boolean}) => {
+    {title: string, id: string, solvedBy: number, level: number, isSuccess: boolean, isFailure: boolean}) => {
 
     const checkControl = isSuccess
         ? <FontAwesome prefix="fas" name="check"/>

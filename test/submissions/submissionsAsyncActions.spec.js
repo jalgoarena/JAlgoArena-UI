@@ -14,6 +14,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 let submissionsServerUrl = config.jalgoarenaApiUrl + "/submissions/api";
+let rankingServerUrl = config.jalgoarenaApiUrl + "/ranking/api";
 
 window.localStorage = {
     getItem: function(key) {
@@ -71,69 +72,10 @@ describe("async actions", () => {
             });
     });
 
-    it("creates FETCH_SUBMISSIONS when fetching all submissions has been done", () => {
-        let submissions = [{
-            problemId: "fib",
-            elapsedTime: 0.123
-        }];
-
-        nock(submissionsServerUrl)
-            .get("/submissions")
-            .reply(200, submissions);
-
-        const expectedActions = [{
-            type: types.FETCH_SUBMISSIONS,
-            submissions
-        }];
-
-        const store = mockStore({submissions: []});
-
-        return store.dispatch(actions.fetchAllSubmissions())
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
-    it("creates SET_ERROR_MESSAGE when fetching all submissions has failed", () => {
-        nock(submissionsServerUrl)
-            .get("/submissions")
-            .reply(200, {error: "bad request"});
-
-        const expectedActions = [{
-            type: types.SET_ERROR_MESSAGE,
-            error: "Cannot connect to Submissions Service"
-        }];
-
-        const store = mockStore();
-
-        return store.dispatch(actions.fetchAllSubmissions())
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
-    it("creates SET_ERROR_MESSAGE when deleting submission has failed", () => {
-        nock(submissionsServerUrl)
-            .delete("/submissions/0-0")
-            .reply(500, {error: "bad request"});
-
-        const expectedActions = [{
-            type: types.SET_ERROR_MESSAGE,
-            error: "Cannot connect to Submissions Service"
-        }];
-
-        const store = mockStore();
-
-        return store.dispatch(actions.deleteSubmission("0-0"))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
     it("creates FETCH_PROBLEMS_SOLUTION_RATIO when fetching solved problems ratio has been done", () => {
         let problemPassRatio = {problemId:"fib",submissionsCount: 10};
-        nock(submissionsServerUrl)
-            .get("/submissions/solved-ratio")
+        nock(rankingServerUrl)
+            .get("/solved-ratio")
             .reply(200, [problemPassRatio]);
 
         const expectedActions = [{
@@ -150,13 +92,13 @@ describe("async actions", () => {
     });
 
     it("creates SET_ERROR_MESSAGE when fetching solved problems ratio has failed", () => {
-        nock(submissionsServerUrl)
-            .get("/submissions/solved-ratio")
+        nock(rankingServerUrl)
+            .get("/solved-ratio")
             .reply(500, {error: "bad request"});
 
         const expectedActions = [{
             type: types.SET_ERROR_MESSAGE,
-            error: "Cannot connect to Submissions Service"
+            error: "Cannot connect to Ranking Service"
         }];
 
         const store = mockStore();

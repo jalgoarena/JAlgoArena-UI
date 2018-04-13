@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import 'brace';
 import AceEditor from 'react-ace';

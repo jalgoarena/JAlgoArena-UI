@@ -12,7 +12,7 @@ import nock from "nock"
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-let submissionsServerUrl = config.jalgoarenaApiUrl + "/submissions/api";
+let rankingServerUrl = config.jalgoarenaApiUrl + "/ranking/api";
 
 describe("async actions", () => {
     afterEach(() => {
@@ -26,7 +26,7 @@ describe("async actions", () => {
             score: 20
         }];
 
-        nock(submissionsServerUrl)
+        nock(rankingServerUrl)
             .get("/ranking/fib")
             .reply(200, problemRanking);
 
@@ -52,7 +52,7 @@ describe("async actions", () => {
             score: 20
         }];
 
-        nock(submissionsServerUrl)
+        nock(rankingServerUrl)
             .get("/ranking/")
             .reply(200, ranking);
 

@@ -19,7 +19,7 @@ export function fetchSubmissions(userId: string) {
 
     let token = localStorage.getItem('jwtToken');
 
-    if (!token || token === '') {
+    if (!token || token === '' ) {
         return null;
     }
 

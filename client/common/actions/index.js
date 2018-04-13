@@ -65,11 +65,11 @@ export function websocketInit() {
             console.log("Error: ", error);
         },
         (closeEvent) => {
-            console.log(`Disconnected: ${JSON.stringify(closeEvent)}`)
+            console.log(`Disconnected: ${JSON.stringify(closeEvent)}`);
             store.dispatch(websocketConnected(false));
             setTimeout(() => {
                 console.log("Retrying to connect");
-                websocketInit(store);
+                websocketInit();
             }, 5000);
         }
     );

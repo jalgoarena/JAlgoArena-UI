@@ -90,6 +90,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "flow-bin": "^0.69.0",
     "jest": "^22.4.3",
+    "jest-localstorage-mock": "^2.2.0",
     "nock": "^9.2.3",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
@@ -98,6 +99,7 @@
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "setupFiles": ["jest-localstorage-mock"]
   }
 }

@@ -3,12 +3,12 @@
 import React from 'react';
 import * as _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
+
 import FontAwesome from '../../common/components/FontAwesome';
 import {Submission} from "../../submissions/domain/Submission";
 import Problem from "../domain/Problem";
 
-const ProblemTitle = ({submissions, problem, onShowProblemRanking}: {submissions: Array<Submission>, problem: Problem}) => {
+const ProblemTitle = ({submissions, problem, onShowProblemRanking}: {submissions: Array<Submission>, problem: Problem, onShowProblemRanking: () => void}) => {
     let acceptedSubmissions = _.filter(submissions,
         (submission: Submission) => submission.statusCode === 'ACCEPTED'
     );

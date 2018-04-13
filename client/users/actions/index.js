@@ -178,7 +178,7 @@ export function fetchUsers() {
             method: 'get'
         };
 
-        return fetch(`${AUTH_SERVER_URL}/users`, options)
+        return fetch(`${config.jalgoarenaApiUrl}/auth/users`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {

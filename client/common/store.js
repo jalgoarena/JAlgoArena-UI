@@ -16,7 +16,7 @@ const configureStore = redux.compose(
 )(redux.createStore);
 
 const store = configureStore(rootReducer);
-websocketInit(store);
+websocketInit();
 store.dispatch(startFetchingProblems());
 store.dispatch(fetchProblems());
 store.dispatch(checkSessionStatus());

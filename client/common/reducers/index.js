@@ -1,6 +1,5 @@
 // @flow
-type Action = {type:string, error?: string}
-    | {type:string, isConnected: boolean}
+type Action = {type:string, isConnected?: boolean, error?: string}
 
 import * as redux from 'redux';
 import {routerReducer} from 'react-router-redux';
@@ -63,7 +62,7 @@ export function showModal(state: boolean = false, action: Action) {
     }
 }
 
-export function errorMessage(state: ?string = null, action: Action) {
+export function errorMessage(state: ?string = null, action: {type:string, error: ?string}) {
     const { type, error } = action;
 
     if (type === types.RESET_ERROR_MESSAGE) {

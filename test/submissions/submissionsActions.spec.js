@@ -25,6 +25,5 @@ describe("actions", () => {
         const expectedAction = null;
 
         expect(actions.fetchSubmissions("dummy_user")).toEqual(expectedAction);
-        expect(actions.fetchAllSubmissions()).toEqual(expectedAction);
     });
 });

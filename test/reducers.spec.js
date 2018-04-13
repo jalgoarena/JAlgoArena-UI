@@ -37,7 +37,8 @@ describe('root reducer', () => {
                     updatedUser: null
                 },
                 routing: {"locationBeforeTransitions": null},
-                errorMessage: null
+                errorMessage: null,
+                webSocketConnected: false
             }
         )
     });

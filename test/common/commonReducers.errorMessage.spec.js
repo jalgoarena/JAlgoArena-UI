@@ -8,7 +8,8 @@ describe('errorMessage reducer', () => {
         expect(
             reducer.errorMessage("bad request",
                 {
-                    type: types.RESET_ERROR_MESSAGE
+                    type: types.RESET_ERROR_MESSAGE,
+                    error: null
                 }
             )
         ).toEqual(null);

@@ -16,7 +16,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
-import {fetchSubmissions, fetchAllSubmissions} from "../../submissions/actions/index";
+import {fetchSubmissions} from "../../submissions/actions/index";
 import {fetchRanking} from "../../ranking/actions/index";
 import JudgeRequest from "../domain/JudgeRequest";
 import Problem from "../domain/Problem";
@@ -32,7 +32,7 @@ export function startJudge(): Action {
     };
 }
 
-export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string, isAdmin: boolean = false) {
+export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string) {
 
     let token: ?string = localStorage.getItem('jwtToken');
 
@@ -57,15 +57,11 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
         return fetch(`${QUEUE_SERVER_URL}/problems/${problemId}/publish`, options)
             .then(response => response.json())
             .then(json => {
-                if ((json: Error).error) {
+                if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Queue Service"));
                 } else {
                     dispatch(submissionPublished((json: Submission)));
-                    if (isAdmin) {
-                        dispatch(fetchAllSubmissions());
-                    } else {
-                        dispatch(fetchSubmissions(userId));
-                    }
+                    dispatch(fetchSubmissions(userId));
                     dispatch(fetchRanking());
                 }
             })
@@ -134,7 +130,7 @@ export function fetchProblems() {
         return fetch(`${JUDGE_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => {
-                if ((json: Error).error) {
+                if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Judge Service"));
                 } else {
                     dispatch(setProblems((json: Array<Problem>)))
@@ -169,7 +165,7 @@ export function fetchRawProblems() {
         return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
             .then(response => response.json())
             .then(json => {
-                if ((json: Error).error) {
+                if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Problems Service"));
                 } else {
                     dispatch(setRawProblems((json: Array<RawProblem>)));
