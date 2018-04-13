@@ -1,14 +1,14 @@
-var Archiver = require("archiver");
-var fs = require("fs");
-var version = "1.0.48";
+const Archiver = require("archiver");
+const fs = require("fs");
+let version = "2.0.0";
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
     version = `${version}.${process.env.TRAVIS_BUILD_NUMBER}`;
 }
 
-var path = `${__dirname}/dist/JAlgoArena-UI-${version}.zip`;
-var output = fs.createWriteStream(path);
-var archive = new Archiver("zip", { store: true });
+const path = `${__dirname}/dist/JAlgoArena-UI-${version}.zip`;
+const output = fs.createWriteStream(path);
+const archive = new Archiver("zip", {store: true});
 
 archive.on("error", function(err) {
     throw err;
