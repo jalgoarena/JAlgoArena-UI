@@ -1,15 +1,29 @@
 import React from 'react';
 import {Spinner} from 'spin.js';
 
-export default class ReactSpinner extends React.Component {
-    constructor(props) {
-        super(props);
+const searchingSpinnerCenterStyle = {
+    position: "absolute",
+    display: "block",
+    top: "50%",
+    left: "50%"
+};
 
-        this.spinner = new Spinner(props.config);
+export default class ReactSpinner extends React.Component {
+
+    componentDidMount() {
+        const spinnerOpts = {
+            lines: 13,
+            length: 20,
+            width: 10,
+            radius: 30,
+            trail: 60
+        };
+
+        this.spinner = new Spinner(spinnerOpts);
         this.spinner.spin(this.refs.container);
     }
 
     render() {
-        return <span ref="container" />;
+        return <span ref="container" style={searchingSpinnerCenterStyle}/>;
     }
 }
