@@ -1,22 +1,22 @@
-var env = process.env.NODE_ENV || "dev";
-var port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV || "dev";
+const port = process.env.PORT || 3000;
 
-var path = require("path");
-var express = require("express");
+const path = require("path");
+const express = require("express");
 
-var morgan = require("morgan");
-var helmet = require("helmet");
-var serveStatic = require("serve-static");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const serveStatic = require("serve-static");
 
-var app = express();
-var compression = require("compression");
+const app = express();
+const compression = require("compression");
 app.use(compression());
 
 app.use(morgan("tiny"));
 
 helmet(app);
 
-var assetsDir;
+let assetsDir;
 
 if (env === "production") {
     require("./server/build/copyFiles")();

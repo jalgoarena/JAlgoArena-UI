@@ -1,7 +1,7 @@
 module.exports = function (app) {
-    var config = require("../../webpack.config.dev");
-    var webpack = require("webpack");
-    var compiler = webpack(config);
+    const config = require("../../webpack.config.dev");
+    const webpack = require("webpack");
+    const compiler = webpack(config);
 
     app.use(require("webpack-dev-middleware")(compiler, {
         noInfo: true,

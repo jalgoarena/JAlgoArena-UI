@@ -1,5 +1,5 @@
 module.exports = function() {
-    var cpFile = require("cp-file");
+    const cpFile = require("cp-file");
 
     cpFile("assets/index.prod.html", "public/assets/index.html");
     cpFile("assets/app.css", "public/assets/app.css");
