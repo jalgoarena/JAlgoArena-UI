@@ -51,6 +51,7 @@ export function websocketInit() {
             console.log(`Connected: ${JSON.stringify(frame)}`);
 
             stompClient.subscribe('/topic/events', (message) => {
+                console.log(`Received: ${JSON.stringify(message)}`);
                 let event: Event = JSON.parse(message.body);
                 if (event.type === 'refreshRanking') {
                     store.dispatch(fetchRanking());
