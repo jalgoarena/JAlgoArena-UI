@@ -59,6 +59,14 @@ export function websocketInit() {
                     store.dispatch(fetchSolvedProblemsRatio());
                 } else if (event.type === 'refreshUserSubmissions') {
                     store.dispatch(fetchSubmissions(event.userId));
+                    setTimeout(() => {
+                        console.log("Refresh submissions");
+                        store.dispatch(fetchSubmissions(event.userId));
+                    }, 2000);
+                    setTimeout(() => {
+                        console.log("Refresh submissions");
+                        store.dispatch(fetchSubmissions(event.userId));
+                    }, 5000);
                 }
             })
         },
