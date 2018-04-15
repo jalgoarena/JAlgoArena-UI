@@ -40,6 +40,18 @@ export function websocketConnected(isConnected: boolean): Action {
     }
 }
 
+let refreshRanking = function (event) {
+    console.log("Refresh rankings");
+    store.dispatch(fetchRanking());
+    store.dispatch(fetchProblemRanking(event.problemId));
+    store.dispatch(fetchSolvedProblemsRatio());
+};
+
+let refresShubmissions = function (event) {
+    console.log("Refresh submissions");
+    store.dispatch(fetchSubmissions(event.userId));
+};
+
 export function websocketInit() {
     let socket = new SockJS(config.jalgoarenaWebSocketUrl + "/events-websocket");
 
@@ -54,18 +66,20 @@ export function websocketInit() {
                 console.log(`Received: ${JSON.stringify(message)}`);
                 let event: Event = JSON.parse(message.body);
                 if (event.type === 'refreshRanking') {
-                    store.dispatch(fetchRanking());
-                    store.dispatch(fetchProblemRanking(event.problemId));
-                    store.dispatch(fetchSolvedProblemsRatio());
-                } else if (event.type === 'refreshUserSubmissions') {
-                    store.dispatch(fetchSubmissions(event.userId));
+                    refreshRanking(event);
                     setTimeout(() => {
-                        console.log("Refresh submissions");
-                        store.dispatch(fetchSubmissions(event.userId));
+                        refreshRanking(event);
                     }, 2000);
                     setTimeout(() => {
-                        console.log("Refresh submissions");
-                        store.dispatch(fetchSubmissions(event.userId));
+                        refreshRanking(event);
+                    }, 5000);
+                } else if (event.type === 'refreshUserSubmissions') {
+                    refresShubmissions(event);
+                    setTimeout(() => {
+                        refresShubmissions(event);
+                    }, 2000);
+                    setTimeout(() => {
+                        refresShubmissions(event);
                     }, 5000);
                 }
             })
