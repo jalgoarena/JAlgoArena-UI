@@ -5,19 +5,21 @@ import {Grid, Col, PageHeader} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
 
-import {fetchRanking} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
+import {fetchLangRanking} from "../actions";
 
 type Props = {
-    ranking: Array<RankingEntry>,
+    ranking: {},
+    params: {lang: string}
 }
 
-class UserRanking extends React.Component<Props> {
+class LanguageRanking extends React.Component<Props> {
 
     render() {
-        const {ranking} = this.props;
+        const {ranking, params} = this.props;
+        let lang = params.lang;
 
-        let rankingData = ranking.map((rankEntry: RankingEntry, idx: number) => {
+        let rankingData = ranking[lang].map((rankEntry: RankingEntry, idx: number) => {
 
             return {
                 place: idx + 1,
@@ -31,7 +33,7 @@ class UserRanking extends React.Component<Props> {
 
         return <Grid>
             <Col>
-                <PageHeader>User Ranking</PageHeader>
+                <PageHeader>Language Ranking - {lang}</PageHeader>
                 <BootstrapTable data={rankingData} stripped hover pagination search>
                     <TableHeaderColumn isKey
                                        width={'50'}
@@ -55,21 +57,21 @@ class UserRanking extends React.Component<Props> {
 
 const mapStateToProps = (state) => {
     return {
-        ranking: state.ranking.general || []
+        ranking: state.ranking.languages || []
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        onLoad: () => {
-            dispatch(fetchRanking());
+        onLoad: (lang) => {
+            dispatch(fetchLangRanking(lang));
         }
     }
 };
 
-const UserRankingPage = connect(
+const LanguageRankingPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(UserRanking);
+)(LanguageRanking);
 
-export default UserRankingPage;
+export default LanguageRankingPage;

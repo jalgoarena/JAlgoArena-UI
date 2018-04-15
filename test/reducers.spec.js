@@ -23,7 +23,12 @@ describe('root reducer', () => {
                 showModal: false,
                 ranking: {
                     general: [],
-                    problemRanking: []
+                    problemRanking: [],
+                    languages: {
+                        java: [],
+                        kotlin: [],
+                        ruby: []
+                    }
                 },
                 submissions: {
                     items: [],

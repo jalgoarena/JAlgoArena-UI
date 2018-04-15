@@ -9,7 +9,7 @@ import {setErrorMessage} from "../../common/actions";
 
 type Action = {type:string}
     | {type:string, problemRanking: Array<ProblemRankingEntry>}
-    | {type:string, ranking:Array<RankingEntry>}
+    | {type:string, ranking:Array<RankingEntry>, lang?: string}
 
 const RANKING_SERVER_URL: string = `${config.jalgoarenaApiUrl}/ranking/api`;
 
@@ -39,6 +39,36 @@ function setProblemRanking(problemRanking: Array<ProblemRankingEntry>): Action {
     return {
         type: types.FETCH_PROBLEM_RANKING,
         problemRanking
+    }
+}
+
+export function fetchLangRanking(lang: string) {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return (dispatch: Dispatch) => {
+        return fetch(`${RANKING_SERVER_URL}/ranking/${lang}`, options)
+            .then(response => response.json())
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
+                } else {
+                    dispatch(setLangRanking((json: Array<RankingEntry>), lang))
+                }
+            })
+            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+    };
+}
+
+function setLangRanking(ranking: Array<RankingEntry>, lang: string): Action {
+    return {
+        type: types.FETCH_LANG_RANKING,
+        ranking: ranking,
+        lang
     }
 }
 

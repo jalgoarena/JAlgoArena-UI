@@ -16,8 +16,6 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
-import {fetchSubmissions} from "../../submissions/actions/index";
-import {fetchRanking} from "../../ranking/actions/index";
 import JudgeRequest from "../domain/JudgeRequest";
 import Problem from "../domain/Problem";
 import RawProblem from "../domain/RawProblem";
@@ -61,8 +59,6 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
                     dispatch(setErrorMessage("Cannot connect to Queue Service"));
                 } else {
                     dispatch(submissionPublished((json: Submission)));
-                    dispatch(fetchSubmissions(userId));
-                    dispatch(fetchRanking());
                 }
             })
             .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));

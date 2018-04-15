@@ -1,5 +1,5 @@
 // @flow
-import {fetchProblemRanking, fetchRanking} from "../../ranking/actions";
+import {fetchLangRanking, fetchProblemRanking, fetchRanking} from "../../ranking/actions";
 
 type Action = { type: string, error: string }
     | { type: string, isConnected: boolean }
@@ -45,9 +45,13 @@ let refreshRanking = function (event) {
     store.dispatch(fetchRanking());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
+
+    config.languages.forEach(lang => {
+        store.dispatch(fetchLangRanking(lang));
+    });
 };
 
-let refresShubmissions = function (event) {
+let refreshSubmissions = function (event) {
     console.log("Refresh submissions");
     store.dispatch(fetchSubmissions(event.userId));
 };
@@ -74,12 +78,12 @@ export function websocketInit() {
                         refreshRanking(event);
                     }, 5000);
                 } else if (event.type === 'refreshUserSubmissions') {
-                    refresShubmissions(event);
+                    refreshSubmissions(event);
                     setTimeout(() => {
-                        refresShubmissions(event);
+                        refreshSubmissions(event);
                     }, 2000);
                     setTimeout(() => {
-                        refresShubmissions(event);
+                        refreshSubmissions(event);
                     }, 5000);
                 }
             })
