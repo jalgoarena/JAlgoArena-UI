@@ -6,7 +6,6 @@ import {hashHistory} from 'react-router';
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
-import {regions, teams, emailErrorMessage} from "../../config"
 
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
 import {attemptSignUp, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
@@ -80,7 +79,7 @@ class SignUp extends React.Component {
             newState.isEmailFieldIncorrect = true;
         }
         else if (!validateEmail(formData.email)) {
-            newState.errorMessage = emailErrorMessage;
+            newState.errorMessage = this.props.emailErrorMessage;
             newState.isEmailFieldIncorrect = true;
         }
 
@@ -129,8 +128,8 @@ class SignUp extends React.Component {
     }
 
     render() {
-        let regionOptions = regions.map(region => <option>{region}</option>);
-        let teamOptions = teams.map(team => <option>{team}</option>);
+        let regionOptions = this.props.regions.map(region => <option>{region}</option>);
+        let teamOptions = this.props.teams.map(team => <option>{team}</option>);
 
         return (
             <Grid>
@@ -178,7 +177,10 @@ class SignUp extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        regions: state.config.regions,
+        teams: state.config.teams,
+        emailErrorMessage: state.config.emailErrorMessage
     };
 };
 

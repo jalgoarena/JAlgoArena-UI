@@ -4,9 +4,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
 
-import {title} from '../../config';
-
 import FontAwesome from '../components/FontAwesome';
+import {connect} from "react-redux";
 
 const starLightStyle = {
     padding: 0,
@@ -44,7 +43,7 @@ const introTextSkillsStyle = {
     fontWeight: "300"
 };
 
-const Home = () => (
+const Home = (title) => (
     <Grid fluid={true} style={containerStyle}>
         <Row>
             <Col lg={12}>
@@ -62,4 +61,15 @@ const Home = () => (
     </Grid>
 );
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        title: state.config.title
+    }
+};
+
+
+const HomePage = connect(
+    mapStateToProps
+)(Home);
+
+export default HomePage;

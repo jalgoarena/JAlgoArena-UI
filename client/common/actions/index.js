@@ -10,8 +10,8 @@ import SockJS from "sockjs-client"
 import * as Stomp from "@stomp/stompjs"
 import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
 import {fetchSubmissions} from "../../submissions/actions";
-import config from "../../config";
 import Event from "../domain/Event"
+
 import store from "../store";
 
 export function closeWorkInProgressWindow(): Action {
@@ -40,13 +40,13 @@ export function websocketConnected(isConnected: boolean): Action {
     }
 }
 
-let refreshRanking = function (event) {
+let refreshRanking = function (event, languages) {
     console.log("Refresh rankings");
     store.dispatch(fetchRanking());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
 
-    config.languages.forEach(lang => {
+    languages.forEach(lang => {
         store.dispatch(fetchLangRanking(lang));
     });
 };
@@ -56,8 +56,16 @@ let refreshSubmissions = function (event) {
     store.dispatch(fetchSubmissions(event.userId));
 };
 
-export function websocketInit() {
-    let socket = new SockJS(config.jalgoarenaWebSocketUrl + "/events-websocket");
+export function loadConfig(config) {
+    return {
+        type: types.FETCH_CONFIG,
+        config
+    }
+}
+
+export function websocketInit(config) {
+    let {jalgoarenaWebSocketUrl, languages} = config;
+    let socket = new SockJS(jalgoarenaWebSocketUrl + "/events-websocket");
 
     let stompClient = Stomp.over(socket);
 
@@ -70,12 +78,12 @@ export function websocketInit() {
                 console.log(`Received: ${JSON.stringify(message)}`);
                 let event: Event = JSON.parse(message.body);
                 if (event.type === 'refreshRanking') {
-                    refreshRanking(event);
+                    refreshRanking(event, languages);
                     setTimeout(() => {
-                        refreshRanking(event);
+                        refreshRanking(event, languages);
                     }, 2000);
                     setTimeout(() => {
-                        refreshRanking(event);
+                        refreshRanking(event, languages);
                     }, 5000);
                 } else if (event.type === 'refreshUserSubmissions') {
                     refreshSubmissions(event);

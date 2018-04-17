@@ -4,22 +4,24 @@ import {NavDropdown} from "react-bootstrap";
 
 import FontAwesome from './FontAwesome';
 import MenuItem from './MenuItem';
-import config from "../../config";
 
-let langRankingMenuItems = config.languages.map(
-    lang => <MenuItem key={lang}
-        path={`/langRanking/${lang}`}
-        title={lang.charAt(0).toLocaleUpperCase() + lang.slice(1)}
-        icon="" prefix=""/>
-);
+const RankingMenuItem = (languages) => {
+    let langRankingMenuItems = languages.map(
+        lang => <MenuItem key={lang}
+                          path={`/langRanking/${lang}`}
+                          title={lang.charAt(0).toLocaleUpperCase() + lang.slice(1)}
+                          icon="" prefix=""/>
+    );
 
-const RankingMenuItem = () => (
-    <NavDropdown title={<span><FontAwesome prefix="fas" name="trophy" lg={true}/> Ranking</span>} id="basic-nav-dropdown">
-        <MenuItem path="/userRanking" title="Users" icon="" prefix=""/>
-        <MenuItem path="/teamRanking" title="Teams" icon="" prefix=""/>
-        <MenuItem path="/regionRanking" title="Regions" icon="" prefix=""/>
-        {langRankingMenuItems}
-    </NavDropdown>
-);
+    return (
+        <NavDropdown title={<span><FontAwesome prefix="fas" name="trophy" lg={true}/> Ranking</span>}
+                     id="basic-nav-dropdown">
+            <MenuItem path="/userRanking" title="Users" icon="" prefix=""/>
+            <MenuItem path="/teamRanking" title="Teams" icon="" prefix=""/>
+            <MenuItem path="/regionRanking" title="Regions" icon="" prefix=""/>
+            {langRankingMenuItems}
+        </NavDropdown>
+    );
+};
 
 export default RankingMenuItem;

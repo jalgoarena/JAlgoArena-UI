@@ -6,14 +6,10 @@ type Action = {
 }
 
 import fetch from 'isomorphic-fetch';
-import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
-
-const SUBMISSIONS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/submissions/api`;
-
 
 export function fetchSubmissions(userId: string) {
 
@@ -32,7 +28,7 @@ export function fetchSubmissions(userId: string) {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${SUBMISSIONS_SERVER_URL}/submissions/${userId}`, options)
+        return fetch(`/api/submissions/api/submissions/${userId}`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -41,7 +37,7 @@ export function fetchSubmissions(userId: string) {
                     dispatch(setSubmissions(json))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Submissions Service")));
     };
 }
 

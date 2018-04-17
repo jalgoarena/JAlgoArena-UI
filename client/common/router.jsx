@@ -19,7 +19,7 @@ import RegionRankingPage from "../ranking/pages/regionRanking";
 import LanguageRankingPage from "../ranking/pages/langRanking";
 
 import {Layout} from './layout';
-import Home from "./pages/home";
+import HomePage from "./pages/home";
 import store from './store';
 
 const history = syncHistoryWithStore(hashHistory, store);
@@ -29,7 +29,7 @@ export default (
     <Provider store={store}>
         <Router history={history}>
             <Route component={Layout}>
-                <Route path="/" component={Home} />
+                <Route path="/" component={HomePage} />
                 <Route path="/problems" component={ProblemsPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/problem/:id" component={ProblemPage} />

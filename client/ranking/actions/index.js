@@ -1,7 +1,6 @@
 // @flow
 import {ProblemSubmissionRatio} from "../../submissions/domain/ProblemSubmissionRatio";
 import fetch from 'isomorphic-fetch';
-import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
@@ -10,8 +9,6 @@ import {setErrorMessage} from "../../common/actions";
 type Action = {type:string}
     | {type:string, problemRanking: Array<ProblemRankingEntry>}
     | {type:string, ranking:Array<RankingEntry>, lang?: string}
-
-const RANKING_SERVER_URL: string = `${config.jalgoarenaApiUrl}/ranking/api`;
 
 export function fetchProblemRanking(problemId: string) {
     const options = {
@@ -22,7 +19,7 @@ export function fetchProblemRanking(problemId: string) {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${RANKING_SERVER_URL}/ranking/${problemId}`, options)
+        return fetch(`/api/ranking/api/ranking/problem/${problemId}`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -31,7 +28,7 @@ export function fetchProblemRanking(problemId: string) {
                     dispatch(setProblemRanking((json: Array<ProblemRankingEntry>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 
@@ -51,7 +48,7 @@ export function fetchLangRanking(lang: string) {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${RANKING_SERVER_URL}/ranking/${lang}`, options)
+        return fetch(`/api/ranking/api/ranking/language/${lang}`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -60,7 +57,7 @@ export function fetchLangRanking(lang: string) {
                     dispatch(setLangRanking((json: Array<RankingEntry>), lang))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 
@@ -81,7 +78,7 @@ export function fetchRanking() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${RANKING_SERVER_URL}/ranking/`, options)
+        return fetch(`/api/ranking/api/ranking/`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -90,7 +87,7 @@ export function fetchRanking() {
                     dispatch(setRanking((json: Array<RankingEntry>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 
@@ -110,7 +107,7 @@ export function fetchSolvedProblemsRatio() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${RANKING_SERVER_URL}/solved-ratio`, options)
+        return fetch(`/api/ranking/api/solved-ratio`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -119,7 +116,7 @@ export function fetchSolvedProblemsRatio() {
                     dispatch(setSolvedProblemsRatio((json: Array<ProblemSubmissionRatio>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
     };
 }
 

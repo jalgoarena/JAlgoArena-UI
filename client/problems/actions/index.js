@@ -13,16 +13,11 @@ type Action = {type:string}
 
 import fetch from 'isomorphic-fetch';
 
-import config from '../../config';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import JudgeRequest from "../domain/JudgeRequest";
 import Problem from "../domain/Problem";
 import RawProblem from "../domain/RawProblem";
-
-const JUDGE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/judge/api`;
-const QUEUE_SERVER_URL: string = `${config.jalgoarenaApiUrl}/queue/api`;
-const PROBLEMS_SERVER_URL: string = `${config.jalgoarenaApiUrl}/problems/api`;
 
 export function startJudge(): Action {
     return {
@@ -52,7 +47,7 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
         ))
     };
     return (dispatch: Dispatch) => {
-        return fetch(`${QUEUE_SERVER_URL}/problems/${problemId}/publish`, options)
+        return fetch(`/api/queue/api/problems/${problemId}/publish`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -61,7 +56,7 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
                     dispatch(submissionPublished((json: Submission)));
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 
 }
@@ -123,7 +118,7 @@ export function fetchProblems() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${JUDGE_SERVER_URL}/problems`, options)
+        return fetch(`/api/judge/api/problems`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -132,7 +127,7 @@ export function fetchProblems() {
                     dispatch(setProblems((json: Array<Problem>)))
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Judge Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Judge Service")));
     };
 }
 
@@ -158,7 +153,7 @@ export function fetchRawProblems() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`${PROBLEMS_SERVER_URL}/problems`, options)
+        return fetch(`/api/problems/api/problems`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -167,7 +162,7 @@ export function fetchRawProblems() {
                     dispatch(setRawProblems((json: Array<RawProblem>)));
                 }
             })
-            .catch(error => dispatch(setErrorMessage("Cannot connect to Problems Service")));
+            .catch(() => dispatch(setErrorMessage("Cannot connect to Problems Service")));
     };
 }
 

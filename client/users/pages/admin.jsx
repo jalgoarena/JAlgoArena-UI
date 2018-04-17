@@ -2,7 +2,6 @@ import React from 'react';
 import * as _ from 'lodash';
 import {Grid, Button, Col, PageHeader, Panel, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {regions, teams} from "../../config"
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -49,8 +48,8 @@ class UsersAdmin extends React.Component {
             return <option value={user.id} key={idx}>{user.username}</option>;
         });
 
-        let regionOptions = regions.map((region, idx) => <option key={idx}>{region}</option>);
-        let teamOptions = teams.map((team, idx) => <option key={idx}>{team}</option>);
+        let regionOptions = this.props.regions.map((region, idx) => <option key={idx}>{region}</option>);
+        let teamOptions = this.props.teams.map((team, idx) => <option key={idx}>{team}</option>);
 
         return (
             <Grid>
@@ -126,7 +125,9 @@ class UsersAdmin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        regions: state.config.regions,
+        teams: state.config.teams
     };
 };
 

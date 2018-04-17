@@ -5,10 +5,9 @@ import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes"
 import * as actions from "../../client/problems/actions"
-import config from "../../client/config"
+import config from "../config"
 
 import nock from "nock"
-import JudgeResponse from "../../client/problems/domain/JudgeResponse";
 import Method from "../../client/problems/domain/Method";
 import Return from "../../client/problems/domain/Return";
 import TestCase from "../../client/problems/domain/TestCase";

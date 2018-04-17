@@ -5,7 +5,7 @@ import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/submissions/actions";
-import config from "../../client/config"
+import config from "../config"
 
 import nock from "nock"
 import {fetchSolvedProblemsRatio} from "../../client/ranking/actions";

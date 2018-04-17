@@ -3,7 +3,6 @@
 import * as types from "../../constants/ActionTypes";
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
-import config from "../../config";
 
 type RankingState = {
     general: Array<RankingEntry>,
@@ -18,18 +17,10 @@ type RankingAction = {
     lang?: string
 }
 
-let defaultLangRanking = {};
-
-config.languages.forEach(lang => {
-    let langJson = {};
-    langJson[lang] = [];
-    defaultLangRanking = Object.assign({}, defaultLangRanking, langJson);
-});
-
 export function ranking(state: RankingState = {
     general: [],
     problemRanking: [],
-    languages: defaultLangRanking
+    languages: {'java': [], 'kotlin': [], 'ruby': []}
 }, action: RankingAction): RankingState {
     switch (action.type) {
         case types.FETCH_RANKING:
