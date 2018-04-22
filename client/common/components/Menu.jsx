@@ -17,7 +17,7 @@ const logoStyle = {
     marginTop: -5
 };
 
-const Menu = ({user, isConnected, languages}: {user: User, isConnected: boolean, languages: Array}) => (
+const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
@@ -30,7 +30,7 @@ const Menu = ({user, isConnected, languages}: {user: User, isConnected: boolean,
             <Nav role="navigation" pullRight id="menu">
                 <MenuItem path="/" prefix="fas" icon="home" title="Home" />
                 <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems"/>
-                <RankingMenuItem languages={languages}/>
+                <RankingMenuItem/>
                 { user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions" /> : null }
                 <ProfileOrLoginMenuItem user={user}/>
                 <AdminMenuItem user={user}/>
@@ -42,8 +42,7 @@ const Menu = ({user, isConnected, languages}: {user: User, isConnected: boolean,
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        isConnected: state.webSocketConnected,
-        languages: state.config.languages,
+        isConnected: state.webSocketConnected
     };
 };
 

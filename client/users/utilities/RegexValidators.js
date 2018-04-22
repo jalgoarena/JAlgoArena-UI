@@ -1,5 +1,4 @@
-import store from "../../common/store";
-const {emailRegex} = store.getState().config;
+import {emailRegex} from '../../config';
 
 const displayNameRegex = /^[a-zA-Z\-_0-9]+$/;
 const passwordRegex = /^[a-zA-Z0-9!@#$%^&*-]{6,}$/;

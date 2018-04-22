@@ -1,0 +1,13 @@
+public/
+node_modules
+dist
+coverage
+design
+flow-typed
+test
+.flowconfig
+.gitignore
+.travis.yml
+LICENSE
+Procfile
+README.md

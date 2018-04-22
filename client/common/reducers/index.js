@@ -1,5 +1,5 @@
 // @flow
-type Action = {type:string, isConnected?: boolean, error?: string, config?: {}}
+type Action = {type:string, isConnected?: boolean, error?: string}
 
 import * as redux from 'redux';
 import {routerReducer} from 'react-router-redux';
@@ -19,26 +19,8 @@ const rootReducer = redux.combineReducers({
     submissions,
     ranking,
     errorMessage,
-    webSocketConnected,
-    config
+    webSocketConnected
 });
-
-export function config(state = {
-    jalgoarenaWebSocketUrl: "http://localhost:5005",
-    title: "Start to solve your first problem",
-    emailRegex: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-    emailErrorMessage: "Please enter a valid email address",
-    teams: ["Team A", "Team B", "Team C"],
-    regions: ["Kraków", "Wrocław"],
-    languages: ["java", "kotlin", "ruby"]
-}, action: Action) {
-    switch (action.type) {
-        case types.FETCH_CONFIG:
-            return action.config;
-        default:
-            return state;
-    }
-}
 
 export function webSocketConnected(state: boolean = false, action: Action) {
     switch (action.type) {

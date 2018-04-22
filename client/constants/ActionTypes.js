@@ -1,7 +1,5 @@
 // @flow
 
-export const FETCH_CONFIG = 'FETCH_CONFIG';
-
 export const JUDGE_REQUEST = 'JUDGE_REQUEST';
 export const SUBMISSION_PUBLISHED = 'SUBMISSION_PUBLISHED';
 

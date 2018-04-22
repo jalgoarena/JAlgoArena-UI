@@ -1,11 +1,9 @@
-// @flow
-
 import React from 'react';
 import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
 
 import FontAwesome from '../components/FontAwesome';
-import {connect} from "react-redux";
+import {title} from "../../config";
 
 const starLightStyle = {
     padding: 0,
@@ -43,7 +41,7 @@ const introTextSkillsStyle = {
     fontWeight: "300"
 };
 
-const Home = (title) => (
+const HomePage = () => (
     <Grid fluid={true} style={containerStyle}>
         <Row>
             <Col lg={12}>
@@ -60,16 +58,5 @@ const Home = (title) => (
         </Row>
     </Grid>
 );
-
-const mapStateToProps = (state) => {
-    return {
-        title: state.config.title
-    }
-};
-
-
-const HomePage = connect(
-    mapStateToProps
-)(Home);
 
 export default HomePage;

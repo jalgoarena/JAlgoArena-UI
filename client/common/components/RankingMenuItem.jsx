@@ -4,8 +4,9 @@ import {NavDropdown} from "react-bootstrap";
 
 import FontAwesome from './FontAwesome';
 import MenuItem from './MenuItem';
+import {languages} from "../../config";
 
-const RankingMenuItem = (languages) => {
+const RankingMenuItem = () => {
     let langRankingMenuItems = languages.map(
         lang => <MenuItem key={lang}
                           path={`/langRanking/${lang}`}

@@ -13,6 +13,7 @@ import {fetchSubmissions} from "../../submissions/actions";
 import Event from "../domain/Event"
 
 import store from "../store";
+import {languages} from "../../config";
 
 export function closeWorkInProgressWindow(): Action {
     return {
@@ -56,16 +57,8 @@ let refreshSubmissions = function (event) {
     store.dispatch(fetchSubmissions(event.userId));
 };
 
-export function loadConfig(config) {
-    return {
-        type: types.FETCH_CONFIG,
-        config
-    }
-}
-
-export function websocketInit(config) {
-    let {jalgoarenaWebSocketUrl, languages} = config;
-    let socket = new SockJS(jalgoarenaWebSocketUrl + "/events-websocket");
+export function websocketInit() {
+    let socket = new SockJS("/ws/events-websocket");
 
     let stompClient = Stomp.over(socket);
 

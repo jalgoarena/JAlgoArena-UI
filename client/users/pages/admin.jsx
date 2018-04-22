@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
 import {fetchUsersWithAllData, updateUser} from "../actions";
-
+import {regions, teams} from "../../config";
 
 class UsersAdmin extends React.Component {
     constructor(props) {
@@ -48,8 +48,8 @@ class UsersAdmin extends React.Component {
             return <option value={user.id} key={idx}>{user.username}</option>;
         });
 
-        let regionOptions = this.props.regions.map((region, idx) => <option key={idx}>{region}</option>);
-        let teamOptions = this.props.teams.map((team, idx) => <option key={idx}>{team}</option>);
+        let regionOptions = regions.map((region, idx) => <option key={idx}>{region}</option>);
+        let teamOptions = teams.map((team, idx) => <option key={idx}>{team}</option>);
 
         return (
             <Grid>
@@ -125,9 +125,7 @@ class UsersAdmin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth,
-        regions: state.config.regions,
-        teams: state.config.teams
+        auth: state.auth
     };
 };
 
