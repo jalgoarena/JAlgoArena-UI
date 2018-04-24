@@ -3,6 +3,8 @@
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/common/actions";
 
+jest.mock('sockjs-client');
+
 describe("actions", () => {
     it("creates an action to close work in progress window", () => {
         const expectedAction = {

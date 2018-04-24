@@ -6,15 +6,12 @@ import thunk from "redux-thunk"
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/users/actions";
 
-import config from "../config"
-
-import nock from "nock"
 import User from "../../client/users/domain/User";
+
+jest.mock('sockjs-client');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-let authServerUrl = config.jalgoarenaApiUrl + "/auth/";
 
 window.localStorage = {
     getItem: function (key) {
@@ -35,14 +32,12 @@ window.sessionStorage = {
 };
 
 describe("async actions", () => {
-    afterEach(() => {
-        nock.cleanAll()
+    beforeEach(() => {
+        fetch.resetMocks()
     });
 
     it("creates SIGNUP_SUCCESS when sign up has been done", () => {
-        nock(authServerUrl)
-            .post("/signup")
-            .reply(200, "{}");
+        fetch.mockResponseOnce(JSON.stringify({}));
 
         const expectedActions = [{
             type: types.SIGNUP_SUCCESS
@@ -62,9 +57,10 @@ describe("async actions", () => {
             message: "Username is already used"
         };
 
-        nock(authServerUrl)
-            .post("/signup")
-            .reply(409, errorMessage);
+        fetch.mockResponseOnce(
+            JSON.stringify(errorMessage),
+            { status: 409 }
+        );
 
         const expectedActions = [{
             type: types.SIGNUP_FAIL,
@@ -82,9 +78,7 @@ describe("async actions", () => {
     it("creates LOGIN_SUCCESS when log in has been succeed", () => {
         let user = { username: "user"};
 
-        nock(authServerUrl)
-            .post("/login")
-            .reply(200, { token: "1234567", user});
+        fetch.mockResponseOnce(JSON.stringify({ token: "1234567", user}));
 
         const expectedActions = [{
             type: types.LOGIN_SUCCESS,
@@ -101,9 +95,11 @@ describe("async actions", () => {
 
     it("creates LOGIN_FAIL when log in has been failed", () => {
         let errorMessage = { error: "Forbidden", message: "Access Denied"};
-        nock(authServerUrl)
-            .post("/login")
-            .reply(403, errorMessage);
+
+        fetch.mockResponseOnce(
+            JSON.stringify(errorMessage),
+            { status: 403 }
+        );
 
         const expectedActions = [{
             type: types.LOGIN_FAIL,
@@ -120,10 +116,11 @@ describe("async actions", () => {
 
     it("creates CHECKED_SESSION_STATUS when session check has been successful", () => {
         let user = { username: "user"};
+        let submission = {submissionId: "1"};
 
-        nock(authServerUrl)
-            .get("/api/user")
-            .reply(200, user);
+        fetch
+            .once(JSON.stringify(user))
+            .once(JSON.stringify([submission]));
 
         const expectedActions = [{
             type: types.CHECKED_SESSION_STATUS,
@@ -141,9 +138,7 @@ describe("async actions", () => {
     it("creates FETCH_USERS when users has been successfully downloaded", () => {
         let user = { username: "user"};
 
-        nock(authServerUrl)
-            .get("/users")
-            .reply(200, [user]);
+        fetch.mockResponseOnce(JSON.stringify([user]));
 
         const expectedActions = [{
             type: types.FETCH_USERS,
@@ -163,9 +158,9 @@ describe("async actions", () => {
             "username", "password", "email", "region", "team"
         );
 
-        nock(authServerUrl)
-            .put("/api/users")
-            .reply(200, user);
+        fetch
+            .once(JSON.stringify(user))
+            .once(JSON.stringify([user]));
 
         const expectedActions = [{
             type: types.USER_UPDATED,

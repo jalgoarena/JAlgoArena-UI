@@ -5,9 +5,7 @@ import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes"
 import * as actions from "../../client/problems/actions"
-import config from "../config"
 
-import nock from "nock"
 import Method from "../../client/problems/domain/Method";
 import Return from "../../client/problems/domain/Return";
 import TestCase from "../../client/problems/domain/TestCase";
@@ -15,12 +13,10 @@ import Parameter from "../../client/problems/domain/Parameter";
 import RawProblem from "../../client/problems/domain/RawProblem";
 import Submission from "../../client/problems/domain/Submission";
 
+jest.mock('sockjs-client');
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-let judgeServerUrl = config.jalgoarenaApiUrl + "/judge/api";
-let queueServerUrl = config.jalgoarenaApiUrl + "/queue/api";
-let problemsServerUrl = config.jalgoarenaApiUrl + "/problems/api";
 
 window.localStorage = {
     getItem: function (key) {
@@ -32,8 +28,8 @@ window.localStorage = {
 };
 
 describe("async actions", () => {
-    afterEach(() => {
-        nock.cleanAll()
+    beforeEach(() => {
+        fetch.resetMocks()
     });
 
     it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
@@ -41,9 +37,7 @@ describe("async actions", () => {
             "dummy source code", "user-id", "java", "fib", "submission-id", "token"
         );
 
-        nock(queueServerUrl)
-            .post("/problems/fib/publish")
-            .reply(200, submission);
+        fetch.mockResponseOnce(JSON.stringify(submission));
 
         const SOURCE_CODE = "dummy_source_code";
         const PROBLEM_ID = "fib";
@@ -66,9 +60,7 @@ describe("async actions", () => {
             FIB_PROBLEM
         ];
 
-        nock(judgeServerUrl)
-            .get("/problems")
-            .reply(200, problems);
+        fetch.mockResponseOnce(JSON.stringify(problems));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEMS_SUCCESS,
@@ -88,9 +80,7 @@ describe("async actions", () => {
             FIB_PROBLEM
         ];
 
-        nock(problemsServerUrl)
-            .get("/problems")
-            .reply(200, problems);
+        fetch.mockResponseOnce(JSON.stringify(problems));
 
         const expectedActions = [{
             type: types.FETCH_RAW_PROBLEMS,

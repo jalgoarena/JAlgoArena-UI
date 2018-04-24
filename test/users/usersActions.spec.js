@@ -3,6 +3,8 @@
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/users/actions";
 
+jest.mock('sockjs-client');
+
 window.localStorage = {
     removeItem: function (key) {
         if (key !== "jwtToken") {

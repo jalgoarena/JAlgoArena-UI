@@ -5,16 +5,13 @@ import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/submissions/actions";
-import config from "../config"
 
-import nock from "nock"
 import {fetchSolvedProblemsRatio} from "../../client/ranking/actions";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-let submissionsServerUrl = config.jalgoarenaApiUrl + "/submissions/api";
-let rankingServerUrl = config.jalgoarenaApiUrl + "/ranking/api";
+jest.mock('sockjs-client');
 
 window.localStorage = {
     getItem: function(key) {
@@ -26,10 +23,9 @@ window.localStorage = {
 };
 
 describe("async actions", () => {
-    afterEach(() => {
-        nock.cleanAll()
+    beforeEach(() => {
+        fetch.resetMocks()
     });
-
 
     it("creates FETCH_SUBMISSIONS when fetching user submissions has been done", () => {
         let submissions = [{
@@ -37,9 +33,7 @@ describe("async actions", () => {
             elapsedTime: 0.123
         }];
 
-        nock(submissionsServerUrl)
-            .get("/submissions/user1")
-            .reply(200, submissions);
+        fetch.mockResponseOnce(JSON.stringify(submissions));
 
         const expectedActions = [{
             type: types.FETCH_SUBMISSIONS,
@@ -55,9 +49,7 @@ describe("async actions", () => {
     });
 
     it("creates SET_ERROR_MESSAGE when fetching user submissions has failed", () => {
-        nock(submissionsServerUrl)
-            .get("/submissions/user1")
-            .reply(500, {error: "bad request"});
+        fetch.mockResponseOnce(JSON.stringify({error: "bad request"}), {status: 500});
 
         const expectedActions = [{
             type: types.SET_ERROR_MESSAGE,
@@ -74,9 +66,8 @@ describe("async actions", () => {
 
     it("creates FETCH_PROBLEMS_SOLUTION_RATIO when fetching solved problems ratio has been done", () => {
         let problemPassRatio = {problemId:"fib",submissionsCount: 10};
-        nock(rankingServerUrl)
-            .get("/solved-ratio")
-            .reply(200, [problemPassRatio]);
+
+        fetch.mockResponseOnce(JSON.stringify([problemPassRatio]));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
@@ -92,9 +83,8 @@ describe("async actions", () => {
     });
 
     it("creates SET_ERROR_MESSAGE when fetching solved problems ratio has failed", () => {
-        nock(rankingServerUrl)
-            .get("/solved-ratio")
-            .reply(500, {error: "bad request"});
+
+        fetch.mockResponseOnce(JSON.stringify({error: "bad request"}), {status: 500});
 
         const expectedActions = [{
             type: types.SET_ERROR_MESSAGE,

@@ -7,7 +7,6 @@ type Action = {
     userUpdated?: User
 }
 
-import fetch from 'isomorphic-fetch';
 import {hashHistory} from "react-router";
 
 import {fetchSubmissions} from "../../submissions/actions";

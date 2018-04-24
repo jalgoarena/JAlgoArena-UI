@@ -1,6 +1,5 @@
 // @flow
 import {ProblemSubmissionRatio} from "../../submissions/domain/ProblemSubmissionRatio";
-import fetch from 'isomorphic-fetch';
 import * as types from "../../constants/ActionTypes"
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";

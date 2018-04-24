@@ -5,7 +5,6 @@ type Action = {
     submissions?: Array<Submission>
 }
 
-import fetch from 'isomorphic-fetch';
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";

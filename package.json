@@ -91,18 +91,22 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "flow-bin": "^0.69.0",
     "jest": "^22.4.3",
+    "jest-fetch-mock": "^1.5.0",
     "jest-localstorage-mock": "^2.2.0",
-    "nock": "^9.2.3",
+    "jquery": "^3.3.1",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "uglifyjs-webpack-plugin": "^1.2.4",
+    "url-parse": "latest",
     "webpack-cli": "^2.0.14"
   },
   "jest": {
+    "automock": false,
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "setupFiles": [
-      "jest-localstorage-mock"
+      "jest-localstorage-mock",
+      "./setupJest.js"
     ]
   }
 }

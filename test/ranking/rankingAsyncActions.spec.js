@@ -5,18 +5,15 @@ import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/ranking/actions";
-import config from "../config"
 
-import nock from "nock"
+jest.mock('sockjs-client');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-let rankingServerUrl = config.jalgoarenaApiUrl + "/ranking/api";
-
 describe("async actions", () => {
-    afterEach(() => {
-        nock.cleanAll()
+    beforeEach(() => {
+        fetch.resetMocks();
     });
 
 
@@ -26,9 +23,7 @@ describe("async actions", () => {
             score: 20
         }];
 
-        nock(rankingServerUrl)
-            .get("/ranking/fib")
-            .reply(200, problemRanking);
+        fetch.mockResponseOnce(JSON.stringify(problemRanking));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEM_RANKING,
@@ -52,9 +47,7 @@ describe("async actions", () => {
             score: 20
         }];
 
-        nock(rankingServerUrl)
-            .get("/ranking/")
-            .reply(200, ranking);
+        fetch.mockResponseOnce(JSON.stringify(ranking));
 
         const expectedActions = [{
             type: types.FETCH_RANKING,

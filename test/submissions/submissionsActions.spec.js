@@ -9,6 +9,8 @@ window.localStorage = {
     }
 };
 
+jest.mock('sockjs-client');
+
 describe("actions", () => {
     it("creates an action to set submissions filter", () => {
         let status = "ACCEPTED";

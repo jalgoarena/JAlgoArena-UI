@@ -11,8 +11,6 @@ type Action = {type:string}
     | {type:string, hideDoneProblems:boolean}
     | {type:string, programmingLanguage:string}
 
-import fetch from 'isomorphic-fetch';
-
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import JudgeRequest from "../domain/JudgeRequest";
