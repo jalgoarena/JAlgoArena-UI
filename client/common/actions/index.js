@@ -68,24 +68,11 @@ export function websocketInit() {
             console.log(`Connected: ${JSON.stringify(frame)}`);
 
             stompClient.subscribe('/topic/events', (message) => {
-                console.log(`Received: ${JSON.stringify(message)}`);
                 let event: Event = JSON.parse(message.body);
                 if (event.type === 'refreshRanking') {
                     refreshRanking(event, languages);
-                    setTimeout(() => {
-                        refreshRanking(event, languages);
-                    }, 2000);
-                    setTimeout(() => {
-                        refreshRanking(event, languages);
-                    }, 5000);
                 } else if (event.type === 'refreshUserSubmissions') {
                     refreshSubmissions(event);
-                    setTimeout(() => {
-                        refreshSubmissions(event);
-                    }, 2000);
-                    setTimeout(() => {
-                        refreshSubmissions(event);
-                    }, 5000);
                 }
             })
         },
