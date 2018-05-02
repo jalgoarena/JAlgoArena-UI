@@ -146,7 +146,6 @@ class Problem extends React.Component {
                     problem={this.props.problem}
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
-                    activeLanguage={this.props.programmingLanguage}
                 >
                     <ButtonGroup>
                         {programmingLanguageButtons}

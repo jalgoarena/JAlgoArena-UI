@@ -4,7 +4,7 @@ import {ButtonToolbar, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from '../../common/components/FontAwesome';
 
-const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, activeLanguage}) => (
+const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend}) => (
     <ButtonToolbar>
         <LinkContainer to={"problem/" + problem.id}>
             <Button bsStyle="danger" className="pull-right" onClick={onRefresh}>
@@ -14,7 +14,7 @@ const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend, activ
         <Button bsStyle="success"
                 className="pull-right"
                 onClick={onShowPointsLegend}>
-            Max {(10 + ((problem.level - 1) * 20)) * (activeLanguage === 'java' ? 1 : 1.5)} Points
+            Max {(10 + ((problem.level - 1) * 20))} Points
         </Button>
         {children}
     </ButtonToolbar>
