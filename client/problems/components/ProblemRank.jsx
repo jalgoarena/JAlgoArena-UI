@@ -1,17 +1,17 @@
 import React from 'react';
-import {Table, Modal} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import UserProblemRank from './UserProblemRank';
 import {fetchProblemRanking} from "../../ranking/actions/index";
+import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 
 const logoStyle = {
-    height: 50,
+    height: 40,
     marginBottom: 15
 };
 
 const modalBodyStyle = {
-    height: 150
+    height: 350
 };
 
 class ProblemRank extends React.Component {
@@ -28,16 +28,14 @@ class ProblemRank extends React.Component {
 
         let ranking = this.props.problemRanking.map ? this.props.problemRanking : [];
 
-        let rankNodes = ranking.map((ranking, idx) =>
-            <UserProblemRank
-                key={idx}
-                idx={idx}
-                hacker={ranking.hacker}
-                score={ranking.score}
-                elapsedTime={ranking.elapsedTime}
-                language={ranking.language}
-            />
+        let rankingData = ranking.map((ranking, idx) =>
+            Object.assign({}, ranking, {idx})
         );
+
+        const options = {
+            sizePerPage: 5,
+            hideSizePerPage: true
+        };
 
         return (
             <Modal show={this.props.show || false} onHide={this.props.onHide}>
@@ -45,20 +43,15 @@ class ProblemRank extends React.Component {
                     <h2>Problem Ranking - {this.props.problemId}</h2>
                 </Modal.Header>
                 <Modal.Body style={modalBodyStyle}>
-                    <Table striped bordered condensed hover responsive>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Hacker</th>
-                            <th>Score</th>
-                            <th>Elapsed Time (ms)</th>
-                            <th>Language</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {rankNodes}
-                        </tbody>
-                    </Table>
+                    <BootstrapTable data={rankingData} stripped hover pagination search options={options}>
+                        <TableHeaderColumn isKey
+                                           dataField='idx'>#</TableHeaderColumn>
+                        <TableHeaderColumn dataField='hacker'>Hacker</TableHeaderColumn>
+                        <TableHeaderColumn dataField='score'>Score</TableHeaderColumn>
+                        <TableHeaderColumn dataField='elapsedTime'>Elapsed Time (ms)</TableHeaderColumn>
+                        <TableHeaderColumn dataField='language'
+                                           dataSort>Language</TableHeaderColumn>
+                    </BootstrapTable>
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="col-md-offset-4 col-md-4">

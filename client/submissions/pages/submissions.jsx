@@ -73,6 +73,7 @@ class Submissions extends React.Component {
 
     errorCodeButtonFormatter(cell) {
         return <Button bsStyle="danger" block
+                       disabled={cell.errorMessage === ''}
                        onClick={() => {
                            this.showErrorMessage(cell.errorMessage, cell.problemId)
                        }}>
