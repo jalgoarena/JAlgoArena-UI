@@ -151,7 +151,7 @@ export function fetchRawProblems() {
     };
 
     return (dispatch: Dispatch) => {
-        return fetch(`/api/problems/api/problems`, options)
+        return fetch(`/api/judge/api/rawProblems`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {

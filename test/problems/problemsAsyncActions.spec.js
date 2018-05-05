@@ -125,5 +125,6 @@ let FIB_PROBLEM = new RawProblem(
         new TestCase(["6"], 8),
         new TestCase(["20"], 6765)
     ],
+    "",
     1
 );

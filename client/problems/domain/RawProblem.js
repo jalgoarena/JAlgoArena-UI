@@ -9,6 +9,7 @@ export default class RawProblem {
     timeLimit: number;
     func: Method;
     testCases: Array<TestCase>;
+    skeletonCode: string;
     level: number;
 
     constructor(id: string,
@@ -17,6 +18,7 @@ export default class RawProblem {
                 timeLimit: number,
                 func: Method,
                 testCases: Array<TestCase>,
+                skeletonCode: string,
                 level: number) {
         this.id = id;
         this.title = title;
@@ -24,6 +26,7 @@ export default class RawProblem {
         this.timeLimit = timeLimit;
         this.func = func;
         this.testCases = testCases;
+        this.skeletonCode = skeletonCode;
         this.level = level;
     }
 }
