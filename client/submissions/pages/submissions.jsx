@@ -130,9 +130,14 @@ class Submissions extends React.Component {
     }
 
     static testCasesFormatter(cell) {
+        const spanStyle = {
+            marginLeft: ".2em",
+            marginRight: ".2em"
+        };
+
         return <h4>
-            <span className={"label label-success"}><FontAwesome prefix="fas" name="check"/> {cell.passedTestCases}</span>
-            <span className={"label label-danger"}><FontAwesome prefix="fas" name="times"/> {cell.failedTestCases}</span>
+            <span className={"label label-success"} style={spanStyle}><FontAwesome prefix="fas" name="check"/> {cell.passedTestCases} </span>
+            <span className={"label label-danger"} style={spanStyle}><FontAwesome prefix="fas" name="times"/> {cell.failedTestCases} </span>
         </h4>;
     }
 
@@ -188,14 +193,16 @@ class Submissions extends React.Component {
                                        dataFormat={Submissions.testCasesFormatter.bind(this)}>
                         Test Cases</TableHeaderColumn>
                     <TableHeaderColumn dataField='sourceCode'
+                                       width={'75'}
                                        dataFormat={this.sourceCodeButtonFormatter.bind(this)}>
                         Source Code</TableHeaderColumn>
                     <TableHeaderColumn dataField='errorMessage'
+                                       width={'75'}
                                        dataFormat={this.errorCodeButtonFormatter.bind(this)}>
                         Error</TableHeaderColumn>
                     <TableHeaderColumn dataField='problemLink'
                                        dataFormat={Submissions.linkFormatter}
-                                       width={'150'}
+                                       width={'200'}
                                        dataSort>
                         Problem ID</TableHeaderColumn>
                 </BootstrapTable>

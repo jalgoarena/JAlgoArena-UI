@@ -1,6 +1,6 @@
 const Archiver = require("archiver");
 const fs = require("fs");
-let version = "2.0.2";
+let version = "2.0.3";
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
     version = `${version}.${process.env.TRAVIS_BUILD_NUMBER}`;
