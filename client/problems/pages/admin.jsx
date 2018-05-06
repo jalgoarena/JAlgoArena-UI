@@ -272,4 +272,4 @@ const ProblemsAdminPage = connect(
     mapDispatchToProps
 )(ProblemsAdmin);
 
-export default ProblemsAdminPage;
+export {ProblemsAdminPage};

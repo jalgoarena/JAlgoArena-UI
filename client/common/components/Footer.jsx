@@ -2,7 +2,7 @@
 
 import React from "react";
 import {Grid, Col} from 'react-bootstrap';
-import logo from '../../../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
 const footerLogoStyle = {
     height: 50,

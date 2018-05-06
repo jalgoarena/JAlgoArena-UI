@@ -85,4 +85,4 @@ const ProfilePage = connect(
     mapDispatchToProps
 )(Profile);
 
-export default ProfilePage;
+export {ProfilePage};

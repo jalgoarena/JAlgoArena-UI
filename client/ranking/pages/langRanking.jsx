@@ -74,4 +74,4 @@ const LanguageRankingPage = connect(
     mapDispatchToProps
 )(LanguageRanking);
 
-export default LanguageRankingPage;
+export {LanguageRankingPage};

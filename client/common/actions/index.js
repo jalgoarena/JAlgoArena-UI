@@ -12,7 +12,7 @@ import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
 import {fetchSubmissions} from "../../submissions/actions";
 import Event from "../domain/Event"
 
-import store from "../store";
+import {store} from "../store";
 import {languages} from "../../config";
 
 export function closeWorkInProgressWindow(): Action {

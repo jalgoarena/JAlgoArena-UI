@@ -146,4 +146,4 @@ const UsersAdminPage = connect(
     mapDispatchToProps
 )(UsersAdmin);
 
-export default UsersAdminPage;
+export {UsersAdminPage};

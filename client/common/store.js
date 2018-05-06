@@ -29,4 +29,4 @@ languages.forEach(lang => {
 });
 
 
-export default store;
+export {store};

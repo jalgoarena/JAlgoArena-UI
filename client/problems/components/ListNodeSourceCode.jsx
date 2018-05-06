@@ -3,7 +3,7 @@ import {Modal} from 'react-bootstrap';
 import AceEditor from 'react-ace';
 
 import 'brace/theme/chrome';
-import logo from '../../../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
 const logoStyle = {
     height: 50,

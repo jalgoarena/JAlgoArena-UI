@@ -5,25 +5,14 @@ import { Router, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Provider } from 'react-redux'
 
-import ProfilePage from "../users/pages/profile";
-import ProblemPage from "../problems/pages/problem";
-import ProblemsPage from "../problems/pages/problems";
-import LoginPage from "../users/pages/login"
-import SignUpPage from "../users/pages/signup";
-import ProblemsAdminPage from "../problems/pages/admin";
-import UsersAdminPage from "../users/pages/admin";
-import SubmissionsPage from "../submissions/pages/submissions";
-import UserRankingPage from "../ranking/pages/userRanking";
-import TeamRankingPage from "../ranking/pages/teamRanking";
-import RegionRankingPage from "../ranking/pages/regionRanking";
-import LanguageRankingPage from "../ranking/pages/langRanking";
+import {ProfilePage, LoginPage, SignUpPage, UsersAdminPage} from "./users";
+import {SubmissionsPage} from "./submissions";
+import {ProblemPage, ProblemsPage, ProblemsAdminPage} from "./problems";
+import {UserRankingPage, TeamRankingPage, RegionRankingPage, LanguageRankingPage} from "./ranking";
 
-import {Layout} from './layout';
-import HomePage from "./pages/home";
-import store from './store';
+import {Layout, HomePage, store} from "./common";
 
 const history = syncHistoryWithStore(hashHistory, store);
-
 
 export default (
     <Provider store={store}>

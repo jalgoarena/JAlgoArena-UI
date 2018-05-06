@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {fetchProblemRanking} from "../../ranking/actions/index";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
-import logo from '../../../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
 const logoStyle = {
     height: 40,

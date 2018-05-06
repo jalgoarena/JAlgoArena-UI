@@ -10,7 +10,7 @@ import MenuItem from "./MenuItem";
 import RankingMenuItem from "./RankingMenuItem";
 import User from "../../users/domain/User";
 import WebSocketConnectionIndicator from "./WebSocketConnectionIndicator";
-import logo from '../../../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
 const logoStyle = {
     display: "inline-block",

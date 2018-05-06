@@ -6,7 +6,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 import {RankingEntry} from "../domain/RankingEntry";
 
-const RegionRanking = ({ranking}: {ranking: Array<RankingEntry>}) => {
+export const RegionRankingTable = ({ranking}: {ranking: Array<RankingEntry>}) => {
     let regions = _.groupBy(ranking, 'region');
     let regionsRank = _.orderBy(_.map(regions, (rankNodes, region) => {
         return {region: region, score: _.sumBy(rankNodes, 'score'), size: rankNodes.length};
@@ -38,5 +38,3 @@ const RegionRanking = ({ranking}: {ranking: Array<RankingEntry>}) => {
                            dataSort>Avg</TableHeaderColumn>
     </BootstrapTable>;
 };
-
-export default RegionRanking;

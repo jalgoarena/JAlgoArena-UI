@@ -3,10 +3,9 @@ import {Grid, Col, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import {fetchRanking} from "../actions";
-import RegionRanking from '../components/RegionRanking';
-import TeamRanking from '../components/TeamRanking';
+import {RegionRankingTable} from '../components/RegionRankingTable';
 
-class GroupRanking extends React.Component {
+class RegionRanking extends React.Component {
 
     componentDidMount() {
         this.props.onLoad();
@@ -20,7 +19,7 @@ class GroupRanking extends React.Component {
             <Grid>
                 <Col mdOffset={2} md={8}>
                     <PageHeader>Region Ranking</PageHeader>
-                    <RegionRanking ranking={ranking} />
+                    <RegionRankingTable ranking={ranking} />
                 </Col>
             </Grid>
         );
@@ -41,9 +40,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const GroupRankingPage = connect(
+const RegionRankingPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(GroupRanking);
+)(RegionRanking);
 
-export default GroupRankingPage;
+export {RegionRankingPage};

@@ -72,4 +72,4 @@ const UserRankingPage = connect(
     mapDispatchToProps
 )(UserRanking);
 
-export default UserRankingPage;
+export {UserRankingPage};

@@ -6,7 +6,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 import {RankingEntry} from "../domain/RankingEntry";
 
-const TeamRanking = ({ranking}: {ranking: Array<RankingEntry>}) => {
+export const TeamRankingTable = ({ranking}: {ranking: Array<RankingEntry>}) => {
     let teams = _.groupBy(ranking, 'team');
     let teamsRank = _.orderBy(_.map(teams, (rankNodes, team) => {
         return {team: team, score: _.sumBy(rankNodes, 'score'), size: rankNodes.length};
@@ -38,5 +38,3 @@ const TeamRanking = ({ranking}: {ranking: Array<RankingEntry>}) => {
                            dataSort>Avg</TableHeaderColumn>
     </BootstrapTable>;
 };
-
-export default TeamRanking;

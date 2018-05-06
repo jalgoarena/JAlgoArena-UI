@@ -127,4 +127,4 @@ const ProblemsPage = connect(
     mapDispatchToProps
 )(Problems);
 
-export default ProblemsPage;
+export {ProblemsPage};

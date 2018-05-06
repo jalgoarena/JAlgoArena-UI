@@ -199,4 +199,4 @@ const SignUpPage = connect(
     mapDispatchToProps
 )(SignUp);
 
-export default SignUpPage;
+export {SignUpPage};

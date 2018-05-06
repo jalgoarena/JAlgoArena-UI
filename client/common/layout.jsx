@@ -4,7 +4,7 @@ import MenuPanel from "./components/Menu";
 import Footer from "./components/Footer";
 import ErrorMessageBox from "./components/ErrorMessage";
 import WorkInProgress from "./components/WorkInProgress";
-import store from './store';
+import {store} from './store';
 import DevTools from './devtools';
 
 export class Layout extends React.Component {

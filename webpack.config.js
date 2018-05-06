@@ -5,14 +5,28 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "initial"
+                }
+            }
+        }
+    },
     entry: {
         vendors: "./client/vendors",
-        index: "./client/index"
+        index: "./client/index",
+        common: "./client/common",
+        problems: "./client/problems",
+        ranking: "./client/ranking",
+        submissions: "./client/submissions/index",
+        users: "./client/users/index",
     },
     output: {
         path: path.resolve(__dirname, "public", "assets"),
-        filename: "[name].bundle.js",
-        chunkFilename: "[name].bundle.js"
+        filename: "[name].[chunkhash].bundle.js",
     },
     plugins: [
         new CleanWebpackPlugin(['public']),
@@ -23,9 +37,9 @@ module.exports = {
         }),
         new HTMLWebpackPlugin({
             title: "JAlgoArena",
-            template: path.resolve(__dirname, "assets", "index.html"),
+            template: path.resolve(__dirname, "client", "assets", "index.html"),
             filename: path.resolve(__dirname, "public", "assets", "index.html"),
-            favicon: path.resolve(__dirname, "assets", "favicon.ico"),
+            favicon: path.resolve(__dirname, "client", "assets", "favicon.ico"),
             hash: true,
             meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),

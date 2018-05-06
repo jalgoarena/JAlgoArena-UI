@@ -243,4 +243,4 @@ const SubmissionsPage = connect(
     mapDispatchToProps
 )(Submissions);
 
-export default SubmissionsPage;
+export {SubmissionsPage};

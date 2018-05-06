@@ -4,7 +4,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 
 import FontAwesome from '../components/FontAwesome';
 import {title} from "../../config";
-import profile from '../../../assets/img/profile.png';
+import profile from '../../assets/img/profile.png';
 
 const starLightStyle = {
     padding: 0,
@@ -42,7 +42,7 @@ const introTextSkillsStyle = {
     fontWeight: "300"
 };
 
-const HomePage = () => (
+export const HomePage = () => (
     <Grid fluid={true} style={containerStyle}>
         <Row>
             <Col lg={12}>
@@ -59,5 +59,3 @@ const HomePage = () => (
         </Row>
     </Grid>
 );
-
-export default HomePage;

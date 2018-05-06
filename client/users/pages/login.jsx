@@ -153,4 +153,4 @@ const LoginPage = connect(
     mapDispatchToProps
 )(Login);
 
-export default LoginPage;
+export {LoginPage};

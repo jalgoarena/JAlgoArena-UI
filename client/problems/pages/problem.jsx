@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 import * as _ from 'lodash';
 
-import store from '../../common/store';
+import {store} from '../../common/store';
 import {fetchSubmissions} from "../../submissions/actions";
 
 import Output from '../components/Output';
@@ -235,4 +235,4 @@ const ProblemPage = connect(
     mapDispatchToProps
 )(Problem);
 
-export default ProblemPage;
+export {ProblemPage};

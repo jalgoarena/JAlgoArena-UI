@@ -5,7 +5,7 @@ import {Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {closeWorkInProgressWindow} from "../actions/index";
 import ReactSpinner from "./ReactSpinner";
-import logo from '../../../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
 const logoStyle = {
     height: 50,
