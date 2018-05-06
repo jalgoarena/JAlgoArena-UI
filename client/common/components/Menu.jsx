@@ -10,6 +10,7 @@ import MenuItem from "./MenuItem";
 import RankingMenuItem from "./RankingMenuItem";
 import User from "../../users/domain/User";
 import WebSocketConnectionIndicator from "./WebSocketConnectionIndicator";
+import logo from '../../../assets/img/logo.png';
 
 const logoStyle = {
     display: "inline-block",
@@ -22,7 +23,7 @@ const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
         <Navbar.Header>
             <Navbar.Toggle/>
             <a className="navbar-brand" href="/">
-                <img src="img/logo.png" style={logoStyle}/>&nbsp;
+                <img src={logo} style={logoStyle}/>&nbsp;
                 <WebSocketConnectionIndicator isConnected={isConnected}/>
             </a>
         </Navbar.Header>

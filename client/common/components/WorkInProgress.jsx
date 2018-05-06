@@ -5,6 +5,7 @@ import {Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {closeWorkInProgressWindow} from "../actions/index";
 import ReactSpinner from "./ReactSpinner";
+import logo from '../../../assets/img/logo.png';
 
 const logoStyle = {
     height: 50,
@@ -29,7 +30,7 @@ const WorkInProgress = ({showModal, onHide}: {showModal: boolean, onHide: () => 
         </Modal.Body>
         <Modal.Footer style={modalTextCenterStyle}>
             <div className="col-md-offset-4 col-md-8">
-                <img src="../img/logo.png" className="img-responsive" style={logoStyle} />
+                <img src={logo} className="img-responsive" style={logoStyle} />
             </div>
         </Modal.Footer>
     </Modal>

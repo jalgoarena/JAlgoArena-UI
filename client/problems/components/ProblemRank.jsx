@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import {fetchProblemRanking} from "../../ranking/actions/index";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
+import logo from '../../../assets/img/logo.png';
 
 const logoStyle = {
     height: 40,
@@ -55,7 +56,7 @@ class ProblemRank extends React.Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="col-md-offset-4 col-md-4">
-                        <img src="../img/logo.png" className="img-responsive" style={logoStyle} />
+                        <img src={logo} className="img-responsive" style={logoStyle} />
                     </div>
                 </Modal.Footer>
             </Modal>

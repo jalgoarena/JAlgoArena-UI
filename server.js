@@ -15,18 +15,7 @@ app.use(compression());
 app.use(morgan("tiny"));
 
 helmet(app);
-
-let assetsDir;
-
-if (env === "production") {
-    require("./server/build/copyFiles")();
-    assetsDir = path.join(__dirname, "public", "assets");
-} else {
-    require("./server/config/devWebpack")(app);
-    assetsDir = path.join(__dirname, "assets");
-}
-
-app.use(serveStatic(assetsDir));
+app.use(serveStatic(path.join(__dirname, "public", "assets")));
 
 let jalgoarenaApiUrl = process.env.JALGOARENA_API_URL || "http://localhost:5001";
 
@@ -51,7 +40,7 @@ const wsProxy = proxy('/ws', {
 app.use('/ws', wsProxy);
 
 app.get("*", function (req, res) {
-    res.sendFile(path.join(assetsDir, "index.html"));
+    res.sendFile(path.join(path.join(__dirname, "public", "assets"), "index.html"));
 });
 
 app.listen(port, function () {

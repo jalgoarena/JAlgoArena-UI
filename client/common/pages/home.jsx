@@ -4,6 +4,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 
 import FontAwesome from '../components/FontAwesome';
 import {title} from "../../config";
+import profile from '../../../assets/img/profile.png';
 
 const starLightStyle = {
     padding: 0,
@@ -45,7 +46,7 @@ const HomePage = () => (
     <Grid fluid={true} style={containerStyle}>
         <Row>
             <Col lg={12}>
-                <img className="img-responsive" src="../img/profile.png" alt="" style={imgStyle}/>
+                <img className="img-responsive" src={profile} alt="" style={imgStyle}/>
                 <div className="intro-text">
                     <span className="name" style={introTextNameStyle}>{title}</span>
                     <hr className="" style={starLightStyle}/>

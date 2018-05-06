@@ -2,6 +2,7 @@
 
 import React from "react";
 import {Grid, Col} from 'react-bootstrap';
+import logo from '../../../assets/img/logo.png';
 
 const footerLogoStyle = {
     height: 50,
@@ -16,7 +17,7 @@ const Footer = () => (
                 <span>Created by Jacek Spólnik 2018</span>
             </Col>
             <Col md={7}>
-                <img src="img/logo.png" className="img-responsive" style={footerLogoStyle}/>
+                <img src={logo} className="img-responsive" style={footerLogoStyle}/>
             </Col>
         </Grid>
     </footer>

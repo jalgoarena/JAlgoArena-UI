@@ -6,6 +6,8 @@ import AceEditor from 'react-ace';
 
 import 'brace/theme/chrome';
 
+import logo from '../../../assets/img/logo.png';
+
 const logoStyle = {
     height: 50,
     marginBottom: 15
@@ -42,7 +44,7 @@ const IntervalSourceCode = ({show, onHide}: {show: boolean, onHide: () => void})
         </Modal.Body>
         <Modal.Footer>
             <div className="col-md-offset-4 col-md-4">
-                <img src="../img/logo.png" className="img-responsive" style={logoStyle} />
+                <img src={logo} className="img-responsive" style={logoStyle} />
             </div>
         </Modal.Footer>
     </Modal>
