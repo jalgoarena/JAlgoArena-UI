@@ -23,7 +23,7 @@ hr.star-light:after {
 
 hr.star-light:after {
     content: "\f005";
-    font-family: FontAwesome;
+    font-family: 'Font Awesome\ 5 Free', serif;
     display: inline-block;
     position: relative;
     top: -.8em;

@@ -1,9 +1,12 @@
 const path = require("path");
+const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
+        vendors: "./client/vendors",
         index: "./client/index"
     },
     output: {
@@ -12,11 +15,19 @@ module.exports = {
         chunkFilename: "[name].bundle.js"
     },
     plugins: [
+        new CleanWebpackPlugin(['public']),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        }),
         new HTMLWebpackPlugin({
+            title: "JAlgoArena",
             template: path.resolve(__dirname, "assets", "index.html"),
             filename: path.resolve(__dirname, "public", "assets", "index.html"),
             favicon: path.resolve(__dirname, "assets", "favicon.ico"),
-            hash: true
+            hash: true,
+            meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
@@ -36,12 +47,15 @@ module.exports = {
                 }
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif)$/,
                 use: [
-                    {
-                        loader: 'file-loader',
-                        options: {}
-                    }
+                    'file-loader'
+                ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    'file-loader'
                 ]
             },
             {

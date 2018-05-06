@@ -49,7 +49,7 @@ const HomePage = () => (
                 <img className="img-responsive" src={profile} alt="" style={imgStyle}/>
                 <div className="intro-text">
                     <span className="name" style={introTextNameStyle}>{title}</span>
-                    <hr className="" style={starLightStyle}/>
+                    <hr className="star-light" style={starLightStyle}/>
                     <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Algo Hacker</span>
                 </div>
                 <Link to="/problems" className="btn btn-lg btn-outline">
