@@ -30,6 +30,7 @@ export default class AceCodeEditor extends React.Component {
                 width={"100%"}
                 editorProps={{$blockScrolling: true}}
                 enableBasicAutocompletion={true}
+                readOnly={this.props.readOnly}
             />
         </div>;
     }

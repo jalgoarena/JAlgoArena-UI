@@ -33,18 +33,7 @@ class Problem extends React.Component {
         }
     }
 
-    transferToLoginIfLoggedOut() {
-        if (!this.props.auth.user) {
-            hashHistory.push('/login');
-        }
-    }
-
-    componentWillMount() {
-        this.transferToLoginIfLoggedOut();
-    }
-
     componentDidMount() {
-        this.transferToLoginIfLoggedOut();
         if (store.getState().currentProblemId !== this.props.params.id) {
             store.dispatch(setCurrentProblem(this.props.params.id));
         }
@@ -158,6 +147,7 @@ class Problem extends React.Component {
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
                     activeLanguage={this.props.programmingLanguage}
+                    readOnly={this.props.auth.user == null}
                 />
                 <SubmissionPanel
                     problem={this.props.problem}

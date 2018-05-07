@@ -17,12 +17,7 @@ module.exports = {
     },
     entry: {
         vendors: "./client/vendors",
-        index: "./client/index",
-        common: "./client/common",
-        problems: "./client/problems",
-        ranking: "./client/ranking",
-        submissions: "./client/submissions/index",
-        users: "./client/users/index",
+        index: "./client/index"
     },
     output: {
         path: path.resolve(__dirname, "public", "assets"),
