@@ -3,6 +3,13 @@
 import rootReducer from './reducers';
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
+
+import createHistory from 'history/createBrowserHistory';
+
+import { routerMiddleware} from 'react-router-redux';
+const history = createHistory();
+const middleware = routerMiddleware(history);
+
 import DevTools from './devtools';
 
 import {checkSessionStatus} from "../users/actions";
@@ -13,7 +20,8 @@ import {languages} from "../config";
 
 const configureStore = redux.compose(
     redux.applyMiddleware(thunk),
-    DevTools.instrument()
+    DevTools.instrument(),
+    redux.applyMiddleware(middleware)
 )(redux.createStore);
 
 const store = configureStore(rootReducer);
@@ -28,5 +36,4 @@ languages.forEach(lang => {
     store.dispatch(fetchLangRanking(lang));
 });
 
-
-export {store};
+export {store, history};

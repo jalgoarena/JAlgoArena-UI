@@ -1,9 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
 import * as _ from 'lodash';
 
 import SourceCode from "../components/SourceCode";
@@ -35,20 +34,6 @@ class Submissions extends React.Component {
 
     hideErrorMessage() {
         this.setState({showErrorMessage: false});
-    }
-
-    transferToProfileIfLoggedOut() {
-        if (!this.props.auth.user) {
-            hashHistory.push('/login');
-        }
-    }
-
-    componentWillMount() {
-        this.transferToProfileIfLoggedOut();
-    }
-
-    componentDidUpdate() {
-        this.transferToProfileIfLoggedOut();
     }
 
     componentDidMount() {

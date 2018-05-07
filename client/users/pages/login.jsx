@@ -3,7 +3,7 @@ import dom from 'react-dom';
 import {Grid, Col, Button, FormGroup, PageHeader} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
+import { withRouter } from "react-router-dom";
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -27,7 +27,7 @@ class Login extends React.Component {
 
     transferToDashboardIfLoggedIn() {
         if (this.props.auth.user) {
-            hashHistory.push('/profile');
+            this.props.history.push('/profile');
         }
     }
 
@@ -151,6 +151,6 @@ const mapDispatchToProps = (dispatch) => {
 const LoginPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login);
+)(withRouter(Login));
 
 export {LoginPage};

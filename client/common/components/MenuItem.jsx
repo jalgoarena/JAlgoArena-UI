@@ -8,7 +8,7 @@ import FontAwesome from './FontAwesome';
 
 const MenuItem = ({path, prefix, icon, title, currentPath}:
                       {path: string, prefix: string, icon: string, title: string, currentPath: string}) => (
-    <LinkContainer to={path} active={path === currentPath}>
+    <LinkContainer to={path} isActive={match => match && match.isExact} active={`#${path}` === currentPath}>
         <NavItem><FontAwesome prefix={prefix} name={icon} lg={true}/> {title}</NavItem>
     </LinkContainer>
 );

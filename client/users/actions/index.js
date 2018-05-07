@@ -7,7 +7,7 @@ type Action = {
     userUpdated?: User
 }
 
-import {hashHistory} from "react-router";
+import {history} from "../../common";
 
 import {fetchSubmissions} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
@@ -54,7 +54,7 @@ export function attemptSignUp(email: string, password: string, username: string,
 }
 
 function signUpSuccess(): Action {
-    hashHistory.push('/login');
+    history.push('/login');
     return {
         type: types.SIGNUP_SUCCESS
     };

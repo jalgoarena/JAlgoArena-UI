@@ -16,8 +16,8 @@ type Props = {
 class LanguageRanking extends React.Component<Props> {
 
     render() {
-        const {ranking, params} = this.props;
-        let lang = params.lang;
+        const {ranking, match} = this.props;
+        let lang = match.params.lang;
 
         let rankingData = ranking[lang].map((rankEntry: RankingEntry, idx: number) => {
 

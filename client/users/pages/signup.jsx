@@ -2,7 +2,7 @@ import React from 'react';
 import dom from 'react-dom';
 import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
+import { withRouter } from "react-router-dom";
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -29,7 +29,7 @@ class SignUp extends React.Component {
 
     transferToProfileIfLoggedIn(){
         if (this.props.auth.user){
-            hashHistory.push('/profile');
+            this.props.history.push('/profile');
         }
     }
 
@@ -197,6 +197,6 @@ const mapDispatchToProps = (dispatch) => {
 const SignUpPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(SignUp);
+)(withRouter(SignUp));
 
 export {SignUpPage};

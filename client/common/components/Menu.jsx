@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         isConnected: state.webSocketConnected,
-        currentPath: state.routing.locationBeforeTransitions.pathname
+        currentPath: state.routing.location.hash
     };
 };
 

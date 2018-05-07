@@ -1,7 +1,6 @@
 import React from 'react';
 import {Grid, Button, Row, ButtonGroup} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
 import * as _ from 'lodash';
 
 import {store} from '../../common/store';
@@ -34,8 +33,8 @@ class Problem extends React.Component {
     }
 
     componentDidMount() {
-        if (store.getState().currentProblemId !== this.props.params.id) {
-            store.dispatch(setCurrentProblem(this.props.params.id));
+        if (store.getState().currentProblemId !== this.props.match.params.id) {
+            store.dispatch(setCurrentProblem(this.props.match.params.id));
         }
         if (this.props.auth.user) {
             store.dispatch(fetchSubmissions(this.props.auth.user.id));
