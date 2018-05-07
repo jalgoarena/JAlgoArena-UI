@@ -18,7 +18,7 @@ const logoStyle = {
     marginTop: -5
 };
 
-const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
+const Menu = ({user, isConnected, currentPath}: {user: User, isConnected: boolean, currentPath: string}) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
@@ -29,12 +29,12 @@ const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav role="navigation" pullRight id="menu">
-                <MenuItem path="/" prefix="fas" icon="home" title="Home" />
-                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems"/>
-                <RankingMenuItem/>
-                { user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions" /> : null }
-                <ProfileOrLoginMenuItem user={user}/>
-                <AdminMenuItem user={user}/>
+                <MenuItem path="/" prefix="fas" icon="home" title="Home"  currentPath={currentPath}/>
+                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={currentPath}/>
+                <RankingMenuItem  currentPath={currentPath}/>
+                { user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions" currentPath={currentPath} /> : null }
+                <ProfileOrLoginMenuItem user={user} currentPath={currentPath}/>
+                <AdminMenuItem user={user} currentPath={currentPath}/>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
@@ -43,7 +43,8 @@ const Menu = ({user, isConnected}: {user: User, isConnected: boolean}) => (
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        isConnected: state.webSocketConnected
+        isConnected: state.webSocketConnected,
+        currentPath: state.routing.locationBeforeTransitions.pathname
     };
 };
 

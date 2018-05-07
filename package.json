@@ -8,14 +8,16 @@
     "test": "jest && codecov",
     "pretest": "./node_modules/.bin/flow check",
     "test:watch": "jest --watch",
-    "start": "webpack-dev-server --open --mode=development",
     "prepm2start": "npm run build",
     "pm2start": "pm2 start server.js --name ui",
-    "preprod": "npm run build",
-    "prod": "node server.js",
+    "prestart": "npm run build",
+    "start": "node server.js",
     "build": "webpack --mode=production",
     "predeploy": "npm run build",
-    "deploy": "node createReleasePackage.js"
+    "deploy": "node createReleasePackage.js",
+    "client": "webpack-dev-server --mode=development --devtool inline-source-map --hot --inline",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -85,6 +87,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
+    "concurrently": "^3.5.1",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",

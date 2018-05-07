@@ -1,4 +1,3 @@
-const env = process.env.NODE_ENV || "dev";
 const port = process.env.PORT || 3000;
 
 const path = require("path");
@@ -15,7 +14,7 @@ app.use(compression());
 app.use(morgan("tiny"));
 
 helmet(app);
-app.use(serveStatic(path.join(__dirname, "public", "assets")));
+app.use(serveStatic(path.join(__dirname, "public")));
 
 let jalgoarenaApiUrl = process.env.JALGOARENA_API_URL || "http://localhost:5001";
 
@@ -40,7 +39,7 @@ const wsProxy = proxy('/ws', {
 app.use('/ws', wsProxy);
 
 app.get("*", function (req, res) {
-    res.sendFile(path.join(path.join(__dirname, "public", "assets"), "index.html"));
+    res.sendFile(path.join(__dirname, "public"), "index.html");
 });
 
 app.listen(port, function () {

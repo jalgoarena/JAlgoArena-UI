@@ -4,6 +4,8 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const outputDirectory = "public";
+
 module.exports = {
     optimization: {
         splitChunks: {
@@ -20,11 +22,11 @@ module.exports = {
         index: "./client/index"
     },
     output: {
-        path: path.resolve(__dirname, "public", "assets"),
-        filename: "[name].[chunkhash].bundle.js",
+        path: path.resolve(__dirname, outputDirectory),
+        filename: "[name].bundle.js",
     },
     plugins: [
-        new CleanWebpackPlugin(['public']),
+        new CleanWebpackPlugin([outputDirectory]),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -32,9 +34,9 @@ module.exports = {
         }),
         new HTMLWebpackPlugin({
             title: "JAlgoArena",
-            template: path.resolve(__dirname, "client", "assets", "index.html"),
-            filename: path.resolve(__dirname, "public", "assets", "index.html"),
             favicon: path.resolve(__dirname, "client", "assets", "favicon.ico"),
+            template: path.resolve(__dirname, "client", "assets", "index.html"),
+            filename: path.resolve(__dirname, outputDirectory, "index.html"),
             hash: true,
             meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),
@@ -45,6 +47,14 @@ module.exports = {
             chunkFilename: '[id].css',
         })
     ],
+    devServer: {
+        contentBase: __dirname + "/public/",
+        open: true,
+        proxy: {
+            "/api": "http://localhost:3000",
+            "/ws": "http://localhost:3000"
+        }
+    },
     module: {
         rules: [
             {

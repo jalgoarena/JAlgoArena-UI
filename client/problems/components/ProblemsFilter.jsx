@@ -9,7 +9,7 @@ const filterStyle = {
 };
 
 const problemsCountStyle = {
-    marginLeft: "30px",
+    marginLeft: "20px",
     marginTop: ".5em"
 };
 
@@ -23,7 +23,7 @@ type ProblemsFilterInputType = {
 const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems, problemsCount}: ProblemsFilterInputType) => (
     <Row>
         <Col md={11}>
-            <Button bsStyle="success large" style={problemsCountStyle}>Problems <Badge>{problemsCount}</Badge></Button>
+            <Button bsStyle="success" style={problemsCountStyle}>Problems <Badge>{problemsCount}</Badge></Button>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
                 <Button onClick={() => changeFilter(1)} active={filter === 1}>Easy</Button>
                 <Button onClick={() => changeFilter(2)} active={filter === 2}>Medium</Button>
