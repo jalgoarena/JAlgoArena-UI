@@ -80,6 +80,7 @@ class Problems extends React.Component {
                 filter={problemsFilter}
                 onHideDoneProblems={onHideDoneProblems}
                 hideDoneProblems={hideDoneProblems}
+                problemsCount={problemNodes.length}
             />
             <TransitionGroup>
                 {problemNodes}

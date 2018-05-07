@@ -11,6 +11,7 @@
     "start": "webpack-dev-server --open --mode=development",
     "prepm2start": "npm run build",
     "pm2start": "pm2 start server.js --name ui",
+    "preprod": "npm run build",
     "prod": "node server.js",
     "build": "webpack --mode=production",
     "predeploy": "npm run build",

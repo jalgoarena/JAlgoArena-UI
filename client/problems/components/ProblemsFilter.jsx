@@ -2,22 +2,28 @@
 
 import React from 'react';
 
-import {ButtonGroup, Button, Col, Row} from 'react-bootstrap';
+import {ButtonGroup, Button, Col, Row, Badge} from 'react-bootstrap';
 
 const filterStyle = {
     marginRight: "30px"
+};
+
+const problemsCountStyle = {
+    marginLeft: "30px",
+    marginTop: ".5em"
 };
 
 type ProblemsFilterInputType = {
     changeFilter: (number) => void,
     filter: number,
     onHideDoneProblems: (boolean) => void,
-    hideDoneProblems: boolean
+    hideDoneProblems: boolean,
+    problemsCount: number
 }
-
-const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems}: ProblemsFilterInputType) => (
+const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems, problemsCount}: ProblemsFilterInputType) => (
     <Row>
         <Col md={11}>
+            <Button bsStyle="success large" style={problemsCountStyle}>Problems <Badge>{problemsCount}</Badge></Button>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
                 <Button onClick={() => changeFilter(1)} active={filter === 1}>Easy</Button>
                 <Button onClick={() => changeFilter(2)} active={filter === 2}>Medium</Button>
