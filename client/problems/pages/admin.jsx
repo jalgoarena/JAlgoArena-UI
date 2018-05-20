@@ -8,6 +8,7 @@ import JSONTree from 'react-json-tree';
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
 import {fetchRawProblems} from "../actions/index";
+import AceCodeEditor from "../components/AceCodeEditor";
 
 
 class ProblemsAdmin extends React.Component {
@@ -38,6 +39,11 @@ class ProblemsAdmin extends React.Component {
                     input: ["40"],
                     output: 102334155
                 }],
+                skeletonCode: {
+                    "java": "import java.util.*;\nimport com.jalgoarena.type.*;\n\npublic class Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    public long fib(int n) {\n        // Write your code here\n    }\n}\n",
+                    "kotlin": "import java.util.*\nimport com.jalgoarena.type.*\n\nclass Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    fun fib(n: Int): Long {\n        // Write your code here\n    }\n}\n",
+                    "ruby": "class Solution\n  # @param n id of fibonacci term to be returned\n  # @return  N'th term of Fibonacci sequence\n  def fib(n)\n    # Write your code here\n  end\nend\n"
+                },
                 level: 1
             }
         };
@@ -246,6 +252,12 @@ class ProblemsAdmin extends React.Component {
                     <JSONTree data={this.state.newProblem.func}/>
                     <h4>Test Cases Json</h4>
                     <JSONTree data={this.state.newProblem.testCases}/>
+                    <AceCodeEditor
+                        sourceCode={this.state.newProblem.skeletonCode['java']}
+                        activeLanguage={'java'}
+                        onSourceCodeChanged={(sourceCode) => {}}
+                        readOnly={true}
+                    />
                 </Col>
             </Grid>
         );

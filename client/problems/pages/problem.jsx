@@ -19,6 +19,8 @@ import IntervalSourceCode from '../components/IntervalSourceCode';
 import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
 import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index";
 import ProblemRank from '../components/ProblemRank'
+import GraphNodeSourceCode from "../components/GraphNodeSourceCode";
+import WeightedGraphSourceCode from "../components/WeightedGraphSourceCode";
 
 class Problem extends React.Component {
     constructor(props) {
@@ -27,6 +29,8 @@ class Problem extends React.Component {
             showListNodeSourceCode: false,
             showTreeNodeSourceCode: false,
             showIntervalSourceCode: false,
+            showGraphNodeSourceCode: false,
+            showWeightedGraphSourceCode: false,
             showPointsLegend: false,
             showProblemRanking: false,
         }
@@ -69,6 +73,22 @@ class Problem extends React.Component {
 
     hideIntervalSourceCode() {
         this.setState({showIntervalSourceCode: false});
+    }
+
+    showGraphNodeSourceCode() {
+        this.setState({showGraphNodeSourceCode: true});
+    }
+
+    hideGraphNodeSourceCode() {
+        this.setState({showGraphNodeSourceCode: false});
+    }
+
+    showWeightedGraphSourceCode() {
+        this.setState({showWeightedGraphSourceCode: true});
+    }
+
+    hideWeightedGraphSourceCode() {
+        this.setState({showWeightedGraphSourceCode: false});
     }
 
     showPointsLegend() {
@@ -141,6 +161,8 @@ class Problem extends React.Component {
                     {Problem.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
                     {Problem.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
                     {Problem.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
+                    {Problem.sourceCodeButton(skeletonCode, 'GraphNode', () => this.showGraphNodeSourceCode())}
+                    {Problem.sourceCodeButton(skeletonCode, 'WeightedGraph', () => this.showWeightedGraphSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
@@ -169,6 +191,14 @@ class Problem extends React.Component {
             <IntervalSourceCode
                 show={this.state.showIntervalSourceCode}
                 onHide={this.hideIntervalSourceCode.bind(this)}
+            />
+            <GraphNodeSourceCode
+                show={this.state.showGraphNodeSourceCode}
+                onHide={this.hideGraphNodeSourceCode.bind(this)}
+            />
+            <WeightedGraphSourceCode
+                show={this.state.showWeightedGraphSourceCode}
+                onHide={this.hideWeightedGraphSourceCode.bind(this)}
             />
             <PointsLegend
                 show={this.state.showPointsLegend}
