@@ -21,6 +21,7 @@ import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index
 import ProblemRank from '../components/ProblemRank'
 import GraphNodeSourceCode from "../components/GraphNodeSourceCode";
 import WeightedGraphSourceCode from "../components/WeightedGraphSourceCode";
+import PairSourceCode from "../components/PairSourceCode";
 
 class Problem extends React.Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class Problem extends React.Component {
             showIntervalSourceCode: false,
             showGraphNodeSourceCode: false,
             showWeightedGraphSourceCode: false,
+            showPairSourceCode: false,
             showPointsLegend: false,
             showProblemRanking: false,
         }
@@ -89,6 +91,14 @@ class Problem extends React.Component {
 
     hideWeightedGraphSourceCode() {
         this.setState({showWeightedGraphSourceCode: false});
+    }
+
+    showPairSourceCode() {
+        this.setState({showPairSourceCode: true});
+    }
+
+    hidePairSourceCode() {
+        this.setState({showPairSourceCode: false});
     }
 
     showPointsLegend() {
@@ -163,6 +173,7 @@ class Problem extends React.Component {
                     {Problem.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
                     {Problem.sourceCodeButton(skeletonCode, 'GraphNode', () => this.showGraphNodeSourceCode())}
                     {Problem.sourceCodeButton(skeletonCode, 'WeightedGraph', () => this.showWeightedGraphSourceCode())}
+                    {Problem.sourceCodeButton(skeletonCode, 'Pair', () => this.showPairSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
@@ -199,6 +210,10 @@ class Problem extends React.Component {
             <WeightedGraphSourceCode
                 show={this.state.showWeightedGraphSourceCode}
                 onHide={this.hideWeightedGraphSourceCode.bind(this)}
+            />
+            <PairSourceCode
+                show={this.state.showPairSourceCode}
+                onHide={this.hidePairSourceCode.bind(this)}
             />
             <PointsLegend
                 show={this.state.showPointsLegend}

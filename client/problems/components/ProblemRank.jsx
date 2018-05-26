@@ -30,7 +30,7 @@ class ProblemRank extends React.Component {
         let ranking = this.props.problemRanking.map ? this.props.problemRanking : [];
 
         let rankingData = ranking.map((ranking, idx) =>
-            Object.assign({}, ranking, {idx})
+            Object.assign({}, ranking, {idx: idx + 1})
         );
 
         const options = {

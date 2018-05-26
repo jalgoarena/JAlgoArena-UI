@@ -22,12 +22,12 @@ export function fetchProblemRanking(problemId: string) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(setProblemRanking((json: Array<ProblemRankingEntry>)))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -51,12 +51,12 @@ export function fetchLangRanking(lang: string) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(setLangRanking((json: Array<RankingEntry>), lang))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -81,12 +81,12 @@ export function fetchRanking() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(setRanking((json: Array<RankingEntry>)))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -110,12 +110,12 @@ export function fetchSolvedProblemsRatio() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Ranking Service"))
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(setSolvedProblemsRatio((json: Array<ProblemSubmissionRatio>)))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Ranking Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(err))));
     };
 }
 

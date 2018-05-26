@@ -49,12 +49,12 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Queue Service"));
+                    dispatch(setErrorMessage("Cannot connect to Queue Service: \n" + JSON.stringify(json.error)));
                 } else {
                     dispatch(submissionPublished((json: Submission)));
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Judge Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(err))));
     };
 
 }
@@ -120,12 +120,12 @@ export function fetchProblems() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Judge Service"));
+                    dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(json.error)));
                 } else {
                     dispatch(setProblems((json: Array<Problem>)))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Judge Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -155,12 +155,12 @@ export function fetchRawProblems() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Problems Service"));
+                    dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(json.error)));
                 } else {
                     dispatch(setRawProblems((json: Array<RawProblem>)));
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Problems Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(err))));
     };
 }
 

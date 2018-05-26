@@ -49,7 +49,7 @@ export function attemptSignUp(email: string, password: string, username: string,
                     dispatch(signUpSuccess());
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Auth Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -106,7 +106,7 @@ export function attemptLogin(username: string, password: string) {
                     dispatch(loginSuccess(json.user));
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Auth Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -155,7 +155,7 @@ export function checkSessionStatus() {
                     localStorage.removeItem('jwtToken');
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Auth Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -180,12 +180,12 @@ export function fetchUsers() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Auth Service"))
+                    dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(setUsers(json))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Auth Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -209,12 +209,12 @@ export function fetchUsersWithAllData() {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Auth Service"))
+                    dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(setUsers(json))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Auth Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(err))));
     };
 }
 
@@ -271,13 +271,13 @@ export function updateUser(user: User) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Auth Service"))
+                    dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(json.error)))
                 } else {
                     dispatch(userUpdated(json));
                     dispatch(fetchUsersWithAllData());
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Auth Service")));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: \n" + JSON.stringify(err))));
     };
 }
 

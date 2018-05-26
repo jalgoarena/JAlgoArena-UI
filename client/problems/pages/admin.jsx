@@ -190,6 +190,7 @@ class ProblemsAdmin extends React.Component {
                                 <option value="void">void</option>
                                 <option value="com.jalgoarena.type.ListNode">ListNode</option>
                                 <option value="com.jalgoarena.type.TreeNode">TreeNode</option>
+                                <option value="com.jalgoarena.type.Pair">Pair</option>
                                 <option value="java.util.ArrayList">ArrayList</option>
                             </FormControl>
                         </FormGroup>
