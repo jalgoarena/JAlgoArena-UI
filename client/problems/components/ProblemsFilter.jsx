@@ -18,12 +18,13 @@ type ProblemsFilterInputType = {
     filter: number,
     onHideDoneProblems: (boolean) => void,
     hideDoneProblems: boolean,
-    problemsCount: number
+    problemsCount: number,
+    onShowNumberOfProblems: () => void
 }
-const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems, problemsCount}: ProblemsFilterInputType) => (
+const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems, problemsCount, onShowNumberOfProblems}: ProblemsFilterInputType) => (
     <Row>
         <Col md={11}>
-            <Button bsStyle="success" style={problemsCountStyle}>Problems <Badge>{problemsCount}</Badge></Button>
+            <Button onClick={() => onShowNumberOfProblems()} bsStyle="success" style={problemsCountStyle}>Problems <Badge>{problemsCount}</Badge></Button>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
                 <Button onClick={() => changeFilter(1)} active={filter === 1}>Easy</Button>
                 <Button onClick={() => changeFilter(2)} active={filter === 2}>Medium</Button>

@@ -9,11 +9,27 @@ import ProblemsFilter from '../components/ProblemsFilter';
 import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
 import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
 import {Submission} from "../../submissions/domain/Submission";
+import NumberOfProblems from "../components/NumberOfProblems";
 
 class Problems extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showNumberOfProblems: false
+        }
+    }
+
     componentDidMount() {
         this.props.onLoad();
+    }
+
+    showNumberOfProblems() {
+        this.setState({showNumberOfProblems: true});
+    }
+
+    hideNumberOfProblems() {
+        this.setState({showNumberOfProblems: false});
     }
 
     render() {
@@ -81,10 +97,18 @@ class Problems extends React.Component {
                 onHideDoneProblems={onHideDoneProblems}
                 hideDoneProblems={hideDoneProblems}
                 problemsCount={problemNodes.length}
+                onShowNumberOfProblems={() => this.showNumberOfProblems()}
             />
             <TransitionGroup>
                 {problemNodes}
             </TransitionGroup>
+            <NumberOfProblems
+                show={this.state.showNumberOfProblems}
+                onHide={this.hideNumberOfProblems.bind(this)}
+                easy={_.filter(problems, problem => problem.level === 1).length}
+                medium={_.filter(problems, problem => problem.level === 2).length}
+                hard={_.filter(problems, problem => problem.level === 3).length}
+            />
         </Grid>;
     }
 }
