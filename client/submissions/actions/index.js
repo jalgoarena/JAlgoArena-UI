@@ -31,12 +31,12 @@ export function fetchSubmissions(userId: string) {
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Submissions Service: \n" + JSON.stringify(json.error)))
+                    dispatch(setErrorMessage("Cannot connect to Submissions Service: " + JSON.stringify(json.error)))
                 } else {
                     dispatch(setSubmissions(json))
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Submissions Service: \n" + JSON.stringify(err))));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Submissions Service: " + JSON.stringify(err))));
     };
 }
 

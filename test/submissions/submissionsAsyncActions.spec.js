@@ -51,10 +51,7 @@ describe("async actions", () => {
     it("creates SET_ERROR_MESSAGE when fetching user submissions has failed", () => {
         fetch.mockResponseOnce(JSON.stringify({error: "bad request"}), {status: 500});
 
-        const expectedActions = [{
-            type: types.SET_ERROR_MESSAGE,
-            error: "Cannot connect to Submissions Service"
-        }];
+        const expectedActions = [{error: "Cannot connect to Submissions Service: \"bad request\"", type: "SET_ERROR_MESSAGE"}];
 
         const store = mockStore();
 
@@ -88,7 +85,7 @@ describe("async actions", () => {
 
         const expectedActions = [{
             type: types.SET_ERROR_MESSAGE,
-            error: "Cannot connect to Ranking Service"
+            error: "Cannot connect to Ranking Service: \"bad request\""
         }];
 
         const store = mockStore();

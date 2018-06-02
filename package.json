@@ -82,11 +82,12 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-jest": "^22.4.3",
+    "babel-jest": "^23.0.1",
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -97,7 +98,7 @@
     "flow-bin": "^0.69.0",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-root-element-plugin": "^0.1.3",
-    "jest": "^22.4.3",
+    "jest": "^23.1.0",
     "jest-fetch-mock": "^1.5.0",
     "jest-localstorage-mock": "^2.2.0",
     "mini-css-extract-plugin": "^0.4.0",
@@ -117,6 +118,10 @@
     "setupFiles": [
       "jest-localstorage-mock",
       "./setupJest.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "spin.js$": "<rootDir>/__mocks__/objMock.js"
+    }
   }
 }

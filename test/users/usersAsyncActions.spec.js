@@ -36,21 +36,6 @@ describe("async actions", () => {
         fetch.resetMocks()
     });
 
-    it("creates SIGNUP_SUCCESS when sign up has been done", () => {
-        fetch.mockResponseOnce(JSON.stringify({}));
-
-        const expectedActions = [{
-            type: types.SIGNUP_SUCCESS
-        }];
-
-        const store = mockStore({sourceCode: "", result: "", problemId: ""});
-
-        return store.dispatch(actions.attemptSignUp("email", "password", "username", "region", "team"))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
     it("creates SIGNUP_FAIL when sign up has been failed", () => {
         let errorMessage = {
             error: "Registration Error",
