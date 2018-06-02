@@ -158,6 +158,7 @@ let FIB_RAW_PROBLEM = new RawProblem(
         [new Parameter("n", "java.lang.Integer", "Comment")]
     ),
     [new TestCase(["0"], 0)],
+    "",
     1
 );
 
@@ -172,5 +173,6 @@ let STOI_RAW_PROBLEM = new RawProblem(
         [new Parameter("n", "java.lang.Integer", "Comment")]
     ),
     [new TestCase(["0"], 0)],
+    "",
     1
 );

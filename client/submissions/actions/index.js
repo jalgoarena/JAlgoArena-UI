@@ -36,7 +36,7 @@ export function fetchSubmissions(userId: string) {
                     dispatch(setSubmissions(json))
                 }
             })
-            .catch(() => dispatch(setErrorMessage("Cannot connect to Submissions Service: \n" + JSON.stringify(err))));
+            .catch((err) => dispatch(setErrorMessage("Cannot connect to Submissions Service: \n" + JSON.stringify(err))));
     };
 }
 

@@ -26,7 +26,7 @@ export default class AceCodeEditor extends React.Component {
                 name="editor"
                 value={this.props.sourceCode}
                 onChange={this.props.onSourceCodeChanged}
-                height={"350px"}
+                height={"450px"}
                 width={"100%"}
                 editorProps={{$blockScrolling: true}}
                 enableBasicAutocompletion={true}

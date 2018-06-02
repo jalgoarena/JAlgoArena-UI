@@ -10,7 +10,7 @@ import {fetchLangRanking} from "../actions";
 
 type Props = {
     ranking: {},
-    params: {lang: string}
+    match: {params: {lang: string}}
 }
 
 class LanguageRanking extends React.Component<Props> {
