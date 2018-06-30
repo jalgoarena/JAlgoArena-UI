@@ -1,21 +1,29 @@
+sudo: required
 language: node_js
 node_js:
-- '6'
+  - '6'
+services:
+  - docker
 before_script:
-- npm install -g webpack
-- npm install -g codecov
+  - npm install -g webpack
+  - npm install -g codecov
 before_deploy:
-- npm run deploy
+  - npm run deploy
 deploy:
-  provider: releases
-  api_key:
-    secure: OBRCkK9jErOr/d+cBU3y8GotsYVc/vQb28OqTxY5H3gHLb7ISJT5E+U7IJXZ3XjA9XpRSlkTjpDTdn6Hi/r//voJVs8CUG9pOdtYdNvcCIlCnQbQ4GniKpIrbUnM/1BftFp0XFJNw3L/VOOZRkv7vFWlR3JshkS5yOGgV23GyurINDay0FMKY5E7NnBS0Dn2RXmHu3OGKRHI9a07RtmEvEhfeo3HOS6dHZfruLBm3Hv9Xx4N4MZjG81So/xLBp9ERP5yYfcgWepuEmDgzYj8qclseH83Z4cDHGu85QdhsKoBr7rq9luYSTWtrQPrhcQu61ndOHnowe65HoIdv5B9Azx5VqPXTAqBwLPcrBgaXcxho5sBQ1ekBhP+X7z9AHXyZoEpDu6OcmwQYLPnVeRJdjqzFaLkv5mmzF5MK89vJKQ+aoKSPjtRaNSxEMXBLQtnPv3dngNgBWeqc7jUoTgAH29QtMU9rxMJ6PV4ldF4gBtV1lSTE0bbEgZk4H7Sx2ibdQ4tIy1YVRpFduptxPtm7OLnjLELDyz9tN9oMQPnFuN3WpEAkEKkC6LRtOxpJMjGuNlfT3ADqB2c4GIkyn3otIv9LDhLF7ZfGm1DHOmiUBSlqZKg+j/biixws7VTiWQXeATVN41m3qPQhQdWYlgJ7x4TcmsmkYfhPOakZ+dZIz0=
-  file_glob: true
-  file: ./dist/JAlgoArena-UI-*.zip
-  skip_cleanup: true
-  on:
-    repo: spolnik/JAlgoArena-UI
-    tags: true
+  - provider: releases
+    api_key:
+      secure: OBRCkK9jErOr/d+cBU3y8GotsYVc/vQb28OqTxY5H3gHLb7ISJT5E+U7IJXZ3XjA9XpRSlkTjpDTdn6Hi/r//voJVs8CUG9pOdtYdNvcCIlCnQbQ4GniKpIrbUnM/1BftFp0XFJNw3L/VOOZRkv7vFWlR3JshkS5yOGgV23GyurINDay0FMKY5E7NnBS0Dn2RXmHu3OGKRHI9a07RtmEvEhfeo3HOS6dHZfruLBm3Hv9Xx4N4MZjG81So/xLBp9ERP5yYfcgWepuEmDgzYj8qclseH83Z4cDHGu85QdhsKoBr7rq9luYSTWtrQPrhcQu61ndOHnowe65HoIdv5B9Azx5VqPXTAqBwLPcrBgaXcxho5sBQ1ekBhP+X7z9AHXyZoEpDu6OcmwQYLPnVeRJdjqzFaLkv5mmzF5MK89vJKQ+aoKSPjtRaNSxEMXBLQtnPv3dngNgBWeqc7jUoTgAH29QtMU9rxMJ6PV4ldF4gBtV1lSTE0bbEgZk4H7Sx2ibdQ4tIy1YVRpFduptxPtm7OLnjLELDyz9tN9oMQPnFuN3WpEAkEKkC6LRtOxpJMjGuNlfT3ADqB2c4GIkyn3otIv9LDhLF7ZfGm1DHOmiUBSlqZKg+j/biixws7VTiWQXeATVN41m3qPQhQdWYlgJ7x4TcmsmkYfhPOakZ+dZIz0=
+    file_glob: true
+    file: ./dist/JAlgoArena-UI-*.zip
+    skip_cleanup: true
+    on:
+      repo: spolnik/JAlgoArena-UI
+      tags: true
+  - provider: script
+    script: bash docker_push
+    on:
+      repo: spolnik/JAlgoArena-UI
+      tags: true
 addons:
   code_climate:
     repo_token: 9e2995be6eae3d6663fd00f8db738c4bf306f9f7779c8f1c4fb0f5d0d56c17e0
