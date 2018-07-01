@@ -40,9 +40,7 @@ class ProblemsAdmin extends React.Component {
                     output: 102334155
                 }],
                 skeletonCode: {
-                    "java": "import java.util.*;\nimport com.jalgoarena.type.*;\n\npublic class Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    public long fib(int n) {\n        // Write your code here\n    }\n}\n",
-                    "kotlin": "import java.util.*\nimport com.jalgoarena.type.*\n\nclass Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    fun fib(n: Int): Long {\n        // Write your code here\n    }\n}\n",
-                    "ruby": "class Solution\n  # @param n id of fibonacci term to be returned\n  # @return  N'th term of Fibonacci sequence\n  def fib(n)\n    # Write your code here\n  end\nend\n"
+                    "java": "import java.util.*;\nimport com.jalgoarena.type.*;\n\npublic class Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    public long fib(int n) {\n        // Write your code here\n    }\n}\n"
                 },
                 level: 1
             }

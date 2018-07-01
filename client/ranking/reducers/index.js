@@ -20,7 +20,7 @@ type RankingAction = {
 export function ranking(state: RankingState = {
     general: [],
     problemRanking: [],
-    languages: {'java': [], 'kotlin': [], 'ruby': []}
+    languages: {'java': []}
 }, action: RankingAction): RankingState {
     switch (action.type) {
         case types.FETCH_RANKING:

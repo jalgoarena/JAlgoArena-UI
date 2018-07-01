@@ -11,7 +11,7 @@ JAlgoArena UI is frontent for JAlgoArena services.
 
 ## Introduction
 
-- JAlgoArena UI allows user to see existing problems, create account and using it submit solutions for existing problems, in one of two languages: Kotlin and Java. Every solution is limited by time and memory consumption and needs to pass all defined test cases. Problems itself are divided into three difficulty levels for each ones receiving different set of points. Additionally Kotlin language is promoted, giving you 150% of usual points in Java with same time.
+- JAlgoArena UI allows user to see existing problems, create account and using it submit solutions for existing problems in Java. Every solution is limited by time and memory consumption and needs to pass all defined test cases. Problems itself are divided into three difficulty levels for each ones receiving different set of points.
 - Additionally there is module dedicated for Administrator, who can review submissions (any cheating, ticking on requirements, copy pasting), add new problems or update existing ones (the last one is still in progress)
 
 ![Component Diagram](https://github.com/spolnik/JAlgoArena-UI/raw/master/design/component_diagram.png)

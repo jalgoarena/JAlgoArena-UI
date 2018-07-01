@@ -25,9 +25,7 @@ describe('root reducer', () => {
                     general: [],
                     problemRanking: [],
                     languages: {
-                        java: [],
-                        kotlin: [],
-                        ruby: []
+                        java: []
                     }
                 },
                 submissions: {
