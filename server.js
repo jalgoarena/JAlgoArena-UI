@@ -19,12 +19,12 @@ app.use(serveStatic(path.join(__dirname, "public")));
 const consul = require('consul')();
 
 consul.health.service({
-    service: 'jalgoarena-api',
+    service: 'traefik',
     passing: true,
     near: "_agent"
 }, (err, result) => {
     if (err) {
-        console.error(`ERR: cannot find jalgoarena-api service instance${err}`);
+        console.error(`ERR: cannot find traefik service instance${err}`);
     } else {
         let serviceInstance = result[0];
         let url = `http://${serviceInstance.Node.Address}:${serviceInstance.Service.Port}`;
