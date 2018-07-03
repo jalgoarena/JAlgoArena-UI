@@ -55,17 +55,6 @@ describe("actions", () => {
         expect(actions.setProblemsDifficultyVisibilityFilter(easy)).toEqual(expectedAction);
     });
 
-    it("creates an action to change current programming language", () => {
-        const kotlin = 'kotlin';
-
-        const expectedAction = {
-            type: types.CHANGE_PROGRAMMING_LANGUAGE,
-            programmingLanguage: kotlin
-        };
-
-        expect(actions.changeCurrentProgrammingLanguage(kotlin)).toEqual(expectedAction);
-    });
-
     it("creates an action to hide already done problem", () => {
         const hideDoneProblems = true;
 

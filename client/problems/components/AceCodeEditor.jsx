@@ -19,7 +19,7 @@ export default class AceCodeEditor extends React.Component {
 
         return <div style={editorStyle}>
             <AceEditor
-                mode={this.props.activeLanguage}
+                mode="java"
                 theme="tomorrow_night_eighties"
                 name="editor"
                 value={this.props.sourceCode}

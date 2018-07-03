@@ -7,7 +7,7 @@ import {setErrorMessage} from "../../common/actions";
 
 type Action = {type:string}
     | {type:string, problemRanking: Array<ProblemRankingEntry>}
-    | {type:string, ranking:Array<RankingEntry>, lang?: string}
+    | {type:string, ranking:Array<RankingEntry>}
 
 export function fetchProblemRanking(problemId: string) {
     const options = {
@@ -35,36 +35,6 @@ function setProblemRanking(problemRanking: Array<ProblemRankingEntry>): Action {
     return {
         type: types.FETCH_PROBLEM_RANKING,
         problemRanking
-    }
-}
-
-export function fetchLangRanking(lang: string) {
-    const options = {
-        headers: {
-            'Accept': 'application/json'
-        },
-        method: 'get'
-    };
-
-    return (dispatch: Dispatch) => {
-        return fetch(`/api/ranking/api/ranking/language/${lang}`, options)
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(json.error)))
-                } else {
-                    dispatch(setLangRanking((json: Array<RankingEntry>), lang))
-                }
-            })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(err))));
-    };
-}
-
-function setLangRanking(ranking: Array<RankingEntry>, lang: string): Action {
-    return {
-        type: types.FETCH_LANG_RANKING,
-        ranking: ranking,
-        lang
     }
 }
 

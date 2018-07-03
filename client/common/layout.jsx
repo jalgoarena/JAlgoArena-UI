@@ -7,7 +7,7 @@ import WorkInProgress from "./components/WorkInProgress";
 import DevTools from './devtools';
 import {ProblemPage, ProblemsAdminPage, ProblemsPage} from "../problems";
 import {LoginPage, ProfilePage, SignUpPage, UsersAdminPage} from "../users";
-import {LanguageRankingPage, RegionRankingPage, TeamRankingPage, UserRankingPage} from "../ranking";
+import {RegionRankingPage, TeamRankingPage, UserRankingPage} from "../ranking";
 import {SubmissionsPage} from "../submissions";
 import {Route, Switch} from "react-router-dom";
 import {HomePage} from "./pages/home";
@@ -39,7 +39,6 @@ export class Layout extends React.Component {
                 <Route exact path="/problemsAdmin" component={ProblemsAdminPage}/>
                 <Route exact path="/usersAdmin" component={UsersAdminPage}/>
                 <Route exact path="/userRanking" component={UserRankingPage}/>
-                <Route exact path="/langRanking/:lang" component={LanguageRankingPage}/>
                 <Route exact path="/teamRanking" component={TeamRankingPage}/>
                 <Route exact path="/regionRanking" component={RegionRankingPage}/>
             </Switch>

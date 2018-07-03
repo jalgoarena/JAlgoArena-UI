@@ -84,7 +84,7 @@ describe('problems reducer', () => {
         ).toEqual(Object.assign({}, defaultState, {difficultyFilter: 2}));
     });
 
-    it('should handle CHANGE_PROGRAMMING_LANGUAGE', () => {
+    it('should handle HIDE_DONE_PROBLEMS', () => {
         expect(
             reducer.problems(defaultState,
                 {
@@ -134,7 +134,7 @@ let FIB_PROBLEM = new Problem(
     "Fibonacci",
     "description",
     1,
-    {"java": "dummy code"},
+    "dummy code",
     1
 );
 
@@ -143,7 +143,7 @@ let STOI_PROBLEM = new Problem(
     "STOI",
     "description",
     1,
-    {"java": "dummy code"},
+    "dummy code",
     1
 );
 

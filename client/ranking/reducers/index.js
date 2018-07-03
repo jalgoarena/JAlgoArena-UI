@@ -6,21 +6,18 @@ import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 
 type RankingState = {
     general: Array<RankingEntry>,
-    problemRanking: Array<ProblemRankingEntry>,
-    languages: {}
+    problemRanking: Array<ProblemRankingEntry>
 }
 
 type RankingAction = {
     type: string,
     ranking?: Array<RankingEntry>,
-    problemRanking?: Array<ProblemRankingEntry>,
-    lang?: string
+    problemRanking?: Array<ProblemRankingEntry>
 }
 
 export function ranking(state: RankingState = {
     general: [],
-    problemRanking: [],
-    languages: {'java': []}
+    problemRanking: []
 }, action: RankingAction): RankingState {
     switch (action.type) {
         case types.FETCH_RANKING:
@@ -30,15 +27,6 @@ export function ranking(state: RankingState = {
         case types.FETCH_PROBLEM_RANKING:
             return Object.assign({}, state, {
                 problemRanking: action.problemRanking
-            });
-        case types.FETCH_LANG_RANKING:
-            let langJson = {};
-            const lang = ((action.lang: any): string);
-            langJson[lang] = action.ranking;
-            let languages = Object.assign({}, state.languages, langJson);
-
-            return Object.assign({}, state, {
-                languages
             });
         default:
             return state;

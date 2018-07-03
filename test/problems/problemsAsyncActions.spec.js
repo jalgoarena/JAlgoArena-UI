@@ -34,7 +34,7 @@ describe("async actions", () => {
 
     it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
         let submission = new Submission(
-            "dummy source code", "user-id", "java", "fib", "submission-id", "token"
+            "dummy source code", "user-id", "fib", "submission-id", "token"
         );
 
         fetch.mockResponseOnce(JSON.stringify(submission));
@@ -49,7 +49,7 @@ describe("async actions", () => {
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});
 
-        return store.dispatch(actions.judgeCode(SOURCE_CODE, PROBLEM_ID, "0-0", "java"))
+        return store.dispatch(actions.judgeCode(SOURCE_CODE, PROBLEM_ID, "0-0"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });

@@ -5,14 +5,14 @@ export default class Problem {
     title: string;
     description: string;
     timeLimit: number;
-    skeletonCode: Object;
+    skeletonCode: string;
     level: number;
 
     constructor(id: string,
                 title: string,
                 description: string,
                 timeLimit: number,
-                skeletonCode: Object,
+                skeletonCode: string,
                 level: number) {
         this.id = id;
         this.title = title;

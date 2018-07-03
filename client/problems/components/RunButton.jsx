@@ -8,15 +8,14 @@ type RunButtonInputType = {
     sourceCode: string,
     problemId: string,
     userId: string,
-    language: string,
-    onRun: (string, string, string, string) => void
+    onRun: (string, string, string) => void
 }
 
-const RunButton = ({sourceCode, problemId, userId, language, onRun}: RunButtonInputType) => (
+const RunButton = ({sourceCode, problemId, userId, onRun}: RunButtonInputType) => (
     <button
         style={{width: '200px'}}
         className="btn btn-lg btn-primary pull-right"
-        onClick={() => onRun(sourceCode, problemId, userId, language)}>
+        onClick={() => onRun(sourceCode, problemId, userId)}>
         <FontAwesome prefix="fas" name="bolt"/> Run
     </button>
 );

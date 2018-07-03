@@ -7,20 +7,17 @@ import RawProblem from "../domain/RawProblem";
 type EditorState = {
     sourceCode: ?string;
     submissionId: ?string;
-    programmingLanguage: string;
 }
 
 type EditorAction = {
     type: string,
     sourceCode?: string,
-    programmingLanguage?: string,
     submissionId?: string
 }
 
 export function editor(state: EditorState = {
     sourceCode: null,
-    submissionId: null,
-    programmingLanguage: 'java'
+    submissionId: null
 }, action: EditorAction): EditorState {
     switch (action.type) {
         case types.CHANGE_SOURCE_CODE:
@@ -32,12 +29,6 @@ export function editor(state: EditorState = {
             return Object.assign({}, state, {
                 sourceCode: null,
                 submissionId: null
-            });
-        case types.CHANGE_PROGRAMMING_LANGUAGE:
-            return Object.assign({}, state, {
-                sourceCode: null,
-                submissionId: null,
-                programmingLanguage: action.programmingLanguage
             });
         case types.SUBMISSION_PUBLISHED:
             return Object.assign({}, state, {

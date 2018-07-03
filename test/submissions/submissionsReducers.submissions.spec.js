@@ -11,8 +11,8 @@ let defaultState = {
     problemsSolutionsRatio: []
 };
 
-let SUBMISSION_JULIA = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-0", "java", "1", "2018-04-05", 0, 1, 0);
-let SUBMISSION_MIKOLAJ = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-1", "java", "2", "2018-04-05", 0, 1, 0);
+let SUBMISSION_JULIA = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-0", "1", "2018-04-05", 0, 1, 0);
+let SUBMISSION_MIKOLAJ = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-1", "2", "2018-04-05", 0, 1, 0);
 let PROBLEM_SUBMISSION_RATIO = new ProblemSubmissionRatio("fib", 4);
 
 describe('ranking reducer', () => {

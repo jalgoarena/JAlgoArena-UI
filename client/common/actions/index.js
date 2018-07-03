@@ -1,5 +1,5 @@
 // @flow
-import {fetchLangRanking, fetchProblemRanking, fetchRanking} from "../../ranking/actions";
+import {fetchProblemRanking, fetchRanking} from "../../ranking/actions";
 
 type Action = { type: string, error: string }
     | { type: string, isConnected: boolean }
@@ -13,7 +13,6 @@ import {fetchSubmissions} from "../../submissions/actions";
 import Event from "../domain/Event"
 
 import {store} from "../store";
-import {languages} from "../../config";
 
 export function closeWorkInProgressWindow(): Action {
     return {
@@ -41,15 +40,11 @@ export function websocketConnected(isConnected: boolean): Action {
     }
 }
 
-let refreshRanking = function (event, languages) {
+let refreshRanking = function (event) {
     console.log("Refresh rankings");
     store.dispatch(fetchRanking());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
-
-    languages.forEach(lang => {
-        store.dispatch(fetchLangRanking(lang));
-    });
 };
 
 let refreshSubmissions = function (event) {
@@ -70,7 +65,7 @@ export function websocketInit() {
             stompClient.subscribe('/topic/events', (message) => {
                 let event: Event = JSON.parse(message.body);
                 if (event.type === 'refreshRanking') {
-                    refreshRanking(event, languages);
+                    refreshRanking(event);
                 } else if (event.type === 'refreshUserSubmissions') {
                     refreshSubmissions(event);
                 }

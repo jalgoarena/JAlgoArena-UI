@@ -143,7 +143,6 @@ class Submissions extends React.Component {
                     passedTestCases: submission.passedTestCases,
                     failedTestCases: submission.failedTestCases
                 },
-                language: submission.language,
                 statusCode: submission.statusCode,
                 errorMessage: {
                     errorMessage: submission.errorMessage,
@@ -165,10 +164,6 @@ class Submissions extends React.Component {
                                        width={'150'}
                                        dataSort>
                         Run At</TableHeaderColumn>
-                    <TableHeaderColumn dataField='language'
-                                       width={'80'}
-                                       dataSort>
-                        Lang</TableHeaderColumn>
                     <TableHeaderColumn dataField='elapsedTime'>
                         Elapsed Time (ms)</TableHeaderColumn>
                     <TableHeaderColumn dataField='statusCode'

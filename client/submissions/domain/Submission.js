@@ -6,7 +6,6 @@ export class Submission {
     sourceCode: string;
     statusCode: string;
     userId: string;
-    language: string;
     submissionId: string;
     submissionTime: string;
     consumedMemory: number;
@@ -20,7 +19,6 @@ export class Submission {
                 sourceCode: string,
                 statusCode: string,
                 userId: string,
-                language: string,
                 submissionId: string,
                 submissionTime: string,
                 consumedMemory: number,
@@ -33,7 +31,6 @@ export class Submission {
         this.sourceCode = sourceCode;
         this.statusCode = statusCode;
         this.userId = userId;
-        this.language = language;
         this.submissionId = submissionId;
         this.submissionTime = submissionTime;
         this.consumedMemory = consumedMemory;

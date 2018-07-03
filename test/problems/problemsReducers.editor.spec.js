@@ -2,13 +2,11 @@
 
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
-import JudgeResponse from "../../client/problems/domain/JudgeResponse";
 import Submission from "../../client/problems/domain/Submission";
 
 let defaultEditorState = {
     sourceCode: null,
-    submissionId: null,
-    programmingLanguage: 'java'
+    submissionId: null
 };
 
 describe('editor reducer', () => {
@@ -20,7 +18,7 @@ describe('editor reducer', () => {
                     sourceCode: 'class Solution'
                 }
             )
-        ).toEqual({submissionId: null, programmingLanguage: "java", sourceCode: "class Solution"});
+        ).toEqual({submissionId: null, sourceCode: "class Solution"});
 
         expect(
             reducer.editor(Object.assign({}, defaultEditorState, {
@@ -31,7 +29,7 @@ describe('editor reducer', () => {
                     sourceCode: 'class Solution2'
                 }
             )
-        ).toEqual({submissionId: null, programmingLanguage: "java", sourceCode: 'class Solution2'});
+        ).toEqual({submissionId: null, sourceCode: 'class Solution2'});
     });
 
     let actionsCleaningSourceCode = [
@@ -49,7 +47,7 @@ describe('editor reducer', () => {
                         type: actionType
                     }
                 )
-            ).toEqual({submissionId: null, sourceCode: null, programmingLanguage: "java"});
+            ).toEqual({submissionId: null, sourceCode: null});
         });
     });
 
@@ -57,7 +55,7 @@ describe('editor reducer', () => {
 
     it('should handle SUBMISSION_PUBLISHED', () => {
         let submission = new Submission(
-            "dummy source code", "user-id", "java", "fib", "submission-id", "token"
+            "dummy source code", "user-id", "fib", "submission-id", "token"
         );
 
         expect(
@@ -67,7 +65,7 @@ describe('editor reducer', () => {
                     submissionId: submission.submissionId
                 }
             )
-        ).toEqual({submissionId: "submission-id", programmingLanguage: "java", sourceCode: null});
+        ).toEqual({submissionId: "submission-id", sourceCode: null});
     });
 
     let actionsResettingResult = [
@@ -87,28 +85,5 @@ describe('editor reducer', () => {
                 )
             ).toEqual(defaultEditorState);
         });
-    });
-
-    it('should handle CHANGE_PROGRAMMING_LANGUAGE', () => {
-        expect(
-            reducer.editor(defaultEditorState,
-                {
-                    type: types.CHANGE_PROGRAMMING_LANGUAGE,
-                    programmingLanguage: 'kotlin'
-                }
-            )
-        ).toEqual({submissionId: null, "programmingLanguage": "kotlin", "sourceCode": null});
-
-        expect(
-            reducer.editor(Object.assign({}, defaultEditorState, {
-                    programmingLanguage: 'java',
-                    sourceCode: 'someCode'
-                }),
-                {
-                    type: types.CHANGE_PROGRAMMING_LANGUAGE,
-                    programmingLanguage: 'kotlin'
-                }
-            )
-        ).toEqual({submissionId: null, "programmingLanguage": "kotlin", "sourceCode": null});
     });
 });

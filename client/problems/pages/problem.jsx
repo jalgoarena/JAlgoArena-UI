@@ -1,7 +1,6 @@
 import React from 'react';
-import {Grid, Button, Row, ButtonGroup} from 'react-bootstrap';
+import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import * as _ from 'lodash';
 
 import {store} from '../../common/store';
 import {fetchSubmissions} from "../../submissions/actions";
@@ -17,7 +16,7 @@ import ListNodeSourceCode from '../components/ListNodeSourceCode';
 import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
 import IntervalSourceCode from '../components/IntervalSourceCode';
 import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh, changeCurrentProgrammingLanguage} from "../actions/index";
+import {problemRefresh} from "../actions/index";
 import ProblemRank from '../components/ProblemRank'
 import GraphNodeSourceCode from "../components/GraphNodeSourceCode";
 import WeightedGraphSourceCode from "../components/WeightedGraphSourceCode";
@@ -135,21 +134,7 @@ class Problem extends React.Component {
 
         const userId = this.props.auth.user ? this.props.auth.user.id : null;
 
-        let skeletonCode = this.props.problem.skeletonCode[this.props.programmingLanguage];
-
-        let programmingLanguages = [];
-        for (let language in this.props.problem.skeletonCode) {
-            programmingLanguages.push(language);
-        }
-
-        let programmingLanguageButtons = programmingLanguages.map((programmingLanguage, idx) => {
-            return <Button bsStyle="primary"
-                           onClick={() => this.props.onLanguageChange(programmingLanguage)}
-                           active={this.props.programmingLanguage === programmingLanguage}
-                           key={idx}>
-                {_.capitalize(programmingLanguage)}
-            </Button>
-        });
+        let skeletonCode = this.props.problem.skeletonCode;
 
         return <Grid>
             <Row>
@@ -165,9 +150,6 @@ class Problem extends React.Component {
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
                 >
-                    <ButtonGroup>
-                        {programmingLanguageButtons}
-                    </ButtonGroup>
                     {Problem.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
                     {Problem.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
                     {Problem.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
@@ -178,7 +160,6 @@ class Problem extends React.Component {
                 <AceCodeEditor
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
-                    activeLanguage={this.props.programmingLanguage}
                     readOnly={this.props.auth.user == null}
                 />
                 <SubmissionPanel
@@ -187,7 +168,6 @@ class Problem extends React.Component {
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
                     onRun={this.props.onRun}
                     isAlreadySolved={this.isAlreadySolved()}
-                    activeLanguage={this.props.programmingLanguage}
                 />
             </Row>
             <Output submissionId={this.props.editor.submissionId}/>
@@ -235,31 +215,25 @@ const mapStateToProps = (state) => {
         ? state.problems.items.find((problem) => problem.id === currentProblemId)
         : null;
 
-    let programmingLanguage = state.editor.programmingLanguage;
-
     return {
         problem,
         editor: state.editor,
         auth: state.auth,
-        submissions: state.submissions.items,
-        programmingLanguage
+        submissions: state.submissions.items
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRun: (sourceCode, problemId, userId, language) => {
+        onRun: (sourceCode, problemId, userId) => {
             dispatch(startJudge());
-            dispatch(judgeCode(sourceCode, problemId, userId, language));
+            dispatch(judgeCode(sourceCode, problemId, userId));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))
         },
         onRefresh: () => {
             dispatch(problemRefresh());
-        },
-        onLanguageChange: (language) => {
-            dispatch(changeCurrentProgrammingLanguage(language));
         }
     }
 };

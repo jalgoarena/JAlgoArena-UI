@@ -10,8 +10,7 @@ describe('root reducer', () => {
             {
                 editor: {
                     sourceCode: null,
-                    submissionId: null,
-                    programmingLanguage: 'java'
+                    submissionId: null
                 },
                 problems: {
                     currentProblemId: null,
@@ -23,10 +22,7 @@ describe('root reducer', () => {
                 showModal: false,
                 ranking: {
                     general: [],
-                    problemRanking: [],
-                    languages: {
-                        java: []
-                    }
+                    problemRanking: []
                 },
                 submissions: {
                     items: [],

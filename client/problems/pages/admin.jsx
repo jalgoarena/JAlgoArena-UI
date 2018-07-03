@@ -39,9 +39,7 @@ class ProblemsAdmin extends React.Component {
                     input: ["40"],
                     output: 102334155
                 }],
-                skeletonCode: {
-                    "java": "import java.util.*;\nimport com.jalgoarena.type.*;\n\npublic class Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    public long fib(int n) {\n        // Write your code here\n    }\n}\n"
-                },
+                skeletonCode: "import java.util.*;\nimport com.jalgoarena.type.*;\n\npublic class Solution {\n    /**\n     * @param n id of fibonacci term to be returned\n     * @return  N'th term of Fibonacci sequence\n     */\n    public long fib(int n) {\n        // Write your code here\n    }\n}\n",
                 level: 1
             }
         };
@@ -252,8 +250,7 @@ class ProblemsAdmin extends React.Component {
                     <h4>Test Cases Json</h4>
                     <JSONTree data={this.state.newProblem.testCases}/>
                     <AceCodeEditor
-                        sourceCode={this.state.newProblem.skeletonCode['java']}
-                        activeLanguage={'java'}
+                        sourceCode={this.state.newProblem.skeletonCode}
                         onSourceCodeChanged={(sourceCode) => {}}
                         readOnly={true}
                     />

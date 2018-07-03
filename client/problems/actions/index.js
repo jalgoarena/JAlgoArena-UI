@@ -9,7 +9,6 @@ type Action = {type:string}
     | {type:string, rawProblems:Array<RawProblem>}
     | {type:string, level:number}
     | {type:string, hideDoneProblems:boolean}
-    | {type:string, programmingLanguage:string}
 
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
@@ -23,7 +22,7 @@ export function startJudge(): Action {
     };
 }
 
-export function judgeCode(sourceCode: string, problemId: string, userId: string, language: string) {
+export function judgeCode(sourceCode: string, problemId: string, userId: string) {
 
     let token: ?string = localStorage.getItem('jwtToken');
 
@@ -40,8 +39,7 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string,
         method: 'post',
         body: JSON.stringify(new JudgeRequest(
             sourceCode,
-            userId,
-            language
+            userId
         ))
     };
     return (dispatch: Dispatch) => {
@@ -90,13 +88,6 @@ export function setProblemsDifficultyVisibilityFilter(level: number): Action {
     return {
         type: types.SET_PROBLEMS_DIFFICULTY_VISIBILITY_FILTER,
         level
-    }
-}
-
-export function changeCurrentProgrammingLanguage(language: string): Action {
-    return {
-        type: types.CHANGE_PROGRAMMING_LANGUAGE,
-        programmingLanguage: language
     }
 }
 

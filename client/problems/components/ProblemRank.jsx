@@ -50,8 +50,6 @@ class ProblemRank extends React.Component {
                         <TableHeaderColumn dataField='hacker'>Hacker</TableHeaderColumn>
                         <TableHeaderColumn dataField='score'>Score</TableHeaderColumn>
                         <TableHeaderColumn dataField='elapsedTime'>Elapsed Time (ms)</TableHeaderColumn>
-                        <TableHeaderColumn dataField='language'
-                                           dataSort>Language</TableHeaderColumn>
                     </BootstrapTable>
                 </Modal.Body>
                 <Modal.Footer>

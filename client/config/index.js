@@ -5,6 +5,5 @@ module.exports = {
     emailRegex,
     emailErrorMessage: "Please enter a valid email address",
     teams: ["Team A", "Team B", "Team C"],
-    regions: ["Kraków", "Wrocław"],
-    languages: ["java"]
+    regions: ["Kraków", "Wrocław"]
 };

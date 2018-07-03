@@ -14,12 +14,11 @@ type SubmissionPanelInputType = {
     problem: Problem,
     sourceCode: string,
     userId: string,
-    onRun: (string, string, string, string) => void,
-    activeLanguage: string,
+    onRun: (string, string, string) => void,
     isAlreadySolved: boolean
 }
 
-const SubmissionPanel = ({problem, sourceCode, userId, onRun, activeLanguage, isAlreadySolved}: SubmissionPanelInputType) => {
+const SubmissionPanel = ({problem, sourceCode, userId, onRun, isAlreadySolved}: SubmissionPanelInputType) => {
 
     const button = isAlreadySolved
         ? <Link to="/problems" className="pulse-button btn btn-lg btn-success pull-right">
@@ -29,7 +28,6 @@ const SubmissionPanel = ({problem, sourceCode, userId, onRun, activeLanguage, is
             problemId={problem.id}
             sourceCode={sourceCode}
             userId={userId}
-            language={activeLanguage}
             onRun={onRun}
         />;
 
