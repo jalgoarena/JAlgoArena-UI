@@ -26,7 +26,7 @@ describe('auth reducer', () => {
 
         expect(
             reducer.auth(Object.assign({}, defaultStartState, {
-                    error: {message: "Error"}
+                    error: "Error"
                 }),
                 {
                     type: types.LOGIN_SUCCESS,
@@ -44,11 +44,11 @@ describe('auth reducer', () => {
                 reducer.auth(defaultStartState,
                     {
                         type: actionType,
-                        error: {message: "error"}
+                        error: "error"
                     }
                 )
             ).toEqual(Object.assign({}, defaultStartState, {
-                error: {message: "error"}
+                error: "error"
             }));
 
             expect(
@@ -57,11 +57,11 @@ describe('auth reducer', () => {
                     }),
                     {
                         type: actionType,
-                        error: {message: "error"}
+                        error: "error"
                     }
                 )
             ).toEqual(Object.assign({}, defaultStartState, {
-                error: {message: "error"}
+                error: "error"
             }));
         });
     });
@@ -80,7 +80,7 @@ describe('auth reducer', () => {
 
         expect(
             reducer.auth(Object.assign({}, defaultStartState, {
-                    error: {message: "error"}
+                    error: "error"
                 }),
                 {
                     type: types.CHECKED_SESSION_STATUS,
@@ -93,7 +93,7 @@ describe('auth reducer', () => {
 
         expect(
             reducer.auth(Object.assign({}, defaultStartState, {
-                    error: {message: "error"}
+                    error: "error"
                 }),
                 {
                     type: types.CHECKED_SESSION_STATUS,
@@ -109,7 +109,7 @@ describe('auth reducer', () => {
         expect(
             reducer.auth(Object.assign({}, defaultStartState, {
                     user: USER_JULIA,
-                    error: {message: "error"},
+                    error: "error",
                     users: [USER_MIKOLAJ, USER_JULIA]
                 }),
                 {
@@ -122,7 +122,7 @@ describe('auth reducer', () => {
     [types.NAVIGATE_AWAY_FROM_AUTH_FORM, types.SIGNUP_SUCCESS].forEach(actionType => {
         expect(
             reducer.auth(Object.assign({}, defaultStartState, {
-                    error: {message: "error"}
+                    error: "error"
                 }),
                 {
                     type: actionType

@@ -20,7 +20,7 @@ window.localStorage = {
         else
             throw Error("Wrong key");
     },
-    setItem: function(key, value) {
+    setItem: function(key) {
         if (key !== 'jwtToken')
             throw Error("Wrong key");
     }
@@ -49,7 +49,7 @@ describe("async actions", () => {
 
         const expectedActions = [{
             type: types.SIGNUP_FAIL,
-            error: errorMessage
+            error: errorMessage.message
         }];
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});
@@ -88,7 +88,7 @@ describe("async actions", () => {
 
         const expectedActions = [{
             type: types.LOGIN_FAIL,
-            error: errorMessage
+            error: errorMessage.message
         }];
 
         const store = mockStore({error: {}});

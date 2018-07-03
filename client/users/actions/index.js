@@ -1,7 +1,7 @@
 // @flow
 type Action = {
     type: string,
-    error?: Object,
+    error?: string,
     user?: User,
     users?: Array<User>,
     userUpdated?: User

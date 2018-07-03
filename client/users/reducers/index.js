@@ -5,7 +5,7 @@ import User from "../domain/User";
 
 type AuthState = {
     user: ?User,
-    error: ?Object,
+    error: ?string,
     users: ?Array<User>,
     updatedUser: ?User
 }
