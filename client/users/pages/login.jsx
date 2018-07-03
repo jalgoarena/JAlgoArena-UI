@@ -38,7 +38,7 @@ class Login extends React.Component {
     componentDidUpdate() {
         this.transferToDashboardIfLoggedIn();
 
-        if (this.props.auth.error === "Incorrect login or password.") {
+        if (this.props.auth.error === "Access Denied") {
             if (!this.state.isUsernameFieldIncorrect) {
                 let newState = Object.assign({}, this.state);
                 newState.isUsernameFieldIncorrect = true;

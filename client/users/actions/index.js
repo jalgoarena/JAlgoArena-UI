@@ -44,7 +44,7 @@ export function attemptSignUp(email: string, password: string, username: string,
             .then(response => response.json())
             .then(json => {
                 if (json.error){
-                    dispatch(signUpFail(json));
+                    dispatch(signUpFail(json.message));
                 } else {
                     dispatch(signUpSuccess());
                 }
@@ -60,11 +60,7 @@ function signUpSuccess(): Action {
     };
 }
 
-function signUpFail(error: {message: string}): Action {
-    if (error.message === 'GENERAL') {
-        error = Object.assign({}, error, { message: "Cannot connect to Auth Service"});
-    }
-
+function signUpFail(error: string): Action {
     return {
         type: types.SIGNUP_FAIL,
         error
@@ -99,7 +95,7 @@ export function attemptLogin(username: string, password: string) {
             .then(response => response.json())
             .then(json => {
                 if (json.error){
-                    dispatch(loginFail(json));
+                    dispatch(loginFail(json.message));
                 } else {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
@@ -117,11 +113,7 @@ function loginSuccess(user: User): Action {
     };
 }
 
-function loginFail(error: {message: string}): Action {
-    if (error.message === 'GENERAL') {
-        error = Object.assign({}, error, { message: "Cannot connect to Auth Service"});
-    }
-
+function loginFail(error: string): Action {
     return {
         type: types.LOGIN_FAIL,
         error

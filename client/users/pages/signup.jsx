@@ -40,7 +40,7 @@ class SignUp extends React.Component {
     componentDidUpdate() {
         this.transferToProfileIfLoggedIn();
 
-        if(this.props.auth.error === 'That username is already being used.') {
+        if (this.props.auth.error === 'User name is already used') {
             if(!this.state.isUserNameFieldIncorrect){
                 let newState = Object.assign({}, this.state);
                 newState.isUserNameFieldIncorrect = true;
@@ -49,7 +49,7 @@ class SignUp extends React.Component {
             dom.findDOMNode(this.username).focus();
         }
 
-        if(this.props.auth.error === "That email is already being used.") {
+        if (this.props.auth.error === "Email is already used") {
             if(!this.state.isEmailFieldIncorrect){
                 let newState = Object.assign({}, this.state);
                 newState.isEmailFieldIncorrect = true;

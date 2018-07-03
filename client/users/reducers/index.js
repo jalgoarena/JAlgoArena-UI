@@ -13,7 +13,7 @@ type AuthState = {
 type AuthAction = {
     type: string,
     user?: User,
-    error?: Object,
+    error?: string,
     users?: Array<User>,
     userUpdated?: User
 }
