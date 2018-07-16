@@ -2,7 +2,7 @@
 
 import React from "react";
 import {HashRouter} from 'react-router-dom';
-import {ConnectedRouter} from 'react-router-redux'
+import {ConnectedRouter} from 'connected-react-router'
 import { Provider } from 'react-redux'
 
 import {Layout, store, history} from "./common";

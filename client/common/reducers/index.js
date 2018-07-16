@@ -2,7 +2,6 @@
 type Action = {type:string, isConnected?: boolean, error?: string}
 
 import * as redux from 'redux';
-import {routerReducer} from 'react-router-redux';
 import * as types from "../../constants/ActionTypes";
 
 import {editor, problems} from "../../problems/reducers";
@@ -14,7 +13,6 @@ const rootReducer = redux.combineReducers({
     editor,
     problems,
     showModal,
-    routing: routerReducer,
     auth,
     submissions,
     ranking,

@@ -4,7 +4,6 @@ import MenuPanel from "./components/Menu";
 import Footer from "./components/Footer";
 import ErrorMessageBox from "./components/ErrorMessage";
 import WorkInProgress from "./components/WorkInProgress";
-import DevTools from './devtools';
 import {ProblemPage, ProblemsAdminPage, ProblemsPage} from "../problems";
 import {LoginPage, ProfilePage, SignUpPage, UsersAdminPage} from "../users";
 import {RegionRankingPage, TeamRankingPage, UserRankingPage} from "../ranking";
@@ -18,16 +17,11 @@ export class Layout extends React.Component {
     }
 
     render() {
-        let devTools = null;
-        if (process.env.NODE_ENV !== 'production') {
-            devTools = <DevTools store={this.props.store}/>;
-        }
 
         return <div>
             <MenuPanel/>
             <ErrorMessageBox/>
             <WorkInProgress/>
-            {devTools}
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/problems" component={ProblemsPage}/>

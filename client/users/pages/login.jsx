@@ -3,7 +3,7 @@ import dom from 'react-dom';
 import {Grid, Col, Button, FormGroup, PageHeader} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
-import { withRouter } from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -25,19 +25,7 @@ class Login extends React.Component {
         this.onLogin = this.onLogin.bind(this);
     }
 
-    transferToDashboardIfLoggedIn() {
-        if (this.props.auth.user) {
-            this.props.history.push('/profile');
-        }
-    }
-
-    componentWillMount() {
-        this.transferToDashboardIfLoggedIn();
-    }
-
     componentDidUpdate() {
-        this.transferToDashboardIfLoggedIn();
-
         if (this.props.auth.error === "Access Denied") {
             if (!this.state.isUsernameFieldIncorrect) {
                 let newState = Object.assign({}, this.state);
@@ -96,6 +84,13 @@ class Login extends React.Component {
     }
 
     render() {
+        if (this.props.auth.user) {
+            return <Redirect to={{
+                pathname: "/profile",
+                state: { from: this.props.location }
+            }} />;
+        }
+
         return <Grid>
             <Col mdOffset={4} md={4}>
                 <PageHeader className="text-center">Sign In</PageHeader>

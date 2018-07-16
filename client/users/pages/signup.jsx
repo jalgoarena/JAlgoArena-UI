@@ -3,6 +3,7 @@ import dom from 'react-dom';
 import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router-dom";
+import { push } from 'connected-react-router'
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -29,7 +30,7 @@ class SignUp extends React.Component {
 
     transferToProfileIfLoggedIn(){
         if (this.props.auth.user){
-            this.props.history.push('/profile');
+            this.props.navigateToProfilePage();
         }
     }
 
@@ -190,6 +191,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
+        },
+        navigateToProfilePage: () => {
+            dispatch(push("/profile"));
         }
     }
 };

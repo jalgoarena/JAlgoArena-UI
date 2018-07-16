@@ -5,10 +5,24 @@ import {connect} from 'react-redux';
 import FontAwesome from '../../common/components/FontAwesome';
 
 import {attemptLogout} from "../actions";
+import {Redirect} from "react-router-dom";
 
 class Profile extends React.Component {
 
+    componentDidMount() {
+        if (!this.props.auth.user) {
+            this.props.navigateToHomePage();
+        }
+    }
+
     render() {
+        if (!this.props.auth.user) {
+            return <Redirect to={{
+                pathname: "/login",
+                state: { from: this.props.location }
+            }} />;
+        }
+
         const {
             auth
         } = this.props;
@@ -52,7 +66,8 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        location: state.router.location
     };
 };
 

@@ -7,8 +7,6 @@ type Action = {
     userUpdated?: User
 }
 
-import {history} from "../../common";
-
 import {fetchSubmissions} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
@@ -47,6 +45,7 @@ export function attemptSignUp(email: string, password: string, username: string,
                     dispatch(signUpFail(json.message));
                 } else {
                     dispatch(signUpSuccess());
+                    dispatch(push("/login"))
                 }
             })
             .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
@@ -54,7 +53,6 @@ export function attemptSignUp(email: string, password: string, username: string,
 }
 
 function signUpSuccess(): Action {
-    history.push('/login');
     return {
         type: types.SIGNUP_SUCCESS
     };
