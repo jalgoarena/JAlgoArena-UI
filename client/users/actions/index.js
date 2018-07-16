@@ -11,6 +11,7 @@ import {fetchSubmissions} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import User from "../domain/User";
+import {push} from "connected-react-router";
 
 export function startSignup(): Action {
     return {
@@ -45,7 +46,7 @@ export function attemptSignUp(email: string, password: string, username: string,
                     dispatch(signUpFail(json.message));
                 } else {
                     dispatch(signUpSuccess());
-                    dispatch(push("/login"))
+                    dispatch(push("/login"));
                 }
             })
             .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));

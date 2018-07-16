@@ -51,6 +51,7 @@ export function auth(state: AuthState = defaultStartState , action: AuthAction) 
             return defaultStartState;
         case types.NAVIGATE_AWAY_FROM_AUTH_FORM:
         case types.SIGNUP_SUCCESS:
+        case types.SIGNUP_REQUEST:
             return Object.assign({}, state, {
                 error: null
             });

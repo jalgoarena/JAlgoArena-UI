@@ -3,7 +3,6 @@ import dom from 'react-dom';
 import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router-dom";
-import { push } from 'connected-react-router'
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -28,19 +27,7 @@ class SignUp extends React.Component {
         this.onSignUp = this.onSignUp.bind(this);
     }
 
-    transferToProfileIfLoggedIn(){
-        if (this.props.auth.user){
-            this.props.navigateToProfilePage();
-        }
-    }
-
-    componentWillMount() {
-        this.transferToProfileIfLoggedIn();
-    }
-
     componentDidUpdate() {
-        this.transferToProfileIfLoggedIn();
-
         if (this.props.auth.error === 'User name is already used') {
             if(!this.state.isUserNameFieldIncorrect){
                 let newState = Object.assign({}, this.state);
@@ -191,9 +178,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
-        },
-        navigateToProfilePage: () => {
-            dispatch(push("/profile"));
         }
     }
 };
