@@ -15,4 +15,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-ENTRYPOINT "node", "./server.js"
+CMD node ./server.js
