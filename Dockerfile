@@ -1,9 +1,11 @@
 FROM node:8.11.3-alpine
 
-WORKDIR /app
-COPY . .
+MAINTAINER Jacek Spolnik <jacek.spolnik@gmail.com>
 
-RUN mkdir -p /app/public/assets
+COPY . /app
+WORKDIR /app
+
+RUN mkdir -p ./public/assets
 
 RUN npm install
 RUN npm run build
@@ -13,4 +15,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD node /app/server.js
+ENTRYPOINT "node", "./server.js"
