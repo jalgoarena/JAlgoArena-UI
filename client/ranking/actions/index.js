@@ -27,7 +27,7 @@ export function fetchProblemRanking(problemId: string) {
                     dispatch(setProblemRanking((json: Array<ProblemRankingEntry>)))
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: \n" + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/problem/${problemId}:` + error));
     };
 }
 
@@ -56,7 +56,7 @@ export function fetchRanking() {
                     dispatch(setRanking((json: Array<RankingEntry>)))
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/:` + error));
     };
 }
 
@@ -85,7 +85,7 @@ export function fetchSolvedProblemsRatio() {
                     dispatch(setSolvedProblemsRatio((json: Array<ProblemSubmissionRatio>)))
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Ranking Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/ranking/api/solved-ratio:` + error));
     };
 }
 

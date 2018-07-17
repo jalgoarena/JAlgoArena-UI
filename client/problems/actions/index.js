@@ -52,7 +52,7 @@ export function judgeCode(sourceCode: string, problemId: string, userId: string)
                     dispatch(submissionPublished((json: Submission)));
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] POST /api/queue/api/problems/${problemId}/publish:` + error));
     };
 
 }
@@ -116,7 +116,7 @@ export function fetchProblems() {
                     dispatch(setProblems((json: Array<Problem>)))
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/judge/api/problems:` + error));
     };
 }
 
@@ -151,7 +151,7 @@ export function fetchRawProblems() {
                     dispatch(setRawProblems((json: Array<RawProblem>)));
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Judge Service: \n" + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/judge/api/rawProblems:` + error));
     };
 }
 
