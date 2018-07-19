@@ -16,10 +16,9 @@ app.use(morgan("tiny"));
 helmet(app);
 app.use(serveStatic(path.join(__dirname, "public")));
 
-const jalgoarenaApiUrl = process.env.JALGOARENA_API_URL || "http://localhost:5001";
 
 const apiProxy = proxy('/api', {
-    target: jalgoarenaApiUrl,
+    target: process.env.JALGOARENA_API_HTTP_URL || "http://localhost:5001",
     changeOrigin: true,
     pathRewrite: {
         '^/api': ''
@@ -27,10 +26,8 @@ const apiProxy = proxy('/api', {
 });
 app.use('/api', apiProxy);
 
-const jalgoarenaWsUrl = process.env.JALGOARENA_WS_URL || "http://localhost:5005";
-
 const wsProxy = proxy('/ws', {
-    target: jalgoarenaWsUrl,
+    target: process.env.JALGOARENA_API_WS_URL || "http://localhost:5005",
     ws: true,
     changeOrigin: true,
     pathRewrite: {
