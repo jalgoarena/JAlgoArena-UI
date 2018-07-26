@@ -165,5 +165,5 @@ describe('auth reducer', () => {
     });
 });
 
-let USER_JULIA = new User("julia", "password", "email", "region", "team", "USER", "0-0");
-let USER_MIKOLAJ = new User("mikolaj", "password", "email", "region", "team", "USER", "0-1");
+let USER_JULIA = new User("julia", "password", "email", "region", "team", "julia", "spolnik", "USER", "0");
+let USER_MIKOLAJ = new User("mikolaj", "password", "email", "region", "team", "mikolaj", "spolnik", "USER", "1");

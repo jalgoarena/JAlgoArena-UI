@@ -20,7 +20,7 @@ window.localStorage = {
         else
             throw Error("Wrong key");
     },
-    setItem: function(key) {
+    setItem: function (key) {
         if (key !== 'jwtToken')
             throw Error("Wrong key");
     }
@@ -44,7 +44,7 @@ describe("async actions", () => {
 
         fetch.mockResponseOnce(
             JSON.stringify(errorMessage),
-            { status: 409 }
+            {status: 409}
         );
 
         const expectedActions = [{
@@ -54,16 +54,17 @@ describe("async actions", () => {
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});
 
-        return store.dispatch(actions.attemptSignUp("email", "password", "username", "region", "team"))
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
+        return store.dispatch(actions.attemptSignUp(
+            "email", "password", "username", "region", "team", "first name", "surname"
+        )).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
     });
 
     it("creates LOGIN_SUCCESS when log in has been succeed", () => {
-        let user = { username: "user"};
+        let user = {username: "user"};
 
-        fetch.mockResponseOnce(JSON.stringify({ token: "1234567", user}));
+        fetch.mockResponseOnce(JSON.stringify({token: "1234567", user}));
 
         const expectedActions = [{
             type: types.LOGIN_SUCCESS,
@@ -79,11 +80,11 @@ describe("async actions", () => {
     });
 
     it("creates LOGIN_FAIL when log in has been failed", () => {
-        let errorMessage = { error: "Forbidden", message: "Access Denied"};
+        let errorMessage = {error: "Forbidden", message: "Access Denied"};
 
         fetch.mockResponseOnce(
             JSON.stringify(errorMessage),
-            { status: 403 }
+            {status: 403}
         );
 
         const expectedActions = [{
@@ -100,7 +101,7 @@ describe("async actions", () => {
     });
 
     it("creates CHECKED_SESSION_STATUS when session check has been successful", () => {
-        let user = { username: "user"};
+        let user = {username: "user"};
         let submission = {submissionId: "1"};
 
         fetch
@@ -121,7 +122,7 @@ describe("async actions", () => {
     });
 
     it("creates FETCH_USERS when users has been successfully downloaded", () => {
-        let user = { username: "user"};
+        let user = {username: "user"};
 
         fetch.mockResponseOnce(JSON.stringify([user]));
 
@@ -140,7 +141,7 @@ describe("async actions", () => {
 
     it("creates USER_UPDATED when updating user has been done", () => {
         let user = new User(
-            "username", "password", "email", "region", "team"
+            "username", "password", "email", "region", "team", "first name", "surname"
         );
 
         fetch
