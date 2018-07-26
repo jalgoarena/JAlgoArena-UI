@@ -19,14 +19,18 @@ export function startSignup(): Action {
     };
 }
 
-export function attemptSignUp(email: string, password: string, username: string, region: string, team: string) {
+export function attemptSignUp(
+    email: string, password: string, username: string, region: string, team: string, firstname: string, surname: string
+) {
 
     const user = new User(
         username,
         password,
         email,
         region,
-        team
+        team,
+        firstname,
+        surname
     );
 
     const options = {

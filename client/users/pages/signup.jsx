@@ -15,6 +15,8 @@ import {regions, teams, emailErrorMessage} from "../../config";
 const initialFormState = {
     errorMessage:  null,
     isUserNameFieldIncorrect : false,
+    isFirstNameFieldIncorrect : false,
+    isSurnameFieldIncorrect : false,
     isEmailFieldIncorrect : false,
     isPasswordFieldIncorrect : false,
     isConfirmPasswordFieldIncorrect : false
@@ -71,7 +73,14 @@ class SignUp extends React.Component {
             newState.errorMessage = emailErrorMessage;
             newState.isEmailFieldIncorrect = true;
         }
-
+        else if (formData.firstname === "") {
+            newState.errorMessage = "First Name is required";
+            newState.isFirstNameFieldIncorrect = true;
+        }
+        else if (formData.surname === "") {
+            newState.errorMessage = "Surname is required";
+            newState.isSurnameFieldIncorrect = true;
+        }
         else if (formData.password === "") {
             newState.errorMessage = "Password is required";
             newState.isPasswordFieldIncorrect = true;
@@ -99,6 +108,8 @@ class SignUp extends React.Component {
         let formData = {
             username : dom.findDOMNode(this.username).value.trim(),
             email : dom.findDOMNode(this.email).value.trim(),
+            firstname : dom.findDOMNode(this.firstname).value.trim(),
+            surname : dom.findDOMNode(this.surname).value.trim(),
             password : dom.findDOMNode(this.password).value.trim(),
             confirmedPassword : dom.findDOMNode(this.confirmPassword).value.trim(),
             region : dom.findDOMNode(this.region).value.trim(),
@@ -154,6 +165,14 @@ class SignUp extends React.Component {
                                     inputRef={ref => { this.confirmPassword = ref; }}
                                     validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : null}
                         />
+                        <FieldGroup id="firstname" type="text" placeholder="First Name"
+                                    inputRef={ref => { this.name = ref; }}
+                                    validationState={this.state.isFirstNameFieldIncorrect ? "error" : null}
+                        />
+                        <FieldGroup id="surname" type="text" placeholder="Surname"
+                                    inputRef={ref => { this.surname = ref; }}
+                                    validationState={this.state.isSurnameFieldIncorrect ? "error" : null}
+                        />
                         <Button type="submit" bsStyle="success" block onClick={this.onSignUp}>
                             <FontAwesome prefix="fas" name="user"/> Create Account
                         </Button>
@@ -174,7 +193,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSignUp: (formData) => {
             dispatch(startSignup());
-            dispatch(attemptSignUp(formData.email, formData.password, formData.username, formData.region, formData.team));
+            dispatch(attemptSignUp(
+                formData.email, formData.password, formData.username,
+                formData.region, formData.team, formData.firstname, formData.surname
+            ));
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());

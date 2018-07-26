@@ -6,6 +6,8 @@ export default class User {
     email: string;
     region: string;
     team: string;
+    firstname: string;
+    surname: string;
     role: ?string;
     id: ?string;
 
@@ -15,6 +17,8 @@ export default class User {
         email: string,
         region: string,
         team: string,
+        firstname: string,
+        surname: string,
         role: ?string,
         id: ?string
     ) {
@@ -23,6 +27,8 @@ export default class User {
         this.email = email;
         this.region = region;
         this.team = team;
+        this.firstname = firstname;
+        this.surname = surname;
         this.role = role;
         this.id = id;
     }
