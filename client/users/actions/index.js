@@ -180,35 +180,6 @@ export function fetchUsers() {
     };
 }
 
-export function fetchUsersWithAllData() {
-    let token = localStorage.getItem('jwtToken');
-
-    if (!token || token === '') {
-        return;
-    }
-
-    return (dispatch: Dispatch) => {
-        const options = {
-            headers: {
-                'Accept': 'application/json',
-                'X-Authorization': token
-            },
-            method: 'get'
-        };
-
-        return fetch(`/api/auth/api/users`, options)
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(json.error)))
-                } else {
-                    dispatch(setUsers(json))
-                }
-            })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
-    };
-}
-
 function setUsers(users): Action {
     return {
         type: types.FETCH_USERS,
@@ -265,7 +236,7 @@ export function updateUser(user: User) {
                     dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(json.error)))
                 } else {
                     dispatch(userUpdated(json));
-                    dispatch(fetchUsersWithAllData());
+                    dispatch(fetchUsers());
                 }
             })
             .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));

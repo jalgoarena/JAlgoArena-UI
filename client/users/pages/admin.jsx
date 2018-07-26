@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
-import {fetchUsersWithAllData, updateUser} from "../actions";
+import {fetchUsers, updateUser} from "../actions";
 import {regions, teams} from "../../config";
 
 class UsersAdmin extends React.Component {
@@ -133,7 +133,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
-            dispatch(fetchUsersWithAllData());
+            dispatch(fetchUsers());
         },
         onUpdateUser: (user) => {
             dispatch(updateUser(user));
