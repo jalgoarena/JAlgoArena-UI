@@ -16,51 +16,25 @@ app.use(morgan("tiny"));
 helmet(app);
 app.use(serveStatic(path.join(__dirname, "public")));
 
-const consul = require('consul')();
 
-consul.health.service({
-    service: 'traefik',
-    passing: true,
-    near: "_agent"
-}, (err, result) => {
-    if (err) {
-        console.error(`ERR: cannot find traefik service instance${err}`);
-    } else {
-        let serviceInstance = result[0];
-        let url = `http://${serviceInstance.Node.Address}:${serviceInstance.Service.Port}`;
-
-        const apiProxy = proxy('/api', {
-            target: url,
-            changeOrigin: true,
-            pathRewrite: {
-                '^/api': ''
-            }
-        });
-        app.use('/api', apiProxy);
+const apiProxy = proxy('/api', {
+    target: process.env.JALGOARENA_API_HTTP_URL || "http://localhost:5001",
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api': ''
     }
 });
+app.use('/api', apiProxy);
 
-consul.health.service({
-    service: 'jalgoarena-events',
-    passing: true,
-    near: "_agent"
-}, (err, result) => {
-    if (err) {
-        console.error(`ERR: cannot find jalgoarena-events service instance: ${err}`);
-    } else {
-        let serviceInstance = result[0];
-        let url = `http://${serviceInstance.Node.Address}:${serviceInstance.Service.Port}`;
-        const wsProxy = proxy('/ws', {
-            target: url,
-            ws: true,
-            changeOrigin: true,
-            pathRewrite: {
-                '^/ws': ''
-            }
-        });
-        app.use('/ws', wsProxy);
+const wsProxy = proxy('/ws', {
+    target: process.env.JALGOARENA_API_WS_URL || "http://localhost:5005",
+    ws: true,
+    changeOrigin: true,
+    pathRewrite: {
+        '^/ws': ''
     }
 });
+app.use('/ws', wsProxy);
 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "public"), "index.html");

@@ -49,7 +49,7 @@ export function attemptSignUp(email: string, password: string, username: string,
                     dispatch(push("/login"));
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] POST /api/auth/signup:` + error));
     };
 }
 
@@ -101,7 +101,7 @@ export function attemptLogin(username: string, password: string) {
                     dispatch(loginSuccess(json.user));
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] POST /api/auth/login:` + error));
     };
 }
 
@@ -146,7 +146,7 @@ export function checkSessionStatus() {
                     localStorage.removeItem('jwtToken');
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/auth/api/user:` + error));
     };
 }
 
@@ -176,7 +176,7 @@ export function fetchUsers() {
                     dispatch(setUsers(json))
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] GET /api/auth/users:` + error));
     };
 }
 
@@ -239,7 +239,7 @@ export function updateUser(user: User) {
                     dispatch(fetchUsers());
                 }
             })
-            .catch((err) => dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(err))));
+            .catch((error) => console.log(`[err] PUT /api/auth/api/users:` + error));
     };
 }
 
