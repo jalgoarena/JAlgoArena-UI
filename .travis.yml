@@ -17,12 +17,10 @@ deploy:
     file: ./dist/JAlgoArena-UI-*.zip
     skip_cleanup: true
     on:
-      repo: spolnik/JAlgoArena-UI
       tags: true
   - provider: script
     script: bash docker_push
     on:
-      repo: spolnik/JAlgoArena-UI
       tags: true
 addons:
   code_climate:
