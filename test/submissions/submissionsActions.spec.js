@@ -3,12 +3,6 @@
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/submissions/actions";
 
-window.localStorage = {
-    getItem: function() {
-        return null;
-    }
-};
-
 jest.mock('sockjs-client');
 
 describe("actions", () => {
@@ -21,11 +15,5 @@ describe("actions", () => {
         };
 
         expect(actions.setSubmissionsFilter(status)).toEqual(expectedAction);
-    });
-
-    it("fetchSubmissions do nothing if token is absent", () => {
-        const expectedAction = null;
-
-        expect(actions.fetchSubmissions("dummy_user")).toEqual(expectedAction);
     });
 });

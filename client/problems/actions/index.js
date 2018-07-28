@@ -22,13 +22,7 @@ export function startJudge(): Action {
     };
 }
 
-export function judgeCode(sourceCode: string, problemId: string, userId: string) {
-
-    let token: ?string = localStorage.getItem('jwtToken');
-
-    if (token == null) {
-        return setErrorMessage("You have to be logged in");
-    }
+export function judgeCode(sourceCode: string, problemId: string, userId: string, token: string) {
 
     const options = {
         headers: {

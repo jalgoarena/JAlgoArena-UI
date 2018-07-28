@@ -10,13 +10,7 @@ import {setErrorMessage} from "../../common/actions/index";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
 
-export function fetchSubmissions(userId: string) {
-
-    let token = localStorage.getItem('jwtToken');
-
-    if (!token || token === '' ) {
-        return null;
-    }
+export function fetchSubmissions(userId: string, token: string) {
 
     const options = {
         headers: {

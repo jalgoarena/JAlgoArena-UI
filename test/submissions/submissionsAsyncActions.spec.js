@@ -13,15 +13,6 @@ const mockStore = configureMockStore(middlewares);
 
 jest.mock('sockjs-client');
 
-window.localStorage = {
-    getItem: function(key) {
-        if (key === "jwtToken")
-            return "dummy_value";
-        else
-            throw Error("Wrong key");
-    }
-};
-
 describe("async actions", () => {
     beforeEach(() => {
         fetch.resetMocks()
@@ -42,7 +33,7 @@ describe("async actions", () => {
 
         const store = mockStore({submissions: []});
 
-        return store.dispatch(actions.fetchSubmissions("user1"))
+        return store.dispatch(actions.fetchSubmissions("user1", "dummy_token"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -55,7 +46,7 @@ describe("async actions", () => {
 
         const store = mockStore();
 
-        return store.dispatch(actions.fetchSubmissions("user1"))
+        return store.dispatch(actions.fetchSubmissions("user1", "dummy_token"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });

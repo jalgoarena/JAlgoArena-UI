@@ -213,7 +213,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: (userId) => {
-            dispatch(fetchSubmissions(userId));
+            let token = localStorage.getItem('jwtToken');
+
+            if (!token || token === '' ) {
+                return null;
+            }
+            dispatch(fetchSubmissions(userId, token));
         }
     }
 };

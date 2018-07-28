@@ -145,7 +145,7 @@ export function checkSessionStatus() {
             .then(json => {
                 if (json.username) {
                     dispatch(checkedSessionStatus(json));
-                    dispatch(fetchSubmissions(json.id));
+                    dispatch(fetchSubmissions(json.id, token));
                 } else {
                     localStorage.removeItem('jwtToken');
                 }

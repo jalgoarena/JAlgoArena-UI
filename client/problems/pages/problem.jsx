@@ -21,6 +21,7 @@ import ProblemRank from '../components/ProblemRank'
 import GraphNodeSourceCode from "../components/GraphNodeSourceCode";
 import WeightedGraphSourceCode from "../components/WeightedGraphSourceCode";
 import PairSourceCode from "../components/PairSourceCode";
+import {setErrorMessage} from "../../common/actions";
 
 class Problem extends React.Component {
     constructor(props) {
@@ -42,7 +43,13 @@ class Problem extends React.Component {
             store.dispatch(setCurrentProblem(this.props.match.params.id));
         }
         if (this.props.auth.user) {
-            store.dispatch(fetchSubmissions(this.props.auth.user.id));
+            let token = localStorage.getItem('jwtToken');
+
+            if (!token || token === '' ) {
+                return null;
+            }
+
+            store.dispatch(fetchSubmissions(this.props.auth.user.id, token));
         }
     }
 
@@ -226,8 +233,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onRun: (sourceCode, problemId, userId) => {
-            dispatch(startJudge());
-            dispatch(judgeCode(sourceCode, problemId, userId));
+            let token = localStorage.getItem('jwtToken');
+
+            if (token == null || token === "") {
+                dispatch(setErrorMessage("You have to be logged in"));
+            } else {
+                dispatch(startJudge());
+                dispatch(judgeCode(sourceCode, problemId, userId, token));
+            }
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode))

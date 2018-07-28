@@ -49,7 +49,14 @@ let refreshRanking = function (event) {
 
 let refreshSubmissions = function (event) {
     console.log("Refresh submissions");
-    store.dispatch(fetchSubmissions(event.userId));
+
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '' ) {
+        return null;
+    }
+
+    store.dispatch(fetchSubmissions(event.userId, token));
 };
 
 export function websocketInit() {
