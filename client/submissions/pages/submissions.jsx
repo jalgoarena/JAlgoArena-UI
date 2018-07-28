@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Grid, Col, Button, PageHeader} from 'react-bootstrap';
+import {Grid, Col, Button, PageHeader, Row} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
@@ -9,6 +9,8 @@ import SourceCode from "../components/SourceCode";
 
 import FontAwesome from '../../common/components/FontAwesome';
 import {fetchSubmissions} from "../../submissions/actions";
+import {DateTime} from "react-datetime-bootstrap";
+import moment from "moment";
 
 class Submissions extends React.Component {
 
@@ -58,7 +60,7 @@ class Submissions extends React.Component {
 
     errorCodeButtonFormatter(cell) {
         return <Button bsStyle="danger" block
-                       disabled={cell.errorMessage === ''}
+                       disabled={cell.errorMessage === null || cell.errorMessage === ''}
                        onClick={() => {
                            this.showErrorMessage(cell.errorMessage, cell.problemId)
                        }}>
@@ -126,12 +128,17 @@ class Submissions extends React.Component {
         </h4>;
     }
 
+    static dateFormatter(cell: Date) {
+        return <DateTime value={moment(cell)} readOnly={true} />;
+    }
+
     render() {
         const submissions = _.orderBy(this.props.submissions, ['submissionTime'], ['desc']);
 
         let submissionData = submissions.map((submission) => {
             return {
-                id: submission.submissionId,
+                id: submission.id,
+                submissionId: submission.submissionId,
                 submissionTime: submission.submissionTime,
                 problemId: submission.problemId,
                 sourceCode: {
@@ -154,38 +161,62 @@ class Submissions extends React.Component {
 
         return <Grid>
             <Col>
-                <PageHeader>Submissions</PageHeader>
-                <BootstrapTable data={submissionData} stripped hover pagination search>
-                    <TableHeaderColumn isKey
-                                       dataField='id'
-                                       width={'140'}>
-                        ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='submissionTime'
-                                       width={'150'}
-                                       dataSort>
-                        Run At</TableHeaderColumn>
-                    <TableHeaderColumn dataField='elapsedTime'>
-                        Elapsed Time (ms)</TableHeaderColumn>
-                    <TableHeaderColumn dataField='statusCode'
-                                       dataFormat={Submissions.statusFormatter.bind(this)}>
-                        Status</TableHeaderColumn>
-                    <TableHeaderColumn dataField='testCases'
-                                       dataFormat={Submissions.testCasesFormatter.bind(this)}>
-                        Test Cases</TableHeaderColumn>
-                    <TableHeaderColumn dataField='sourceCode'
-                                       width={'75'}
-                                       dataFormat={this.sourceCodeButtonFormatter.bind(this)}>
-                        Source Code</TableHeaderColumn>
-                    <TableHeaderColumn dataField='errorMessage'
-                                       width={'75'}
-                                       dataFormat={this.errorCodeButtonFormatter.bind(this)}>
-                        Error</TableHeaderColumn>
-                    <TableHeaderColumn dataField='problemLink'
-                                       dataFormat={Submissions.linkFormatter}
-                                       width={'200'}
-                                       dataSort>
-                        Problem ID</TableHeaderColumn>
-                </BootstrapTable>
+                <Row>
+                    <PageHeader>Submissions Results</PageHeader>
+                    <BootstrapTable data={submissionData} stripped hover pagination search>
+                        <TableHeaderColumn isKey
+                                           width={'100'}
+                                           dataSort
+                                           dataField='id'>
+                            ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField='elapsedTime'>
+                            Elapsed Time (ms)</TableHeaderColumn>
+                        <TableHeaderColumn dataField='statusCode'
+                                           dataFormat={Submissions.statusFormatter.bind(this)}>
+                            Status</TableHeaderColumn>
+                        <TableHeaderColumn dataField='testCases'
+                                           dataFormat={Submissions.testCasesFormatter.bind(this)}>
+                            Test Cases</TableHeaderColumn>
+                        <TableHeaderColumn dataField='sourceCode'
+                                           width={'100'}
+                                           dataFormat={this.sourceCodeButtonFormatter.bind(this)}>
+                            Source Code</TableHeaderColumn>
+                        <TableHeaderColumn dataField='errorMessage'
+                                           width={'100'}
+                                           dataFormat={this.errorCodeButtonFormatter.bind(this)}>
+                            Error Message</TableHeaderColumn>
+                        <TableHeaderColumn dataField='problemLink'
+                                           dataFormat={Submissions.linkFormatter}
+                                           width={'250'}
+                                           dataSort>
+                            Problem ID</TableHeaderColumn>
+                    </BootstrapTable>
+                </Row>
+                <Row>
+                    <PageHeader>Submissions</PageHeader>
+                    <BootstrapTable data={submissionData} stripped hover pagination search>
+                        <TableHeaderColumn isKey
+                                           width={'100'}
+                                           dataSort
+                                           dataField='id'>
+                            ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField='submissionId'>
+                            Submission ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField='submissionTime'
+                                           width={'200'}
+                                           dataFormat={Submissions.dateFormatter.bind(this)}>
+                            Run At</TableHeaderColumn>
+                        <TableHeaderColumn dataField='sourceCode'
+                                           width={'100'}
+                                           dataFormat={this.sourceCodeButtonFormatter.bind(this)}>
+                            Source Code</TableHeaderColumn>
+                        <TableHeaderColumn dataField='problemLink'
+                                           dataFormat={Submissions.linkFormatter}
+                                           width={'250'}
+                                           dataSort>
+                            Problem ID</TableHeaderColumn>
+                    </BootstrapTable>
+                </Row>
             </Col>
             <SourceCode
                 show={this.state.showSourceCode}

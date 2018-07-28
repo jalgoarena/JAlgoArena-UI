@@ -7,7 +7,7 @@ export class Submission {
     statusCode: string;
     userId: string;
     submissionId: string;
-    submissionTime: string;
+    submissionTime: Date;
     consumedMemory: number;
     passedTestCases: number;
     failedTestCases: number;
@@ -20,7 +20,7 @@ export class Submission {
                 statusCode: string,
                 userId: string,
                 submissionId: string,
-                submissionTime: string,
+                submissionTime: Date,
                 consumedMemory: number,
                 passedTestCases: number,
                 failedTestCases: number,
