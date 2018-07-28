@@ -1,6 +1,6 @@
 import React from 'react';
 import dom from 'react-dom';
-import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
+import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router-dom";
 
@@ -149,6 +149,14 @@ class SignUp extends React.Component {
                                 {teamOptions}
                             </FormControl>
                         </FormGroup>
+                        <FieldGroup id="firstname" type="text" placeholder="First Name"
+                                    inputRef={ref => { this.name = ref; }}
+                                    validationState={this.state.isFirstNameFieldIncorrect ? "error" : null}
+                        />
+                        <FieldGroup id="surname" type="text" placeholder="Surname"
+                                    inputRef={ref => { this.surname = ref; }}
+                                    validationState={this.state.isSurnameFieldIncorrect ? "error" : null}
+                        />
                         <FieldGroup id="username" type="text" placeholder="Username"
                                     inputRef={ref => { this.username = ref; }}
                                     validationState={this.state.isUserNameFieldIncorrect ? "error" : null}
@@ -165,17 +173,12 @@ class SignUp extends React.Component {
                                     inputRef={ref => { this.confirmPassword = ref; }}
                                     validationState={this.state.isConfirmPasswordFieldIncorrect ? "error" : null}
                         />
-                        <FieldGroup id="firstname" type="text" placeholder="First Name"
-                                    inputRef={ref => { this.name = ref; }}
-                                    validationState={this.state.isFirstNameFieldIncorrect ? "error" : null}
-                        />
-                        <FieldGroup id="surname" type="text" placeholder="Surname"
-                                    inputRef={ref => { this.surname = ref; }}
-                                    validationState={this.state.isSurnameFieldIncorrect ? "error" : null}
-                        />
                         <Button type="submit" bsStyle="success" block onClick={this.onSignUp}>
                             <FontAwesome prefix="fas" name="user"/> Create Account
                         </Button>
+                        <HelpBlock>
+                            By creating account you agree to our <a href="/#/codeOfConduct" target="_blank">Code of Conduct</a>
+                        </HelpBlock>
                     </form>
                 </Col>
             </Grid>

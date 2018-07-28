@@ -33,6 +33,7 @@ const Menu = ({user, isConnected, currentPath}: {user: User, isConnected: boolea
                 <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={currentPath}/>
                 <RankingMenuItem  currentPath={currentPath}/>
                 { user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions" currentPath={currentPath} /> : null }
+                <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code" currentPath={currentPath} />
                 <ProfileOrLoginMenuItem user={user} currentPath={currentPath}/>
                 <AdminMenuItem user={user} currentPath={currentPath}/>
             </Nav>

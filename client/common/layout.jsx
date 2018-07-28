@@ -10,6 +10,7 @@ import {RegionRankingPage, TeamRankingPage, UserRankingPage} from "../ranking";
 import {SubmissionsPage} from "../submissions";
 import {Route, Switch} from "react-router-dom";
 import {HomePage} from "./pages/home";
+import {CodeOfConductPage} from "./pages/codeOfConduct";
 
 export class Layout extends React.Component {
     constructor(props) {
@@ -35,6 +36,7 @@ export class Layout extends React.Component {
                 <Route exact path="/userRanking" component={UserRankingPage}/>
                 <Route exact path="/teamRanking" component={TeamRankingPage}/>
                 <Route exact path="/regionRanking" component={RegionRankingPage}/>
+                <Route exact path="/codeOfConduct" component={CodeOfConductPage}/>
             </Switch>
             <Footer/>
         </div>;
