@@ -8,12 +8,19 @@ import {connect} from 'react-redux';
 import {fetchRanking} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
 import {fetchUsers} from "../../users/actions";
+import {Link} from "react-router-dom";
 
 type Props = {
     ranking: Array<RankingEntry>,
 }
 
 class UserRanking extends React.Component<Props> {
+
+    static linkFormatter(cell) {
+        return <Link to={"/profile/" + cell}>
+            {cell}
+        </Link>
+    }
 
     render() {
         const {ranking} = this.props;
@@ -39,6 +46,7 @@ class UserRanking extends React.Component<Props> {
                                        dataSort
                                        dataField='place'>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='hacker'
+                                       dataFormat={UserRanking.linkFormatter}
                                        >User Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='region'
                                        dataSort>Region</TableHeaderColumn>
