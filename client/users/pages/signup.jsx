@@ -8,7 +8,7 @@ import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
 
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
-import {attemptSignUp, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
+import {attemptSignUp, fetchUsers, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
 import ErrorLabel from "../components/ErrorLabel";
 import {regions, teams, emailErrorMessage} from "../../config";
 
@@ -150,7 +150,7 @@ class SignUp extends React.Component {
                             </FormControl>
                         </FormGroup>
                         <FieldGroup id="firstname" type="text" placeholder="First Name"
-                                    inputRef={ref => { this.name = ref; }}
+                                    inputRef={ref => { this.firstname = ref; }}
                                     validationState={this.state.isFirstNameFieldIncorrect ? "error" : null}
                         />
                         <FieldGroup id="surname" type="text" placeholder="Surname"
@@ -200,6 +200,7 @@ const mapDispatchToProps = (dispatch) => {
                 formData.email, formData.password, formData.username,
                 formData.region, formData.team, formData.firstname, formData.surname
             ));
+            dispatch(fetchUsers());
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
