@@ -11,6 +11,7 @@ import {validateEmail, validateUserName, validatePassword} from '../utilities/Re
 import {attemptSignUp, fetchUsers, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
 import ErrorLabel from "../components/ErrorLabel";
 import {regions, teams, emailErrorMessage} from "../../config";
+import {fetchSubmissionStats} from "../../submissions/actions";
 
 const initialFormState = {
     errorMessage:  null,
@@ -201,6 +202,7 @@ const mapDispatchToProps = (dispatch) => {
                 formData.region, formData.team, formData.firstname, formData.surname
             ));
             dispatch(fetchUsers());
+            dispatch(fetchSubmissionStats());
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());

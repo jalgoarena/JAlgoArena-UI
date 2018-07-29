@@ -6,6 +6,7 @@ import User from "../domain/User";
 import Blockies from 'react-blockies';
 import FontAwesome from "../../common/components/FontAwesome";
 import CalendarHeatmap from 'react-calendar-heatmap';
+import {Link} from "react-router-dom";
 
 class Profile extends React.Component {
 
@@ -52,6 +53,28 @@ class Profile extends React.Component {
         let endDate = new Date();
         endDate.setMonth(endDate.getMonth() + 4);
 
+        let submissionsCountPerDay = [];
+
+        let userStats = this.props.stats[user.username];
+
+        if (userStats) {
+            Object.keys(userStats.submissions).forEach(date => {
+                submissionsCountPerDay.push({date, count: userStats.submissions[date]})
+            });
+        }
+
+        let solvedProblems = <h4 className="text-center" style={{"color": "#979faf"}}>
+            {user.username} has not solved any problems yet
+        </h4>;
+
+        if (userStats && userStats.solved.length > 0) {
+            solvedProblems = userStats.solved.map((problemId, idx) => {
+                return <Link to={"/problem/" + problemId} className="btn btn-default" key={idx} style={{"margin": "4px"}}>
+                    {problemId}
+                </Link>
+            })
+        }
+
         return <Grid>
             <Col mdOffset={1} md={3}>
                 <Blockies
@@ -75,28 +98,19 @@ class Profile extends React.Component {
             <Col md={7}>
                 <h4>Solved Problems</h4>
                 <hr/>
-                <h4 className="text-center" style={{"color": "#979faf"}}>{user.username} has not solved any problems yet.</h4>
+                {solvedProblems}
+                <br/>
                 <br/>
                 <h4>Rating</h4>
                 <hr/>
+                <br/>
                 <br/>
                 <h4>Submissions</h4>
                 <hr/>
                 <CalendarHeatmap
                     startDate={startDate}
                     endDate={endDate}
-                    values={[
-                        { date: '2018-07-07', count: 1 },
-                        { date: '2018-07-08', count: 4 },
-                        { date: '2018-07-09', count: 9 },
-                        { date: '2018-07-10', count: 14 },
-                        { date: '2018-07-11', count: 19 },
-                        { date: '2018-07-12', count: 24 },
-                        { date: '2018-07-13', count: 29 },
-                        { date: '2018-07-14', count: 34 },
-                        { date: '2018-07-15', count: 50 },
-                        { date: '2018-07-16', count: 70 },
-                    ]}
+                    values={submissionsCountPerDay}
                     classForValue={Profile.githubClassForValue}
                     titleForValue={Profile.titleForValue}
                     tooltipDataAttrs={{ 'data-toggle': 'tooltip' }}
@@ -109,6 +123,7 @@ class Profile extends React.Component {
 const mapStateToProps = (state) => {
     return {
         users: state.auth.users,
+        stats: state.submissions.stats,
         location: state.router.location
     };
 };

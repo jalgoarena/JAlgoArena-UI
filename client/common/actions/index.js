@@ -9,7 +9,7 @@ import * as types from "../../constants/ActionTypes"
 import SockJS from "sockjs-client"
 import * as Stomp from "@stomp/stompjs"
 import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
-import {fetchSubmissions} from "../../submissions/actions";
+import {fetchSubmissions, fetchSubmissionStats} from "../../submissions/actions";
 import Event from "../domain/Event"
 
 import {store} from "../store";
@@ -44,6 +44,7 @@ export function websocketConnected(isConnected: boolean): Action {
 let refreshRanking = function (event) {
     console.log("Refresh rankings");
     store.dispatch(fetchUsers());
+    store.dispatch(fetchSubmissionStats());
     store.dispatch(fetchRanking());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());

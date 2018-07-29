@@ -11,6 +11,7 @@ import {checkSessionStatus, fetchUsers} from "../users/actions";
 import {fetchProblems, startFetchingProblems} from "../problems/actions"
 import {fetchRanking} from "../ranking/actions";
 import {websocketInit} from "./actions";
+import {fetchSubmissionStats} from "../submissions/actions";
 
 const history = createHashHistory();
 
@@ -32,6 +33,7 @@ websocketInit();
 store.dispatch(startFetchingProblems());
 store.dispatch(fetchProblems());
 store.dispatch(fetchUsers());
+store.dispatch(fetchSubmissionStats());
 store.dispatch(checkSessionStatus());
 store.dispatch(fetchRanking());
 

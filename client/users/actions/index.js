@@ -1,4 +1,6 @@
 // @flow
+import {store} from "../../common/store";
+
 type Action = {
     type: string,
     error?: string,
@@ -7,7 +9,7 @@ type Action = {
     userUpdated?: User
 }
 
-import {fetchSubmissions} from "../../submissions/actions";
+import {fetchSubmissions, fetchSubmissionStats} from "../../submissions/actions";
 import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import User from "../domain/User";
@@ -244,6 +246,7 @@ export function updateUser(user: User) {
                 } else {
                     dispatch(userUpdated(json));
                     dispatch(fetchUsers());
+                    dispatch(fetchSubmissionStats());
                 }
             })
             .catch((error) => console.log(`[err] PUT /api/auth/api/users:` + error));

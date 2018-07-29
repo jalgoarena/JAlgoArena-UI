@@ -9,6 +9,8 @@ import {fetchRanking} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
 import {fetchUsers} from "../../users/actions";
 import {Link} from "react-router-dom";
+import {store} from "../../common/store";
+import {fetchSubmissionStats} from "../../submissions/actions";
 
 type Props = {
     ranking: Array<RankingEntry>,
@@ -71,6 +73,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onLoad: () => {
+            dispatch(fetchSubmissionStats());
             dispatch(fetchUsers());
             dispatch(fetchRanking());
         }

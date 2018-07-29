@@ -3,7 +3,7 @@ import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import {store} from '../../common/store';
-import {fetchSubmissions} from "../../submissions/actions";
+import {fetchSubmissions, fetchSubmissionStats} from "../../submissions/actions";
 
 import Output from '../components/Output';
 import ProblemToolbar from '../components/ProblemToolbar';
@@ -240,6 +240,7 @@ const mapDispatchToProps = (dispatch) => {
             } else {
                 dispatch(startJudge());
                 dispatch(judgeCode(sourceCode, problemId, userId, token));
+                dispatch(fetchSubmissionStats());
             }
         },
         onSourceCodeChanged: (sourceCode) => {
