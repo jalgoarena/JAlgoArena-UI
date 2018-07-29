@@ -1,30 +1,24 @@
 import React from 'react';
 import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import * as _ from "lodash";
+import User from "../domain/User";
 
 class Profile extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: props.auth.user.username
-        }
-    }
-
-    componentDidMount() {
-        this.setState({username: this.props.match.params.username});
-    }
-
     render() {
-        const {
-            auth
-        } = this.props;
+        let user = _.find(this.props.users,
+            (user: User) => user.username === this.props.match.params.username
+        );
 
-        let {
-            user
-        } = auth;
-
-        user = user || {username: "", email: "", id: "", region: "", team: ""};
+        if (!user) {
+            return <Grid>
+                <Col mdOffset={3} md={6}>
+                    <h2>Profile not found</h2>
+                    <p>Profile: {this.props.match.params.username}</p>
+                </Col>
+            </Grid>;
+        }
 
         return <Grid>
             <Col mdOffset={3} md={6}>
@@ -56,7 +50,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth,
+        users: state.auth.users,
         location: state.router.location
     };
 };

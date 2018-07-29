@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 
 import {fetchRanking} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
+import {fetchUsers} from "../../users/actions";
 
 type Props = {
     ranking: Array<RankingEntry>,
@@ -62,6 +63,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onLoad: () => {
+            dispatch(fetchUsers());
             dispatch(fetchRanking());
         }
     }

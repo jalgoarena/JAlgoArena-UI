@@ -13,6 +13,7 @@ import {fetchSubmissions} from "../../submissions/actions";
 import Event from "../domain/Event"
 
 import {store} from "../store";
+import {fetchUsers} from "../../users/actions";
 
 export function closeWorkInProgressWindow(): Action {
     return {
@@ -42,6 +43,7 @@ export function websocketConnected(isConnected: boolean): Action {
 
 let refreshRanking = function (event) {
     console.log("Refresh rankings");
+    store.dispatch(fetchUsers());
     store.dispatch(fetchRanking());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
