@@ -3,6 +3,7 @@ import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from "lodash";
 import User from "../domain/User";
+import Blockies from 'react-blockies';
 
 class Profile extends React.Component {
 
@@ -21,14 +22,24 @@ class Profile extends React.Component {
         }
 
         return <Grid>
-            <Col mdOffset={3} md={6}>
+            <Col mdOffset={1} md={3}>
+                <Blockies
+                    seed={user.email}
+                    size={5}
+                    scale={40}
+                    color="#18bc9c"
+                    bgColor="#e1e4e8"
+                    spotColor="#18bc9c"
+                />
+                <h2>{user.firstname} {user.surname}</h2>
+            </Col>
+            <Col md={7}>
                 <PageHeader>Profile</PageHeader>
                 <Table striped bordered condensed hover responsive>
                     <thead>
                     <tr>
                         <th>User ID</th>
                         <th>User Name</th>
-                        <th>Email</th>
                         <th>Region</th>
                         <th>Team</th>
                     </tr>
@@ -37,7 +48,6 @@ class Profile extends React.Component {
                     <tr>
                         <td>{user.id}</td>
                         <td>{user.username}</td>
-                        <td>{user.email}</td>
                         <td>{user.region}</td>
                         <td>{user.team}</td>
                     </tr>
