@@ -1,28 +1,21 @@
 import React from 'react';
-import {Grid, Col, Button, Table, PageHeader} from 'react-bootstrap';
+import {Grid, Col, Table, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-
-import FontAwesome from '../../common/components/FontAwesome';
-
-import {attemptLogout} from "../actions";
-import {Redirect} from "react-router-dom";
 
 class Profile extends React.Component {
 
-    componentDidMount() {
-        if (!this.props.auth.user) {
-            this.props.navigateToHomePage();
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: props.auth.user.username
         }
     }
 
-    render() {
-        if (!this.props.auth.user) {
-            return <Redirect to={{
-                pathname: "/login",
-                state: { from: this.props.location }
-            }} />;
-        }
+    componentDidMount() {
+        this.setState({username: this.props.match.params.username});
+    }
 
+    render() {
         const {
             auth
         } = this.props;
@@ -56,9 +49,6 @@ class Profile extends React.Component {
                     </tr>
                     </tbody>
                 </Table>
-                <Button bsStyle="danger" className="pull-right" onClick={this.props.onLogout}>
-                    <FontAwesome prefix="fas" name="sign-out-alt"/> Logout
-                </Button>
             </Col>
         </Grid>;
     }
@@ -71,17 +61,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogout: () => {
-            dispatch(attemptLogout());
-        }
-    }
-};
+
 
 const ProfilePage = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Profile);
 
 export {ProfilePage};

@@ -199,7 +199,10 @@ export function attemptLogout(): Action {
         localStorage.removeItem('jwtToken');
     }
 
-    return logoutSuccess();
+    return (dispatch: Dispatch) => {
+        dispatch(push("/"));
+        dispatch(logoutSuccess());
+    };
 }
 
 function logoutSuccess(): Action {

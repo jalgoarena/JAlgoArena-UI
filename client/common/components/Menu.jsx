@@ -11,6 +11,7 @@ import RankingMenuItem from "./RankingMenuItem";
 import User from "../../users/domain/User";
 import WebSocketConnectionIndicator from "./WebSocketConnectionIndicator";
 import logo from '../../assets/img/logo.png';
+import {attemptLogout} from "../../users/actions";
 
 const logoStyle = {
     display: "inline-block",
@@ -18,7 +19,9 @@ const logoStyle = {
     marginTop: -5
 };
 
-const Menu = ({user, isConnected, currentPath}: {user: User, isConnected: boolean, currentPath: string}) => (
+const Menu = ({user, isConnected, currentPath, onLogout}:
+                  { user: User, isConnected: boolean, currentPath: string, onLogout: () => void }
+) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
@@ -29,12 +32,14 @@ const Menu = ({user, isConnected, currentPath}: {user: User, isConnected: boolea
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav role="navigation" pullRight id="menu">
-                <MenuItem path="/" prefix="fas" icon="home" title="Home"  currentPath={currentPath}/>
+                <MenuItem path="/" prefix="fas" icon="home" title="Home" currentPath={currentPath}/>
                 <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={currentPath}/>
-                <RankingMenuItem  currentPath={currentPath}/>
-                { user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions" currentPath={currentPath} /> : null }
-                <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code" currentPath={currentPath} />
-                <ProfileOrLoginMenuItem user={user} currentPath={currentPath}/>
+                <RankingMenuItem currentPath={currentPath}/>
+                {user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions"
+                                  currentPath={currentPath}/> : null}
+                <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
+                          currentPath={currentPath}/>
+                <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout}/>
                 <AdminMenuItem user={user} currentPath={currentPath}/>
             </Nav>
         </Navbar.Collapse>
@@ -49,8 +54,17 @@ const mapStateToProps = (state) => {
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: () => {
+            dispatch(attemptLogout());
+        }
+    }
+};
+
 const MenuPanel = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Menu);
 
 export default MenuPanel;

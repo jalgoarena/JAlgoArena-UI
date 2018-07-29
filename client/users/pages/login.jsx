@@ -86,7 +86,7 @@ class Login extends React.Component {
     render() {
         if (this.props.auth.user) {
             return <Redirect to={{
-                pathname: "/profile",
+                pathname: "/profile/" + this.props.auth.user.username,
                 state: { from: this.props.location }
             }} />;
         }
