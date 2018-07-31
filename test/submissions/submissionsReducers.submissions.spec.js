@@ -7,7 +7,8 @@ import {ProblemSubmissionRatio} from "../../client/submissions/domain/ProblemSub
 let defaultState = {
     items: [],
     statusFilter: 'ALL',
-    problemsSolutionsRatio: []
+    problemsSolutionsRatio: [],
+    stats: []
 };
 
 let SUBMISSION_JULIA = new Submission("fib", 0.01, "class Dummy", "ACCEPTED", "0-0", "1", new Date(Date.now()), 0, 1, 0);

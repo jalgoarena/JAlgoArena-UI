@@ -108,9 +108,9 @@ export function attemptLogin(username: string, password: string) {
                 } else {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
+                    dispatch(loginSuccess(json.user));
                     dispatch(fetchUsers());
                     dispatch(fetchSubmissionStats());
-                    dispatch(loginSuccess(json.user));
                 }
             })
             .catch((error) => console.log(`[err] POST /api/auth/login:` + error));
@@ -199,7 +199,7 @@ function setUsers(users): Action {
     }
 }
 
-export function attemptLogout(): Action {
+export function attemptLogout() {
 
     let token = localStorage.getItem('jwtToken');
 

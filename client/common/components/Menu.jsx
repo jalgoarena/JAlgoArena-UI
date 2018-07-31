@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onLogout: () => {
             dispatch(attemptLogout());
