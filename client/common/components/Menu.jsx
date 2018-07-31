@@ -19,8 +19,8 @@ const logoStyle = {
     marginTop: -5
 };
 
-const Menu = ({user, isConnected, currentPath, onLogout}:
-                  { user: User, isConnected: boolean, currentPath: string, onLogout: () => void }
+const Menu = ({user, isConnected, currentPath, onLogout, progress}:
+                  { user: User, isConnected: boolean, currentPath: string, onLogout: () => void, progress: number }
 ) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
@@ -39,7 +39,7 @@ const Menu = ({user, isConnected, currentPath, onLogout}:
                                   currentPath={currentPath}/> : null}
                 <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
                           currentPath={currentPath}/>
-                <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout}/>
+                <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout} progress={progress}/>
                 <AdminMenuItem user={user} currentPath={currentPath}/>
             </Nav>
         </Navbar.Collapse>
@@ -47,10 +47,17 @@ const Menu = ({user, isConnected, currentPath, onLogout}:
 );
 
 const mapStateToProps = (state) => {
+    let progress = 0;
+
+    if (state.auth.user && state.submissions.stats[state.auth.user.username].solved) {
+        progress = parseInt(state.submissions.stats[state.auth.user.username].solved.length / state.problems.items.length * 100);
+    }
+
     return {
         user: state.auth.user,
         isConnected: state.webSocketConnected,
         currentPath: state.router.location.pathname,
+        progress
     };
 };
 
