@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Col, Well} from 'react-bootstrap';
+import {Col, Grid, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from "lodash";
 import User from "../domain/User";
@@ -7,6 +7,8 @@ import Blockies from 'react-blockies';
 import FontAwesome from "../../common/components/FontAwesome";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import {Link} from "react-router-dom";
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 class Profile extends React.Component {
 
@@ -69,14 +71,46 @@ class Profile extends React.Component {
 
         if (userStats && userStats.solved.length > 0) {
             solvedProblems = userStats.solved.map((problemId, idx) => {
-                return <Link to={"/problem/" + problemId} className="btn btn-default" key={idx} style={{"margin": "4px"}}>
+                return <Link to={"/problem/" + problemId} className="btn btn-info" key={idx} style={{"margin": "4px"}}>
                     {problemId}
                 </Link>
             })
         }
 
+        let highchartsOptions = {
+            title: {
+                text: 'Score'
+            },
+            subtitle: {
+                text: 'Additional point for best time excluded'
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    month: '%e. %b',
+                    year: '%b'
+                },
+                title: {
+                    text: 'Time'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Points'
+                }
+            },
+            series: [{
+                name: "Total points",
+                data: [
+                    [Date.UTC(2018, 7, 25), 10],
+                    [Date.UTC(2018, 7, 26), 20],
+                    [Date.UTC(2018, 7, 27), 50],
+                ]
+            }]
+        };
+
         return <Grid>
-            <Col mdOffset={1} md={3}>
+            <Col md={3}>
                 <Blockies
                     seed={user.email}
                     size={5}
@@ -95,7 +129,7 @@ class Profile extends React.Component {
                     <h4 className="text-center"><FontAwesome prefix="fas" name="users"/> {user.team}</h4>
                 </Well>
             </Col>
-            <Col md={7}>
+            <Col md={9}>
                 <h4>Solved Problems</h4>
                 <hr/>
                 {solvedProblems}
@@ -103,6 +137,10 @@ class Profile extends React.Component {
                 <br/>
                 <h4>Rating</h4>
                 <hr/>
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={highchartsOptions}
+                />
                 <br/>
                 <br/>
                 <h4>Submissions</h4>

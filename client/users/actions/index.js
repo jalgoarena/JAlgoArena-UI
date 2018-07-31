@@ -108,6 +108,8 @@ export function attemptLogin(username: string, password: string) {
                 } else {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
+                    dispatch(fetchUsers());
+                    dispatch(fetchSubmissionStats());
                     dispatch(loginSuccess(json.user));
                 }
             })
