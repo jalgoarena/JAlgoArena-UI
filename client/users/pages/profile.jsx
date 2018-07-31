@@ -55,59 +55,7 @@ class Profile extends React.Component {
         let endDate = new Date();
         endDate.setMonth(endDate.getMonth() + 4);
 
-        let submissionsCountPerDay = [];
-
         let userStats = this.props.stats[user.username];
-
-        if (userStats) {
-            Object.keys(userStats.submissions).forEach(date => {
-                submissionsCountPerDay.push({date, count: userStats.submissions[date]})
-            });
-        }
-
-        let solvedProblems = <h4 className="text-center" style={{"color": "#979faf"}}>
-            {user.username} has not solved any problems yet
-        </h4>;
-
-        if (userStats && userStats.solved.length > 0) {
-            solvedProblems = userStats.solved.map((problemId, idx) => {
-                return <Link to={"/problem/" + problemId} className="btn btn-info" key={idx} style={{"margin": "4px"}}>
-                    {problemId}
-                </Link>
-            })
-        }
-
-        let highchartsOptions = {
-            title: {
-                text: 'Score'
-            },
-            subtitle: {
-                text: 'Additional point for best time excluded'
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: {
-                    month: '%e. %b',
-                    year: '%b'
-                },
-                title: {
-                    text: 'Time'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Points'
-                }
-            },
-            series: [{
-                name: "Total points",
-                data: [
-                    [Date.UTC(2018, 7, 25), 10],
-                    [Date.UTC(2018, 7, 26), 20],
-                    [Date.UTC(2018, 7, 27), 50],
-                ]
-            }]
-        };
 
         return <Grid>
             <Col md={3}>
@@ -132,15 +80,12 @@ class Profile extends React.Component {
             <Col md={9}>
                 <h4>Solved Problems</h4>
                 <hr/>
-                {solvedProblems}
+                {Profile.solvedProblems(user, userStats)}
                 <br/>
                 <br/>
                 <h4>Rating</h4>
                 <hr/>
-                <HighchartsReact
-                    highcharts={Highcharts}
-                    options={highchartsOptions}
-                />
+                {Profile.highchartSolvedProblems(user, userStats)}
                 <br/>
                 <br/>
                 <h4>Submissions</h4>
@@ -148,13 +93,94 @@ class Profile extends React.Component {
                 <CalendarHeatmap
                     startDate={startDate}
                     endDate={endDate}
-                    values={submissionsCountPerDay}
+                    values={this.submissionsCountPerDay(userStats)}
                     classForValue={Profile.githubClassForValue}
                     titleForValue={Profile.titleForValue}
                     tooltipDataAttrs={{ 'data-toggle': 'tooltip' }}
                 />
             </Col>
         </Grid>;
+    }
+
+    submissionsCountPerDay(userStats) {
+        let submissionsCountPerDay = [];
+
+        if (userStats) {
+            Object.keys(userStats.submissions).forEach(date => {
+                submissionsCountPerDay.push({date, count: userStats.submissions[date]})
+            });
+        }
+        return submissionsCountPerDay;
+    }
+
+    static solvedProblems(user, userStats) {
+        let solvedProblems = <h4 className="text-center" style={{"color": "#979faf"}}>
+            {user.username} has not solved any problems yet
+        </h4>;
+
+        if (userStats && userStats.solved.length > 0) {
+            solvedProblems = userStats.solved.map((problemId, idx) => {
+                return <Link to={"/problem/" + problemId} className="btn btn-info" key={idx} style={{"margin": "4px"}}>
+                    {problemId}
+                </Link>
+            })
+        }
+        return solvedProblems;
+    }
+
+    static highchartSolvedProblems(user, userStats) {
+        let solvedProblemsCountPerDay = [];
+
+        if (userStats) {
+            let sum = 0;
+            Object.keys(userStats.solvedProblemsPerDay).forEach(date => {
+                let count = userStats.solvedProblemsPerDay[date].length;
+                let dateParts = date.split("-");
+                solvedProblemsCountPerDay.push([Date.UTC(dateParts[0], dateParts[1], dateParts[2]), count + sum]);
+                sum += count;
+            });
+        }
+
+
+        if (solvedProblemsCountPerDay.length === 0) {
+            return <h4 className="text-center" style={{"color": "#979faf"}}>
+                {user.username} has not solved any problems yet
+            </h4>;
+        }
+
+
+        let highchartsOptions = {
+            title: {
+                text: 'Solved Problems'
+            },
+            subtitle: {
+                text: 'Show amount of solved problems till the date (including)'
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    month: '%e. %b',
+                    year: '%b'
+                },
+                title: {
+                    text: 'Time'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Solved'
+                }
+            },
+            series: [{
+                name: "Solved problems",
+                data: solvedProblemsCountPerDay
+            }]
+        };
+
+        return <HighchartsReact
+            highcharts={Highcharts}
+            options={highchartsOptions}
+        />;
     }
 }
 
