@@ -60,6 +60,7 @@ let refreshSubmissions = function (event) {
     }
 
     store.dispatch(fetchSubmissions(event.userId, token));
+    store.dispatch(fetchSubmissionStats());
 };
 
 export function websocketInit() {

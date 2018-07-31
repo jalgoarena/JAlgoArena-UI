@@ -14,6 +14,7 @@ import * as types from "../../constants/ActionTypes"
 import {setErrorMessage} from "../../common/actions/index";
 import User from "../domain/User";
 import {push} from "connected-react-router";
+import {fetchRanking} from "../../ranking/actions";
 
 export function startSignup(): Action {
     return {
@@ -52,6 +53,9 @@ export function attemptSignUp(
                     dispatch(signUpFail(json.message));
                 } else {
                     dispatch(signUpSuccess());
+                    dispatch(fetchUsers());
+                    dispatch(fetchSubmissionStats());
+                    dispatch(fetchRanking());
                     dispatch(push("/login"));
                 }
             })
