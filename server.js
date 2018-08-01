@@ -36,6 +36,15 @@ const wsProxy = proxy('/ws', {
 });
 app.use('/ws', wsProxy);
 
+const kvProxy = proxy('/config', {
+    target: "http://localhost:8500",
+    changeOrigin: true,
+    pathRewrite: {
+        '^/config': '/v1/kv/jalgoarena/config?raw'
+    }
+});
+app.use("/config", kvProxy);
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "public"), "index.html");
 });

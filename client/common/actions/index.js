@@ -34,6 +34,34 @@ export function clearErrorMessage(): Action {
     }
 }
 
+export function updateConfig() {
+    return (dispatch: Dispatch) => {
+
+        const options = {
+            headers: {
+                'Accept': 'application/json'
+            },
+            method: 'get'
+        };
+
+        return fetch(`/config`, options)
+            .then(response => response.json())
+            .then(json => {
+                dispatch(fetchConfig(json));
+            })
+            .catch((error) => console.log(`[err] GET /kv/jalgoarena/config?raw:` + error));
+    };
+}
+
+
+function fetchConfig(config): Action {
+    return {
+        type: types.UPDATE_CONFIG,
+        config
+    };
+}
+
+
 export function websocketConnected(isConnected: boolean): Action {
     return {
         type: types.WEBSOCKET_CONNECTED,

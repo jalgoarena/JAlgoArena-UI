@@ -136,7 +136,9 @@ class Profile extends React.Component {
             Object.keys(userStats.solvedProblemsPerDay).forEach(date => {
                 let count = userStats.solvedProblemsPerDay[date].length;
                 let dateParts = date.split("-");
-                solvedProblemsCountPerDay.push([Date.UTC(dateParts[0], dateParts[1], dateParts[2]), count + sum]);
+                solvedProblemsCountPerDay.push(
+                    [Date.UTC(dateParts[0], dateParts[1] - 1, dateParts[2]), count + sum]
+                );
                 sum += count;
             });
         }

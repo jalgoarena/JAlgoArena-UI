@@ -10,7 +10,7 @@ import {connectRouter, routerMiddleware} from 'connected-react-router';
 import {checkSessionStatus, fetchUsers} from "../users/actions";
 import {fetchProblems, startFetchingProblems} from "../problems/actions"
 import {fetchRanking} from "../ranking/actions";
-import {websocketInit} from "./actions";
+import {updateConfig, websocketInit} from "./actions";
 import {fetchSubmissionStats} from "../submissions/actions";
 
 const history = createHashHistory();
@@ -30,6 +30,7 @@ const store = createStore(
 );
 
 websocketInit();
+store.dispatch(updateConfig());
 store.dispatch(startFetchingProblems());
 store.dispatch(fetchProblems());
 store.dispatch(fetchUsers());

@@ -1,4 +1,7 @@
 // @flow
+
+export const UPDATE_CONFIG ='UPDATE_CONFIG';
+
 export const JUDGE_REQUEST = 'JUDGE_REQUEST';
 export const SUBMISSION_PUBLISHED = 'SUBMISSION_PUBLISHED';
 

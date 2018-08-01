@@ -10,7 +10,7 @@ import FieldGroup from '../../common/components/FieldGroup';
 import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
 import {attemptSignUp, fetchUsers, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
 import ErrorLabel from "../components/ErrorLabel";
-import {regions, teams, emailErrorMessage} from "../../config";
+
 import {fetchSubmissionStats} from "../../submissions/actions";
 
 const initialFormState = {
@@ -70,8 +70,8 @@ class SignUp extends React.Component {
             newState.errorMessage = "Email is required";
             newState.isEmailFieldIncorrect = true;
         }
-        else if (!validateEmail(formData.email)) {
-            newState.errorMessage = emailErrorMessage;
+        else if (!validateEmail(formData.email, this.props.config.emailRegex)) {
+            newState.errorMessage = this.props.config.emailErrorMessage;
             newState.isEmailFieldIncorrect = true;
         }
         else if (formData.firstname === "") {
@@ -129,6 +129,9 @@ class SignUp extends React.Component {
     }
 
     render() {
+        let regions = this.props.config.regions;
+        let teams = this.props.config.teams;
+
         let regionOptions = regions.map(region => <option>{region}</option>);
         let teamOptions = teams.map(team => <option>{team}</option>);
 
@@ -189,7 +192,8 @@ class SignUp extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        config: state.config
     };
 };
 

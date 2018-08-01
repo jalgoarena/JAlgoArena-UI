@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {Grid, Row, Col} from 'react-bootstrap';
 
 import FontAwesome from '../components/FontAwesome';
-import {title} from "../../config";
 import profile from '../../assets/img/profile.png';
+import connect from "react-redux/es/connect/connect";
 
 const starLightStyle = {
     padding: 0,
@@ -42,20 +42,34 @@ const introTextSkillsStyle = {
     fontWeight: "300"
 };
 
-export const HomePage = () => (
-    <Grid fluid={true} style={containerStyle}>
-        <Row>
-            <Col lg={12}>
-                <img className="img-responsive" src={profile} alt="" style={imgStyle}/>
-                <div className="intro-text">
-                    <span className="name" style={introTextNameStyle}>{title}</span>
-                    <hr className="star-light" style={starLightStyle}/>
-                    <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Algo Hacker</span>
-                </div>
-                <Link to="/problems" className="btn btn-lg btn-outline">
-                    <FontAwesome prefix="fas" name="bars"/>  Learn More
-                </Link>
-            </Col>
-        </Row>
-    </Grid>
-);
+export const Home = (props: {title: string}) => {
+    return (
+        <Grid fluid={true} style={containerStyle}>
+            <Row>
+                <Col lg={12}>
+                    <img className="img-responsive" src={profile} alt="" style={imgStyle}/>
+                    <div className="intro-text">
+                        <span className="name" style={introTextNameStyle}>{props.title}</span>
+                        <hr className="star-light" style={starLightStyle}/>
+                        <span className="skills" style={introTextSkillsStyle}>Software Engineer - Problem Solver - Algo Hacker</span>
+                    </div>
+                    <Link to="/problems" className="btn btn-lg btn-outline">
+                        <FontAwesome prefix="fas" name="bars"/> Learn More
+                    </Link>
+                </Col>
+            </Row>
+        </Grid>
+    );
+};
+
+const mapStateToProps = (state) => {
+    return {
+        title: state.config.title
+    };
+};
+
+const HomePage = connect(
+    mapStateToProps
+)(Home);
+
+export {HomePage};
