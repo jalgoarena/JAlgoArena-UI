@@ -36,6 +36,21 @@ describe('root reducer', () => {
                     users: null,
                     updatedUser: null
                 },
+                config: {
+                    emailErrorMessage: "Please enter a valid email address",
+                    emailRegex: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+                    regions: [
+                        "Kraków",
+                        "Wrocław"
+                    ],
+                    teams: [
+                        "Team A",
+                        "Team B",
+                        "Team C"
+                    ],
+                    title: "Start to solve your first problem",
+                },
+
                 errorMessage: null,
                 webSocketConnected: false
             }
