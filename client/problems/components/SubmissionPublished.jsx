@@ -12,7 +12,7 @@ const SubmissionPublished = ({submissionId}: {submissionId: string}) => {
             <DisplaySubmissionId submissionId={submissionId}/>
         </div>;
     } else {
-        return <h2 className="text-info text-center">Run your code to see results</h2>;
+        return <h2 className="text-info text-center">Run your code to submit solution</h2>;
     }
 };
 

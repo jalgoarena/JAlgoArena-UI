@@ -49,7 +49,7 @@ const Menu = ({user, isConnected, currentPath, onLogout, progress}:
 const mapStateToProps = (state) => {
     let progress = 0;
 
-    if (state.auth.user && state.submissions.stats[state.auth.user.username].solved) {
+    if (state.auth.user && state.submissions.stats && state.submissions.stats[state.auth.user.username] && state.submissions.stats[state.auth.user.username].solved) {
         progress = parseInt(state.submissions.stats[state.auth.user.username].solved.length / state.problems.items.length * 100);
     }
 

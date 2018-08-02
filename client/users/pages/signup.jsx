@@ -54,7 +54,7 @@ class SignUp extends React.Component {
         this.props.onUnmount();
     }
 
-    static findErrorsInSignupForm(formData) {
+    static findErrorsInSignupForm(formData, emailRegex, emailErrorMessage) {
 
         let newState = Object.assign({}, initialFormState);
 
@@ -70,8 +70,8 @@ class SignUp extends React.Component {
             newState.errorMessage = "Email is required";
             newState.isEmailFieldIncorrect = true;
         }
-        else if (!validateEmail(formData.email, this.props.config.emailRegex)) {
-            newState.errorMessage = this.props.config.emailErrorMessage;
+        else if (!validateEmail(formData.email, emailRegex)) {
+            newState.errorMessage = emailErrorMessage;
             newState.isEmailFieldIncorrect = true;
         }
         else if (formData.firstname === "") {
@@ -117,7 +117,12 @@ class SignUp extends React.Component {
             team : dom.findDOMNode(this.team).value.trim()
         };
 
-        let newState = SignUp.findErrorsInSignupForm(formData);
+        let newState = SignUp.findErrorsInSignupForm(
+            formData,
+            this.props.config.emailRegex,
+            this.props.config.emailErrorMessage
+        );
+
         this.setState(newState);
         if (!newState.errorMessage){
             this.props.onSignUp(formData);
