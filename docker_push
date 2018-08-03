@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker build -t "jalgoarena/ui:2.4.12" .
-docker push "jalgoarena/ui:2.4.12"
+docker build -t "jalgoarena/ui:2.4.$TRAVIS_BUILD_NUMBER" .
+docker push "jalgoarena/ui:2.4.$TRAVIS_BUILD_NUMBER"
