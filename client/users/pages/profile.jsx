@@ -9,8 +9,14 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import {Link} from "react-router-dom";
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import {fetchSubmissionStats} from "../../submissions/actions";
+import {fetchUsers} from "../actions";
 
 class Profile extends React.Component {
+
+    componentDidMount() {
+        this.props.onLoad();
+    }
 
     static githubClassForValue(value) {
         if (!value || value.count === 0) {
@@ -200,10 +206,18 @@ const mapStateToProps = (state) => {
     };
 };
 
-
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        onLoad: () => {
+            dispatch(fetchUsers());
+            dispatch(fetchSubmissionStats());
+        }
+    }
+};
 
 const ProfilePage = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Profile);
 
 export {ProfilePage};

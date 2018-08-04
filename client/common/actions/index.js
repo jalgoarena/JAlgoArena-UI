@@ -71,7 +71,6 @@ export function websocketConnected(isConnected: boolean): Action {
 let refreshRanking = function (event) {
     console.log("Refresh rankings");
     store.dispatch(fetchUsers());
-    store.dispatch(fetchSubmissionStats());
     store.dispatch(fetchRanking());
     store.dispatch(fetchRankingStartDate());
     store.dispatch(fetchProblemRanking(event.problemId));

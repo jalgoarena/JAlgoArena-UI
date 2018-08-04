@@ -1,5 +1,4 @@
 // @flow
-import {store} from "../../common/store";
 
 type Action = {
     type: string,
@@ -109,8 +108,6 @@ export function attemptLogin(username: string, password: string) {
                     let token = 'Bearer ' + json.token;
                     localStorage.setItem('jwtToken', token);
                     dispatch(loginSuccess(json.user));
-                    dispatch(fetchUsers());
-                    dispatch(fetchSubmissionStats());
                 }
             })
             .catch((error) => console.log(`[err] POST /api/auth/login:` + error));
