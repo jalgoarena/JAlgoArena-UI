@@ -66,7 +66,12 @@ class Profile extends React.Component {
 
         let rankingStartDate = this.props.rankingStartDate;
 
-        let score = _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username).score;
+        let userRankEntry = _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username);
+        let score = 0;
+
+        if (userRankEntry) {
+            score = userRankEntry.score;
+        }
 
         return <Grid>
             <Col md={3}>
