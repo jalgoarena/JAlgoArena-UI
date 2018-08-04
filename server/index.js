@@ -27,7 +27,7 @@ const apiProxy = proxy('/api', {
 app.use('/api', apiProxy);
 
 const wsProxy = proxy('/ws', {
-    target: process.env.JALGOARENA_API_WS_URL || "http://localhost:5001",
+    target: process.env.JALGOARENA_API_WS_URL || "http://localhost:5005",
     ws: true,
     changeOrigin: true,
     pathRewrite: {

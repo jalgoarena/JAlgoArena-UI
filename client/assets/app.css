@@ -128,3 +128,7 @@ hr.star-light:after {
 .react-calendar-heatmap .color-github-4 {
     fill: #1e6823;
 }
+
+.dropdown-menu .divider {
+    margin: 5px 0;
+}

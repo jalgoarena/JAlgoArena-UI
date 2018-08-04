@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const outputDirectory = "public";
+const outputDirectory = "build/public";
 
 module.exports = {
     optimization: {
@@ -48,7 +48,7 @@ module.exports = {
         })
     ],
     devServer: {
-        contentBase: __dirname + "/public/",
+        contentBase: __dirname + "/build/public/",
         open: true,
         proxy: {
             "/api": "http://localhost:3000",

@@ -17,11 +17,5 @@ archive.on("error", function(err) {
 });
 
 archive.pipe(output);
-
-archive.directory("./public", { name: "public"});
-archive.directory("./node_modules", { name: "node_modules"});
-archive.directory("./server", { name: "server"});
-archive.directory("./assets", { name: "assets"});
-archive.file("./server.js");
-
+archive.directory("./build/", false);
 archive.finalize();

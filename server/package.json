@@ -1,0 +1,35 @@
+{
+  "name": "jalgoarena-ui-server",
+  "version": "2.4.0",
+  "description": "JAlgoArena UI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jalgoarena/JAlgoArena-UI.git"
+  },
+  "keywords": [
+    "JAlgoArena"
+  ],
+  "author": "Jacek Spólnik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jalgoarena/JAlgoArena-UI/issues"
+  },
+  "homepage": "https://github.com/jalgoarena/JAlgoArena-UI#readme",
+  "dependencies": {
+    "serve-static": "^1.13.2",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "morgan": "^1.9.0",
+    "compression": "^1.7.2",
+    "http-proxy-middleware": "^0.18.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.8.0"
+  }
+}

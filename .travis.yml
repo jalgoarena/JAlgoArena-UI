@@ -4,7 +4,14 @@ node_js:
   - '6'
 services:
   - docker
+cache:
+  directories:
+    - "node_modules"
+    - "server/node_modules"
 before_script:
+  - cd server
+  - npm install
+  - cd ..
   - npm install -g webpack
   - npm install -g codecov
 before_deploy:

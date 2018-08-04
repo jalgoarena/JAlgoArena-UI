@@ -1,27 +1,25 @@
 {
-  "name": "jalgoarena",
-  "version": "2.4.100",
+  "name": "jalgoarena-ui",
+  "version": "2.4.0",
   "description": "JAlgoArena UI",
-  "main": "server.js",
+  "main": "build/server.js",
   "scripts": {
-    "installRequiredGlobalDependencies": "npm install webpack-cli -g & npm install pm2 -g",
-    "test": "jest && codecov",
+    "installRequiredGlobalDependencies": "npm install webpack-cli -g",
     "pretest": "./node_modules/.bin/flow check",
+    "test": "jest && codecov",
     "test:watch": "jest --watch",
-    "prepm2start": "npm run build",
-    "pm2start": "pm2 start server.js --name ui",
+    "build": "webpack --config webpack.server.config.js --mode=production && webpack --config webpack.client.config.js --mode=production",
     "prestart": "npm run build",
     "start": "node server.js",
-    "build": "webpack --mode=production",
     "predeploy": "npm run build",
     "deploy": "node createReleasePackage.js",
     "client": "webpack-dev-server --mode=development --devtool inline-source-map --hot --inline",
-    "server": "nodemon server.js",
+    "server": "nodemon server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spolnik/JAlgoArena-UI.git"
+    "url": "git+https://github.com/jalgoarena/JAlgoArena-UI.git"
   },
   "keywords": [
     "JAlgoArena"
@@ -29,9 +27,9 @@
   "author": "Jacek Spólnik",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/spolnik/JAlgoArena-UI/issues"
+    "url": "https://github.com/jalgoarena/JAlgoArena-UI/issues"
   },
-  "homepage": "https://github.com/spolnik/JAlgoArena-UI#readme",
+  "homepage": "https://github.com/jalgoarena/JAlgoArena-UI#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0-10",
     "@fortawesome/fontawesome-free-webfonts": "^1.0.8",
@@ -40,20 +38,15 @@
     "archiver": "^2.1.1",
     "bootstrap": "^3.3.7",
     "brace": "^0.11.1",
-    "compression": "^1.7.2",
     "connected-react-router": "^4.3.0",
     "enzyme": "^3.3.0",
-    "express": "^4.16.3",
-    "helmet": "^3.12.0",
     "highcharts": "^6.1.1",
     "highcharts-react-official": "^1.3.1",
     "history": "^4.7.2",
-    "http-proxy-middleware": "^0.18.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "morgan": "^1.9.0",
     "popper.js": "^1.14.3",
     "react": "^16.3.2",
     "react-ace": "^5.10.0",
@@ -76,10 +69,15 @@
     "redux-thunk": "^2.2.0",
     "remarkable": "^1.7.1",
     "s": "^0.1.1",
-    "serve-static": "^1.13.2",
     "sockjs-client": "^1.1.4",
     "spin.js": "^3.1.0",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "serve-static": "^1.13.2",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "morgan": "^1.9.0",
+    "compression": "^1.7.2",
+    "http-proxy-middleware": "^0.18.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

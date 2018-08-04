@@ -1,8 +1,7 @@
 npm-debug.log
 .idea
 node_modules/
-public
+build/
 dist/*.zip
 coverage/
-package-lock.json
 stats.json

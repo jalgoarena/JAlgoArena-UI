@@ -1,0 +1,13 @@
+__mocks__/*
+build/*
+coverage/*
+design/*
+dist/*
+flow-typed/*
+node-modules/*
+test/*
+Dockerfile
+docker_push
+nodemon.js
+README.md
+setupJest.js
