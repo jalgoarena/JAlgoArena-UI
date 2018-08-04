@@ -43,82 +43,17 @@ class Profile extends React.Component {
         return value ? `${value.count} submissions on ${value.date}` : `0 submissions`;
     }
 
-    render() {
-        let user = _.find(this.props.users,
-            (user: User) => user.username === this.props.match.params.username
-        );
+    scoreFor(user) {
+        let userRankEntry =
+            _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username);
 
-        if (!user) {
-            return <Grid>
-                <Col mdOffset={3} md={6}>
-                    <h2>Profile not found</h2>
-                    <p>Profile: {this.props.match.params.username}</p>
-                </Col>
-            </Grid>;
-        }
-
-        let startDate = new Date();
-        startDate.setMonth(startDate.getMonth() - 4);
-        let endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 4);
-
-        let userStats = this.props.stats[user.username];
-
-        let rankingStartDate = this.props.rankingStartDate;
-
-        let userRankEntry = _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username);
         let score = 0;
 
         if (userRankEntry) {
             score = userRankEntry.score;
         }
 
-        return <Grid>
-            <Col md={3}>
-                <Blockies
-                    seed={user.email}
-                    size={5}
-                    scale={40}
-                    color="#18bc9c"
-                    bgColor="#e1e4e8"
-                    spotColor="#18bc9c"
-                />
-                <h2>{user.firstname} {user.surname}</h2>
-                <h4 style={{"color": "#979faf"}}>(@{user.username})</h4>
-                <hr/>
-                <Well bsSize="small">
-                    <h4 className="text-center"><FontAwesome prefix="fas" name="trophy"/> {score}</h4>
-                </Well>
-                <Well bsSize="small">
-                    <h4 className="text-center"><FontAwesome prefix="fas" name="globe"/> {user.region}</h4>
-                </Well>
-                <Well bsSize="small">
-                    <h4 className="text-center"><FontAwesome prefix="fas" name="users"/> {user.team}</h4>
-                </Well>
-            </Col>
-            <Col md={9}>
-                <h4>Solved Problems</h4>
-                <hr/>
-                {Profile.solvedProblems(user, userStats)}
-                <br/>
-                <br/>
-                <h4>Rating</h4>
-                <hr/>
-                {Profile.highchartSolvedProblems(user, userStats, rankingStartDate)}
-                <br/>
-                <br/>
-                <h4>Submissions</h4>
-                <hr/>
-                <CalendarHeatmap
-                    startDate={startDate}
-                    endDate={endDate}
-                    values={this.submissionsCountPerDay(userStats)}
-                    classForValue={Profile.githubClassForValue}
-                    titleForValue={Profile.titleForValue}
-                    tooltipDataAttrs={{ 'data-toggle': 'tooltip' }}
-                />
-            </Col>
-        </Grid>;
+        return score;
     }
 
     submissionsCountPerDay(userStats) {
@@ -205,6 +140,79 @@ class Profile extends React.Component {
             highcharts={Highcharts}
             options={highchartsOptions}
         />;
+    }
+
+    findUser() {
+        return _.find(this.props.users,
+            (user: User) => user.username === this.props.match.params.username
+        );
+    }
+
+    render() {
+        let user = this.findUser();
+
+        if (!user) {
+            return <Grid>
+                <Col mdOffset={3} md={6}>
+                    <h2>Profile not found</h2>
+                    <p>Profile: {this.props.match.params.username}</p>
+                </Col>
+            </Grid>;
+        }
+
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 4);
+        let endDate = new Date();
+        endDate.setMonth(endDate.getMonth() + 4);
+
+        let userStats = this.props.stats[user.username];
+
+        return <Grid>
+            <Col md={3}>
+                <Blockies
+                    seed={user.email}
+                    size={5}
+                    scale={40}
+                    color="#18bc9c"
+                    bgColor="#e1e4e8"
+                    spotColor="#18bc9c"
+                />
+                <h2>{user.firstname} {user.surname}</h2>
+                <h4 style={{"color": "#979faf"}}>(@{user.username})</h4>
+                <hr/>
+                <Well bsSize="small">
+                    <h4 className="text-center"><FontAwesome prefix="fas" name="trophy"/> {this.scoreFor(user)}</h4>
+                </Well>
+                <Well bsSize="small">
+                    <h4 className="text-center"><FontAwesome prefix="fas" name="globe"/> {user.region}</h4>
+                </Well>
+                <Well bsSize="small">
+                    <h4 className="text-center"><FontAwesome prefix="fas" name="users"/> {user.team}</h4>
+                </Well>
+            </Col>
+            <Col md={9}>
+                <h4>Solved Problems</h4>
+                <hr/>
+                {Profile.solvedProblems(user, userStats)}
+                <br/>
+                <br/>
+                <h4>Rating</h4>
+                <hr/>
+                {Profile.highchartSolvedProblems(user, userStats, this.props.rankingStartDate)}
+                <br/>
+                <br/>
+                <h4>Submissions</h4>
+                <hr/>
+                <CalendarHeatmap
+                    startDate={startDate}
+                    endDate={endDate}
+                    values={this.submissionsCountPerDay(userStats)}
+                    classForValue={Profile.githubClassForValue}
+                    titleForValue={Profile.titleForValue}
+                    tooltipDataAttrs={{ 'data-toggle': 'tooltip' }}
+                />
+            </Col>
+        </Grid>;
     }
 }
 
