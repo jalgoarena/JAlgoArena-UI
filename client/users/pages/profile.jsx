@@ -47,13 +47,7 @@ class Profile extends React.Component {
         let userRankEntry =
             _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username);
 
-        let score = 0;
-
-        if (userRankEntry) {
-            score = userRankEntry.score;
-        }
-
-        return score;
+        return userRankEntry ? userRankEntry.score : 0;
     }
 
     submissionsCountPerDay(userStats) {
@@ -222,7 +216,7 @@ const mapStateToProps = (state) => {
         stats: state.submissions.stats,
         location: state.router.location,
         rankingStartDate: state.ranking.startDate,
-        ranking: state.ranking.global
+        ranking: state.ranking.general
     };
 };
 
