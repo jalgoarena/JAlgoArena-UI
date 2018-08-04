@@ -11,6 +11,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import {fetchSubmissionStats} from "../../submissions/actions";
 import {fetchUsers} from "../actions";
+import {RankingEntry} from "../../ranking/domain/RankingEntry";
 
 class Profile extends React.Component {
 
@@ -65,6 +66,8 @@ class Profile extends React.Component {
 
         let rankingStartDate = this.props.rankingStartDate;
 
+        let score = _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username).score;
+
         return <Grid>
             <Col md={3}>
                 <Blockies
@@ -78,6 +81,9 @@ class Profile extends React.Component {
                 <h2>{user.firstname} {user.surname}</h2>
                 <h4 style={{"color": "#979faf"}}>(@{user.username})</h4>
                 <hr/>
+                <Well bsSize="small">
+                    <h4 className="text-center"><FontAwesome prefix="fas" name="trophy"/> {score}</h4>
+                </Well>
                 <Well bsSize="small">
                     <h4 className="text-center"><FontAwesome prefix="fas" name="globe"/> {user.region}</h4>
                 </Well>
@@ -202,7 +208,8 @@ const mapStateToProps = (state) => {
         users: state.auth.users,
         stats: state.submissions.stats,
         location: state.router.location,
-        rankingStartDate: state.ranking.startDate
+        rankingStartDate: state.ranking.startDate,
+        ranking: state.ranking.global
     };
 };
 
