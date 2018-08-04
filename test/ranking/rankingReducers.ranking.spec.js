@@ -7,7 +7,9 @@ import {ProblemRankingEntry} from "../../client/ranking/domain/ProblemRankingEnt
 
 let defaultState = {
     general: [],
-    problemRanking: []
+    problemRanking: [],
+    previousRanking: [],
+    startDate: '2018-08-01'
 };
 
 describe('ranking reducer', () => {
@@ -19,16 +21,16 @@ describe('ranking reducer', () => {
                     ranking: [RANK_ENTRY_JULIA]
                 }
             )
-        ).toEqual({general: [RANK_ENTRY_JULIA], problemRanking: []});
+        ).toEqual({general: [RANK_ENTRY_JULIA], problemRanking: [], previousRanking: [], startDate: '2018-08-01'});
 
         expect(
-            reducer.ranking({problemRanking: [], general: [RANK_ENTRY_JULIA]},
+            reducer.ranking({problemRanking: [], general: [RANK_ENTRY_JULIA], previousRanking: [], startDate: '2018-08-01'},
                 {
                     type: types.FETCH_RANKING,
                     ranking: [RANK_ENTRY_JULIA, RANK_ENTRY_MIKOLAJ]
                 }
             )
-        ).toEqual({general: [RANK_ENTRY_JULIA, RANK_ENTRY_MIKOLAJ], problemRanking: []});
+        ).toEqual({general: [RANK_ENTRY_JULIA, RANK_ENTRY_MIKOLAJ], problemRanking: [], previousRanking: [], startDate: '2018-08-01'});
     });
 
     it('should handle FETCH_PROBLEM_RANKING', () => {
@@ -39,16 +41,16 @@ describe('ranking reducer', () => {
                     problemRanking: [PROBLEM_RANK_ENTRY_JULIA]
                 }
             )
-        ).toEqual({general: [], problemRanking: [PROBLEM_RANK_ENTRY_JULIA]});
+        ).toEqual({general: [], problemRanking: [PROBLEM_RANK_ENTRY_JULIA], previousRanking: [], startDate: '2018-08-01'});
 
         expect(
-            reducer.ranking({problemRanking: [PROBLEM_RANK_ENTRY_JULIA], general: []},
+            reducer.ranking({problemRanking: [PROBLEM_RANK_ENTRY_JULIA], general: [], previousRanking: [], startDate: '2018-08-01'},
                 {
                     type: types.FETCH_PROBLEM_RANKING,
                     problemRanking: [PROBLEM_RANK_ENTRY_JULIA, PROBLEM_RANK_ENTRY_MIKOLAJ]
                 }
             )
-        ).toEqual({problemRanking: [PROBLEM_RANK_ENTRY_JULIA, PROBLEM_RANK_ENTRY_MIKOLAJ], general: []});
+        ).toEqual({problemRanking: [PROBLEM_RANK_ENTRY_JULIA, PROBLEM_RANK_ENTRY_MIKOLAJ], general: [], previousRanking: [], startDate: '2018-08-01'});
     });
 });
 

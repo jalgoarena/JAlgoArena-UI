@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import {Grid, Col, PageHeader} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -13,11 +11,7 @@ import FontAwesome from "../../common/components/FontAwesome";
 import moment from "moment";
 import {fetchPreviousRanking} from "../actions";
 
-type Props = {
-    ranking: Array<RankingEntry>,
-}
-
-class UserRanking extends React.Component<Props> {
+class UserRanking extends React.Component {
 
     componentDidMount() {
         this.props.onLoad(this.props.rankingStartDate);
