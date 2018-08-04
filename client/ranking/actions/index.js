@@ -67,6 +67,35 @@ function setRanking(ranking: Array<RankingEntry>): Action {
     }
 }
 
+export function fetchPreviousRanking(date: string) {
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        },
+        method: 'get'
+    };
+
+    return (dispatch: Dispatch) => {
+        return fetch(`/api/ranking/api/ranking/${date}`, options)
+            .then(response => response.json())
+            .then(json => {
+                if (json.error) {
+                    dispatch(setErrorMessage("Cannot connect to Ranking Service: " + JSON.stringify(json.error)))
+                } else {
+                    dispatch(setPreviousRanking((json: Array<RankingEntry>)))
+                }
+            })
+            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/${date}:` + error));
+    };
+}
+
+function setPreviousRanking(previousRanking: Array<RankingEntry>): Action {
+    return {
+        type: types.FETCH_PREVIOUS_RANKING,
+        previousRanking
+    }
+}
+
 export function fetchRankingStartDate() {
     const options = {
         headers: {

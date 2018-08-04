@@ -9,14 +9,19 @@ import {fetchRanking} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
 import {fetchUsers} from "../../users/actions";
 import {Link} from "react-router-dom";
-import {fetchSubmissionStats} from "../../submissions/actions";
 import FontAwesome from "../../common/components/FontAwesome";
+import moment from "moment";
+import {fetchPreviousRanking} from "../actions";
 
 type Props = {
     ranking: Array<RankingEntry>,
 }
 
 class UserRanking extends React.Component<Props> {
+
+    componentDidMount() {
+        this.props.onLoad(this.props.rankingStartDate);
+    }
 
     static linkFormatter(cell) {
         return <Link to={"/profile/" + cell}>
@@ -44,17 +49,10 @@ class UserRanking extends React.Component<Props> {
     }
 
     render() {
-        const {ranking} = this.props;
+        const {ranking, previousRanking} = this.props;
+        const NEW_USER = -10000;
 
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-
-        let rankingData = ranking.map((rankEntry: RankingEntry, idx: number) => {
-
-            let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-            let value = getRandomInt(0, 10) * plusOrMinus;
-            let isNew = Math.random() < 0.5 ? value : -10000;
+        let previousRankingData = previousRanking.map((rankEntry: RankingEntry, idx: number) => {
 
             return {
                 place: idx + 1,
@@ -62,8 +60,29 @@ class UserRanking extends React.Component<Props> {
                 score: rankEntry.score,
                 region: rankEntry.region,
                 team: rankEntry.team,
+                solvedCount: rankEntry.solvedProblems.length
+            }
+        });
+
+        let rankingData = ranking.map((rankEntry: RankingEntry, idx: number) => {
+
+            let previousRankEntry =
+                _.find(previousRankingData, (prevRankEntry: RankingEntry) => prevRankEntry.hacker === rankEntry.hacker);
+
+            let place = idx + 1;
+
+            let change = previousRankEntry && previousRankEntry.score !== 0
+                ? (previousRankEntry.place - place)
+                : NEW_USER;
+
+            return {
+                place,
+                hacker: rankEntry.hacker,
+                score: rankEntry.score,
+                region: rankEntry.region,
+                team: rankEntry.team,
                 solvedCount: rankEntry.solvedProblems.length,
-                change: isNew
+                change
             }
         });
 
@@ -101,16 +120,27 @@ class UserRanking extends React.Component<Props> {
 
 const mapStateToProps = (state) => {
     return {
-        ranking: state.ranking.general || []
+        ranking: state.ranking.general,
+        rankingStartDate: state.ranking.startDate,
+        previousRanking: state.ranking.previousRanking
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        onLoad: () => {
-            dispatch(fetchSubmissionStats());
+        onLoad: (rankingStartDate) => {
             dispatch(fetchUsers());
             dispatch(fetchRanking());
+
+            let daysFromStart = moment().dayOfYear() - moment(rankingStartDate).dayOfYear();
+
+            let previousRankingDate = moment().subtract(1, 'days');
+
+            if (daysFromStart > 7) {
+                previousRankingDate = moment().subtract(7, 'days');
+            }
+
+            dispatch(fetchPreviousRanking(previousRankingDate.format('YYYY-MM-DD')))
         }
     }
 };

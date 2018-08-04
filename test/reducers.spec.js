@@ -22,6 +22,7 @@ describe('root reducer', () => {
                 showModal: false,
                 ranking: {
                     general: [],
+                    previousRanking: [],
                     problemRanking: [],
                     startDate: '2018-08-01'
                 },
@@ -39,7 +40,7 @@ describe('root reducer', () => {
                 },
                 config: {
                     emailErrorMessage: "Please enter a valid email address",
-                    emailRegex: "^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$",
+                    emailRegex: "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$",
                     regions: [
                         "Kraków",
                         "Wrocław"
