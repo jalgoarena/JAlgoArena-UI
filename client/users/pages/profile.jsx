@@ -57,6 +57,8 @@ class Profile extends React.Component {
 
         let userStats = this.props.stats[user.username];
 
+        let rankingStartDate = this.props.rankingStartDate;
+
         return <Grid>
             <Col md={3}>
                 <Blockies
@@ -85,7 +87,7 @@ class Profile extends React.Component {
                 <br/>
                 <h4>Rating</h4>
                 <hr/>
-                {Profile.highchartSolvedProblems(user, userStats)}
+                {Profile.highchartSolvedProblems(user, userStats, rankingStartDate)}
                 <br/>
                 <br/>
                 <h4>Submissions</h4>
@@ -128,8 +130,11 @@ class Profile extends React.Component {
         return solvedProblems;
     }
 
-    static highchartSolvedProblems(user, userStats) {
-        let solvedProblemsCountPerDay = [];
+    static highchartSolvedProblems(user, userStats, rankingStartDate) {
+        let rankingStartDateParts = rankingStartDate.split('-');
+        let solvedProblemsCountPerDay = [
+            [Date.UTC(rankingStartDateParts[0], rankingStartDateParts[1] - 1, rankingStartDateParts[2]), 0]
+        ];
 
         if (userStats) {
             let sum = 0;
@@ -190,7 +195,8 @@ const mapStateToProps = (state) => {
     return {
         users: state.auth.users,
         stats: state.submissions.stats,
-        location: state.router.location
+        location: state.router.location,
+        rankingStartDate: state.ranking.startDate
     };
 };
 

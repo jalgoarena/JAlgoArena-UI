@@ -22,7 +22,8 @@ describe('root reducer', () => {
                 showModal: false,
                 ranking: {
                     general: [],
-                    problemRanking: []
+                    problemRanking: [],
+                    startDate: '2018-08-01'
                 },
                 submissions: {
                     items: [],

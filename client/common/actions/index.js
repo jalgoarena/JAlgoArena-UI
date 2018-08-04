@@ -1,5 +1,5 @@
 // @flow
-import {fetchProblemRanking, fetchRanking} from "../../ranking/actions";
+import {fetchProblemRanking, fetchRanking, fetchRankingStartDate} from "../../ranking/actions";
 
 type Action = { type: string, error: string }
     | { type: string, isConnected: boolean }
@@ -61,7 +61,6 @@ function fetchConfig(config): Action {
     };
 }
 
-
 export function websocketConnected(isConnected: boolean): Action {
     return {
         type: types.WEBSOCKET_CONNECTED,
@@ -74,6 +73,7 @@ let refreshRanking = function (event) {
     store.dispatch(fetchUsers());
     store.dispatch(fetchSubmissionStats());
     store.dispatch(fetchRanking());
+    store.dispatch(fetchRankingStartDate());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
 };
