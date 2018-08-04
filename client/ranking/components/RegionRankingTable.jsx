@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import * as _ from 'lodash';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
