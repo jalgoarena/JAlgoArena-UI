@@ -3,11 +3,6 @@
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
 import Problem from "../../client/problems/domain/Problem";
-import RawProblem from "../../client/problems/domain/RawProblem";
-import Method from "../../client/problems/domain/Method";
-import Return from "../../client/problems/domain/Return";
-import Parameter from "../../client/problems/domain/Parameter";
-import TestCase from "../../client/problems/domain/TestCase";
 
 let defaultState = {
     items: [],
@@ -105,28 +100,6 @@ describe('problems reducer', () => {
             )
         ).toEqual(defaultState);
     });
-
-    it('should handle FETCH_RAW_PROBLEMS', () => {
-        expect(
-            reducer.problems(defaultState,
-                {
-                    type: types.FETCH_RAW_PROBLEMS,
-                    rawProblems: [FIB_RAW_PROBLEM]
-                }
-            )
-        ).toEqual(Object.assign({}, defaultState, {rawItems: [FIB_RAW_PROBLEM]}));
-
-        expect(
-            reducer.problems(Object.assign({}, defaultState, {
-                    rawItems: [FIB_RAW_PROBLEM]
-                }),
-                {
-                    type: types.FETCH_RAW_PROBLEMS,
-                    rawProblems: [FIB_RAW_PROBLEM, STOI_RAW_PROBLEM]
-                }
-            )
-        ).toEqual(Object.assign({}, defaultState, {rawItems: [FIB_RAW_PROBLEM, STOI_RAW_PROBLEM]}));
-    });
 });
 
 let FIB_PROBLEM = new Problem(
@@ -144,35 +117,5 @@ let STOI_PROBLEM = new Problem(
     "description",
     1,
     "dummy code",
-    1
-);
-
-let FIB_RAW_PROBLEM = new RawProblem(
-    "fib",
-    "Fibonacci",
-    "description",
-    1,
-    new Method(
-        "fib",
-        new Return("java.lang.Integer", "Comment"),
-        [new Parameter("n", "java.lang.Integer", "Comment")]
-    ),
-    [new TestCase(["0"], 0)],
-    "",
-    1
-);
-
-let STOI_RAW_PROBLEM = new RawProblem(
-    "stoi",
-    "STOI",
-    "description",
-    1,
-    new Method(
-        "stoi",
-        new Return("java.lang.Integer", "Comment"),
-        [new Parameter("n", "java.lang.Integer", "Comment")]
-    ),
-    [new TestCase(["0"], 0)],
-    "",
     1
 );

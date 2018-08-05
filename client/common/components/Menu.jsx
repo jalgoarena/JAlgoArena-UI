@@ -4,7 +4,6 @@ import React from "react";
 import {Navbar, Nav} from "react-bootstrap";
 import {connect} from 'react-redux';
 
-import AdminMenuItem from "./AdminMenuItem";
 import ProfileOrLoginMenuItem from "./ProfileOrLoginMenuItem";
 import MenuItem from "./MenuItem";
 import RankingMenuItem from "./RankingMenuItem";
@@ -40,7 +39,6 @@ const Menu = ({user, isConnected, currentPath, onLogout, progress}:
                 <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
                           currentPath={currentPath}/>
                 <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout} progress={progress}/>
-                <AdminMenuItem user={user} currentPath={currentPath}/>
             </Nav>
         </Navbar.Collapse>
     </Navbar>

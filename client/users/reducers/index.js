@@ -6,23 +6,20 @@ import User from "../domain/User";
 type AuthState = {
     user: ?User,
     error: ?string,
-    users: ?Array<User>,
-    updatedUser: ?User
+    users: ?Array<User>
 }
 
 type AuthAction = {
     type: string,
     user?: User,
     error?: string,
-    users?: Array<User>,
-    userUpdated?: User
+    users?: Array<User>
 }
 
 const defaultStartState: AuthState = {
     user: null,
     error: null,
-    users: null,
-    updatedUser: null
+    users: null
 };
 
 export function auth(state: AuthState = defaultStartState , action: AuthAction) {
@@ -58,10 +55,6 @@ export function auth(state: AuthState = defaultStartState , action: AuthAction) 
         case types.FETCH_USERS:
             return Object.assign({}, state, {
                 users: action.users
-            });
-        case types.USER_UPDATED:
-            return Object.assign({}, state, {
-                updatedUser: action.userUpdated
             });
         default:
             return state;

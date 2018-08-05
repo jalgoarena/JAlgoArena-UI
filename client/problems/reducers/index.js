@@ -2,7 +2,6 @@
 
 import * as types from "../../constants/ActionTypes";
 import Problem from "../domain/Problem";
-import RawProblem from "../domain/RawProblem";
 
 type EditorState = {
     sourceCode: ?string;
@@ -43,8 +42,7 @@ type ProblemsState = {
     items: Array<Problem>,
     currentProblemId: ?string,
     difficultyFilter: number,
-    doneProblemsFilter: boolean,
-    rawItems: Array<RawProblem>
+    doneProblemsFilter: boolean
 }
 
 type ProblemsAction = {
@@ -52,16 +50,14 @@ type ProblemsAction = {
     problems?: Array<Problem>,
     problemId?: string,
     level?: number,
-    hideDoneProblems?: boolean,
-    rawProblems?: Array<RawProblem>
+    hideDoneProblems?: boolean
 }
 
 export function problems(state: ProblemsState = {
     items: [],
     currentProblemId: null,
     difficultyFilter: 0,
-    doneProblemsFilter: false,
-    rawItems: []
+    doneProblemsFilter: false
 }, action: ProblemsAction): ProblemsState {
     switch (action.type) {
         case types.FETCH_PROBLEMS_SUCCESS:
@@ -79,10 +75,6 @@ export function problems(state: ProblemsState = {
         case types.HIDE_DONE_PROBLEMS:
             return Object.assign({}, state, {
                 doneProblemsFilter: action.hideDoneProblems
-            });
-        case types.FETCH_RAW_PROBLEMS:
-            return Object.assign({}, state, {
-                rawItems: action.rawProblems
             });
         default:
             return state;

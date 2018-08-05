@@ -4,8 +4,7 @@ type Action = {
     type: string,
     error?: string,
     user?: User,
-    users?: Array<User>,
-    userUpdated?: User
+    users?: Array<User>
 }
 
 import {fetchSubmissions, fetchSubmissionStats} from "../../submissions/actions";
@@ -220,45 +219,4 @@ export function navigatedAwayFromAuthFormPage(): Action {
     return {
         type: types.NAVIGATE_AWAY_FROM_AUTH_FORM
     };
-}
-
-export function updateUser(user: User) {
-
-    let token = localStorage.getItem('jwtToken');
-
-    if (!token || token === '') {
-        return;
-    }
-
-    const options = {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-Authorization': token
-        },
-        body: JSON.stringify(user)
-    };
-
-    return (dispatch: Dispatch) => {
-        return fetch(`/api/auth/api/users`, options)
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Auth Service: " + JSON.stringify(json.error)))
-                } else {
-                    dispatch(userUpdated(json));
-                    dispatch(fetchUsers());
-                    dispatch(fetchSubmissionStats());
-                }
-            })
-            .catch((error) => console.log(`[err] PUT /api/auth/api/users:` + error));
-    };
-}
-
-function userUpdated(userUpdated: User): Action {
-    return {
-        type: types.USER_UPDATED,
-        userUpdated
-    }
 }

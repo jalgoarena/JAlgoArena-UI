@@ -6,8 +6,6 @@ import thunk from "redux-thunk"
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/users/actions";
 
-import User from "../../client/users/domain/User";
-
 jest.mock('sockjs-client');
 
 const middlewares = [thunk];
@@ -134,28 +132,6 @@ describe("async actions", () => {
         const store = mockStore({users: []});
 
         return store.dispatch(actions.fetchUsers())
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
-
-    it("creates USER_UPDATED when updating user has been done", () => {
-        let user = new User(
-            "username", "password", "email", "region", "team", "first name", "surname"
-        );
-
-        fetch
-            .once(JSON.stringify(user))
-            .once(JSON.stringify([user]));
-
-        const expectedActions = [{
-            type: types.USER_UPDATED,
-            userUpdated: user
-        }];
-
-        const store = mockStore({userUpdated: null});
-
-        return store.dispatch(actions.updateUser(user))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });

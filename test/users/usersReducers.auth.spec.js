@@ -143,26 +143,6 @@ describe('auth reducer', () => {
            users: [USER_JULIA]
         }));
     });
-
-    it('should handle USER_UPDATED', () => {
-        expect(
-            reducer.auth(defaultStartState,
-                {
-                    type: types.USER_UPDATED,
-                    userUpdated: USER_JULIA
-                }
-            )
-        ).toEqual(Object.assign({}, defaultStartState, {updatedUser: USER_JULIA}));
-
-        expect(
-            reducer.auth(Object.assign({}, defaultStartState, {updatedUser: USER_JULIA}),
-                {
-                    type: types.USER_UPDATED,
-                    userUpdated: USER_MIKOLAJ
-                }
-            )
-        ).toEqual(Object.assign({}, defaultStartState, {updatedUser: USER_MIKOLAJ}));
-    });
 });
 
 let USER_JULIA = new User("julia", "password", "email", "region", "team", "julia", "spolnik", "USER", "0");

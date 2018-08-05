@@ -4,8 +4,8 @@ import MenuPanel from "./components/Menu";
 import Footer from "./components/Footer";
 import ErrorMessageBox from "./components/ErrorMessage";
 import WorkInProgress from "./components/WorkInProgress";
-import {ProblemPage, ProblemsAdminPage, ProblemsPage} from "../problems";
-import {LoginPage, ProfilePage, SignUpPage, UsersAdminPage} from "../users";
+import {ProblemPage, ProblemsPage} from "../problems";
+import {LoginPage, ProfilePage, SignUpPage} from "../users";
 import {RegionRankingPage, TeamRankingPage, UserRankingPage} from "../ranking";
 import {SubmissionsPage} from "../submissions";
 import {Route, Switch} from "react-router-dom";
@@ -31,8 +31,6 @@ export class Layout extends React.Component {
                 <Route exact path="/login" component={LoginPage}/>
                 <Route exact path="/signup" component={SignUpPage}/>
                 <Route exact path="/submissions" component={SubmissionsPage}/>
-                <Route exact path="/problemsAdmin" component={ProblemsAdminPage}/>
-                <Route exact path="/usersAdmin" component={UsersAdminPage}/>
                 <Route exact path="/userRanking" component={UserRankingPage}/>
                 <Route exact path="/teamRanking" component={TeamRankingPage}/>
                 <Route exact path="/regionRanking" component={RegionRankingPage}/>

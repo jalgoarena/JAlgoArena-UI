@@ -6,12 +6,8 @@ import thunk from "redux-thunk"
 import * as types from "../../client/constants/ActionTypes"
 import * as actions from "../../client/problems/actions"
 
-import Method from "../../client/problems/domain/Method";
-import Return from "../../client/problems/domain/Return";
-import TestCase from "../../client/problems/domain/TestCase";
-import Parameter from "../../client/problems/domain/Parameter";
-import RawProblem from "../../client/problems/domain/RawProblem";
 import Submission from "../../client/problems/domain/Submission";
+import Problem from "../../client/problems/domain/Problem";
 
 jest.mock('sockjs-client');
 
@@ -65,57 +61,13 @@ describe("async actions", () => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
-
-    it("creates FETCH_RAW_PROBLEMS when fetching of raw problems has been done", () => {
-        let problems = [
-            FIB_PROBLEM
-        ];
-
-        fetch.mockResponseOnce(JSON.stringify(problems));
-
-        const expectedActions = [{
-            type: types.FETCH_RAW_PROBLEMS,
-            rawProblems: problems
-        }];
-
-        const store = mockStore({rawProblems: []});
-
-        return store.dispatch(actions.fetchRawProblems())
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions);
-            });
-    });
 });
 
-let FIB_PROBLEM = new RawProblem(
+let FIB_PROBLEM = new Problem(
     "fib",
     "Fibonacci",
     "Write the `fib` function to return the N'th term.\r\nWe start counting from:\r\n* fib(0) = 0\r\n* fib(1) = 1.\r\n\r\n### Examples\r\n\r\n* `0` -> `0`\r\n* `6` -> `8`",
     1,
-    new Method(
-        "fib",
-        new Return(
-            "java.lang.Long",
-            " N'th term of Fibonacci sequence"
-        ),
-        [
-            new Parameter(
-                "n",
-                "java.lang.Integer",
-                "id of fibonacci term to be returned"
-            )
-        ]
-    ),
-    [
-        new TestCase(["0"], 0),
-        new TestCase(["1"], 1),
-        new TestCase(["2"], 1),
-        new TestCase(["3"], 2),
-        new TestCase(["4"], 3),
-        new TestCase(["5"], 5),
-        new TestCase(["6"], 8),
-        new TestCase(["20"], 6765)
-    ],
     "",
     1
 );
