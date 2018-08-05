@@ -162,7 +162,7 @@ class Submissions extends React.Component {
         return <Grid>
             <Col>
                 <Row>
-                    <PageHeader>Submissions Results</PageHeader>
+                    <PageHeader>Results</PageHeader>
                     <BootstrapTable data={submissionData} stripped hover pagination search>
                         <TableHeaderColumn isKey
                                            width={'100'}
