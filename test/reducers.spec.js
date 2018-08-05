@@ -16,8 +16,7 @@ describe('root reducer', () => {
                     currentProblemId: null,
                     items: [],
                     difficultyFilter: 0,
-                    doneProblemsFilter: false,
-                    rawItems: []
+                    doneProblemsFilter: false
                 },
                 showModal: false,
                 ranking: {
@@ -35,8 +34,7 @@ describe('root reducer', () => {
                 auth: {
                     user: null,
                     error: null,
-                    users: null,
-                    updatedUser: null
+                    users: null
                 },
                 config: {
                     emailErrorMessage: "Please enter a valid email address",

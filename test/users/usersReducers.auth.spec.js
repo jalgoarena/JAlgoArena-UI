@@ -7,8 +7,7 @@ import User from "../../client/users/domain/User";
 const defaultStartState = {
     user: null,
     error: null,
-    users: null,
-    updatedUser: null
+    users: null
 };
 
 describe('auth reducer', () => {

@@ -8,8 +8,7 @@ let defaultState = {
     items: [],
     currentProblemId: null,
     difficultyFilter: 0,
-    doneProblemsFilter: false,
-    rawItems: []
+    doneProblemsFilter: false
 };
 
 describe('problems reducer', () => {
