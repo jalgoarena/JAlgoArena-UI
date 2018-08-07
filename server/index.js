@@ -37,7 +37,7 @@ const wsProxy = proxy('/ws', {
 app.use('/ws', wsProxy);
 
 const kvProxy = proxy('/config', {
-    target: "http://localhost:8500",
+    target: process.env.CONSUL_URL || "http://localhost:8500",
     changeOrigin: true,
     pathRewrite: {
         '^/config': '/v1/kv/jalgoarena/config?raw'
