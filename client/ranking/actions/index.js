@@ -106,11 +106,12 @@ export function fetchRankingStartDate() {
 
     return (dispatch: Dispatch) => {
         return fetch(`/api/ranking/api/ranking/startDate`, options)
-            .then(response => {
-                if (/\d\d\d\d-\d\d-\d\d/.test(response.body)) {
-                    dispatch(setRankingStartDate((response.body: string)));
+            .then(response => response.text())
+            .then(text => {
+                if (/\d\d\d\d-\d\d-\d\d/.test(text)) {
+                    dispatch(setRankingStartDate((text: string)));
                 } else {
-                    dispatch(setErrorMessage("Incorrect format of a date: " + response.body))
+                    dispatch(setErrorMessage("Incorrect format of a date: " + text))
                 }
             })
             .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/startDate:` + error));
