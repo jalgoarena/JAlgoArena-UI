@@ -106,15 +106,14 @@ export function fetchRankingStartDate() {
 
     return (dispatch: Dispatch) => {
         return fetch(`/api/ranking/api/ranking/startDate`, options)
-            .then(response => response.json())
-            .then(json => {
-                if (json.error) {
-                    dispatch(setErrorMessage("Cannot connect to Ranking Service: " + JSON.stringify(json.error)))
+            .then(response => {
+                if (/\d\d\d\d-\d\d-\d\d/.test(response.body)) {
+                    dispatch(setRankingStartDate((response.body: string)));
                 } else {
-                    dispatch(setRankingStartDate((json: string)))
+                    dispatch(setErrorMessage("Incorrect format of a date: " + response.body))
                 }
             })
-            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/:` + error));
+            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/startDate:` + error));
     };
 }
 
