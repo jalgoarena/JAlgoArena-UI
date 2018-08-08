@@ -21,8 +21,8 @@ type SubmissionPanelInputType = {
 const SubmissionPanel = ({problem, sourceCode, userId, onRun, isAlreadySolved}: SubmissionPanelInputType) => {
 
     const button = isAlreadySolved
-        ? <Link to="/problems" className="pulse-button btn btn-lg btn-success pull-right">
-            <FontAwesome prefix="fas" name="reply"/> Back to Problems
+        ? <Link to="/submissions" className="pulse-button btn btn-lg btn-success pull-right">
+            <FontAwesome prefix="fas" name="code"/> Go to submissions
         </Link>
         : <RunButton
             problemId={problem.id}
