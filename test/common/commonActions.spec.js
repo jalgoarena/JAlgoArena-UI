@@ -6,14 +6,6 @@ import * as actions from "../../client/common/actions";
 jest.mock('sockjs-client');
 
 describe("actions", () => {
-    it("creates an action to close work in progress window", () => {
-        const expectedAction = {
-            type: types.CLOSE_WORK_IN_PROGRESS_WINDOW
-        };
-
-        expect(actions.closeWorkInProgressWindow()).toEqual(expectedAction);
-    });
-
     it("creates an action to set error message", () => {
         const expectedAction = {
             type: types.SET_ERROR_MESSAGE,

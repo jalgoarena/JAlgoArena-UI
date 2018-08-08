@@ -3,7 +3,6 @@ import React from "react";
 import MenuPanel from "./components/Menu";
 import Footer from "./components/Footer";
 import ErrorMessageBox from "./components/ErrorMessage";
-import WorkInProgress from "./components/WorkInProgress";
 import {ProblemPage, ProblemsPage} from "../problems";
 import {LoginPage, ProfilePage, SignUpPage} from "../users";
 import {RegionRankingPage, TeamRankingPage, UserRankingPage} from "../ranking";
@@ -22,7 +21,6 @@ export class Layout extends React.Component {
         return <div>
             <MenuPanel/>
             <ErrorMessageBox/>
-            <WorkInProgress/>
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/problems" component={ProblemsPage}/>

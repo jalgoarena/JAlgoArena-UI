@@ -13,7 +13,8 @@
     "start": "node build/server.js",
     "predeploy": "npm run build",
     "deploy": "node createReleasePackage.js",
-    "client": "webpack-dev-server --mode=development --devtool inline-source-map --hot --inline",
+    "devBuild": "webpack --config webpack.server.config.js --mode=development && webpack --config webpack.client.config.js --mode=development",
+    "client": "webpack-dev-server --mode=development --devtool inline-source-map",
     "server": "nodemon server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

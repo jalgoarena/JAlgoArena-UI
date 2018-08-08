@@ -15,12 +15,6 @@ import Event from "../domain/Event"
 import {store} from "../store";
 import {fetchUsers} from "../../users/actions";
 
-export function closeWorkInProgressWindow(): Action {
-    return {
-        type: types.CLOSE_WORK_IN_PROGRESS_WINDOW
-    };
-}
-
 export function setErrorMessage(error: string): Action {
     return {
         type: types.SET_ERROR_MESSAGE,
