@@ -15,7 +15,7 @@ import SaveButton from "./SaveButton";
 type SubmissionPanelInputType = {
     problem: Problem,
     sourceCode: string,
-    sourceCode: string,
+    savedSourceCode: string,
     userId: string,
     onRun: (string, string, string) => void,
     onSave: (string, string) => void,
