@@ -6,7 +6,7 @@ import FontAwesome from '../../common/components/FontAwesome';
 
 const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend}) => (
     <ButtonToolbar>
-        <LinkContainer to={"problem/" + problem.id}>
+        <LinkContainer to={"/problem/" + problem.id}>
             <Button bsStyle="danger" className="pull-right" onClick={onRefresh}>
                 <FontAwesome prefix="fas" name="sync"/> Refresh
             </Button>
