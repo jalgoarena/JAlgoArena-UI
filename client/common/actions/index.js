@@ -49,7 +49,7 @@ export function updateConfig() {
             .then(json => {
                 dispatch(fetchConfig(json));
             })
-            .catch((error) => console.log(`[err] GET /kv/jalgoarena/config?raw:` + error));
+            .catch((error) => console.log(`[err] GET /config:` + error));
     };
 }
 
