@@ -9,33 +9,45 @@ import RunButton from './RunButton';
 import MemoryLimit from './MemoryLimit';
 import TimeLimit from './TimeLimit';
 import Problem from "../domain/Problem";
+import {ButtonToolbar} from "react-bootstrap";
+import SaveButton from "./SaveButton";
 
 type SubmissionPanelInputType = {
     problem: Problem,
     sourceCode: string,
+    sourceCode: string,
     userId: string,
     onRun: (string, string, string) => void,
+    onSave: (string, string) => void,
     isAlreadySolved: boolean
 }
 
-const SubmissionPanel = ({problem, sourceCode, userId, onRun, isAlreadySolved}: SubmissionPanelInputType) => {
+const SubmissionPanel = ({problem, sourceCode, savedSourceCode, userId, onRun, onSave, isAlreadySolved}: SubmissionPanelInputType) => {
 
     const button = isAlreadySolved
         ? <Link to="/submissions" className="pulse-button btn btn-lg btn-success pull-right">
             <FontAwesome prefix="fas" name="code"/> Go to submissions
         </Link>
-        : <RunButton
-            problemId={problem.id}
-            sourceCode={sourceCode}
-            userId={userId}
-            onRun={onRun}
-        />;
+        : <ButtonToolbar>
+            <RunButton
+                sourceCode={sourceCode}
+                problemId={problem.id}
+                userId={userId}
+                onRun={onRun}
+            />
+            <SaveButton
+                sourceCode={sourceCode}
+                savedSourceCode={savedSourceCode}
+                problemId={problem.id}
+                onSave={onSave}
+            />
+        </ButtonToolbar>;
 
     return <div>
         {button}
         <TimeLimit timeLimit={problem.timeLimit}/>
-        <br />
-        <MemoryLimit />
+        <br/>
+        <MemoryLimit/>
     </div>;
 };
 

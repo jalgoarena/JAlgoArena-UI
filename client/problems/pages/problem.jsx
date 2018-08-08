@@ -34,15 +34,19 @@ class Problem extends React.Component {
             showWeightedGraphSourceCode: false,
             showPairSourceCode: false,
             showPointsLegend: false,
-            showProblemRanking: false,
+            showProblemRanking: false
         }
     }
 
     componentDidMount() {
-        if (store.getState().currentProblemId !== this.props.match.params.id) {
-            store.dispatch(setCurrentProblem(this.props.match.params.id));
+        let problemId = this.props.match.params.id;
+
+        if (store.getState().currentProblemId !== problemId) {
+            store.dispatch(setCurrentProblem(problemId));
         }
-        if (this.props.auth.user) {
+
+        if (this.props.auth.user && localStorage) {
+            Problem.restoreSourceCode(problemId);
             let token = localStorage.getItem('jwtToken');
 
             if (!token || token === '' ) {
@@ -50,6 +54,14 @@ class Problem extends React.Component {
             }
 
             store.dispatch(fetchSubmissions(this.props.auth.user.id, token));
+        }
+    }
+
+    static restoreSourceCode(problemId) {
+        let savedSourceCode = localStorage.getItem(`problem-${problemId}`);
+
+        if (savedSourceCode) {
+            store.dispatch(changeSourceCode(savedSourceCode));
         }
     }
 
@@ -142,6 +154,7 @@ class Problem extends React.Component {
         const userId = this.props.auth.user ? this.props.auth.user.id : null;
 
         let skeletonCode = this.props.problem.skeletonCode;
+        let savedSourceCode = localStorage.getItem(`problem-${this.props.problem.id}`);
 
         return <Grid>
             <Row>
@@ -173,7 +186,9 @@ class Problem extends React.Component {
                     problem={this.props.problem}
                     userId={userId}
                     sourceCode={this.props.editor.sourceCode || skeletonCode}
+                    savedSourceCode={savedSourceCode}
                     onRun={this.props.onRun}
+                    onSave={this.props.onSave}
                     isAlreadySolved={this.isAlreadySolved()}
                 />
             </Row>
@@ -242,8 +257,14 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(judgeCode(sourceCode, problemId, userId, token));
             }
         },
+        onSave: (sourceCode, problemId) => {
+            if (localStorage) {
+                localStorage.setItem(`problem-${problemId}`, sourceCode);
+                dispatch(changeSourceCode(sourceCode));
+            }
+        },
         onSourceCodeChanged: (sourceCode) => {
-            dispatch(changeSourceCode(sourceCode))
+            dispatch(changeSourceCode(sourceCode));
         },
         onRefresh: () => {
             dispatch(problemRefresh());

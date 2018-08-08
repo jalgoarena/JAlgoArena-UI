@@ -13,10 +13,11 @@
     "start": "node build/server.js",
     "predeploy": "npm run build",
     "deploy": "node createReleasePackage.js",
-    "devBuild": "webpack --config webpack.server.config.js --mode=development && webpack --config webpack.client.config.js --mode=development",
     "client": "webpack-dev-server --mode=development --devtool inline-source-map",
-    "server": "nodemon server/index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "devBuild": "webpack --config webpack.server.config.js --mode=development && webpack --config webpack.client.config.js --mode=development",
+    "predev": "npm run devBuild",
+    "dev": "node build/server.js",
+    "dev:watch": "nodemon -e js,jsx --watch client --watch server --exec npm run dev"
   },
   "repository": {
     "type": "git",
@@ -84,7 +85,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
-    "concurrently": "^3.5.1",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
