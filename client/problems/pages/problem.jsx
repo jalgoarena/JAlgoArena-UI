@@ -178,7 +178,7 @@ class Problem extends React.Component {
                     {Problem.sourceCodeButton(skeletonCode, 'Pair', () => this.showPairSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
-                    sourceCode={this.props.editor.sourceCode || skeletonCode}
+                    sourceCode={this.props.editor.sourceCode || savedSourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
                     readOnly={this.props.auth.user == null}
                 />
@@ -253,15 +253,14 @@ const mapDispatchToProps = (dispatch) => {
             if (token == null || token === "") {
                 dispatch(setErrorMessage("You have to be logged in"));
             } else {
+                localStorage.setItem(`problem-${problemId}`, sourceCode);
                 dispatch(startJudge());
                 dispatch(judgeCode(sourceCode, problemId, userId, token));
             }
         },
         onSave: (sourceCode, problemId) => {
-            if (localStorage) {
-                localStorage.setItem(`problem-${problemId}`, sourceCode);
-                dispatch(changeSourceCode(sourceCode));
-            }
+            localStorage.setItem(`problem-${problemId}`, sourceCode);
+            dispatch(changeSourceCode(sourceCode));
         },
         onSourceCodeChanged: (sourceCode) => {
             dispatch(changeSourceCode(sourceCode));
