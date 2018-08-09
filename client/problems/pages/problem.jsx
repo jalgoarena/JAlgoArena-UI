@@ -22,6 +22,7 @@ import GraphNodeSourceCode from "../components/GraphNodeSourceCode";
 import WeightedGraphSourceCode from "../components/WeightedGraphSourceCode";
 import PairSourceCode from "../components/PairSourceCode";
 import {setErrorMessage} from "../../common/actions";
+import {fetchProblemRanking} from "../../ranking/actions";
 
 class Problem extends React.Component {
     constructor(props) {
@@ -44,6 +45,8 @@ class Problem extends React.Component {
         if (store.getState().currentProblemId !== problemId) {
             store.dispatch(setCurrentProblem(problemId));
         }
+
+        this.props.onLoad(problemId);
 
         if (this.props.auth.user && localStorage) {
             Problem.restoreSourceCode(problemId);
@@ -222,7 +225,8 @@ class Problem extends React.Component {
                 onHide={this.hidePointsLegend.bind(this)}
             />
             <ProblemRank
-                problemId={this.props.problem.id}
+                problemRanking={this.props.problemRanking}
+                problemId={this.props.currentProblemId}
                 show={this.state.showProblemRanking}
                 onHide={this.hideProblemRanking.bind(this)}
             />
@@ -239,6 +243,7 @@ const mapStateToProps = (state) => {
 
     return {
         problem,
+        problemRanking: state.ranking.problemRanking,
         editor: state.editor,
         auth: state.auth,
         submissions: state.submissions.items
@@ -268,6 +273,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onRefresh: () => {
             dispatch(problemRefresh());
+        },
+        onLoad: (problemId) => {
+            dispatch(fetchProblemRanking(problemId));
         }
     }
 };
