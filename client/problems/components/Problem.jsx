@@ -5,8 +5,6 @@ import {Row, Col, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {store} from '../../common/store';
-import {setCurrentProblem} from '../actions';
 
 const problemStyle = {
     margin: "20px 20px 0px",
@@ -48,8 +46,7 @@ const Problem = ({title, id, solvedBy, level, isSuccess, isFailure}:
             </Row>
             <Row>
                 <LinkContainer to={{pathname: `/problem/${id}`}}>
-                    <Button bsStyle="success" className="pull-right"
-                            onClick={() => store.dispatch(setCurrentProblem(id))}>
+                    <Button bsStyle="success" className="pull-right">
                         <FontAwesome prefix="fas" name="bars"/> Solve Problem
                     </Button>
                 </LinkContainer>
