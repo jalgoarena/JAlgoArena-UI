@@ -4,6 +4,7 @@ import * as types from "../../constants/ActionTypes"
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 import {setErrorMessage} from "../../common/actions";
+import moment from "moment";
 
 type Action = {type:string}
     | {type:string, problemRanking: Array<ProblemRankingEntry>}
@@ -75,8 +76,17 @@ export function fetchPreviousRanking(date: string) {
         method: 'get'
     };
 
+    let daysFromStart = moment().dayOfYear() - moment(date).dayOfYear();
+
+    let previousRankingDate = moment().subtract(1, 'days');
+
+    if (daysFromStart > 7) {
+        previousRankingDate = moment().subtract(7, 'days');
+    }
+    let dateToFetch = previousRankingDate.format('YYYY-MM-DD');
+
     return (dispatch: Dispatch) => {
-        return fetch(`/api/ranking/api/ranking/${date}`, options)
+        return fetch(`/api/ranking/api/ranking/${dateToFetch}`, options)
             .then(response => response.json())
             .then(json => {
                 if (json.error) {
@@ -107,11 +117,12 @@ export function fetchRankingStartDate() {
     return (dispatch: Dispatch) => {
         return fetch(`/api/ranking/api/ranking/startDate`, options)
             .then(response => response.text())
-            .then(text => {
-                if (/\d\d\d\d-\d\d-\d\d/.test(text)) {
-                    dispatch(setRankingStartDate((text: string)));
+            .then(date => {
+                if (/\d\d\d\d-\d\d-\d\d/.test(date)) {
+                    dispatch(setRankingStartDate((date: string)));
+                    dispatch(fetchPreviousRanking(date));
                 } else {
-                    dispatch(setErrorMessage("Incorrect format of a date: " + text))
+                    dispatch(setErrorMessage("Incorrect format of a date: " + date))
                 }
             })
             .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/startDate:` + error));

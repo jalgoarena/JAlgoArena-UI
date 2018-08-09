@@ -3,12 +3,10 @@ import {Grid, Col, PageHeader} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
 
-import {fetchRanking} from "../actions/index";
+import {fetchRanking, fetchRankingStartDate} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
-import {fetchUsers} from "../../users/actions";
 import {Link} from "react-router-dom";
 import FontAwesome from "../../common/components/FontAwesome";
-import moment from "moment";
 import {fetchPreviousRanking} from "../actions";
 
 class UserRanking extends React.Component {
@@ -123,18 +121,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onLoad: (rankingStartDate) => {
-            dispatch(fetchUsers());
+            dispatch(fetchRankingStartDate());
             dispatch(fetchRanking());
-
-            let daysFromStart = moment().dayOfYear() - moment(rankingStartDate).dayOfYear();
-
-            let previousRankingDate = moment().subtract(1, 'days');
-
-            if (daysFromStart > 7) {
-                previousRankingDate = moment().subtract(7, 'days');
-            }
-
-            dispatch(fetchPreviousRanking(previousRankingDate.format('YYYY-MM-DD')))
+            dispatch(fetchPreviousRanking(rankingStartDate));
         }
     }
 };
