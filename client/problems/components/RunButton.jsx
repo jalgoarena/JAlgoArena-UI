@@ -14,9 +14,9 @@ type RunButtonInputType = {
 const RunButton = ({sourceCode, problemId, userId, onRun}: RunButtonInputType) => (
     <button
         style={{width: '200px'}}
-        className="btn btn-lg btn-primary pull-right"
+        className="btn btn-lg btn-success pull-right"
         onClick={() => onRun(sourceCode, problemId, userId)}>
-        <FontAwesome prefix="fas" name="bolt"/> Run
+        <FontAwesome prefix="fas" name="bolt"/> Submit
     </button>
 );
 
