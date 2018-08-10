@@ -45,6 +45,12 @@ export function startRankingRefresh() {
     }
 }
 
+function rankingRefreshFinished() {
+    return {
+        type: types.RANKING_REFRESH_FINISHED
+    }
+}
+
 export function fetchRanking() {
     const options = {
         headers: {
@@ -60,7 +66,8 @@ export function fetchRanking() {
                 if (json.error) {
                     dispatch(setErrorMessage("Cannot connect to Ranking Service: " + JSON.stringify(json.error)))
                 } else {
-                    dispatch(setRanking((json: Array<RankingEntry>)))
+                    dispatch(setRanking((json: Array<RankingEntry>)));
+                    setTimeout(() => dispatch(rankingRefreshFinished()), 2000);
                 }
             })
             .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/:` + error));

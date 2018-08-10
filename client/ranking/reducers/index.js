@@ -31,8 +31,7 @@ export function ranking(state: RankingState = {
     switch (action.type) {
         case types.FETCH_RANKING:
             return Object.assign({}, state, {
-                general: action.ranking,
-                refreshInProgress: false
+                general: action.ranking
             });
         case types.FETCH_PREVIOUS_RANKING:
             return Object.assign({}, state, {
@@ -49,6 +48,10 @@ export function ranking(state: RankingState = {
         case types.START_RANKING_REFRESH:
             return Object.assign({}, state, {
                 refreshInProgress: true
+            });
+        case types.RANKING_REFRESH_FINISHED:
+            return Object.assign({}, state, {
+                refreshInProgress: false
             });
         default:
             return state;
