@@ -70,6 +70,12 @@ let refreshRanking = function (event) {
 };
 
 let refreshSubmissions = function (event) {
+    let token = localStorage.getItem('jwtToken');
+
+    if (!token || token === '' ) {
+        return null;
+    }
+
     let user = store.getState().auth.user;
 
     if (!user || event.userId !== user.id) {
