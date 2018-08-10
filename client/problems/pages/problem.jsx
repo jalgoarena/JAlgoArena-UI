@@ -195,7 +195,10 @@ class Problem extends React.Component {
                     isAlreadySolved={this.isAlreadySolved()}
                 />
             </Row>
-            <Output submissionId={this.props.editor.submissionId}/>
+            <Output
+                userId={userId}
+                submissionId={this.props.editor.submissionId}
+            />
             <ListNodeSourceCode
                 show={this.state.showListNodeSourceCode}
                 onHide={this.hideListNodeSourceCode.bind(this)}

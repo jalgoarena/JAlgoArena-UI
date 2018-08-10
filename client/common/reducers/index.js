@@ -14,6 +14,8 @@ import {auth} from "../../users/reducers";
 import {ranking} from "../../ranking/reducers";
 import {submissions} from "../../submissions/reducers";
 
+import {LOCATION_CHANGE} from 'connected-react-router'
+
 const rootReducer = redux.combineReducers({
     editor,
     problems,
@@ -52,7 +54,7 @@ export function config(state: {} = {
 export function errorMessage(state: ?string = null, action: {type:string, error: ?string}) {
     const { type, error } = action;
 
-    if (type === types.RESET_ERROR_MESSAGE) {
+    if (type === types.RESET_ERROR_MESSAGE || type === LOCATION_CHANGE) {
         return null;
     } else if (error) {
         return error;

@@ -12,9 +12,9 @@ const outputStyle = {
     padding: "0 10px 10px",
 };
 
-const Output = ({submissionId}: {submissionId: string}) => (
+const Output = ({submissionId, userId}: {submissionId: string, userId: string}) => (
     <Row style={outputStyle}>
-        <SubmissionPublished submissionId={submissionId}/>
+        <SubmissionPublished submissionId={submissionId} userId={userId}/>
     </Row>
 );
 
