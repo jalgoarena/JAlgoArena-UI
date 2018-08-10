@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import {Navbar, Nav} from "react-bootstrap";
+import {Navbar, Nav, NavItem} from "react-bootstrap";
 import {connect} from 'react-redux';
 
 import ProfileOrLoginMenuItem from "./ProfileOrLoginMenuItem";
@@ -11,6 +11,7 @@ import User from "../../users/domain/User";
 import WebSocketConnectionIndicator from "./WebSocketConnectionIndicator";
 import logo from '../../assets/img/logo.png';
 import {attemptLogout} from "../../users/actions";
+import FontAwesome from "./FontAwesome";
 
 const logoStyle = {
     display: "inline-block",
@@ -38,6 +39,7 @@ const Menu = ({user, isConnected, currentPath, onLogout, progress}:
                                   currentPath={currentPath}/> : null}
                 <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
                           currentPath={currentPath}/>
+                <NavItem href="https://jalgoarena.github.io/docs/" target="_blank"><FontAwesome prefix="fas" name="book" lg={true}/> Docs</NavItem>
                 <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout} progress={progress}/>
             </Nav>
         </Navbar.Collapse>
