@@ -20,7 +20,8 @@ describe('root reducer', () => {
                     general: [],
                     previousRanking: [],
                     problemRanking: [],
-                    startDate: '2018-08-01'
+                    startDate: '2018-08-01',
+                    refreshInProgress: false
                 },
                 submissions: {
                     items: [],

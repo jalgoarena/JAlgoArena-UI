@@ -1,5 +1,5 @@
 // @flow
-import {fetchProblemRanking, fetchRanking} from "../../ranking/actions";
+import {fetchRanking, startRankingRefresh} from "../../ranking/actions";
 
 type Action = { type: string, error: string }
     | { type: string, isConnected: boolean }
@@ -62,10 +62,16 @@ export function websocketConnected(isConnected: boolean): Action {
     }
 }
 
-let refreshRanking = function (event) {
+let refreshRanking = function () {
+    let refreshInProgress = store.getState().ranking.refreshInProgress;
+
+    if (refreshInProgress) {
+        return;
+    }
+
+    store.dispatch(startRankingRefresh());
     store.dispatch(fetchUsers());
     store.dispatch(fetchRanking());
-    store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
 };
 
@@ -99,7 +105,7 @@ export function websocketInit() {
             stompClient.subscribe('/topic/events', (message) => {
                 let event: Event = JSON.parse(message.body);
                 if (event.type === 'refreshRanking') {
-                    refreshRanking(event);
+                    refreshRanking();
                 } else if (event.type === 'refreshUserSubmissions') {
                     refreshSubmissions(event);
                 }

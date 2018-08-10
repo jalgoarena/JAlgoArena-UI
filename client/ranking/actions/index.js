@@ -39,6 +39,12 @@ function setProblemRanking(problemRanking: Array<ProblemRankingEntry>): Action {
     }
 }
 
+export function startRankingRefresh() {
+    return {
+        type: types.START_RANKING_REFRESH
+    }
+}
+
 export function fetchRanking() {
     const options = {
         headers: {

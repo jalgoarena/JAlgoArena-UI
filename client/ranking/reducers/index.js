@@ -8,7 +8,8 @@ type RankingState = {
     general: Array<RankingEntry>,
     previousRanking: Array<RankingEntry>,
     problemRanking: Array<ProblemRankingEntry>,
-    startDate: string
+    startDate: string,
+    refreshInProgress: boolean
 }
 
 type RankingAction = {
@@ -16,19 +17,22 @@ type RankingAction = {
     ranking?: Array<RankingEntry>,
     previousRanking?: Array<RankingEntry>,
     problemRanking?: Array<ProblemRankingEntry>,
-    startDate?: string
+    startDate?: string,
+    refreshInProgress?: boolean
 }
 
 export function ranking(state: RankingState = {
     general: [],
     previousRanking: [],
     problemRanking: [],
-    startDate: '2018-08-01'
+    startDate: '2018-08-01',
+    refreshInProgress: false
 }, action: RankingAction): RankingState {
     switch (action.type) {
         case types.FETCH_RANKING:
             return Object.assign({}, state, {
-                general: action.ranking
+                general: action.ranking,
+                refreshInProgress: false
             });
         case types.FETCH_PREVIOUS_RANKING:
             return Object.assign({}, state, {
@@ -41,6 +45,10 @@ export function ranking(state: RankingState = {
         case types.FETCH_RANKING_START_DATE:
             return Object.assign({}, state, {
                 startDate: action.startDate
+            });
+        case types.START_RANKING_REFRESH:
+            return Object.assign({}, state, {
+                refreshInProgress: true
             });
         default:
             return state;
