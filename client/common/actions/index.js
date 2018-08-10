@@ -1,5 +1,5 @@
 // @flow
-import {fetchProblemRanking, fetchRanking, fetchRankingStartDate} from "../../ranking/actions";
+import {fetchProblemRanking, fetchRanking} from "../../ranking/actions";
 
 type Action = { type: string, error: string }
     | { type: string, isConnected: boolean }
