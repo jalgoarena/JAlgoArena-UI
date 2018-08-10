@@ -68,7 +68,7 @@ function setRanking(ranking: Array<RankingEntry>): Action {
     }
 }
 
-export function fetchPreviousRanking(date: string) {
+function fetchPreviousRanking(date: string) {
     const options = {
         headers: {
             'Accept': 'application/json'

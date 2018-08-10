@@ -26,7 +26,6 @@ class Submissions extends React.Component {
     }
 
     showErrorMessage(errorMessage, problemId) {
-        console.log(errorMessage);
         this.setState({showErrorMessage: errorMessage !== null, errorMessage, problemId})
     }
 

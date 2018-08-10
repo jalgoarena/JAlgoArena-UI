@@ -63,21 +63,17 @@ export function websocketConnected(isConnected: boolean): Action {
 }
 
 let refreshRanking = function (event) {
-    console.log("Refresh rankings");
     store.dispatch(fetchUsers());
     store.dispatch(fetchRanking());
-    store.dispatch(fetchRankingStartDate());
     store.dispatch(fetchProblemRanking(event.problemId));
     store.dispatch(fetchSolvedProblemsRatio());
 };
 
 let refreshSubmissions = function (event) {
-    console.log("Refresh submissions");
+    let user = store.getState().auth.user;
 
-    let token = localStorage.getItem('jwtToken');
-
-    if (!token || token === '' ) {
-        return null;
+    if (!user || event.userId !== user.id) {
+        return;
     }
 
     store.dispatch(fetchSubmissions(event.userId, token));

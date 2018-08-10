@@ -11,7 +11,7 @@ import MenuItem from "./MenuItem";
 
 const ProfileOrLoginMenuItem = ({user, currentPath, onLogout, progress}: { user: User, currentPath: string, onLogout: () => void, progress: number }) => (
     user
-        ? <NavDropdown
+        ? <NavDropdown id="profile-login-dropdown"
             title={<span><FontAwesome prefix="fas" name="user" lg={true}/> {user.username} </span>}>
             <ReactMenuItem header><ProgressBar bsStyle="success" now={progress} style={{marginBottom: "0px"}}/></ReactMenuItem>
             <ReactMenuItem divider/>

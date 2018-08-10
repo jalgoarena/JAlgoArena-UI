@@ -7,12 +7,11 @@ import {fetchRanking, fetchRankingStartDate} from "../actions/index";
 import {RankingEntry} from "../domain/RankingEntry";
 import {Link} from "react-router-dom";
 import FontAwesome from "../../common/components/FontAwesome";
-import {fetchPreviousRanking} from "../actions";
 
 class UserRanking extends React.Component {
 
     componentDidMount() {
-        this.props.onLoad(this.props.rankingStartDate);
+        this.props.onLoad();
     }
 
     static linkFormatter(cell) {
@@ -120,10 +119,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        onLoad: (rankingStartDate) => {
+        onLoad: () => {
             dispatch(fetchRankingStartDate());
             dispatch(fetchRanking());
-            dispatch(fetchPreviousRanking(rankingStartDate));
         }
     }
 };
