@@ -9,7 +9,7 @@ JAlgoArena UI is frontent for JAlgoArena services.
 
 - JAlgoArena UI allows user to see existing problems, create account and using it submit solutions for existing problems in Java. Every solution is limited by time and memory consumption and needs to pass all defined test cases. Problems itself are divided into three difficulty levels for each ones receiving different set of points.
 
-![Component Diagram](https://github.com/spolnik/JAlgoArena-UI/raw/mas
+![Component Diagram](https://github.com/spolnik/JAlgoArena-UI/raw/master/design/component_diagram.png)
 
 ## Technology
 
