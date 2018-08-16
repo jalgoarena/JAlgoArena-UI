@@ -1,13 +1,9 @@
-// @flow
+export class JudgeRequest {
+  public readonly sourceCode: string;
+  public readonly userId: string;
 
-export default class JudgeRequest {
-    sourceCode: string;
-    userId: string;
-
-    constructor(sourceCode: string,
-                userId: string) {
-        this.sourceCode = sourceCode;
-        this.userId = userId;
-    }
+  constructor(sourceCode: string, userId: string) {
+    this.sourceCode = sourceCode;
+    this.userId = userId;
+  }
 }
-
