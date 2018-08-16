@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "outDir": "./build/public",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "module": "es6",
+    "jsx": "react",
+    "target": "es5",
+    "allowJs": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "./client/"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

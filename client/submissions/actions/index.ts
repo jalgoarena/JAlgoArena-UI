@@ -1,4 +1,5 @@
-// @flow
+import {Dispatch} from "redux";
+
 type Action = {
     type: string,
     solvedProblemsRatio?: Array<ProblemSubmissionRatio>,
@@ -20,7 +21,7 @@ export function fetchSubmissions(userId: string, token: string) {
         method: 'get'
     };
 
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<any>) => {
         return fetch(`/api/submissions/api/submissions/${userId}`, options)
             .then(response => response.json())
             .then(json => {

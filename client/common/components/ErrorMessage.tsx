@@ -1,9 +1,10 @@
 // @flow
-import React from "react";
+import * as React from "react";
 import {Alert, Col} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import {clearErrorMessage} from "../actions/index";
+import {clearErrorMessage} from "../actions";
+import {Dispatch} from "redux";
 
 const style = {
     margin: 10

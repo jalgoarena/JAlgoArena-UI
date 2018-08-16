@@ -59,12 +59,16 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
+                test: /\.([tj])sx?$/,
                 include: path.resolve(__dirname, "client"),
                 use: {
-                    loader: "babel-loader"
+                    loader: "awesome-typescript-loader"
                 }
+            },
+            {
+                enforce: "pre",
+                test: "/\.js$/",
+                loader: "source-map-loader"
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -88,7 +92,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [".js", ".jsx"]
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
     }
 };
 

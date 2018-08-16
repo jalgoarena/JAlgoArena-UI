@@ -10,7 +10,7 @@ import * as redux from 'redux';
 import * as types from "../../constants/ActionTypes";
 
 import {editor, problems} from "../../problems/reducers";
-import {auth} from "../../users/reducers";
+import {auth} from "../../users/reducers/index";
 import {ranking} from "../../ranking/reducers";
 import {submissions} from "../../submissions/reducers";
 
