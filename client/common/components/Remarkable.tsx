@@ -1,5 +1,7 @@
-import React from 'react';
-import Markdown from 'remarkable';
+import * as React from 'react';
+import * as Markdown from 'remarkable';
+
+
 
 class Remarkable extends React.Component {
 

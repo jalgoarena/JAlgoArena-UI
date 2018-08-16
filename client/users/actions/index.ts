@@ -1,5 +1,7 @@
 // @flow
 
+import {Dispatch} from "redux";
+
 interface Action {
   type: string;
   error?: string;
@@ -199,7 +201,7 @@ export function attemptLogout() {
     localStorage.removeItem('jwtToken');
   }
 
-  return (dispatch: Dispatch) => {
+  return (dispatch: Dispatch<any>) => {
     dispatch(push('/'));
     dispatch(logoutSuccess());
   };

@@ -1,32 +1,41 @@
-// @flow
-
-import React from "react";
-import {Navbar, Nav, NavItem} from "react-bootstrap";
+import * as React from 'react';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import {connect} from 'react-redux';
-
-import ProfileOrLoginMenuItem from "./ProfileOrLoginMenuItem";
-import MenuItem from "./MenuItem";
-import RankingMenuItem from "./RankingMenuItem";
-import User from "../../users/domain/User";
-import WebSocketConnectionIndicator from "./WebSocketConnectionIndicator";
-import logo from '../../assets/img/logo.png';
-import {attemptLogout} from "../../users/actions";
-import FontAwesome from "./FontAwesome";
+import ProfileOrLoginMenuItem from './ProfileOrLoginMenuItem';
+import MenuItem from './MenuItem';
+import RankingMenuItem from './RankingMenuItem';
+import {User} from '../../users/domain/User';
+import WebSocketConnectionIndicator from './WebSocketConnectionIndicator';
+import {logo} from '../../assets/img/logo.png';
+import {attemptLogout} from '../../users/actions';
+import FontAwesome from './FontAwesome';
+import {Dispatch} from "redux";
 
 const logoStyle = {
-    display: "inline-block",
+    display: 'inline-block',
     height: 35,
-    marginTop: -5
+    marginTop: -5,
 };
 
-const Menu = ({user, isConnected, currentPath, onLogout, progress}:
-                  { user: User, isConnected: boolean, currentPath: string, onLogout: () => void, progress: number }
-) => (
+const Menu = ({
+                  user,
+                  isConnected,
+                  currentPath,
+                  onLogout,
+                  progress,
+              }: {
+    user: User;
+    isConnected: boolean;
+    currentPath: string;
+    onLogout: (() => void);
+    progress: number;
+}) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
             <a className="navbar-brand" href="/">
-                <img src={logo} style={logoStyle}/>&nbsp;
+                <img src={logo} style={logoStyle}/>
+                &nbsp;
                 <WebSocketConnectionIndicator isConnected={isConnected}/>
             </a>
         </Navbar.Header>
@@ -35,43 +44,57 @@ const Menu = ({user, isConnected, currentPath, onLogout, progress}:
                 <MenuItem path="/" prefix="fas" icon="home" title="Home" currentPath={currentPath}/>
                 <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={currentPath}/>
                 <RankingMenuItem currentPath={currentPath}/>
-                {user ? <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions"
-                                  currentPath={currentPath}/> : null}
+                {user ? (
+                    <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions"
+                              currentPath={currentPath}/>
+                ) : null}
                 <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
                           currentPath={currentPath}/>
-                <NavItem href="https://jalgoarena.github.io/docs/" target="_blank"><FontAwesome prefix="fas" name="book" lg={true}/> Docs</NavItem>
+                <NavItem href="https://jalgoarena.github.io/docs/" target="_blank">
+                    <FontAwesome prefix="fas" name="book" lg={true}/> Docs
+                </NavItem>
                 <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout} progress={progress}/>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: {
+    auth: { user: { username: string } },
+    submissions: { stats: any },
+    problems: { items: Array<object> }
+}) => {
     let progress = 0;
 
-    if (state.auth.user && state.submissions.stats && state.submissions.stats[state.auth.user.username] && state.submissions.stats[state.auth.user.username].solved) {
-        progress = parseInt(state.submissions.stats[state.auth.user.username].solved.length / state.problems.items.length * 100);
+    if (
+        state.auth.user &&
+        state.submissions.stats &&
+        state.submissions.stats[state.auth.user.username] &&
+        state.submissions.stats[state.auth.user.username].solved
+    ) {
+        let solved = parseInt(state.submissions.stats[state.auth.user.username].solved.length);
+        progress = solved / state.problems.items.length * 100;
     }
 
     return {
         user: state.auth.user,
         isConnected: state.webSocketConnected,
         currentPath: state.router.location.pathname,
-        progress
+        progress,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         onLogout: () => {
             dispatch(attemptLogout());
-        }
-    }
+        },
+    };
 };
 
 const MenuPanel = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(Menu);
 
 export default MenuPanel;
