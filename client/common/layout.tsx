@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import MenuPanel from "./components/Menu";
 import Footer from "./components/Footer";
@@ -11,13 +11,8 @@ import {Route, Switch} from "react-router-dom";
 import {HomePage} from "./pages/home";
 import {CodeOfConductPage} from "./pages/codeOfConduct";
 
-export class Layout extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+export class Layout extends React.Component<any, any> {
     render() {
-
         return <div>
             <MenuPanel/>
             <ErrorMessageBox/>

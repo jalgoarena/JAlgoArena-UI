@@ -17,7 +17,9 @@ const history = createHashHistory();
 
 const composeEnhancers =
     typeof window === 'object' &&
+    // @ts-ignore
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        // @ts-ignore
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 const store = createStore(
     connectRouter(history)(rootReducer),
