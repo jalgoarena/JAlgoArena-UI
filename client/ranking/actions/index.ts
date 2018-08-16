@@ -4,7 +4,8 @@ import * as types from "../../constants/ActionTypes"
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 import {setErrorMessage} from "../../common/actions";
-import moment from "moment";
+import * as moment from "moment";
+import {Dispatch} from "redux";
 
 type Action = {type:string}
     | {type:string, problemRanking: Array<ProblemRankingEntry>}

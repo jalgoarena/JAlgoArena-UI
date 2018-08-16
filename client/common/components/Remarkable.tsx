@@ -3,9 +3,10 @@ import * as Markdown from 'remarkable';
 
 
 
-class Remarkable extends React.Component {
+class Remarkable extends React.Component<any, any> {
+    md: Markdown;
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
 
         let options = {

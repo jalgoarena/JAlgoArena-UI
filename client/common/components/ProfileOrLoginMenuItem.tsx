@@ -20,6 +20,7 @@ const ProfileOrLoginMenuItem = ({
   user ? (
     <NavDropdown
       id="profile-login-dropdown"
+      // @ts-ignore
       title={
         <span>
           <FontAwesome prefix="fas" name="user" lg={true} /> {user.username}{' '}
@@ -35,7 +36,7 @@ const ProfileOrLoginMenuItem = ({
       <NavItem onClick={onLogout}>Logout</NavItem>
     </NavDropdown>
   ) : (
-    <LinkContainer to="/login" active={'/login' === currentPath} isActive={(match) => match && match.isExact}>
+    <LinkContainer to="/login" isActive={(match) => match && match.isExact}>
       <NavItem>
         <FontAwesome prefix="fas" name="sign-in-alt" lg={true} /> Login
       </NavItem>

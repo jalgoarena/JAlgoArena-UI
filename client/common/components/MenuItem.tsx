@@ -16,7 +16,7 @@ const MenuItem = ({
   title: string;
   currentPath: string;
 }) => (
-  <LinkContainer to={path} isActive={(match) => match && match.isExact} active={`#${path}` === currentPath}>
+  <LinkContainer to={path} isActive={(match) => match && match.isExact}>
     <NavItem>
       <FontAwesome prefix={prefix} name={icon} lg={true} /> {title}
     </NavItem>

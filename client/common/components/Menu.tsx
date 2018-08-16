@@ -10,6 +10,7 @@ import {logo} from '../../assets/img/logo.png';
 import {attemptLogout} from '../../users/actions';
 import FontAwesome from './FontAwesome';
 import {Dispatch} from "redux";
+import {RouterState} from "connected-react-router";
 
 const logoStyle = {
     display: 'inline-block',
@@ -17,43 +18,39 @@ const logoStyle = {
     marginTop: -5,
 };
 
-const Menu = ({
-                  user,
-                  isConnected,
-                  currentPath,
-                  onLogout,
-                  progress,
-              }: {
+interface MenuProps {
     user: User;
     isConnected: boolean;
     currentPath: string;
     onLogout: (() => void);
     progress: number;
-}) => (
+}
+
+const Menu: React.SFC<MenuProps> = (props) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
             <a className="navbar-brand" href="/">
                 <img src={logo} style={logoStyle}/>
                 &nbsp;
-                <WebSocketConnectionIndicator isConnected={isConnected}/>
+                <WebSocketConnectionIndicator isConnected={props.isConnected}/>
             </a>
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav role="navigation" pullRight id="menu">
-                <MenuItem path="/" prefix="fas" icon="home" title="Home" currentPath={currentPath}/>
-                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={currentPath}/>
-                <RankingMenuItem currentPath={currentPath}/>
-                {user ? (
+                <MenuItem path="/" prefix="fas" icon="home" title="Home" currentPath={props.currentPath}/>
+                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={props.currentPath}/>
+                <RankingMenuItem currentPath={props.currentPath}/>
+                {props.user ? (
                     <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions"
-                              currentPath={currentPath}/>
+                              currentPath={props.currentPath}/>
                 ) : null}
                 <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
-                          currentPath={currentPath}/>
+                          currentPath={props.currentPath}/>
                 <NavItem href="https://jalgoarena.github.io/docs/" target="_blank">
                     <FontAwesome prefix="fas" name="book" lg={true}/> Docs
                 </NavItem>
-                <ProfileOrLoginMenuItem user={user} currentPath={currentPath} onLogout={onLogout} progress={progress}/>
+                <ProfileOrLoginMenuItem user={props.user} currentPath={props.currentPath} onLogout={props.onLogout} progress={props.progress}/>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
@@ -62,7 +59,9 @@ const Menu = ({
 const mapStateToProps = (state: {
     auth: { user: { username: string } },
     submissions: { stats: any },
-    problems: { items: Array<object> }
+    problems: { items: Array<object> },
+    webSocketConnected: boolean
+    router: RouterState
 }) => {
     let progress = 0;
 
@@ -84,7 +83,7 @@ const mapStateToProps = (state: {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: Dispatch<{type: string}>) => {
     return {
         onLogout: () => {
             dispatch(attemptLogout());
@@ -95,6 +94,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 const MenuPanel = connect(
     mapStateToProps,
     mapDispatchToProps,
+    // @ts-ignore
 )(Menu);
 
 export default MenuPanel;

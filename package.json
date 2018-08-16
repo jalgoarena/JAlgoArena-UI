@@ -40,6 +40,10 @@
     "@types/react-dom": "^16.0.7",
     "@types/react-redux": "^6.0.6",
     "@types/redux": "^3.6.0",
+    "@types/react-bootstrap": "^0.32.11",
+    "@types/react-router-bootstrap": "^0.24.5",
+    "@types/remarkable": "^1.7.0",
+    "@types/sockjs-client": "^1.1.0",
     "ajv": "^6.4.0",
     "archiver": "^2.1.1",
     "babel-polyfill": "^6.26.0",
@@ -75,14 +79,9 @@
     "remarkable": "^1.7.1",
     "s": "^0.1.1",
     "sockjs-client": "^1.1.4",
-    "spin.js": "^3.1.0",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
-    "@types/react-bootstrap": "^0.32.11",
-    "@types/react-router-bootstrap": "^0.24.5",
-    "@types/remarkable": "^1.7.0",
-    "@types/sockjs-client": "^1.1.0",
     "awesome-typescript-loader": "^5.2.0",
     "babel-jest": "^23.0.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -119,8 +118,7 @@
       "./setupJest.js"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "spin.js$": "<rootDir>/__mocks__/objMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
     }
   }
 }

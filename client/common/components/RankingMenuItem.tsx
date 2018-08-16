@@ -4,9 +4,11 @@ import FontAwesome from './FontAwesome';
 import MenuItem from './MenuItem';
 import { MenuItem as ReactMenuItem} from 'react-bootstrap';
 
+
 const RankingMenuItem = ({ currentPath }: { currentPath: string }) => (
   <NavDropdown
     id="ranking-dropdown"
+    // @ts-ignore
     title={
       <span>
         <FontAwesome prefix="fas" name="trophy" lg={true} /> Ranking

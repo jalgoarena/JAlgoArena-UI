@@ -194,14 +194,14 @@ function setUsers(users): Action {
   };
 }
 
-export function attemptLogout() {
+export function attemptLogout(): Action {
   let token = localStorage.getItem('jwtToken');
 
   if (token) {
     localStorage.removeItem('jwtToken');
   }
 
-  return (dispatch: Dispatch<any>) => {
+  return (dispatch: Dispatch<{type: string}>) => {
     dispatch(push('/'));
     dispatch(logoutSuccess());
   };
