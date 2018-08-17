@@ -1,12 +1,10 @@
-// @flow
-
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes"
 import * as actions from "../../client/problems/actions"
 
-import Submission from "../../client/problems/domain/Submission";
+import {Submission} from "../../client/problems/domain/Submission";
 import Problem from "../../client/problems/domain/Problem";
 
 jest.mock('sockjs-client');
@@ -21,7 +19,7 @@ describe("async actions", () => {
 
     it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
         let submission = new Submission(
-            "dummy source code", "user-id", "fib", "submission-id", "token"
+            "dummy source code", "user-id", "fib", "submission-id", "ACCEPTED", "token"
         );
 
         fetch.mockResponseOnce(JSON.stringify(submission));
@@ -36,7 +34,7 @@ describe("async actions", () => {
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});
 
-        return store.dispatch(actions.judgeCode(SOURCE_CODE, PROBLEM_ID, "0-0", "dummy_token"))
+        return store.dispatch<any>(actions.judgeCode(SOURCE_CODE, PROBLEM_ID, "0-0", "dummy_token"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -56,7 +54,7 @@ describe("async actions", () => {
 
         const store = mockStore({problems: []});
 
-        return store.dispatch(actions.fetchProblems())
+        return store.dispatch<any>(actions.fetchProblems())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });

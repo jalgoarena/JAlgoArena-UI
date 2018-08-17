@@ -72,7 +72,7 @@ export function config(
 
 export function errorMessage(
     state: string | undefined | null = null,
-    action: { type: string; error: string | undefined }
+    action: { type: string; error: string | null }
 ) {
   const { type, error } = action;
 

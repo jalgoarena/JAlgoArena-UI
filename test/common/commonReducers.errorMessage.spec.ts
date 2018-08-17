@@ -1,5 +1,3 @@
-// @flow
-
 import * as reducer from '../../client/common/reducers';
 import * as types from '../../client/constants/ActionTypes'
 
@@ -10,7 +8,7 @@ describe('errorMessage reducer', () => {
                 {
                     type: types.RESET_ERROR_MESSAGE,
                     error: null
-                }
+                } as {type: string, error: string | null}
             )
         ).toEqual(null);
     });
