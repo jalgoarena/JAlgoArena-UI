@@ -4,7 +4,7 @@ import FontAwesome from '../../common/components/FontAwesome';
 
 type SaveButtonProps = {
     sourceCode: string,
-    savedSourceCode: string,
+    savedSourceCode: string | null,
     problemId: string,
     onSave: (sourceCode: string, problemId: string) => void
 }

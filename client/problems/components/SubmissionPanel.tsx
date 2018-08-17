@@ -13,8 +13,8 @@ import SaveButton from "./SaveButton";
 interface SubmissionPanelProps {
     problem: Problem,
     sourceCode: string,
-    savedSourceCode: string | null | undefined,
-    userId: string | null | undefined,
+    savedSourceCode: string | null,
+    userId: string | null,
     onRun: (sourceCode: string, problemId: string, userId: string) => void,
     onSave: (sourceCode: string, problemId: string) => void,
     isAlreadySolved: boolean
