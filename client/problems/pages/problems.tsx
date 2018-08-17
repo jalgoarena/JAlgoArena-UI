@@ -1,19 +1,40 @@
-import React from 'react';
+import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
 import {Transition, TransitionGroup} from 'react-transition-group';
 
-import Problem from '../components/Problem';
+import ProblemDetails from '../components/ProblemDetails';
 import ProblemsFilter from '../components/ProblemsFilter';
-import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
-import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
+import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions";
+import {fetchSolvedProblemsRatio} from "../../ranking/actions";
 import {Submission} from "../../submissions/domain/Submission";
 import NumberOfProblems from "../components/NumberOfProblems";
+import {AppState} from "../../common/reducers";
+import Problem from "../domain/Problem";
+import {Dispatch} from "redux";
 
-class Problems extends React.Component {
+interface ExtendedProblem extends Problem {
+    solutionsCount: number
+}
 
-    constructor(props) {
+interface ProblemsProps {
+    onLoad: () => void
+    problems: Array<ExtendedProblem>
+    problemsFilter: number
+    submissions: Array<Submission>
+    hideDoneProblems: boolean
+    changeFilter: (level: number) => void
+    onHideDoneProblems: (value: boolean) => void
+}
+
+interface ProblemsState {
+    showNumberOfProblems: boolean
+}
+
+class Problems extends React.Component<ProblemsProps, ProblemsState> {
+
+    constructor(props: ProblemsProps) {
         super(props);
         this.state = {
             showNumberOfProblems: false
@@ -73,20 +94,22 @@ class Problems extends React.Component {
                 if (problemsFilter !== 0 && problem.level !== problemsFilter) return null;
 
                 return <Transition in timeout={duration} key={idx}>
-                    {(state) => (
-                        <div style={{
-                            ...defaultStyle,
-                            ...transitionStyles[state]
-                        }}><Problem
-                    title={problem.title}
-                    level={problem.level}
-                    solvedBy={problem.solutionsCount}
-                    id={problem.id}
-                    key={idx}
-                    submissions={submissions}
-                    isSuccess={isSuccess}
-                    isFailure={isFailure}
-                        /></div>)}
+                    {(state) => {
+                        let transitionStyle = state === 'entering' ? transitionStyles.entering : transitionStyles.entered;
+                        return (
+                            <div style={{
+                                ...defaultStyle,
+                                ...transitionStyle
+                            }}><ProblemDetails
+                                title={problem.title}
+                                level={problem.level}
+                                solvedBy={problem.solutionsCount}
+                                id={problem.id}
+                                key={idx}
+                                isSuccess={isSuccess}
+                                isFailure={isFailure}
+                            /></div>);
+                    }}
                 </Transition>;
         });
 
@@ -113,7 +136,7 @@ class Problems extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
 
     let problems = state.problems.items || [];
 
@@ -133,15 +156,15 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         onLoad: () => {
-            dispatch(fetchSolvedProblemsRatio());
+            dispatch<any>(fetchSolvedProblemsRatio());
         },
-        changeFilter: (level) => {
+        changeFilter: (level: number) => {
             dispatch(setProblemsDifficultyVisibilityFilter(level));
         },
-        onHideDoneProblems: (value) => {
+        onHideDoneProblems: (value: boolean) => {
             dispatch(hideDoneProblems(value));
         }
     }

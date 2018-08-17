@@ -32,7 +32,7 @@ interface ProblemProps {
     isFailure: boolean
 }
 
-const Problem = (props: ProblemProps) => {
+const ProblemDetails = (props: ProblemProps) => {
 
     const checkControl = props.isSuccess
         ? <FontAwesome prefix="fas" name="check"/>
@@ -69,4 +69,4 @@ const Problem = (props: ProblemProps) => {
     );
 };
 
-export default Problem;
+export default ProblemDetails;

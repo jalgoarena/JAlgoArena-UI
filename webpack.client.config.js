@@ -62,7 +62,7 @@ module.exports = {
                 test: /\.([tj])sx?$/,
                 include: path.resolve(__dirname, "client"),
                 use: {
-                    loader: "awesome-typescript-loader"
+                    loader: "ts-loader"
                 }
             },
             {
