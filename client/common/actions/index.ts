@@ -9,7 +9,6 @@ import { Event } from '../domain/Event';
 import { store } from '../store';
 import { fetchUsers } from '../../users/actions';
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
 
 export function setErrorMessage(error: string): Action {
   return {

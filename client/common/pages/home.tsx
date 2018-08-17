@@ -1,12 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {Grid, Row, Col} from 'react-bootstrap';
 
 import FontAwesome from '../components/FontAwesome';
 import profile from '../../assets/img/profile.png';
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
+import {CSSProperties} from "react";
 
-const starLightStyle = {
+const starLightStyle: CSSProperties = {
     padding: 0,
     border: "none",
     borderTop: "solid 5px",
@@ -16,7 +17,7 @@ const starLightStyle = {
     borderColor: "white"
 };
 
-const containerStyle = {
+const containerStyle: CSSProperties = {
     textAlign: "center",
     background: "#18BC9C",
     color: "white",
@@ -26,20 +27,20 @@ const containerStyle = {
     paddingBottom: 50
 };
 
-const imgStyle = {
+const imgStyle: CSSProperties = {
     display: "block",
     margin: "0 auto 20px"
 };
 
-const introTextNameStyle = {
+const introTextNameStyle: CSSProperties = {
     display: "block",
-    fontWeight: "500",
+    fontWeight: 500,
     fontSize: "3em"
 };
 
-const introTextSkillsStyle = {
+const introTextSkillsStyle: CSSProperties = {
     fontSize: "1.25em",
-    fontWeight: "300"
+    fontWeight: 300
 };
 
 export const Home = (props: {title: string}) => {
@@ -62,7 +63,7 @@ export const Home = (props: {title: string}) => {
     );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: {config: {title: string}}) => {
     return {
         title: state.config.title
     };
