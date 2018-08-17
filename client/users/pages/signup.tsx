@@ -1,17 +1,20 @@
-import React from 'react';
-import dom from 'react-dom';
-import {Grid, Col, Button, PageHeader, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import * as React from 'react';
+import {MouseEvent} from 'react';
+import * as dom from 'react-dom';
+import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, HelpBlock, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { withRouter } from "react-router-dom";
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
 
-import {validateEmail, validateUserName, validatePassword} from '../utilities/RegexValidators';
+import {validateEmail, validatePassword, validateUserName} from '../utilities/RegexValidators';
 import {attemptSignUp, fetchUsers, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
 import ErrorLabel from "../components/ErrorLabel";
 
 import {fetchSubmissionStats} from "../../submissions/actions";
+import {Dispatch} from "redux";
+import {AppState, Config} from "../../common/reducers";
+import {AuthState} from "../reducers";
 
 const initialFormState = {
     errorMessage:  null,
@@ -21,10 +24,53 @@ const initialFormState = {
     isEmailFieldIncorrect : false,
     isPasswordFieldIncorrect : false,
     isConfirmPasswordFieldIncorrect : false
-};
+} as SignupState;
 
-class SignUp extends React.Component {
-    constructor(props) {
+interface SignupForm {
+    email: string
+    password: string
+    confirmedPassword: string
+    username: string
+    region: string
+    team: string
+    firstname: string
+    surname: string
+}
+
+interface SignupProps {
+    auth: AuthState
+    config: Config
+    onUnmount: () => void
+    onSignUp: (formData: SignupForm) => void
+}
+
+interface SignupState {
+    errorMessage:  string | null
+    isUserNameFieldIncorrect: boolean
+    isFirstNameFieldIncorrect: boolean
+    isSurnameFieldIncorrect: boolean
+    isEmailFieldIncorrect: boolean
+    isPasswordFieldIncorrect: boolean
+    isConfirmPasswordFieldIncorrect: boolean
+}
+
+interface InputElement extends HTMLInputElement {
+    focus: () => void
+    value: string
+}
+
+class SignUp extends React.Component<SignupProps, SignupState> {
+
+    private username: InputElement;
+    private password: InputElement;
+    private email: InputElement;
+    private firstname: InputElement;
+    private surname: InputElement;
+    private confirmPassword: InputElement;
+    private region: InputElement;
+    private team: InputElement;
+
+    constructor(props: SignupProps) {
         super(props);
         this.state = Object.assign({}, initialFormState);
         this.onSignUp = this.onSignUp.bind(this);
@@ -33,20 +79,18 @@ class SignUp extends React.Component {
     componentDidUpdate() {
         if (this.props.auth.error === 'User name is already used') {
             if(!this.state.isUserNameFieldIncorrect){
-                let newState = Object.assign({}, this.state);
-                newState.isUserNameFieldIncorrect = true;
+                let newState = Object.assign({}, this.state, {isUserNameFieldIncorrect: true});
                 this.setState(newState);
             }
-            dom.findDOMNode(this.username).focus();
+            SignUp.focusOn(this.username);
         }
 
         if (this.props.auth.error === "Email is already used") {
             if(!this.state.isEmailFieldIncorrect){
-                let newState = Object.assign({}, this.state);
-                newState.isEmailFieldIncorrect = true;
+                let newState = Object.assign({}, this.state, {isEmailFieldIncorrect: true});
                 this.setState(newState);
             }
-            dom.findDOMNode(this.email).focus();
+            SignUp.focusOn(this.email);
         }
     }
 
@@ -54,7 +98,14 @@ class SignUp extends React.Component {
         this.props.onUnmount();
     }
 
-    static findErrorsInSignupForm(formData, emailRegex, emailErrorMessage) {
+    private static focusOn(ref: InputElement) {
+        let inputElement = dom.findDOMNode(ref) as InputElement;
+        if (inputElement) {
+            inputElement.focus();
+        }
+    }
+
+    static findErrorsInSignupForm(formData: SignupForm, emailRegex: string, emailErrorMessage: string) {
 
         let newState = Object.assign({}, initialFormState);
 
@@ -103,18 +154,18 @@ class SignUp extends React.Component {
         return newState;
     }
 
-    onSignUp(e){
+    onSignUp(e: MouseEvent<Button>){
         e.preventDefault();
 
         let formData = {
-            username : dom.findDOMNode(this.username).value.trim(),
-            email : dom.findDOMNode(this.email).value.trim(),
-            firstname : dom.findDOMNode(this.firstname).value.trim(),
-            surname : dom.findDOMNode(this.surname).value.trim(),
-            password : dom.findDOMNode(this.password).value.trim(),
-            confirmedPassword : dom.findDOMNode(this.confirmPassword).value.trim(),
-            region : dom.findDOMNode(this.region).value.trim(),
-            team : dom.findDOMNode(this.team).value.trim()
+            username: (dom.findDOMNode(this.username) as InputElement).value.trim(),
+            email: (dom.findDOMNode(this.email) as InputElement).value.trim(),
+            firstname: (dom.findDOMNode(this.firstname) as InputElement).value.trim(),
+            surname: (dom.findDOMNode(this.surname) as InputElement).value.trim(),
+            password: (dom.findDOMNode(this.password) as InputElement).value.trim(),
+            confirmedPassword: (dom.findDOMNode(this.confirmPassword) as InputElement).value.trim(),
+            region: (dom.findDOMNode(this.region) as InputElement).value.trim(),
+            team: (dom.findDOMNode(this.team) as InputElement).value.trim()
         };
 
         let newState = SignUp.findErrorsInSignupForm(
@@ -130,7 +181,7 @@ class SignUp extends React.Component {
     }
 
     componentDidMount(){
-        dom.findDOMNode(this.username).focus();
+        SignUp.focusOn(this.username);
     }
 
     render() {
@@ -195,23 +246,23 @@ class SignUp extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
     return {
         auth: state.auth,
         config: state.config
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        onSignUp: (formData) => {
+        onSignUp: (formData: SignupForm) => {
             dispatch(startSignup());
-            dispatch(attemptSignUp(
+            dispatch<any>(attemptSignUp(
                 formData.email, formData.password, formData.username,
                 formData.region, formData.team, formData.firstname, formData.surname
             ));
-            dispatch(fetchUsers());
-            dispatch(fetchSubmissionStats());
+            dispatch<any>(fetchUsers());
+            dispatch<any>(fetchSubmissionStats());
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
@@ -222,6 +273,6 @@ const mapDispatchToProps = (dispatch) => {
 const SignUpPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(SignUp));
+)(SignUp);
 
 export {SignUpPage};
