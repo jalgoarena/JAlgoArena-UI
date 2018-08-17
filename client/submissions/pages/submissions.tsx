@@ -17,7 +17,7 @@ import {Dispatch} from "redux";
 
 interface SubmissionsProps {
     auth: AuthState
-    onLoad: (id: string) => void
+    onLoad: (id: string | null) => void
     submissions: Array<Submission>
 }
 
@@ -259,7 +259,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        onLoad: (userId: string) => {
+        onLoad: (userId: string | null) => {
             let token = localStorage.getItem('jwtToken');
 
             if (!token || token === '' ) {

@@ -88,7 +88,7 @@ const mapStateToProps = (state: MenuState) => {
 const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => {
     return {
         onLogout: () => {
-            dispatch(attemptLogout());
+            dispatch<any>(attemptLogout());
         },
     };
 };

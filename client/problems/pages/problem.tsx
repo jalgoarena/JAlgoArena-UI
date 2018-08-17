@@ -20,7 +20,7 @@ import {fetchProblemRanking} from "../../ranking/actions";
 import {User} from "../../users/domain/User";
 import Problem from "../domain/Problem";
 import {Submission} from "../domain/Submission";
-import {RouteComponentProps} from "react-router";
+import {RouteComponentProps, withRouter} from "react-router";
 import {ProblemRankingEntry} from "../../ranking/domain/ProblemRankingEntry";
 import {AppState} from "../../common/reducers";
 import {Dispatch} from "redux";
@@ -30,13 +30,16 @@ interface MatchParams {
     id: string
 }
 
-interface ProblemProps extends RouteComponentProps<MatchParams>{
-    currentProblemId: string
-    user: User
+interface ProblemPropsFromState {
     problem: Problem | null
-    submissions: Array<Submission>
+    currentProblemId: string | null
     problemRanking: Array<ProblemRankingEntry>
     editor: EditorState
+    user: User | null
+    submissions: Array<Submission>
+}
+
+interface ProblemProps extends RouteComponentProps<MatchParams>, ProblemPropsFromState {
     onLoad: (problemId: string) => void
     onRefresh: () => void
     onSourceCodeChanged: (sourceCode: string) => void
@@ -101,7 +104,7 @@ class ProblemPage extends React.Component<ProblemProps, ProblemState> {
 
     isAlreadySolved(): boolean {
         return this.props.problem !== null &&
-            this.props.user &&
+            this.props.user !== null &&
             this.props.editor.submissionId !== null
 
     }
@@ -260,7 +263,7 @@ class ProblemPage extends React.Component<ProblemProps, ProblemState> {
             />
             <ProblemRank
                 problemRanking={this.props.problemRanking}
-                problemId={this.props.currentProblemId}
+                problemId={this.props.currentProblemId || ""}
                 show={this.state.showProblemRanking}
                 onHide={this.hideProblemRanking.bind(this)}
             />
@@ -275,14 +278,22 @@ const mapStateToProps = (state: AppState) => {
         ? state.problems.items.find((problem) => problem.id === currentProblemId)
         : null;
 
+
     return {
-        problem,
-        currentProblemId,
+        problem: problem,
+        currentProblemId: currentProblemId,
         problemRanking: state.ranking.problemRanking,
         editor: state.editor,
         user: state.auth.user,
-        submissions: state.submissions.items
-    }
+        submissions: state.submissions.items.map((submission) => new Submission(
+            submission.sourceCode,
+            submission.userId,
+            submission.problemId,
+            submission.submissionId,
+            submission.statusCode,
+            null
+        ))
+    } as ProblemPropsFromState
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
@@ -317,6 +328,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 const EnhancedProblemPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProblemPage);
+)(withRouter(ProblemPage));
 
 export {EnhancedProblemPage};

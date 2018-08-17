@@ -18,12 +18,15 @@ interface ExtendedProblem extends Problem {
     solutionsCount: number
 }
 
-interface ProblemsProps {
-    onLoad: () => void
+interface ProblemPropsFromState {
     problems: Array<ExtendedProblem>
-    problemsFilter: number
     submissions: Array<Submission>
+    problemsFilter: number
     hideDoneProblems: boolean
+}
+
+interface ProblemsProps extends ProblemPropsFromState {
+    onLoad: () => void
     changeFilter: (level: number) => void
     onHideDoneProblems: (value: boolean) => void
 }
@@ -153,7 +156,7 @@ const mapStateToProps = (state: AppState) => {
         submissions: state.submissions.items,
         problemsFilter: state.problems.difficultyFilter,
         hideDoneProblems: state.problems.doneProblemsFilter
-    }
+    } as ProblemPropsFromState
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {

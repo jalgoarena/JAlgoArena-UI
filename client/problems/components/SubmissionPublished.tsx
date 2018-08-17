@@ -3,7 +3,7 @@ import * as React from 'react';
 import DisplaySubmissionId from './DisplaySubmissionId';
 
 interface SubmissionPublishedProps {
-    submissionId: string,
+    submissionId: string | null
     userId: string | null
 }
 

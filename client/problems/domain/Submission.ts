@@ -4,9 +4,9 @@ export class Submission {
   public readonly problemId: string;
   public readonly submissionId: string;
   public readonly statusCode: string;
-  public readonly token: string;
+  public readonly token: string | null;
 
-  constructor(sourceCode: string, userId: string, problemId: string, submissionId: string, statusCode: string, token: string) {
+  constructor(sourceCode: string, userId: string, problemId: string, submissionId: string, statusCode: string, token: string | null) {
     this.sourceCode = sourceCode;
     this.userId = userId;
     this.problemId = problemId;

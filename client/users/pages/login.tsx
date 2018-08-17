@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as dom from 'react-dom';
-import {Grid, Col, Button, FormGroup, PageHeader} from 'react-bootstrap';
+import {Grid, Col, FormGroup, PageHeader, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
-import {Redirect, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 
 import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
@@ -14,6 +14,7 @@ import ErrorLabel from "../components/ErrorLabel";
 import {AppState} from "../../common/reducers";
 import {Dispatch} from "redux";
 import {AuthState} from "../reducers";
+import {MouseEvent} from "react";
 
 const initialFormState: LoginState = {
     errorMessage: null,
@@ -21,7 +22,7 @@ const initialFormState: LoginState = {
     isPasswordFieldIncorrect: false
 };
 
-interface LoginProps {
+interface LoginProps extends RouteComponentProps<any> {
     onUnmount: () => void
     onLogin: (formData: LoginForm) => void
     auth: AuthState
@@ -38,7 +39,14 @@ interface LoginForm {
     password: string
 }
 
+interface InputElement extends HTMLInputElement {
+    focus: () => void
+    value: string
+}
+
 class Login extends React.Component<LoginProps, LoginState> {
+    private username: InputElement;
+    private password: InputElement;
 
     constructor(props: LoginProps) {
         super(props);
@@ -52,7 +60,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                 let newState = Object.assign({}, this.state, {isUsernameFieldIncorrect: true});
                 this.setState(newState);
             }
-            dom.findDOMNode(this.username).focus();
+            Login.focusOn(this.username);
         }
     }
 
@@ -61,7 +69,14 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     componentDidMount() {
-        dom.findDOMNode(this.username).focus();
+        Login.focusOn(this.username);
+    }
+
+    private static focusOn(ref: InputElement) {
+        let inputElement = dom.findDOMNode(ref) as InputElement;
+        if (inputElement) {
+            inputElement.focus();
+        }
     }
 
     static findErrorsInLoginForm(formData: LoginForm) {
@@ -88,12 +103,14 @@ class Login extends React.Component<LoginProps, LoginState> {
         return newState;
     }
 
-    onLogin(e: Event) {
+    onLogin(e: MouseEvent<Button>) {
         e.preventDefault();
 
+        let usernameInputElement = dom.findDOMNode(this.username)  as InputElement;
+        let passwordInputElement = dom.findDOMNode(this.password) as InputElement;
         const formData = {
-            username: dom.findDOMNode(this.username).value.trim(),
-            password: dom.findDOMNode(this.password).value.trim(),
+            username: usernameInputElement.value.trim(),
+            password: passwordInputElement.value.trim(),
         };
 
         let newState = Login.findErrorsInLoginForm(formData);
@@ -117,11 +134,11 @@ class Login extends React.Component<LoginProps, LoginState> {
                 <ErrorLabel validationError={this.state.errorMessage} authError={this.props.auth.error} />
                 <form>
                     <FieldGroup id="username" placeholder="Username" type="text"
-                                inputRef={ref => { this.username = ref; }}
+                                inputRef={(ref: any) => { this.username = ref; }}
                                 validationState={this.state.isUsernameFieldIncorrect ? "error" : null}
                     />
                     <FieldGroup id="password" placeholder="Password" type="password"
-                                inputRef={ref => { this.password = ref; }}
+                                inputRef={(ref: any) => { this.password = ref; }}
                                 validationState={this.state.isPasswordFieldIncorrect ? "error" : null}
                     />
                     <FormGroup className="text-center">

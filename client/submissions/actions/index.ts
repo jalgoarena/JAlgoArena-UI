@@ -13,7 +13,7 @@ interface Action {
     stats?: Array<{}>
 }
 
-export function fetchSubmissions(userId: string, token: string | null) {
+export function fetchSubmissions(userId: string | null, token: string | null) {
 
     const options = {
         headers: {

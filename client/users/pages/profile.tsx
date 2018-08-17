@@ -1,25 +1,40 @@
-import React from 'react';
+import * as React from 'react';
 import {Col, Grid, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from "lodash";
-import User from "../domain/User";
+import {User} from "../domain/User";
 import Blockies from 'react-blockies';
 import FontAwesome from "../../common/components/FontAwesome";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import {Link} from "react-router-dom";
-import Highcharts from 'highcharts';
+import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import {fetchSubmissionStats} from "../../submissions/actions";
 import {fetchUsers} from "../actions";
 import {RankingEntry} from "../../ranking/domain/RankingEntry";
+import {Dispatch} from "redux";
+import {AppState} from "../../common/reducers";
+import {RouteComponentProps} from "react-router";
 
-class Profile extends React.Component {
+interface MatchParams {
+    username: string
+}
+
+interface ProfileProps extends RouteComponentProps<MatchParams> {
+    onLoad: () => void
+    users: Array<User> | null
+    stats: any
+    rankingStartDate: string
+    ranking: Array<RankingEntry>
+}
+
+class Profile extends React.Component<ProfileProps, {}> {
 
     componentDidMount() {
         this.props.onLoad();
     }
 
-    static githubClassForValue(value) {
+    static githubClassForValue(value: { count: number }) {
         if (!value || value.count === 0) {
             return 'color-github-0';
         }
@@ -39,19 +54,19 @@ class Profile extends React.Component {
         return 'color-github-4';
     }
 
-    static titleForValue(value) {
+    static titleForValue(value: { count: number, date: string }) {
         return value ? `${value.count} submissions on ${value.date}` : `0 submissions`;
     }
 
-    scoreFor(user) {
+    scoreFor(user: User) {
         let userRankEntry =
             _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username);
 
         return userRankEntry ? userRankEntry.score : 0;
     }
 
-    submissionsCountPerDay(userStats) {
-        let submissionsCountPerDay = [];
+    submissionsCountPerDay(userStats: { submissions: any }) {
+        let submissionsCountPerDay: Array<{ date: string, count: number }> = [];
 
         if (userStats) {
             Object.keys(userStats.submissions).forEach(date => {
@@ -61,34 +76,33 @@ class Profile extends React.Component {
         return submissionsCountPerDay;
     }
 
-    static solvedProblems(user, userStats) {
-        let solvedProblems = <h4 className="text-center" style={{"color": "#979faf"}}>
-            {user.username} has not solved any problems yet
-        </h4>;
-
-        if (userStats && userStats.solved.length > 0) {
-            solvedProblems = userStats.solved.map((problemId, idx) => {
-                return <Link to={"/problem/" + problemId} className="btn btn-info" key={idx} style={{"margin": "4px"}}>
-                    {problemId}
-                </Link>
-            })
+    static solvedProblems(user: User, userStats: { solved: Array<string> }) {
+        if (!(userStats && userStats.solved.length > 0)) {
+            return <h4 className="text-center" style={{"color": "#979faf"}}>
+                {user.username} has not solved any problems yet
+            </h4>;
         }
-        return solvedProblems;
+
+        return userStats.solved.map((problemId, idx) => {
+            return <Link to={"/problem/" + problemId} className="btn btn-info" key={idx} style={{"margin": "4px"}}>
+                {problemId}
+            </Link>
+        });
     }
 
-    static highchartSolvedProblems(user, userStats, rankingStartDate) {
+    static highchartSolvedProblems(user: User, userStats: any, rankingStartDate: string) {
         let rankingStartDateParts = rankingStartDate.split('-');
         let solvedProblemsCountPerDay = [
-            [Date.UTC(rankingStartDateParts[0], rankingStartDateParts[1] - 1, rankingStartDateParts[2]), 0]
+            [Date.UTC(parseInt(rankingStartDateParts[0]), parseInt(rankingStartDateParts[1]) - 1, parseInt(rankingStartDateParts[2]), 0]
         ];
 
         if (userStats) {
             let sum = 0;
             Object.keys(userStats.solvedProblemsPerDay).forEach(date => {
                 let count = userStats.solvedProblemsPerDay[date].length;
-                let dateParts = date.split("-");
+                let dateParts: Array<string> = date.split("-");
                 solvedProblemsCountPerDay.push(
-                    [Date.UTC(dateParts[0], dateParts[1] - 1, dateParts[2]), count + sum]
+                    [Date.UTC(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]), count + sum]
                 );
                 sum += count;
             });
@@ -203,28 +217,27 @@ class Profile extends React.Component {
                     values={this.submissionsCountPerDay(userStats)}
                     classForValue={Profile.githubClassForValue}
                     titleForValue={Profile.titleForValue}
-                    tooltipDataAttrs={{ 'data-toggle': 'tooltip' }}
+                    tooltipDataAttrs={{'data-toggle': 'tooltip'}}
                 />
             </Col>
         </Grid>;
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
     return {
         users: state.auth.users,
         stats: state.submissions.stats,
-        location: state.router.location,
         rankingStartDate: state.ranking.startDate,
         ranking: state.ranking.general
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         onLoad: () => {
-            dispatch(fetchUsers());
-            dispatch(fetchSubmissionStats());
+            dispatch<any>(fetchUsers());
+            dispatch<any>(fetchSubmissionStats());
         }
     }
 };

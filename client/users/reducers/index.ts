@@ -2,9 +2,9 @@ import * as types from '../../constants/ActionTypes';
 import { User } from '../domain/User';
 
 export interface AuthState {
-  user: User | undefined | null;
-  error: string | undefined | null;
-  users: User[] | undefined | null;
+  user: User | null;
+  error: string | null;
+  users: Array<User> | null;
 }
 
 interface AuthAction {

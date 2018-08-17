@@ -12,7 +12,7 @@ const outputStyle: CSSProperties = {
 };
 
 interface OutputProps {
-    submissionId: string,
+    submissionId: string | null
     userId: string | null
 }
 

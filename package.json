@@ -82,6 +82,8 @@
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
+    "@types/highcharts": "^5.0.26",
+    "@types/react-calendar-heatmap": "^1.6.2",
     "babel-jest": "^23.0.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
