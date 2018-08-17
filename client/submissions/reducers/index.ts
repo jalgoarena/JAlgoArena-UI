@@ -11,11 +11,11 @@ export interface SubmissionsState {
     stats: Array<{}>
 }
 
-type SubmissionsAction = {
+interface SubmissionsAction {
     type: string,
-    submissions?: Array<Submission>,
-    status?: string,
-    solvedProblemsRatio?: Array<ProblemSubmissionRatio>,
+    submissions?: Array<Submission>
+    status?: string
+    solvedProblemsRatio?: Array<ProblemSubmissionRatio>
     stats?: Array<{}>
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {Grid, Col, Button, PageHeader, Row} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -8,24 +8,40 @@ import * as _ from 'lodash';
 import SourceCode from "../components/SourceCode";
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {fetchSubmissions} from "../../submissions/actions";
-import {DateTime} from "react-datetime-bootstrap";
-import moment from "moment";
+import {fetchSubmissions} from "../actions";
+import * as moment from "moment";
+import {AuthState} from "../../users/reducers";
+import {Submission} from "../domain/Submission";
+import {AppState} from "../../common/reducers";
+import {Dispatch} from "redux";
 
-class Submissions extends React.Component {
+interface SubmissionsProps {
+    auth: AuthState
+    onLoad: (id: string) => void
+    submissions: Array<Submission>
+}
 
-    constructor(props) {
+interface SubmissionsState {
+    showSourceCode: boolean
+    showErrorMessage: boolean
+    sourceCode: string
+    problemId: string
+    errorMessage: string | null
+}
+
+class Submissions extends React.Component<SubmissionsProps, SubmissionsState> {
+    constructor(props: SubmissionsProps) {
         super(props);
         this.state = {
             showSourceCode: false, showErrorMessage: false, sourceCode: "", problemId: "", errorMessage: null
         }
     }
 
-    showSourceCode(sourceCode, problemId) {
+    showSourceCode(sourceCode: string, problemId: string) {
         this.setState({showSourceCode: true, sourceCode, problemId});
     }
 
-    showErrorMessage(errorMessage, problemId) {
+    showErrorMessage(errorMessage: string | null, problemId: string) {
         this.setState({showErrorMessage: errorMessage !== null, errorMessage, problemId})
     }
 
@@ -44,20 +60,20 @@ class Submissions extends React.Component {
         }
     }
 
-    static linkFormatter(cell) {
+    static linkFormatter(cell: string) {
         return <Link to={"/problem/" + cell} className="btn btn-primary btn-block">
             {cell}
         </Link>
     }
 
-    sourceCodeButtonFormatter(cell) {
+    sourceCodeButtonFormatter(cell: {sourceCode: string, problemId: string}) {
         return <Button bsStyle="success" block
                        onClick={() => this.showSourceCode(cell.sourceCode, cell.problemId)}>
             <FontAwesome prefix="far" name="file-alt"/>
         </Button>;
     }
 
-    errorCodeButtonFormatter(cell) {
+    errorCodeButtonFormatter(cell: {errorMessage: string | null, problemId: string}) {
         return <Button bsStyle="danger" block
                        disabled={cell.errorMessage === null || cell.errorMessage === ''}
                        onClick={() => {
@@ -67,7 +83,7 @@ class Submissions extends React.Component {
         </Button>;
     }
 
-    static statusFormatter(cell) {
+    static statusFormatter(cell: string) {
         let status;
         let style;
         let icon;
@@ -115,7 +131,7 @@ class Submissions extends React.Component {
         </span>
     }
 
-    static testCasesFormatter(cell) {
+    static testCasesFormatter(cell: {passedTestCases: number, failedTestCases: number}) {
         const spanStyle = {
             marginLeft: ".2em",
             marginRight: ".2em"
@@ -128,7 +144,8 @@ class Submissions extends React.Component {
     }
 
     static dateFormatter(cell: Date) {
-        return <DateTime value={moment(cell)} readOnly={true} />;
+        let dateTime = moment(cell);
+        return <span>${dateTime.format()}</span>;
     }
 
     render() {
@@ -162,7 +179,7 @@ class Submissions extends React.Component {
             <Col>
                 <Row>
                     <PageHeader>Results</PageHeader>
-                    <BootstrapTable data={submissionData} stripped hover pagination search>
+                    <BootstrapTable data={submissionData} striped hover pagination search>
                         <TableHeaderColumn isKey
                                            width={'100'}
                                            dataSort
@@ -193,7 +210,7 @@ class Submissions extends React.Component {
                 </Row>
                 <Row>
                     <PageHeader>Submissions</PageHeader>
-                    <BootstrapTable data={submissionData} stripped hover pagination search>
+                    <BootstrapTable data={submissionData} striped hover pagination search>
                         <TableHeaderColumn isKey
                                            width={'100'}
                                            dataSort
@@ -226,29 +243,29 @@ class Submissions extends React.Component {
             <SourceCode
                 show={this.state.showErrorMessage}
                 onHide={this.hideErrorMessage.bind(this)}
-                sourceCode={this.state.errorMessage}
+                sourceCode={this.state.errorMessage || ""}
                 problemId={this.state.problemId}
             />
         </Grid>;
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
     return {
         auth: state.auth,
         submissions: state.submissions.items || []
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        onLoad: (userId) => {
+        onLoad: (userId: string) => {
             let token = localStorage.getItem('jwtToken');
 
             if (!token || token === '' ) {
                 return null;
             }
-            dispatch(fetchSubmissions(userId, token));
+            dispatch<any>(fetchSubmissions(userId, token));
         }
     }
 };

@@ -1,5 +1,3 @@
-// @flow
-
 export class ProblemSubmissionRatio {
     problemId: string;
     solutionsCount: number;
