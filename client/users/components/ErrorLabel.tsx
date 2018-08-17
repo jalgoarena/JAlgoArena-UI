@@ -1,25 +1,28 @@
-// @flow
+import * as React from 'react';
 
-import React from 'react';
+interface ErrorLabelProps {
+    validationError: string | null,
+    authError: string | null
+}
 
-const ErrorLabel = ({validationError, authError}: {validationError: ?string, authError: string}) => {
-    if (validationError) {
+const ErrorLabel = (props: ErrorLabelProps) => {
+    if (props.validationError) {
         return (
             <div className="form-group has-error">
-                <label className="control-label">{validationError}</label>
+                <label className="control-label">{props.validationError}</label>
             </div>
         );
     }
 
-    if (authError) {
+    if (props.authError) {
         return (
             <div className="form-group has-error">
-                <label className="control-label">{authError}</label>
+                <label className="control-label">{props.authError}</label>
             </div>
         );
     }
 
-    return <div />;
+    return <div/>;
 };
 
 export default ErrorLabel;

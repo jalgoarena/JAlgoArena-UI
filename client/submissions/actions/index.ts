@@ -13,12 +13,12 @@ interface Action {
     stats?: Array<{}>
 }
 
-export function fetchSubmissions(userId: string, token: string) {
+export function fetchSubmissions(userId: string, token: string | null) {
 
     const options = {
         headers: {
             'Accept': 'application/json',
-            'X-Authorization': token
+            'X-Authorization': token || ""
         },
         method: 'get'
     };

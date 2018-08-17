@@ -1,5 +1,5 @@
-import React from 'react';
-import dom from 'react-dom';
+import * as React from 'react';
+import * as dom from 'react-dom';
 import {Grid, Col, Button, FormGroup, PageHeader} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
@@ -11,15 +11,36 @@ import FieldGroup from '../../common/components/FieldGroup';
 import {attemptLogin, navigatedAwayFromAuthFormPage, startLogin} from "../actions";
 import {validateUserName, validatePassword} from '../utilities/RegexValidators';
 import ErrorLabel from "../components/ErrorLabel";
+import {AppState} from "../../common/reducers";
+import {Dispatch} from "redux";
+import {AuthState} from "../reducers";
 
-const initialFormState = {
+const initialFormState: LoginState = {
     errorMessage: null,
     isUsernameFieldIncorrect: false,
     isPasswordFieldIncorrect: false
 };
 
-class Login extends React.Component {
-    constructor(props) {
+interface LoginProps {
+    onUnmount: () => void
+    onLogin: (formData: LoginForm) => void
+    auth: AuthState
+}
+
+interface LoginState {
+    errorMessage: string | null
+    isUsernameFieldIncorrect: boolean
+    isPasswordFieldIncorrect: boolean
+}
+
+interface LoginForm {
+    username: string
+    password: string
+}
+
+class Login extends React.Component<LoginProps, LoginState> {
+
+    constructor(props: LoginProps) {
         super(props);
         this.state = Object.assign({}, initialFormState);
         this.onLogin = this.onLogin.bind(this);
@@ -28,8 +49,7 @@ class Login extends React.Component {
     componentDidUpdate() {
         if (this.props.auth.error === "Access Denied") {
             if (!this.state.isUsernameFieldIncorrect) {
-                let newState = Object.assign({}, this.state);
-                newState.isUsernameFieldIncorrect = true;
+                let newState = Object.assign({}, this.state, {isUsernameFieldIncorrect: true});
                 this.setState(newState);
             }
             dom.findDOMNode(this.username).focus();
@@ -44,7 +64,7 @@ class Login extends React.Component {
         dom.findDOMNode(this.username).focus();
     }
 
-    static findErrorsInLoginForm(formData) {
+    static findErrorsInLoginForm(formData: LoginForm) {
         // Only finding one error at a time.
         let newState = Object.assign({}, initialFormState);
 
@@ -68,7 +88,7 @@ class Login extends React.Component {
         return newState;
     }
 
-    onLogin(e) {
+    onLogin(e: Event) {
         e.preventDefault();
 
         const formData = {
@@ -125,17 +145,17 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
     return {
         auth: state.auth
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        onLogin: (formData) => {
+        onLogin: (formData: LoginForm) => {
             dispatch(startLogin());
-            dispatch(attemptLogin(formData.username, formData.password));
+            dispatch<any>(attemptLogin(formData.username, formData.password));
         },
         onUnmount: () => {
             dispatch(navigatedAwayFromAuthFormPage());
