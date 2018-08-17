@@ -3,11 +3,13 @@ import {Col, Grid, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as _ from "lodash";
 import {User} from "../domain/User";
+// @ts-ignore
 import Blockies from 'react-blockies';
 import FontAwesome from "../../common/components/FontAwesome";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import {Link} from "react-router-dom";
 import * as Highcharts from 'highcharts';
+// @ts-ignore
 import HighchartsReact from 'highcharts-react-official';
 import {fetchSubmissionStats} from "../../submissions/actions";
 import {fetchUsers} from "../actions";
@@ -93,7 +95,7 @@ class Profile extends React.Component<ProfileProps, {}> {
     static highchartSolvedProblems(user: User, userStats: any, rankingStartDate: string) {
         let rankingStartDateParts = rankingStartDate.split('-');
         let solvedProblemsCountPerDay = [
-            [Date.UTC(parseInt(rankingStartDateParts[0]), parseInt(rankingStartDateParts[1]) - 1, parseInt(rankingStartDateParts[2]), 0]
+            [Date.UTC(parseInt(rankingStartDateParts[0]), parseInt(rankingStartDateParts[1]) - 1, parseInt(rankingStartDateParts[2])), 0]
         ];
 
         if (userStats) {
@@ -102,7 +104,7 @@ class Profile extends React.Component<ProfileProps, {}> {
                 let count = userStats.solvedProblemsPerDay[date].length;
                 let dateParts: Array<string> = date.split("-");
                 solvedProblemsCountPerDay.push(
-                    [Date.UTC(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]), count + sum]
+                    [Date.UTC(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2])), count + sum]
                 );
                 sum += count;
             });
