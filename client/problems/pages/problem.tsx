@@ -21,19 +21,27 @@ import {User} from "../../users/domain/User";
 import Problem from "../domain/Problem";
 import {Submission} from "../domain/Submission";
 import {RouteComponentProps} from "react-router";
+import {ProblemRankingEntry} from "../../ranking/domain/ProblemRankingEntry";
+import {AppState} from "../../common/reducers";
+import {Dispatch} from "redux";
+import {EditorState} from "../reducers";
 
 interface MatchParams {
     id: string
 }
 
 interface ProblemProps extends RouteComponentProps<MatchParams>{
+    currentProblemId: string
     user: User
-    problem: Problem
+    problem: Problem | null
     submissions: Array<Submission>
-    editor: {submissionId: string, sourceCode: string}
+    problemRanking: Array<ProblemRankingEntry>
+    editor: EditorState
     onLoad: (problemId: string) => void
     onRefresh: () => void
     onSourceCodeChanged: (sourceCode: string) => void
+    onSave: (sourceCode: string, problemId: string) => void
+    onRun: (sourceCode: string, problemId: string, userId: string) => void
 }
 
 interface ProblemState {
@@ -91,10 +99,11 @@ class ProblemPage extends React.Component<ProblemProps, ProblemState> {
         }
     }
 
-    isAlreadySolved() {
-        return this.props.problem &&
-            this.props.editor.submissionId !== null &&
-            this.props.user
+    isAlreadySolved(): boolean {
+        return this.props.problem !== null &&
+            this.props.user &&
+            this.props.editor.submissionId !== null
+
     }
 
     showListNodeSourceCode() {
@@ -188,7 +197,6 @@ class ProblemPage extends React.Component<ProblemProps, ProblemState> {
                     submissions={this.props.submissions}
                     problem={this.props.problem}
                     onShowProblemRanking={this.showProblemRanking.bind(this)}
-                    onHideProblemRanking={this.hideProblemRanking.bind(this)}
                 />
                 <ProblemDescription description={this.props.problem.description}/>
                 <ProblemToolbar
@@ -260,7 +268,7 @@ class ProblemPage extends React.Component<ProblemProps, ProblemState> {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
     let currentProblemId = state.problems.currentProblemId;
 
     const problem = currentProblemId
@@ -269,6 +277,7 @@ const mapStateToProps = (state) => {
 
     return {
         problem,
+        currentProblemId,
         problemRanking: state.ranking.problemRanking,
         editor: state.editor,
         user: state.auth.user,
@@ -276,9 +285,9 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        onRun: (sourceCode, problemId, userId) => {
+        onRun: (sourceCode: string, problemId: string, userId: string) => {
             let token = localStorage.getItem('jwtToken');
 
             if (token == null || token === "") {
@@ -286,21 +295,21 @@ const mapDispatchToProps = (dispatch) => {
             } else {
                 localStorage.setItem(`problem-${problemId}`, sourceCode);
                 dispatch(startJudge());
-                dispatch(judgeCode(sourceCode, problemId, userId, token));
+                dispatch<any>(judgeCode(sourceCode, problemId, userId, token));
             }
         },
-        onSave: (sourceCode, problemId) => {
+        onSave: (sourceCode: string, problemId: string) => {
             localStorage.setItem(`problem-${problemId}`, sourceCode);
             dispatch(changeSourceCode(sourceCode));
         },
-        onSourceCodeChanged: (sourceCode) => {
+        onSourceCodeChanged: (sourceCode: string) => {
             dispatch(changeSourceCode(sourceCode));
         },
         onRefresh: () => {
             dispatch(problemRefresh());
         },
-        onLoad: (problemId) => {
-            dispatch(fetchProblemRanking(problemId));
+        onLoad: (problemId: string) => {
+            dispatch<any>(fetchProblemRanking(problemId));
         }
     }
 };

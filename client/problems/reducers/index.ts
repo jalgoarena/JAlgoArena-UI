@@ -3,9 +3,9 @@
 import * as types from "../../constants/ActionTypes";
 import Problem from "../domain/Problem";
 
-type EditorState = {
-    sourceCode: ?string;
-    submissionId: ?string;
+export interface EditorState {
+    sourceCode: string | null;
+    submissionId: string | null;
 }
 
 type EditorAction = {
@@ -38,10 +38,10 @@ export function editor(state: EditorState = {
     }
 }
 
-type ProblemsState = {
-    items: Array<Problem>,
-    currentProblemId: ?string,
-    difficultyFilter: number,
+export interface ProblemsState {
+    items: Array<Problem>
+    currentProblemId: string | null
+    difficultyFilter: number
     doneProblemsFilter: boolean
 }
 

@@ -1,9 +1,9 @@
 import * as redux from 'redux';
 import * as types from '../../constants/ActionTypes';
-import { editor, problems } from '../../problems/reducers';
-import { auth } from '../../users/reducers';
-import { ranking } from '../../ranking/reducers';
-import { submissions } from '../../submissions/reducers';
+import {editor, EditorState, problems, ProblemsState} from '../../problems/reducers';
+import {auth, AuthState} from '../../users/reducers';
+import {ranking, RankingState} from '../../ranking/reducers';
+import {submissions, SubmissionsState} from '../../submissions/reducers';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 interface Action {
@@ -11,6 +11,25 @@ interface Action {
     isConnected?: boolean;
     error?: string;
     config?: { title: string; emailRegex: string; emailErrorMessage: string; teams: string[]; regions: string[] };
+}
+
+export interface Config {
+    title: string
+    emailRegex: string
+    emailErrorMessage: string
+    teams: Array<string>
+    regions: Array<string>
+}
+
+export interface AppState {
+    editor: EditorState
+    problems: ProblemsState
+    auth: AuthState
+    submissions: SubmissionsState
+    ranking: RankingState
+    errorMessage: string | undefined | null
+    webSocketConnected: boolean
+    config: Config
 }
 
 const rootReducer = redux.combineReducers({

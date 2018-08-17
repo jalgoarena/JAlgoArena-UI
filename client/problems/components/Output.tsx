@@ -13,7 +13,7 @@ const outputStyle: CSSProperties = {
 
 interface OutputProps {
     submissionId: string,
-    userId: string
+    userId: string | null
 }
 
 const Output = (props: OutputProps) => (

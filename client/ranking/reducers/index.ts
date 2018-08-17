@@ -4,11 +4,11 @@ import * as types from "../../constants/ActionTypes";
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
 
-type RankingState = {
-    general: Array<RankingEntry>,
-    previousRanking: Array<RankingEntry>,
-    problemRanking: Array<ProblemRankingEntry>,
-    startDate: string,
+export interface RankingState {
+    general: Array<RankingEntry>
+    previousRanking: Array<RankingEntry>
+    problemRanking: Array<ProblemRankingEntry>
+    startDate: string
     refreshInProgress: boolean
 }
 

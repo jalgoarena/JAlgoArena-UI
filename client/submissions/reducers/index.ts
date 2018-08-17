@@ -4,10 +4,10 @@ import * as types from "../../constants/ActionTypes";
 import {Submission} from "../domain/Submission";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 
-type SubmissionsState = {
-    items: Array<Submission>,
-    statusFilter: string,
-    problemsSolutionsRatio: Array<ProblemSubmissionRatio>,
+export interface SubmissionsState {
+    items: Array<Submission>
+    statusFilter: string
+    problemsSolutionsRatio: Array<ProblemSubmissionRatio>
     stats: Array<{}>
 }
 

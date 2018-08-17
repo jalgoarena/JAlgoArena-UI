@@ -1,7 +1,7 @@
 import * as types from '../../constants/ActionTypes';
 import { User } from '../domain/User';
 
-interface AuthState {
+export interface AuthState {
   user: User | undefined | null;
   error: string | undefined | null;
   users: User[] | undefined | null;

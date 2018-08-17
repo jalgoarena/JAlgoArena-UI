@@ -9,7 +9,8 @@
     "target": "es5",
     "allowJs": true,
     "noImplicitAny": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": ["dom","es5","scripthost", "es6"]
   },
   "include": [
     "./client/"

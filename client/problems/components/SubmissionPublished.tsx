@@ -4,7 +4,7 @@ import DisplaySubmissionId from './DisplaySubmissionId';
 
 interface SubmissionPublishedProps {
     submissionId: string,
-    userId: string
+    userId: string | null
 }
 
 const SubmissionPublished = (props: SubmissionPublishedProps) => {
