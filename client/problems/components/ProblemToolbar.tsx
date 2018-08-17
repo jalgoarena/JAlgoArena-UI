@@ -1,22 +1,30 @@
-import React from 'react';
+import * as React from 'react';
 
 import {ButtonToolbar, Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome from '../../common/components/FontAwesome';
+import Problem from "../domain/Problem";
 
-const ProblemToolbar = ({children, problem, onRefresh, onShowPointsLegend}) => (
+interface ProblemToolbarProps {
+    children: any,
+    problem: Problem,
+    onRefresh: () => void,
+    onShowPointsLegend: () => void
+}
+
+const ProblemToolbar = (props: ProblemToolbarProps) => (
     <ButtonToolbar>
-        <LinkContainer to={"/problem/" + problem.id}>
-            <Button bsStyle="danger" className="pull-right" onClick={onRefresh}>
+        <LinkContainer to={"/problem/" + props.problem.id}>
+            <Button bsStyle="danger" className="pull-right" onClick={props.onRefresh}>
                 <FontAwesome prefix="fas" name="sync"/> Refresh
             </Button>
         </LinkContainer>
         <Button bsStyle="success"
                 className="pull-right"
-                onClick={onShowPointsLegend}>
-            Max {(10 + ((problem.level - 1) * 20))} Points
+                onClick={props.onShowPointsLegend}>
+            Max {(10 + ((props.problem.level - 1) * 20))} Points
         </Button>
-        {children}
+        {props.children}
     </ButtonToolbar>
 );
 

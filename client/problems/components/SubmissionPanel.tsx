@@ -1,6 +1,4 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 import {Link} from 'react-router-dom';
 
 import FontAwesome from '../../common/components/FontAwesome';
@@ -12,40 +10,40 @@ import Problem from "../domain/Problem";
 import {ButtonToolbar} from "react-bootstrap";
 import SaveButton from "./SaveButton";
 
-type SubmissionPanelInputType = {
+interface SubmissionPanelProps {
     problem: Problem,
     sourceCode: string,
     savedSourceCode: string,
     userId: string,
-    onRun: (string, string, string) => void,
-    onSave: (string, string) => void,
+    onRun: (sourceCode: string, problemId: string, userId: string) => void,
+    onSave: (sourceCode: string, problemId: string) => void,
     isAlreadySolved: boolean
 }
 
-const SubmissionPanel = ({problem, sourceCode, savedSourceCode, userId, onRun, onSave, isAlreadySolved}: SubmissionPanelInputType) => {
+const SubmissionPanel = (props: SubmissionPanelProps) => {
 
-    const button = isAlreadySolved
+    const button = props.isAlreadySolved
         ? <Link to="/submissions" className="pulse-button btn btn-lg btn-success pull-right">
             <FontAwesome prefix="fas" name="code"/> Go to submissions
         </Link>
         : <ButtonToolbar>
             <RunButton
-                sourceCode={sourceCode}
-                problemId={problem.id}
-                userId={userId}
-                onRun={onRun}
+                sourceCode={props.sourceCode}
+                problemId={props.problem.id}
+                userId={props.userId}
+                onRun={props.onRun}
             />
             <SaveButton
-                sourceCode={sourceCode}
-                savedSourceCode={savedSourceCode}
-                problemId={problem.id}
-                onSave={onSave}
+                sourceCode={props.sourceCode}
+                savedSourceCode={props.savedSourceCode}
+                problemId={props.problem.id}
+                onSave={props.onSave}
             />
         </ButtonToolbar>;
 
     return <div>
         {button}
-        <TimeLimit timeLimit={problem.timeLimit}/>
+        <TimeLimit timeLimit={props.problem.timeLimit}/>
         <br/>
         <MemoryLimit/>
     </div>;

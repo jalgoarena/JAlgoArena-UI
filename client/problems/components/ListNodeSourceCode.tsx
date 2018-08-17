@@ -1,21 +1,27 @@
-import React from 'react';
+import * as React from 'react';
 import {Modal} from 'react-bootstrap';
 import AceEditor from 'react-ace';
 
 import 'brace/theme/chrome';
 import logo from '../../assets/img/logo.png';
+import {CSSProperties} from "react";
 
-const logoStyle = {
+const logoStyle: CSSProperties = {
     height: 50,
     marginBottom: 15
 };
 
-const modalBodyStyle = {
+const modalBodyStyle: CSSProperties = {
     height: 200
 };
 
-const ListNodeSourceCode = ({show, onHide}: {show: boolean, onHide: () => void}) => (
-    <Modal show={show || false} onHide={onHide}>
+interface SourceCodeProps {
+    show: boolean;
+    onHide: (() => void)
+}
+
+const ListNodeSourceCode = (props: SourceCodeProps) => (
+    <Modal show={props.show || false} onHide={props.onHide}>
         <Modal.Header closeButton>
             <h2>{"ListNode"}</h2>
         </Modal.Header>
@@ -40,7 +46,7 @@ const ListNodeSourceCode = ({show, onHide}: {show: boolean, onHide: () => void})
         </Modal.Body>
         <Modal.Footer>
             <div className="col-md-offset-4 col-md-4">
-                <img src={logo} className="img-responsive" style={logoStyle} />
+                <img src={logo} className="img-responsive" style={logoStyle}/>
             </div>
         </Modal.Footer>
     </Modal>

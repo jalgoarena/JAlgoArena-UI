@@ -1,20 +1,24 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 import {Row} from 'react-bootstrap';
 
 import SubmissionPublished from './SubmissionPublished';
+import {CSSProperties} from "react";
 
-const outputStyle = {
+const outputStyle: CSSProperties = {
     marginTop: 30,
     borderRadius: 10,
     border: "1px solid black",
     padding: "0 10px 10px",
 };
 
-const Output = ({submissionId, userId}: {submissionId: string, userId: string}) => (
+interface OutputProps {
+    submissionId: string,
+    userId: string
+}
+
+const Output = (props: OutputProps) => (
     <Row style={outputStyle}>
-        <SubmissionPublished submissionId={submissionId} userId={userId}/>
+        <SubmissionPublished submissionId={props.submissionId} userId={props.userId}/>
     </Row>
 );
 

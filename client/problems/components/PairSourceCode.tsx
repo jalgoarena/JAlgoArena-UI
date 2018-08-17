@@ -1,23 +1,27 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 import {Modal} from 'react-bootstrap';
 import AceEditor from 'react-ace';
 
 import 'brace/theme/chrome';
 import logo from '../../assets/img/logo.png';
+import {CSSProperties} from "react";
 
-const logoStyle = {
+const logoStyle: CSSProperties = {
     height: 50,
     marginBottom: 15
 };
 
-const modalBodyStyle = {
+const modalBodyStyle: CSSProperties = {
     height: 200
 };
 
-const PairSourceCode = ({show, onHide}: {show: boolean, onHide: () => void}) => (
-    <Modal show={show || false} onHide={onHide}>
+interface SourceCodeProps {
+    show: boolean;
+    onHide: (() => void)
+}
+
+const PairSourceCode = (props: SourceCodeProps) => (
+    <Modal show={props.show || false} onHide={props.onHide}>
         <Modal.Header closeButton>
             <h2>{"Pair"}</h2>
         </Modal.Header>

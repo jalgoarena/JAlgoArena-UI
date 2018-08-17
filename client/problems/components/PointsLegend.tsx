@@ -1,20 +1,24 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 import {Modal, Table} from 'react-bootstrap';
 import logo from '../../assets/img/logo.png';
+import {CSSProperties} from "react";
 
-const logoStyle = {
+const logoStyle: CSSProperties = {
     height: 50,
     marginBottom: 15
 };
 
-const modalBodyStyle = {
+const modalBodyStyle: CSSProperties = {
     height: 150
 };
 
-const PointsLegend = ({show, onHide}: {show: boolean, onHide: () => void}) => (
-    <Modal show={show || false} onHide={onHide}>
+interface PointsLegendProps {
+    show: boolean,
+    onHide: () => void
+}
+
+const PointsLegend = (props: PointsLegendProps) => (
+    <Modal show={props.show || false} onHide={props.onHide}>
         <Modal.Header closeButton>
             <h2>{"Score Points"}</h2>
         </Modal.Header>
@@ -44,7 +48,7 @@ const PointsLegend = ({show, onHide}: {show: boolean, onHide: () => void}) => (
         </Modal.Body>
         <Modal.Footer>
             <div className="col-md-offset-4 col-md-4">
-                <img src={logo} className="img-responsive" style={logoStyle} />
+                <img src={logo} className="img-responsive" style={logoStyle}/>
             </div>
         </Modal.Footer>
     </Modal>

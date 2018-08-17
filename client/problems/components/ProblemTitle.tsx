@@ -1,6 +1,4 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 import * as _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
 
@@ -8,24 +6,30 @@ import FontAwesome from '../../common/components/FontAwesome';
 import {Submission} from "../../submissions/domain/Submission";
 import Problem from "../domain/Problem";
 
-const ProblemTitle = ({submissions, problem, onShowProblemRanking}: {submissions: Array<Submission>, problem: Problem, onShowProblemRanking: () => void}) => {
-    let acceptedSubmissions = _.filter(submissions,
+interface ProblemTitleProps {
+    submissions: Array<Submission>,
+    problem: Problem,
+    onShowProblemRanking: () => void
+}
+
+const ProblemTitle = (props: ProblemTitleProps) => {
+    let acceptedSubmissions = _.filter(props.submissions,
         (submission: Submission) => submission.statusCode === 'ACCEPTED'
     );
-    let failedSubmissions = _.filter(submissions,
+    let failedSubmissions = _.filter(props.submissions,
         (submission: Submission) => submission.statusCode !== 'ACCEPTED'
     );
 
     let submittedAcceptedProblems = _.map(acceptedSubmissions, (submission) => submission.problemId);
     let submittedFailedProblems = _.map(failedSubmissions, (submission) => submission.problemId);
 
-    const isSuccess = _.includes(submittedAcceptedProblems, problem.id);
-    const isFailure = _.includes(submittedFailedProblems, problem.id);
+    const isSuccess = _.includes(submittedAcceptedProblems, props.problem.id);
+    const isFailure = _.includes(submittedFailedProblems, props.problem.id);
 
     let doneCheck = isSuccess
-        ? <FontAwesome prefix="fas" name="check-circle" />
+        ? <FontAwesome prefix="fas" name="check-circle"/>
         : isFailure
-            ? <FontAwesome prefix="fas" name="times-circle" />
+            ? <FontAwesome prefix="fas" name="times-circle"/>
             : null;
 
     const successOrDangerStyle = isSuccess
@@ -35,10 +39,10 @@ const ProblemTitle = ({submissions, problem, onShowProblemRanking}: {submissions
             : "";
 
     return <PageHeader className={successOrDangerStyle}>
-        {problem.title} {doneCheck}
+        {props.problem.title} {doneCheck}
         <Button bsStyle="info"
                 className="pull-right"
-                onClick={onShowProblemRanking}>
+                onClick={props.onShowProblemRanking}>
             <FontAwesome prefix="fas" name="trophy" lg={true}/> Problem Ranking
         </Button>
     </PageHeader>;

@@ -1,8 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import {Modal} from 'react-bootstrap';
 
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import logo from '../../assets/img/logo.png';
+import {ProblemRankingEntry} from "../../ranking/domain/ProblemRankingEntry";
 
 const logoStyle = {
     height: 40,
@@ -13,11 +14,18 @@ const modalBodyStyle = {
     height: 350
 };
 
-const ProblemRank = ({problemRanking, problemId, show, onHide}) => {
-    let ranking = problemRanking.map ? problemRanking : [];
+interface ProblemRankProps {
+    problemRanking: Array<ProblemRankingEntry>,
+    problemId: string
+    show: boolean;
+    onHide: (() => void)
+}
+
+const ProblemRank = (props: ProblemRankProps) => {
+    let ranking = props.problemRanking.map ? props.problemRanking : [];
 
     let rankingData = ranking.map((ranking, idx) =>
-        Object.assign({}, ranking, {idx: idx + 1})
+        ({...ranking, idx: idx + 1})
     );
 
     const options = {
@@ -26,12 +34,12 @@ const ProblemRank = ({problemRanking, problemId, show, onHide}) => {
     };
 
     return (
-        <Modal show={show || false} onHide={onHide}>
+        <Modal show={props.show || false} onHide={props.onHide}>
             <Modal.Header closeButton>
-                <h2>Problem Ranking - {problemId}</h2>
+                <h2>Problem Ranking - {props.problemId}</h2>
             </Modal.Header>
             <Modal.Body style={modalBodyStyle}>
-                <BootstrapTable data={rankingData} stripped hover pagination search options={options}>
+                <BootstrapTable data={rankingData} striped hover pagination search options={options}>
                     <TableHeaderColumn isKey
                                        dataField='idx'>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='hacker'>Hacker</TableHeaderColumn>

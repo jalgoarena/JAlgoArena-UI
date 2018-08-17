@@ -1,21 +1,19 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 
 import FontAwesome from '../../common/components/FontAwesome';
 
-type RunButtonInputType = {
+type RunButtonProps = {
     sourceCode: string,
     problemId: string,
     userId: string,
-    onRun: (string, string, string) => void
+    onRun: (sourceCode: string, problemId: string, userId: string) => void
 }
 
-const RunButton = ({sourceCode, problemId, userId, onRun}: RunButtonInputType) => (
+const RunButton = (props: RunButtonProps) => (
     <button
         style={{width: '200px'}}
         className="btn btn-lg btn-success pull-right"
-        onClick={() => onRun(sourceCode, problemId, userId)}>
+        onClick={() => props.onRun(props.sourceCode, props.problemId, props.userId)}>
         <FontAwesome prefix="fas" name="bolt"/> Submit
     </button>
 );

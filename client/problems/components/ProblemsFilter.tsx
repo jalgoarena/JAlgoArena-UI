@@ -1,39 +1,38 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 
 import {ButtonGroup, Button, Col, Row, Badge} from 'react-bootstrap';
+import {CSSProperties} from "react";
 
-const filterStyle = {
+const filterStyle: CSSProperties = {
     marginRight: "30px"
 };
 
-const problemsCountStyle = {
+const problemsCountStyle: CSSProperties = {
     marginLeft: "20px",
     marginTop: ".5em"
 };
 
-type ProblemsFilterInputType = {
-    changeFilter: (number) => void,
+type ProblemsFilterProps = {
+    changeFilter: (filter: number) => void,
     filter: number,
-    onHideDoneProblems: (boolean) => void,
+    onHideDoneProblems: (hide: boolean) => void,
     hideDoneProblems: boolean,
     problemsCount: number,
     onShowNumberOfProblems: () => void
 }
-const ProblemsFilter = ({changeFilter, filter, onHideDoneProblems, hideDoneProblems, problemsCount, onShowNumberOfProblems}: ProblemsFilterInputType) => (
+const ProblemsFilter = (props: ProblemsFilterProps) => (
     <Row>
         <Col md={11}>
-            <Button onClick={() => onShowNumberOfProblems()} bsStyle="success" style={problemsCountStyle}>Problems <Badge>{problemsCount}</Badge></Button>
+            <Button onClick={() => props.onShowNumberOfProblems()} bsStyle="success" style={problemsCountStyle}>Problems <Badge>{props.problemsCount}</Badge></Button>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
-                <Button onClick={() => changeFilter(1)} active={filter === 1}>Easy</Button>
-                <Button onClick={() => changeFilter(2)} active={filter === 2}>Medium</Button>
-                <Button onClick={() => changeFilter(3)} active={filter === 3}>Hard</Button>
-                <Button onClick={() => changeFilter(0)} active={filter === 0}>All</Button>
+                <Button onClick={() => props.changeFilter(1)} active={props.filter === 1}>Easy</Button>
+                <Button onClick={() => props.changeFilter(2)} active={props.filter === 2}>Medium</Button>
+                <Button onClick={() => props.changeFilter(3)} active={props.filter === 3}>Hard</Button>
+                <Button onClick={() => props.changeFilter(0)} active={props.filter === 0}>All</Button>
             </ButtonGroup>
             <ButtonGroup className="pull-right" style={filterStyle} bsSize="large">
-                <Button onClick={() => onHideDoneProblems(true)} active={hideDoneProblems === true}>Todo</Button>
-                <Button onClick={() => onHideDoneProblems(false)} active={hideDoneProblems === false}>All</Button>
+                <Button onClick={() => props.onHideDoneProblems(true)} active={props.hideDoneProblems}>Todo</Button>
+                <Button onClick={() => props.onHideDoneProblems(false)} active={!props.hideDoneProblems}>All</Button>
             </ButtonGroup>
         </Col>
     </Row>
