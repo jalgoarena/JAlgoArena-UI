@@ -64,13 +64,13 @@ let refreshRanking = function() {
     return;
   }
 
-  store.dispatch(startRankingRefresh());
-  store.dispatch(fetchUsers());
-  store.dispatch(fetchRanking());
-  store.dispatch(fetchSolvedProblemsRatio());
+  store.dispatch<any>(startRankingRefresh());
+  store.dispatch<any>(fetchUsers());
+  store.dispatch<any>(fetchRanking());
+  store.dispatch<any>(fetchSolvedProblemsRatio());
 };
 
-let refreshSubmissions = function(event) {
+let refreshSubmissions = function(event: Event) {
   let token = localStorage.getItem('jwtToken');
 
   if (!token || token === '') {
@@ -83,8 +83,8 @@ let refreshSubmissions = function(event) {
     return;
   }
 
-  store.dispatch(fetchSubmissions(event.userId, token));
-  store.dispatch(fetchSubmissionStats());
+  store.dispatch<any>(fetchSubmissions(event.userId, token));
+  store.dispatch<any>(fetchSubmissionStats());
 };
 
 export function websocketInit() {

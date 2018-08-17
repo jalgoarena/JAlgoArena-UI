@@ -1,15 +1,17 @@
 import {Dispatch} from "redux";
 
-type Action = {
-    type: string,
-    solvedProblemsRatio?: Array<ProblemSubmissionRatio>,
-    submissions?: Array<Submission>
-}
-
 import * as types from "../../constants/ActionTypes"
-import {setErrorMessage} from "../../common/actions/index";
+import {setErrorMessage} from "../../common/actions";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
+
+interface Action {
+    type: string
+    solvedProblemsRatio?: Array<ProblemSubmissionRatio>
+    submissions?: Array<Submission>
+    status?: string
+    stats?: Array<{}>
+}
 
 export function fetchSubmissions(userId: string, token: string) {
 
@@ -57,7 +59,7 @@ export function fetchSubmissionStats() {
         method: 'get'
     };
 
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<any>) => {
         return fetch(`/api/submissions/api/submissions/stats`, options)
             .then(response => response.json())
             .then(json => {

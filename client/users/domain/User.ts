@@ -6,8 +6,7 @@ export class User {
   public readonly team: string;
   public readonly firstname: string;
   public readonly surname: string;
-  public readonly role: string | undefined;
-  public readonly id: string | undefined;
+  public readonly id: string;
 
   constructor(
     username: string,
@@ -17,8 +16,7 @@ export class User {
     team: string,
     firstname: string,
     surname: string,
-    role: string | undefined,
-    id: string | undefined,
+    id: string,
   ) {
     this.username = username;
     this.password = password;
@@ -27,7 +25,6 @@ export class User {
     this.team = team;
     this.firstname = firstname;
     this.surname = surname;
-    this.role = role;
     this.id = id;
   }
 }

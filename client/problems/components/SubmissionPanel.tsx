@@ -14,7 +14,7 @@ interface SubmissionPanelProps {
     problem: Problem,
     sourceCode: string,
     savedSourceCode: string,
-    userId: string,
+    userId: string | null | undefined,
     onRun: (sourceCode: string, problemId: string, userId: string) => void,
     onSave: (sourceCode: string, problemId: string) => void,
     isAlreadySolved: boolean

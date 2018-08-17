@@ -32,13 +32,13 @@ const store = createStore(
 );
 
 websocketInit();
-store.dispatch(updateConfig());
+store.dispatch<any>(updateConfig());
 store.dispatch(startFetchingProblems());
-store.dispatch(fetchProblems());
-store.dispatch(fetchUsers());
-store.dispatch(fetchSubmissionStats());
-store.dispatch(fetchRanking());
-store.dispatch(fetchRankingStartDate());
-store.dispatch(checkSessionStatus());
+store.dispatch<any>(fetchProblems());
+store.dispatch<any>(fetchUsers());
+store.dispatch<any>(fetchSubmissionStats());
+store.dispatch<any>(fetchRanking());
+store.dispatch<any>(fetchRankingStartDate());
+store.dispatch<any>(checkSessionStatus());
 
 export {store, history};

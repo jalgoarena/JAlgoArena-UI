@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import {store} from '../../common/store';
+import {store} from '../../common';
 import {fetchSubmissions} from "../../submissions/actions";
 
 import Output from '../components/Output';
@@ -12,20 +12,41 @@ import ProblemDescription from '../components/ProblemDescription';
 import PointsLegend from '../components/PointsLegend';
 import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
-import ListNodeSourceCode from '../components/ListNodeSourceCode';
-import TreeNodeSourceCode from '../components/TreeNodeSourceCode';
-import IntervalSourceCode from '../components/IntervalSourceCode';
-import {startJudge, setCurrentProblem, judgeCode, changeSourceCode} from '../actions';
-import {problemRefresh} from "../actions/index";
+import {startJudge, setCurrentProblem, judgeCode, changeSourceCode, problemRefresh} from '../actions';
 import ProblemRank from '../components/ProblemRank'
-import GraphNodeSourceCode from "../components/GraphNodeSourceCode";
-import WeightedGraphSourceCode from "../components/WeightedGraphSourceCode";
-import PairSourceCode from "../components/PairSourceCode";
+import {ListNodeSourceCode, TreeNodeSourceCode, IntervalSourceCode, PairSourceCode, GraphNodeSourceCode, WeightedGraphSourceCode} from "../components/SourceCode";
 import {setErrorMessage} from "../../common/actions";
 import {fetchProblemRanking} from "../../ranking/actions";
+import {User} from "../../users/domain/User";
+import {Problem} from "../domain/Problem";
+import {Submission} from "../domain/Submission";
+import {RouteComponentProps} from "react-router";
 
-class Problem extends React.Component {
-    constructor(props) {
+interface MatchParams {
+    id: string
+}
+
+interface ProblemProps extends RouteComponentProps<MatchParams>{
+    user: User
+    problem: Problem
+    submissions: Array<Submission>
+    editor: {submissionId: string, sourceCode: string}
+    onLoad: (problemId: string) => void
+}
+
+interface ProblemState {
+    showListNodeSourceCode: boolean
+    showTreeNodeSourceCode: boolean
+    showIntervalSourceCode: boolean
+    showGraphNodeSourceCode: boolean
+    showWeightedGraphSourceCode: boolean
+    showPairSourceCode: boolean
+    showPointsLegend: boolean
+    showProblemRanking: boolean
+}
+
+class ProblemPage extends React.Component<ProblemProps, ProblemState> {
+    constructor(props: ProblemProps) {
         super(props);
         this.state = {
             showListNodeSourceCode: false,
@@ -48,19 +69,19 @@ class Problem extends React.Component {
 
         this.props.onLoad(problemId);
 
-        if (this.props.auth.user && localStorage) {
-            Problem.restoreSourceCode(problemId);
+        if (this.props.user && localStorage) {
+            ProblemPage.restoreSourceCode(problemId);
             let token = localStorage.getItem('jwtToken');
 
             if (!token || token === '' ) {
                 return null;
             }
 
-            store.dispatch(fetchSubmissions(this.props.auth.user.id, token));
+            store.dispatch<any>(fetchSubmissions(this.props.user.id, token));
         }
     }
 
-    static restoreSourceCode(problemId) {
+    static restoreSourceCode(problemId: string) {
         let savedSourceCode = localStorage.getItem(`problem-${problemId}`);
 
         if (savedSourceCode) {
@@ -71,7 +92,7 @@ class Problem extends React.Component {
     isAlreadySolved() {
         return this.props.problem &&
             this.props.editor.submissionId !== null &&
-            this.props.auth.user
+            this.props.user
     }
 
     showListNodeSourceCode() {
@@ -138,8 +159,8 @@ class Problem extends React.Component {
         this.setState({showProblemRanking: false});
     }
 
-    static sourceCodeButton(skeletonCode, customType, onClick) {
-        if (skeletonCode && skeletonCode.includes(customType)) {
+    static sourceCodeButton(skeletonCode: string, customType:string, onClick: () => void) {
+        if (skeletonCode && skeletonCode.indexOf(customType) !== -1) {
             return <Button
                 bsStyle="success"
                 onClick={onClick}
@@ -154,7 +175,7 @@ class Problem extends React.Component {
             return null;
         }
 
-        const userId = this.props.auth.user ? this.props.auth.user.id : null;
+        const userId = this.props.user ? this.props.user.id : null;
 
         let skeletonCode = this.props.problem.skeletonCode;
         let savedSourceCode = localStorage.getItem(`problem-${this.props.problem.id}`);
@@ -173,17 +194,17 @@ class Problem extends React.Component {
                     onRefresh={this.props.onRefresh}
                     onShowPointsLegend={this.showPointsLegend.bind(this)}
                 >
-                    {Problem.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
-                    {Problem.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
-                    {Problem.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
-                    {Problem.sourceCodeButton(skeletonCode, 'GraphNode', () => this.showGraphNodeSourceCode())}
-                    {Problem.sourceCodeButton(skeletonCode, 'WeightedGraph', () => this.showWeightedGraphSourceCode())}
-                    {Problem.sourceCodeButton(skeletonCode, 'Pair', () => this.showPairSourceCode())}
+                    {ProblemPage.sourceCodeButton(skeletonCode, 'ListNode', () => this.showListNodeSourceCode())}
+                    {ProblemPage.sourceCodeButton(skeletonCode, 'TreeNode', () => this.showTreeNodeSourceCode())}
+                    {ProblemPage.sourceCodeButton(skeletonCode, 'Interval', () => this.showIntervalSourceCode())}
+                    {ProblemPage.sourceCodeButton(skeletonCode, 'GraphNode', () => this.showGraphNodeSourceCode())}
+                    {ProblemPage.sourceCodeButton(skeletonCode, 'WeightedGraph', () => this.showWeightedGraphSourceCode())}
+                    {ProblemPage.sourceCodeButton(skeletonCode, 'Pair', () => this.showPairSourceCode())}
                 </ProblemToolbar>
                 <AceCodeEditor
                     sourceCode={this.props.editor.sourceCode || savedSourceCode || skeletonCode}
                     onSourceCodeChanged={this.props.onSourceCodeChanged}
-                    readOnly={this.props.auth.user == null}
+                    readOnly={this.props.user == null}
                 />
                 <SubmissionPanel
                     problem={this.props.problem}
@@ -248,7 +269,7 @@ const mapStateToProps = (state) => {
         problem,
         problemRanking: state.ranking.problemRanking,
         editor: state.editor,
-        auth: state.auth,
+        user: state.auth.user,
         submissions: state.submissions.items
     }
 };
@@ -282,9 +303,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const ProblemPage = connect(
+const EnhancedProblemPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Problem);
+)(ProblemPage);
 
-export {ProblemPage};
+export {EnhancedProblemPage};

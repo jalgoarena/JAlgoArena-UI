@@ -5,8 +5,8 @@ import FontAwesome from '../../common/components/FontAwesome';
 type RunButtonProps = {
     sourceCode: string,
     problemId: string,
-    userId: string,
-    onRun: (sourceCode: string, problemId: string, userId: string) => void
+    userId: string | null | undefined,
+    onRun: (sourceCode: string, problemId: string, userId: string | null | undefined) => void
 }
 
 const RunButton = (props: RunButtonProps) => (
