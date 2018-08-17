@@ -19,7 +19,7 @@ module.exports = {
     },
     entry: {
         vendors: "./client/vendors",
-        index: ["babel-polyfill", "./client/index"]
+        index: "./client/index"
     },
     output: {
         path: path.resolve(__dirname, outputDirectory),
@@ -59,12 +59,16 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
+                test: /\.([tj])sx?$/,
                 include: path.resolve(__dirname, "client"),
                 use: {
-                    loader: "babel-loader"
+                    loader: "ts-loader"
                 }
+            },
+            {
+                enforce: "pre",
+                test: "/\.js$/",
+                loader: "source-map-loader"
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -88,7 +92,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [".js", ".jsx"]
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
     }
 };
 

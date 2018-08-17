@@ -1,6 +1,6 @@
 // @flow
 
-import * as reducer from '../../client/users/reducers';
+import * as reducer from '../../client/users/reducers/index';
 import * as types from '../../client/constants/ActionTypes';
 import User from "../../client/users/domain/User";
 
