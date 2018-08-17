@@ -1,11 +1,19 @@
-import React from 'react';
+import * as React from 'react';
 import {Grid, Col, PageHeader} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import {fetchRanking} from "../actions";
 import {RegionRankingTable} from '../components/RegionRankingTable';
+import {RankingEntry} from "../domain/RankingEntry";
+import {AppState} from "../../common/reducers";
+import {Dispatch} from "redux";
 
-class RegionRanking extends React.Component {
+interface RegionRankingProps {
+    ranking: Array<RankingEntry>
+    onLoad: () => void
+}
+
+class RegionRanking extends React.Component<RegionRankingProps, {}> {
 
     componentDidMount() {
         this.props.onLoad();
@@ -26,16 +34,16 @@ class RegionRanking extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
     return {
         ranking: state.ranking.general
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         onLoad: () => {
-            dispatch(fetchRanking());
+            dispatch<any>(fetchRanking());
         }
     }
 };

@@ -1,5 +1,3 @@
-// @flow
-
 import * as types from "../../constants/ActionTypes";
 import {RankingEntry} from "../domain/RankingEntry";
 import {ProblemRankingEntry} from "../domain/ProblemRankingEntry";
@@ -12,12 +10,12 @@ export interface RankingState {
     refreshInProgress: boolean
 }
 
-type RankingAction = {
-    type: string,
-    ranking?: Array<RankingEntry>,
-    previousRanking?: Array<RankingEntry>,
-    problemRanking?: Array<ProblemRankingEntry>,
-    startDate?: string,
+interface RankingAction {
+    type: string
+    ranking?: Array<RankingEntry>
+    previousRanking?: Array<RankingEntry>
+    problemRanking?: Array<ProblemRankingEntry>
+    startDate?: string
     refreshInProgress?: boolean
 }
 

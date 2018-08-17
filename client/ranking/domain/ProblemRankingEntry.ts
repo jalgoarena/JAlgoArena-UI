@@ -1,5 +1,3 @@
-// @flow
-
 export class ProblemRankingEntry {
     hacker: string;
     score: number;
