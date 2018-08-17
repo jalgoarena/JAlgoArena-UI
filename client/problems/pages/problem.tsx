@@ -18,7 +18,7 @@ import {ListNodeSourceCode, TreeNodeSourceCode, IntervalSourceCode, PairSourceCo
 import {setErrorMessage} from "../../common/actions";
 import {fetchProblemRanking} from "../../ranking/actions";
 import {User} from "../../users/domain/User";
-import {Problem} from "../domain/Problem";
+import Problem from "../domain/Problem";
 import {Submission} from "../domain/Submission";
 import {RouteComponentProps} from "react-router";
 
@@ -32,6 +32,8 @@ interface ProblemProps extends RouteComponentProps<MatchParams>{
     submissions: Array<Submission>
     editor: {submissionId: string, sourceCode: string}
     onLoad: (problemId: string) => void
+    onRefresh: () => void
+    onSourceCodeChanged: (sourceCode: string) => void
 }
 
 interface ProblemState {

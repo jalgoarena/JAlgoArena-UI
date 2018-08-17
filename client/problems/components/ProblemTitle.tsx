@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {Submission} from "../../submissions/domain/Submission";
+import {Submission} from "../domain/Submission";
 import Problem from "../domain/Problem";
 
 interface ProblemTitleProps {
