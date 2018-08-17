@@ -1,9 +1,13 @@
 import * as React from 'react';
 import FontAwesome from './FontAwesome';
 
-const WebSocketConnectionIndicator = ({ isConnected }: { isConnected: boolean }) => (
-  <span className={isConnected ? 'text-success' : 'text-danger'}>
-    <FontAwesome prefix="fas" name="circle" />
+interface WebSocketConnectionIndicatorProps {
+    isConnected: boolean
+}
+
+const WebSocketConnectionIndicator = (props: WebSocketConnectionIndicatorProps) => (
+    <span className={props.isConnected ? 'text-success' : 'text-danger'}>
+    <FontAwesome prefix="fas" name="circle"/>
   </span>
 );
 

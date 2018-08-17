@@ -1,16 +1,16 @@
-// @flow
+import * as React from 'react';
+import {CSSProperties} from "react";
 
-import React from 'react';
-import FontAwesome from '../../common/components/FontAwesome';
-
-const style = {
+const style: CSSProperties = {
     marginTop: 3
 };
 
-const DisplaySubmissionId = ({submissionId}: {submissionId: string}) => (
+interface DisplaySubmissionIdProps {submissionId: string}
+
+const DisplaySubmissionId = (props: DisplaySubmissionIdProps) => (
     <div className="col-md-12 text-center" style={style}>
             <span>
-                Submission id: {submissionId}
+                Submission id: {props.submissionId}
             </span>
     </div>
 );

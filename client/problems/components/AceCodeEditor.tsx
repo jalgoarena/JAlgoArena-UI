@@ -1,21 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/java';
 import 'brace/theme/tomorrow_night_eighties';
 import 'brace/ext/language_tools';
+import {CSSProperties} from "react";
 
-export default class AceCodeEditor extends React.Component {
+interface AceCodeEditorProps {onSourceCodeChanged: (sourceCode: string) => void, sourceCode: string, readOnly: boolean}
+
+const editorStyle: CSSProperties = {
+    marginTop: 10,
+    marginBottom: 10
+};
+
+export default class AceCodeEditor extends React.Component<AceCodeEditorProps, {}> {
+
     componentDidMount() {
         this.props.onSourceCodeChanged(this.props.sourceCode);
     }
 
     render() {
-        const editorStyle = {
-            marginTop: 10,
-            marginBottom: 10
-        };
 
         return <div style={editorStyle}>
             <AceEditor

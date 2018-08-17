@@ -1,17 +1,19 @@
 import * as React from 'react';
 import * as Markdown from 'remarkable';
 
+interface RemarkableProps {
+    source: string;
+}
 
-
-class Remarkable extends React.Component<any, any> {
+class Remarkable extends React.Component<RemarkableProps, {}> {
     md: Markdown;
 
-    constructor(props: any) {
+    constructor(props: RemarkableProps) {
         super(props);
 
         let options = {
             linkify: true,
-            typographer:  true
+            typographer: true
         };
 
         this.md = new Markdown("full", options);
@@ -19,7 +21,7 @@ class Remarkable extends React.Component<any, any> {
 
     render() {
         return <div>
-            <span dangerouslySetInnerHTML={{ __html: this.md.render(this.props.source || "") }} />
+            <span dangerouslySetInnerHTML={{__html: this.md.render(this.props.source || "")}}/>
         </div>;
     }
 }

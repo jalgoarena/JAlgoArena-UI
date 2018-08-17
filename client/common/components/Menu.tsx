@@ -11,8 +11,9 @@ import {attemptLogout} from '../../users/actions';
 import FontAwesome from './FontAwesome';
 import {Dispatch} from "redux";
 import {RouterState} from "connected-react-router";
+import {CSSProperties} from "react";
 
-const logoStyle = {
+const logoStyle: CSSProperties = {
     display: 'inline-block',
     height: 35,
     marginTop: -5,
@@ -26,7 +27,15 @@ interface MenuProps {
     progress: number;
 }
 
-const Menu: React.SFC<MenuProps> = (props) => (
+interface MenuState {
+    auth: { user: User },
+    submissions: { stats: any },
+    problems: { items: Array<object> },
+    webSocketConnected: boolean
+    router: RouterState
+}
+
+const Menu = (props: MenuProps) => (
     <Navbar fixedTop fluid>
         <Navbar.Header>
             <Navbar.Toggle/>
@@ -38,31 +47,24 @@ const Menu: React.SFC<MenuProps> = (props) => (
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav role="navigation" pullRight id="menu">
-                <MenuItem path="/" prefix="fas" icon="home" title="Home" currentPath={props.currentPath}/>
-                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems" currentPath={props.currentPath}/>
-                <RankingMenuItem currentPath={props.currentPath}/>
+                <MenuItem path="/" prefix="fas" icon="home" title="Home"/>
+                <MenuItem path="/problems" prefix="far" icon="lightbulb" title="Problems"/>
+                <RankingMenuItem/>
                 {props.user ? (
-                    <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions"
-                              currentPath={props.currentPath}/>
+                    <MenuItem path="/submissions" prefix="fas" icon="code" title="Submissions"/>
                 ) : null}
-                <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"
-                          currentPath={props.currentPath}/>
+                <MenuItem path="/codeOfConduct" prefix="far" icon="handshake" title="Honor Code"/>
                 <NavItem href="https://jalgoarena.github.io/docs/" target="_blank">
                     <FontAwesome prefix="fas" name="book" lg={true}/> Docs
                 </NavItem>
-                <ProfileOrLoginMenuItem user={props.user} currentPath={props.currentPath} onLogout={props.onLogout} progress={props.progress}/>
+                <ProfileOrLoginMenuItem user={props.user} currentPath={props.currentPath} onLogout={props.onLogout}
+                                        progress={props.progress}/>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
 );
 
-const mapStateToProps = (state: {
-    auth: { user: { username: string } },
-    submissions: { stats: any },
-    problems: { items: Array<object> },
-    webSocketConnected: boolean
-    router: RouterState
-}) => {
+const mapStateToProps = (state: MenuState) => {
     let progress = 0;
 
     if (
@@ -83,7 +85,7 @@ const mapStateToProps = (state: {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<{type: string}>) => {
+const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => {
     return {
         onLogout: () => {
             dispatch(attemptLogout());
@@ -94,7 +96,6 @@ const mapDispatchToProps = (dispatch: Dispatch<{type: string}>) => {
 const MenuPanel = connect(
     mapStateToProps,
     mapDispatchToProps,
-    // @ts-ignore
 )(Menu);
 
 export default MenuPanel;

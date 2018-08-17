@@ -1,7 +1,13 @@
 import * as React from 'react';
 
-const FontAwesome = ({prefix, name, lg}: {prefix: string, name: string, lg?: boolean}) => (
-    <i className={`${prefix} fa-${name}${lg ? " fa-lg" : ""}`}> </i>
+interface FontAwesomeProps {
+    prefix: string,
+    name: string,
+    lg?: boolean
+}
+
+const FontAwesome = (props: FontAwesomeProps) => (
+    <i className={`${props.prefix} fa-${props.name}${props.lg ? " fa-lg" : ""}`}> </i>
 );
 
 export default FontAwesome;

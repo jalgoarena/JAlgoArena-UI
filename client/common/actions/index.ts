@@ -1,5 +1,4 @@
 import { fetchRanking, startRankingRefresh } from '../../ranking/actions';
-type Action = { type: string; error: string } | { type: string; isConnected: boolean } | { type: string };
 import * as types from '../../constants/ActionTypes';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from '@stomp/stompjs';
@@ -9,6 +8,8 @@ import { Event } from '../domain/Event';
 import { store } from '../store';
 import { fetchUsers } from '../../users/actions';
 import {Dispatch} from "redux";
+
+type Action = { type: string; error: string } | { type: string; isConnected: boolean } | { type: string; config: object } | { type: string };
 
 export function setErrorMessage(error: string): Action {
   return {
@@ -42,7 +43,7 @@ export function updateConfig() {
   };
 }
 
-function fetchConfig(config): Action {
+function fetchConfig(config: object): Action {
   return {
     type: types.UPDATE_CONFIG,
     config,
