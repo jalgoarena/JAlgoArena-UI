@@ -7,11 +7,11 @@ services:
 cache:
   directories:
     - "node_modules"
-    - "server/node_modules"
+    - "src/server/node_modules"
 before_script:
-  - cd server
+  - cd src/server
   - npm install
-  - cd ..
+  - cd ../..
   - npm install -g webpack
   - npm install -g codecov
 before_deploy:
