@@ -12,7 +12,7 @@ fs.readdirSync('node_modules')
     });
 
 module.exports = {
-    entry: "./server/index.js",
+    entry: "./src/server/index.js",
     target: "node",
     node: {
         __dirname: false,
@@ -33,7 +33,7 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: [
-                        ['env', {
+                        ['@babel/env', {
                             'targets': {
                                 'node': 'current'
                             }

@@ -18,8 +18,8 @@ module.exports = {
         }
     },
     entry: {
-        vendors: "./client/vendors",
-        index: "./client/index"
+        vendors: "./src/client/vendors",
+        index: "./src/client/index"
     },
     output: {
         path: path.resolve(__dirname, outputDirectory),
@@ -34,8 +34,8 @@ module.exports = {
         }),
         new HTMLWebpackPlugin({
             title: "JAlgoArena",
-            favicon: path.resolve(__dirname, "client", "assets", "favicon.ico"),
-            template: path.resolve(__dirname, "client", "assets", "index.html"),
+            favicon: path.resolve(__dirname, "src", "client", "assets", "favicon.ico"),
+            template: path.resolve(__dirname, "src", "client", "assets", "index.html"),
             filename: path.resolve(__dirname, outputDirectory, "index.html"),
             hash: true,
             meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
@@ -59,15 +59,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.([tj])sx?$/,
-                include: path.resolve(__dirname, "client"),
+                test: /\.tsx?$/,
+                include: path.resolve(__dirname, "src", "client"),
                 use: {
-                    loader: "ts-loader"
+                    loader: "babel-loader"
                 }
             },
             {
                 enforce: "pre",
-                test: "/\.js$/",
+                test: "/\.jsx?$/",
                 loader: "source-map-loader"
             },
             {

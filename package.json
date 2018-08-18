@@ -5,6 +5,7 @@
   "main": "build/server.js",
   "scripts": {
     "installRequiredGlobalDependencies": "npm install webpack-cli -g",
+    "pretest": "npm run build",
     "test": "jest && codecov",
     "test:watch": "jest --watch",
     "build": "webpack --config webpack.server.config.js --mode=production && webpack --config webpack.client.config.js --mode=production",
@@ -82,10 +83,21 @@
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-rc.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0-rc.1",
+    "@babel/preset-typescript": "^7.0.0-rc.1",
     "@types/highcharts": "^5.0.26",
     "@types/jest": "^23.3.1",
     "@types/react-calendar-heatmap": "^1.6.2",
     "@types/redux-mock-store": "^1.0.0",
+    "@types/webpack-env": "^1.13.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0-beta.4",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -96,6 +108,7 @@
     "jest-fetch-mock": "^1.5.0",
     "jest-localstorage-mock": "^2.2.0",
     "mini-css-extract-plugin": "^0.4.0",
+    "react-hot-loader": "^4.3.4",
     "react-test-renderer": "^16.4.2",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
@@ -104,6 +117,8 @@
     "style-loader": "^0.21.0",
     "ts-jest": "^23.1.3",
     "ts-loader": "^4.5.0",
+    "tslint": "^5.11.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.0.1",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-parse": "latest",
@@ -112,15 +127,16 @@
     "webpack-dev-server": "^3.1.4"
   },
   "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "tsconfig.jest.json"
-      }
-    },
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
     "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*\\.(test|spec)\\.(ts|tsx))$",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -133,7 +149,7 @@
     "collectCoverage": true,
     "setupFiles": [
       "jest-localstorage-mock",
-      "./setupJest.js"
+      "<rootDir>/setupJest.js"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"

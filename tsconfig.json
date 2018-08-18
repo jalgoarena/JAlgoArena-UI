@@ -4,17 +4,16 @@
     "outDir": "./build/public",
     "sourceMap": true,
     "strictNullChecks": true,
-    "module": "es6",
+    "module": "commonjs",
     "jsx": "react",
     "target": "es5",
-    "allowJs": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "lib": ["dom","es5","scripthost", "es6"],
-    "allowSyntheticDefaultImports": true
+    "lib": ["dom","es5","scripthost", "es6"]
   },
   "include": [
-    "./client/"
+    "./src/client/",
+    "./src/tests/"
   ],
   "exclude": [
     "node_modules"
