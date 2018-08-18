@@ -9,8 +9,8 @@ export class Submission {
   public readonly consumedMemory: number;
   public readonly passedTestCases: number;
   public readonly failedTestCases: number;
-  public readonly errorMessage: string | undefined;
-  public readonly id: string | undefined;
+  public readonly errorMessage: string | null;
+  public readonly id: string | null;
 
   constructor(
     problemId: string,
@@ -23,8 +23,8 @@ export class Submission {
     consumedMemory: number,
     passedTestCases: number,
     failedTestCases: number,
-    errorMessage: string | undefined,
-    id: string | undefined,
+    errorMessage: string | null,
+    id: string | null,
   ) {
     this.problemId = problemId;
     this.elapsedTime = elapsedTime;

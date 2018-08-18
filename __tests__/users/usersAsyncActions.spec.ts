@@ -1,49 +1,37 @@
-// @flow
-
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/users/actions";
+import {mockResponse} from "../mockFetch";
 
 jest.mock('sockjs-client');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-window.localStorage = {
-    getItem: function (key) {
-        if (key === "jwtToken")
-            return "dummy_value";
-        else
-            throw Error("Wrong key");
-    },
-    setItem: function (key) {
-        if (key !== 'jwtToken')
-            throw Error("Wrong key");
-    }
-};
-
-window.sessionStorage = {
-    removeItem: function (key) {
-    }
-};
+// window.localStorage = {
+//     getItem: function (key) {
+//         if (key === "jwtToken")
+//             return "dummy_value";
+//         else
+//             throw Error("Wrong key");
+//     },
+//     setItem: function (key) {
+//         if (key !== 'jwtToken')
+//             throw Error("Wrong key");
+//     }
+// };
 
 describe("async actions", () => {
-    beforeEach(() => {
-        fetch.resetMocks()
-    });
-
     it("creates SIGNUP_FAIL when sign up has been failed", () => {
         let errorMessage = {
             error: "Registration Error",
             message: "Username is already used"
         };
 
-        fetch.mockResponseOnce(
-            JSON.stringify(errorMessage),
-            {status: 409}
-        );
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(409, null, JSON.stringify(errorMessage))));
 
         const expectedActions = [{
             type: types.SIGNUP_FAIL,
@@ -52,7 +40,7 @@ describe("async actions", () => {
 
         const store = mockStore({sourceCode: "", result: "", problemId: ""});
 
-        return store.dispatch(actions.attemptSignUp(
+        return store.dispatch<any>(actions.attemptSignUp(
             "email", "password", "username", "region", "team", "first name", "surname"
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
@@ -62,7 +50,8 @@ describe("async actions", () => {
     it("creates LOGIN_SUCCESS when log in has been succeed", () => {
         let user = {username: "user"};
 
-        fetch.mockResponseOnce(JSON.stringify({token: "1234567", user}));
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(200, null, JSON.stringify({token: "1234567", user}))));
 
         const expectedActions = [{
             type: types.LOGIN_SUCCESS,
@@ -71,7 +60,7 @@ describe("async actions", () => {
 
         const store = mockStore({user: {}});
 
-        return store.dispatch(actions.attemptLogin("username", "password"))
+        return store.dispatch<any>(actions.attemptLogin("username", "password"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -80,10 +69,8 @@ describe("async actions", () => {
     it("creates LOGIN_FAIL when log in has been failed", () => {
         let errorMessage = {error: "Forbidden", message: "Access Denied"};
 
-        fetch.mockResponseOnce(
-            JSON.stringify(errorMessage),
-            {status: 403}
-        );
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(403, null, JSON.stringify(errorMessage))));
 
         const expectedActions = [{
             type: types.LOGIN_FAIL,
@@ -92,7 +79,7 @@ describe("async actions", () => {
 
         const store = mockStore({error: {}});
 
-        return store.dispatch(actions.attemptLogin("username", "password"))
+        return store.dispatch<any>(actions.attemptLogin("username", "password"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -102,9 +89,11 @@ describe("async actions", () => {
         let user = {username: "user"};
         let submission = {submissionId: "1"};
 
-        fetch
-            .once(JSON.stringify(user))
-            .once(JSON.stringify([submission]));
+        window.fetch = jest.fn()
+            .mockImplementationOnce(() =>
+                Promise.resolve(mockResponse(200, null, JSON.stringify(user))))
+            .mockImplementationOnce(() =>
+                Promise.resolve(mockResponse(200, null, JSON.stringify([submission]))));
 
         const expectedActions = [{
             type: types.CHECKED_SESSION_STATUS,
@@ -113,7 +102,7 @@ describe("async actions", () => {
 
         const store = mockStore({user: {}});
 
-        return store.dispatch(actions.checkSessionStatus())
+        return store.dispatch<any>(actions.checkSessionStatus())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -122,7 +111,9 @@ describe("async actions", () => {
     it("creates FETCH_USERS when users has been successfully downloaded", () => {
         let user = {username: "user"};
 
-        fetch.mockResponseOnce(JSON.stringify([user]));
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(200, null, JSON.stringify([user]))));
+
 
         const expectedActions = [{
             type: types.FETCH_USERS,
@@ -131,7 +122,7 @@ describe("async actions", () => {
 
         const store = mockStore({users: []});
 
-        return store.dispatch(actions.fetchUsers())
+        return store.dispatch<any>(actions.fetchUsers())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });

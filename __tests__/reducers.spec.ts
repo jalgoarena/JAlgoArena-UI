@@ -1,9 +1,10 @@
 import reducer from '../client/common/reducers';
+import {AnyAction} from "redux";
 
 describe('root reducer', () => {
     it('should return the initial state', () => {
         expect(
-            reducer(undefined, {})
+            reducer({}, {} as AnyAction)
         ).toEqual(
             {
                 editor: {

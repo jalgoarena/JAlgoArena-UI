@@ -6,6 +6,7 @@ import * as actions from "../../client/problems/actions"
 
 import {Submission} from "../../client/problems/domain/Submission";
 import Problem from "../../client/problems/domain/Problem";
+import {mockResponse} from "../mockFetch"
 
 jest.mock('sockjs-client');
 
@@ -13,16 +14,13 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe("async actions", () => {
-    beforeEach(() => {
-        fetch.resetMocks()
-    });
-
     it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
         let submission = new Submission(
             "dummy source code", "user-id", "fib", "submission-id", "ACCEPTED", "token"
         );
 
-        fetch.mockResponseOnce(JSON.stringify(submission));
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(200, null, JSON.stringify(submission))));
 
         const SOURCE_CODE = "dummy_source_code";
         const PROBLEM_ID = "fib";
@@ -45,7 +43,8 @@ describe("async actions", () => {
             FIB_PROBLEM
         ];
 
-        fetch.mockResponseOnce(JSON.stringify(problems));
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(200, null, JSON.stringify(problems))));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEMS_SUCCESS,

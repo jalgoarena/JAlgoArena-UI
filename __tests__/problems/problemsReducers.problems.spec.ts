@@ -1,5 +1,3 @@
-// @flow
-
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
 import Problem from "../../client/problems/domain/Problem";

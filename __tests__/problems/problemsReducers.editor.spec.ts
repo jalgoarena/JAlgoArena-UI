@@ -1,8 +1,6 @@
-// @flow
-
 import * as reducer from '../../client/problems/reducers';
 import * as types from '../../client/constants/ActionTypes'
-import Submission from "../../client/problems/domain/Submission";
+import {Submission} from "../../client/problems/domain/Submission";
 
 let defaultEditorState = {
     sourceCode: null,

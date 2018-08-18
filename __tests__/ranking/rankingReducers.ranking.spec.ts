@@ -1,5 +1,3 @@
-// @flow
-
 import * as reducer from '../../client/ranking/reducers';
 import * as types from '../../client/constants/ActionTypes';
 import {RankingEntry} from "../../client/ranking/domain/RankingEntry";

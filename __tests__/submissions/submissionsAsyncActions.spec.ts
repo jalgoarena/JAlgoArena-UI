@@ -1,5 +1,3 @@
-// @flow
-
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
@@ -7,6 +5,7 @@ import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/submissions/actions";
 
 import {fetchSolvedProblemsRatio} from "../../client/ranking/actions";
+import {mockResponse} from "../mockFetch";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -14,17 +13,14 @@ const mockStore = configureMockStore(middlewares);
 jest.mock('sockjs-client');
 
 describe("async actions", () => {
-    beforeEach(() => {
-        fetch.resetMocks()
-    });
-
     it("creates FETCH_SUBMISSIONS when fetching user submissions has been done", () => {
         let submissions = [{
             problemId: "fib",
             elapsedTime: 0.123
         }];
 
-        fetch.mockResponseOnce(JSON.stringify(submissions));
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(200, null, JSON.stringify(submissions))));
 
         const expectedActions = [{
             type: types.FETCH_SUBMISSIONS,
@@ -33,20 +29,21 @@ describe("async actions", () => {
 
         const store = mockStore({submissions: []});
 
-        return store.dispatch(actions.fetchSubmissions("user1", "dummy_token"))
+        return store.dispatch<any>(actions.fetchSubmissions("user1", "dummy_token"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
     });
 
     it("creates SET_ERROR_MESSAGE when fetching user submissions has failed", () => {
-        fetch.mockResponseOnce(JSON.stringify({error: "bad request"}), {status: 500});
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(500, null, JSON.stringify({error: "bad request"}))));
 
         const expectedActions = [{error: "Cannot connect to Submissions Service: \"bad request\"", type: "SET_ERROR_MESSAGE"}];
 
         const store = mockStore();
 
-        return store.dispatch(actions.fetchSubmissions("user1", "dummy_token"))
+        return store.dispatch<any>(actions.fetchSubmissions("user1", "dummy_token"))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -55,7 +52,8 @@ describe("async actions", () => {
     it("creates FETCH_PROBLEMS_SOLUTION_RATIO when fetching solved problems ratio has been done", () => {
         let problemPassRatio = {problemId:"fib",submissionsCount: 10};
 
-        fetch.mockResponseOnce(JSON.stringify([problemPassRatio]));
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(200, null, JSON.stringify([problemPassRatio]))));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEMS_SOLUTION_RATIO,
@@ -64,7 +62,7 @@ describe("async actions", () => {
 
         const store = mockStore({solvedProblemsRatio: []});
 
-        return store.dispatch(fetchSolvedProblemsRatio())
+        return store.dispatch<any>(fetchSolvedProblemsRatio())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -72,7 +70,8 @@ describe("async actions", () => {
 
     it("creates SET_ERROR_MESSAGE when fetching solved problems ratio has failed", () => {
 
-        fetch.mockResponseOnce(JSON.stringify({error: "bad request"}), {status: 500});
+        window.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve(mockResponse(500, null, JSON.stringify({error: "bad request"}))));
 
         const expectedActions = [{
             type: types.SET_ERROR_MESSAGE,
@@ -81,7 +80,7 @@ describe("async actions", () => {
 
         const store = mockStore();
 
-        return store.dispatch(fetchSolvedProblemsRatio())
+        return store.dispatch<any>(fetchSolvedProblemsRatio())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });

@@ -1,8 +1,6 @@
-// @flow
-
 import * as reducer from '../../client/users/reducers/index';
 import * as types from '../../client/constants/ActionTypes';
-import User from "../../client/users/domain/User";
+import {User} from "../../client/users/domain/User";
 
 const defaultStartState = {
     user: null,
@@ -144,5 +142,5 @@ describe('auth reducer', () => {
     });
 });
 
-let USER_JULIA = new User("julia", "password", "email", "region", "team", "julia", "spolnik", "USER", "0");
-let USER_MIKOLAJ = new User("mikolaj", "password", "email", "region", "team", "mikolaj", "spolnik", "USER", "1");
+let USER_JULIA = new User("julia", "password", "email", "region", "team", "julia", "spolnik", "0");
+let USER_MIKOLAJ = new User("mikolaj", "password", "email", "region", "team", "mikolaj", "spolnik", "1");
