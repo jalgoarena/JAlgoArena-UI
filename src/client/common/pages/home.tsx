@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Grid, Row, Col} from 'react-bootstrap';
 
 import FontAwesome from '../components/FontAwesome';
-import profile from '../../assets/img/profile.png';
+import * as profile from '../../assets/img/profile.png';
 import {connect} from "react-redux";
 import {CSSProperties} from "react";
 

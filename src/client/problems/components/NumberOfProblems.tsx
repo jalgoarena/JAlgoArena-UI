@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Modal, Table} from 'react-bootstrap';
-import logo from '../../assets/img/logo.png';
+import * as logo from '../../assets/img/logo.png';
 import {CSSProperties} from "react";
 
 const logoStyle: CSSProperties = {

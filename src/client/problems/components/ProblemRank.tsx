@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Modal} from 'react-bootstrap';
 
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
-import logo from '../../assets/img/logo.png';
+import * as logo from '../../assets/img/logo.png';
 import {ProblemRankingEntry} from "../../ranking/domain/ProblemRankingEntry";
 
 const logoStyle = {
