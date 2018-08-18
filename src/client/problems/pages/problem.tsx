@@ -2,8 +2,8 @@ import * as React from 'react';
 import {Grid, Button, Row} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import {store} from '../../common/index';
-import {fetchSubmissions} from "../../submissions/actions/index";
+import {store} from '../../common';
+import {fetchSubmissions} from "../../submissions/actions";
 
 import Output from '../components/Output';
 import ProblemToolbar from '../components/ProblemToolbar';
@@ -12,19 +12,18 @@ import ProblemDescription from '../components/ProblemDescription';
 import PointsLegend from '../components/PointsLegend';
 import AceCodeEditor from '../components/AceCodeEditor';
 import SubmissionPanel from '../components/SubmissionPanel';
-import {startJudge, setCurrentProblem, judgeCode, changeSourceCode, problemRefresh} from '../actions/index';
+import {startJudge, setCurrentProblem, judgeCode, changeSourceCode, problemRefresh, setErrorMessage} from '../actions';
 import ProblemRank from '../components/ProblemRank'
 import {ListNodeSourceCode, TreeNodeSourceCode, IntervalSourceCode, PairSourceCode, GraphNodeSourceCode, WeightedGraphSourceCode} from "../components/SourceCode";
-import {setErrorMessage} from "../../common/actions/index";
-import {fetchProblemRanking} from "../../ranking/actions/index";
+import {fetchProblemRanking} from "../../ranking/actions";
 import {User} from "../../users/domain/User";
 import Problem from "../domain/Problem";
 import {Submission} from "../domain/Submission";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ProblemRankingEntry} from "../../ranking/domain/ProblemRankingEntry";
-import {AppState} from "../../common/reducers/index";
+import {AppState} from "../../common/reducers";
 import {Dispatch} from "redux";
-import {EditorState} from "../reducers/index";
+import {EditorState} from "../reducers";
 
 interface MatchParams {
     id: string

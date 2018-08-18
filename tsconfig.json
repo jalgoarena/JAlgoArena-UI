@@ -8,6 +8,7 @@
     "jsx": "react",
     "target": "es5",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
     "skipLibCheck": true,
     "lib": ["dom","es5","scripthost", "es6"]
   },

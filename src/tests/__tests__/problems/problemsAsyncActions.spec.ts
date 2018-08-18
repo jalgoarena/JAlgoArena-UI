@@ -7,6 +7,7 @@ import * as actions from "../../../client/problems/actions/index"
 import {Submission} from "../../../client/problems/domain/Submission";
 import Problem from "../../../client/problems/domain/Problem";
 import * as fetchMock from "fetch-mock";
+import {StatusCode} from "../../../client/submissions/domain/Submission";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -14,7 +15,7 @@ const mockStore = configureMockStore(middlewares);
 describe("async actions", () => {
     it("creates SUBMISSION_PUBLISHED when judgement has been done", () => {
         let submission = new Submission(
-            "dummy source code", "user-id", "fib", "submission-id", "ACCEPTED", "token"
+            "dummy source code", "user-id", "fib", "submission-id", StatusCode.Accepted, "token"
         );
 
         fetchMock.post(`/api/queue/api/problems/${submission.problemId}/publish`, JSON.stringify(submission));

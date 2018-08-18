@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
-import {Grid, Col, Button, PageHeader, Row} from 'react-bootstrap';
+import {Button, Col, Grid, PageHeader, Row} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
 import * as _ from 'lodash';
@@ -8,11 +8,11 @@ import * as _ from 'lodash';
 import SourceCode from "../components/SourceCode";
 
 import FontAwesome from '../../common/components/FontAwesome';
-import {fetchSubmissions} from "../actions/index";
+import {fetchSubmissions} from "../actions";
 import * as moment from "moment";
-import {AuthState} from "../../users/reducers/index";
-import {Submission} from "../domain/Submission";
-import {AppState} from "../../common/reducers/index";
+import {AuthState} from "../../users/reducers";
+import {StatusCode, Submission} from "../domain/Submission";
+import {AppState} from "../../common/reducers";
 import {Dispatch} from "redux";
 
 interface SubmissionsProps {
@@ -83,37 +83,37 @@ class Submissions extends React.Component<SubmissionsProps, SubmissionsState> {
         </Button>;
     }
 
-    static statusFormatter(cell: string) {
+    static statusFormatter(cell: StatusCode) {
         let status;
         let style;
         let icon;
         switch (cell) {
-            case 'ACCEPTED':
+            case StatusCode.Accepted:
                 status = 'Accepted';
                 style = 'text-success';
                 icon = 'check';
                 break;
-            case 'WRONG_ANSWER':
+            case StatusCode.WrongAnswer:
                 status = 'Wrong Answer';
                 style = 'text-danger';
                 icon = 'times';
                 break;
-            case 'COMPILE_ERROR':
+            case StatusCode.CompileError:
                 status = 'Compile Error';
                 style = 'text-danger';
                 icon = 'times';
                 break;
-            case 'RUNTIME_ERROR':
+            case StatusCode.RuntimeError:
                 status = 'Runtime Error';
                 style = 'text-danger';
                 icon = 'times';
                 break;
-            case 'TIME_LIMIT_EXCEEDED':
+            case StatusCode.TimeLimitExceeded:
                 status = 'Time Limit';
                 style = 'text-warning';
                 icon = 'exclamation-triangle';
                 break;
-            case 'MEMORY_LIMIT_EXCEEDED':
+            case StatusCode.MemoryLimitExceeded:
                 status = 'Memory Limit';
                 style = 'text-warning';
                 icon = 'exclamation-triangle';
@@ -145,13 +145,13 @@ class Submissions extends React.Component<SubmissionsProps, SubmissionsState> {
 
     static dateFormatter(cell: Date) {
         let dateTime = moment(cell);
-        return <span>${dateTime.format()}</span>;
+        return <span>{dateTime.format('YYYY-MM-DD HH:mm:ss')}</span>;
     }
 
     render() {
         const submissions = _.orderBy(this.props.submissions, ['submissionTime'], ['desc']);
 
-        let submissionData = submissions.map((submission) => {
+        let submissionData = submissions.map((submission: Submission) => {
             return {
                 id: submission.id,
                 submissionId: submission.submissionId,
@@ -220,6 +220,7 @@ class Submissions extends React.Component<SubmissionsProps, SubmissionsState> {
                             Submission ID</TableHeaderColumn>
                         <TableHeaderColumn dataField='submissionTime'
                                            width={'200'}
+                                           dataSort
                                            dataFormat={Submissions.dateFormatter.bind(this)}>
                             Run At</TableHeaderColumn>
                         <TableHeaderColumn dataField='sourceCode'

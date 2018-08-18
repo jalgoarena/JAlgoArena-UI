@@ -1,6 +1,7 @@
 import * as reducer from '../../../client/problems/reducers/index';
 import * as types from '../../../client/constants/ActionTypes'
 import {Submission} from "../../../client/problems/domain/Submission";
+import {StatusCode} from "../../../client/submissions/domain/Submission";
 
 let defaultEditorState = {
     sourceCode: null,
@@ -53,7 +54,7 @@ describe('editor reducer', () => {
 
     it('should handle SUBMISSION_PUBLISHED', () => {
         let submission = new Submission(
-            "dummy source code", "user-id", "fib", "submission-id", "token"
+            "dummy source code", "user-id", "fib", "submission-id", StatusCode.Accepted, "token"
         );
 
         expect(

@@ -124,7 +124,7 @@ export function startFetchingProblems(): Action {
     };
 }
 
-function setErrorMessage(error: string): Action {
+export function setErrorMessage(error: string): Action {
     return {
         type: types.SET_ERROR_MESSAGE,
         error: error,
