@@ -3,9 +3,7 @@ import thunk from "redux-thunk"
 
 import * as types from "../../../client/constants/ActionTypes";
 import * as actions from "../../../client/ranking/actions/index";
-import mockResponse from "../../mockFetch";
-
-jest.mock('sockjs-client');
+import * as fetchMock from "fetch-mock";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -18,8 +16,9 @@ describe("async actions", () => {
             score: 20
         }];
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(200, null, JSON.stringify(problemRanking))));
+        const problemId = "fib";
+
+        fetchMock.get(`/api/ranking/api/ranking/problem/${problemId}`, JSON.stringify(problemRanking));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEM_RANKING,
@@ -28,7 +27,7 @@ describe("async actions", () => {
 
         const store = mockStore({problemRanking: []});
 
-        return store.dispatch<any>(actions.fetchProblemRanking("fib"))
+        return store.dispatch<any>(actions.fetchProblemRanking(problemId))
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
             });
@@ -43,8 +42,7 @@ describe("async actions", () => {
             score: 20
         }];
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(200, null, JSON.stringify(ranking))));
+        fetchMock.get(`/api/ranking/api/ranking`, JSON.stringify(ranking));
 
         const expectedActions = [{
             type: types.FETCH_RANKING,

@@ -67,7 +67,11 @@ describe("async actions", () => {
     it("creates LOGIN_FAIL when log in has been failed", () => {
         let errorMessage = {error: "Forbidden", message: "Access Denied"};
 
-        fetchMock.post(`/api/auth/login`, {body: JSON.stringify(errorMessage), status: 403});
+        fetchMock.post(
+            `/api/auth/login`,
+            {body: JSON.stringify(errorMessage), status: 403},
+            {overwriteRoutes: true, method: "POST"}
+        );
 
         const expectedActions = [{
             type: types.LOGIN_FAIL,

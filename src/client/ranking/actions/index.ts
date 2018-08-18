@@ -74,7 +74,7 @@ export function fetchRanking() {
     };
 
     return (dispatch: Dispatch<Action>) => {
-        return fetch(`/api/ranking/api/ranking/`, options)
+        return fetch(`/api/ranking/api/ranking`, options)
             .then((response) => response.json())
             .then((json) => {
                 if (json.error) {

@@ -6,9 +6,7 @@ import * as actions from "../../../client/problems/actions/index"
 
 import {Submission} from "../../../client/problems/domain/Submission";
 import Problem from "../../../client/problems/domain/Problem";
-import mockResponse from "../../mockFetch"
-
-jest.mock('sockjs-client');
+import * as fetchMock from "fetch-mock";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -19,8 +17,7 @@ describe("async actions", () => {
             "dummy source code", "user-id", "fib", "submission-id", "ACCEPTED", "token"
         );
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(200, null, JSON.stringify(submission))));
+        fetchMock.post(`/api/queue/api/problems/${submission.problemId}/publish`, JSON.stringify(submission));
 
         const SOURCE_CODE = "dummy_source_code";
         const PROBLEM_ID = "fib";
@@ -43,8 +40,7 @@ describe("async actions", () => {
             FIB_PROBLEM
         ];
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(200, null, JSON.stringify(problems))));
+        fetchMock.get(`/api/judge/api/problems`, JSON.stringify(problems));
 
         const expectedActions = [{
             type: types.FETCH_PROBLEMS_SUCCESS,
