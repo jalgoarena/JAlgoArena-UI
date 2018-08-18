@@ -1,10 +1,10 @@
-import reducer from '../client/common/reducers';
+import {rootReducer} from '../client/common/reducers';
 import {AnyAction} from "redux";
 
 describe('root reducer', () => {
     it('should return the initial state', () => {
         expect(
-            reducer({}, {} as AnyAction)
+            rootReducer({}, {} as AnyAction)
         ).toEqual(
             {
                 editor: {

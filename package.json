@@ -112,10 +112,15 @@
     "webpack-dev-server": "^3.1.4"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.jest.json"
+      }
+    },
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testRegex": "(/__tests__/.*\\.(test|spec)\\.(ts|tsx))$",
     "moduleFileExtensions": [
       "ts",
       "tsx",

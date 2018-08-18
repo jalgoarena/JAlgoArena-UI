@@ -10,7 +10,8 @@
     "allowJs": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "lib": ["dom","es5","scripthost", "es6"]
+    "lib": ["dom","es5","scripthost", "es6"],
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./client/"

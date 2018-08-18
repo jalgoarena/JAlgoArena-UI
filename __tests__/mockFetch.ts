@@ -8,4 +8,4 @@ const mockResponse = (status: number, statusText: string | null, response: any) 
     });
 };
 
-export {mockResponse};
+export default mockResponse;

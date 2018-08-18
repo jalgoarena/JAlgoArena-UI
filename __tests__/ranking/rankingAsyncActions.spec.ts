@@ -3,7 +3,7 @@ import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/ranking/actions";
-import {mockResponse} from "../mockFetch";
+import mockResponse from "../mockFetch";
 
 jest.mock('sockjs-client');
 

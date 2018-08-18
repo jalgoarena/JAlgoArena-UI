@@ -1,14 +1,14 @@
-import configureMockStore from "redux-mock-store"
+import createMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 
 import * as types from "../../client/constants/ActionTypes";
 import * as actions from "../../client/users/actions";
-import {mockResponse} from "../mockFetch";
+import mockResponse from "../mockFetch";
 
 jest.mock('sockjs-client');
 
 const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const mockStore = createMockStore(middlewares);
 
 // window.localStorage = {
 //     getItem: function (key) {

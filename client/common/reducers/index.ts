@@ -85,4 +85,4 @@ export function errorMessage(
   return state;
 }
 
-export default rootReducer;
+export {rootReducer};
