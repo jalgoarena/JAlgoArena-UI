@@ -1,7 +1,7 @@
 FROM node:8.11.3-alpine as build
 
 COPY . /app
-WORKDIR /app/server
+WORKDIR /app/src/server
 
 RUN npm install
 

@@ -5,7 +5,7 @@ design/*
 dist/*
 flow-typed/*
 node-modules/*
-test/*
+src/tests/*
 Dockerfile
 docker_push
 nodemon.js
