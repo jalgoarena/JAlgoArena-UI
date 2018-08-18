@@ -5,7 +5,6 @@
   "main": "build/server.js",
   "scripts": {
     "installRequiredGlobalDependencies": "npm install webpack-cli -g",
-    "pretest": "npm run build",
     "test": "jest && codecov",
     "test:watch": "jest --watch",
     "build": "webpack --config webpack.server.config.js --mode=production && webpack --config webpack.client.config.js --mode=production",
@@ -90,6 +89,7 @@
     "@babel/preset-env": "^7.0.0-rc.1",
     "@babel/preset-react": "^7.0.0-rc.1",
     "@babel/preset-typescript": "^7.0.0-rc.1",
+    "@types/fetch-mock": "^6.0.3",
     "@types/highcharts": "^5.0.26",
     "@types/jest": "^23.3.1",
     "@types/react-calendar-heatmap": "^1.6.2",
@@ -101,6 +101,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "fetch-mock": "^6.5.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-root-element-plugin": "^0.1.3",

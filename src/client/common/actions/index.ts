@@ -1,12 +1,12 @@
-import { fetchRanking, startRankingRefresh } from '../../ranking/actions/index';
+import { fetchRanking, startRankingRefresh } from '../../ranking/actions';
 import * as types from '../../constants/ActionTypes';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from '@stomp/stompjs';
-import { fetchSolvedProblemsRatio } from '../../ranking/actions/index';
-import { fetchSubmissions, fetchSubmissionStats } from '../../submissions/actions/index';
+import { fetchSolvedProblemsRatio } from '../../ranking/actions';
+import { fetchSubmissions, fetchSubmissionStats } from '../../submissions/actions';
 import { Event } from '../domain/Event';
 import { store } from '../store';
-import { fetchUsers } from '../../users/actions/index';
+import { fetchUsers } from '../../users/actions';
 import {Dispatch} from "redux";
 
 type Action = { type: string; error: string } | { type: string; isConnected: boolean } | { type: string; config: object } | { type: string };

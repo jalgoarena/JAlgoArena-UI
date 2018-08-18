@@ -3,9 +3,9 @@ import thunk from "redux-thunk"
 
 import * as types from "../../../client/constants/ActionTypes";
 import * as actions from "../../../client/users/actions/index";
-import mockResponse from "../mockFetch";
+import * as fetchMock from "fetch-mock";
 
-jest.mock('sockjs-client');
+// jest.mock('sockjs-client');
 
 const middlewares = [thunk];
 const mockStore = createMockStore(middlewares);
@@ -30,8 +30,7 @@ describe("async actions", () => {
             message: "Username is already used"
         };
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(409, null, JSON.stringify(errorMessage))));
+        fetchMock.post(`/api/auth/signup`, {body: JSON.stringify(errorMessage), status: 409});
 
         const expectedActions = [{
             type: types.SIGNUP_FAIL,
@@ -50,8 +49,7 @@ describe("async actions", () => {
     it("creates LOGIN_SUCCESS when log in has been succeed", () => {
         let user = {username: "user"};
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(200, null, JSON.stringify({token: "1234567", user}))));
+        fetchMock.post(`/api/auth/login`, JSON.stringify({token: "1234567", user}));
 
         const expectedActions = [{
             type: types.LOGIN_SUCCESS,
@@ -69,8 +67,7 @@ describe("async actions", () => {
     it("creates LOGIN_FAIL when log in has been failed", () => {
         let errorMessage = {error: "Forbidden", message: "Access Denied"};
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(403, null, JSON.stringify(errorMessage))));
+        fetchMock.post(`/api/auth/login`, {body: JSON.stringify(errorMessage), status: 403});
 
         const expectedActions = [{
             type: types.LOGIN_FAIL,
@@ -86,14 +83,11 @@ describe("async actions", () => {
     });
 
     it("creates CHECKED_SESSION_STATUS when session check has been successful", () => {
-        let user = {username: "user"};
+        let user = {username: "user", id: "0-0"};
         let submission = {submissionId: "1"};
 
-        window.fetch = jest.fn()
-            .mockImplementationOnce(() =>
-                Promise.resolve(mockResponse(200, null, JSON.stringify(user))))
-            .mockImplementationOnce(() =>
-                Promise.resolve(mockResponse(200, null, JSON.stringify([submission]))));
+        fetchMock.get(`/api/auth/api/user`, JSON.stringify(user));
+        fetchMock.get(`/api/submissions/api/submissions/${user.id}`, JSON.stringify([submission]));
 
         const expectedActions = [{
             type: types.CHECKED_SESSION_STATUS,
@@ -111,9 +105,7 @@ describe("async actions", () => {
     it("creates FETCH_USERS when users has been successfully downloaded", () => {
         let user = {username: "user"};
 
-        window.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve(mockResponse(200, null, JSON.stringify([user]))));
-
+        fetchMock.get(`/api/auth/users`, JSON.stringify([user]));
 
         const expectedActions = [{
             type: types.FETCH_USERS,

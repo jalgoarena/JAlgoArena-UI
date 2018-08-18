@@ -1,6 +1,5 @@
 import {Submission} from '../domain/Submission';
 import * as types from '../../constants/ActionTypes';
-import {setErrorMessage} from '../../common/actions/index';
 import {JudgeRequest} from '../domain/JudgeRequest';
 import Problem from '../domain/Problem';
 import {Dispatch} from "redux";
@@ -13,6 +12,7 @@ interface Action {
     problems?: Array<Problem>
     level?: number
     hideDoneProblems?: boolean
+    error?: string
 }
 
 export function startJudge(): Action {
@@ -121,5 +121,12 @@ function setProblems(problems: Problem[]): Action {
 export function startFetchingProblems(): Action {
     return {
         type: types.FETCH_PROBLEMS_REQUEST,
+    };
+}
+
+function setErrorMessage(error: string): Action {
+    return {
+        type: types.SET_ERROR_MESSAGE,
+        error: error,
     };
 }

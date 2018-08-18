@@ -4,8 +4,8 @@ import thunk from "redux-thunk"
 import * as types from "../../../client/constants/ActionTypes";
 import * as actions from "../../../client/submissions/actions/index";
 
-import {fetchSolvedProblemsRatio} from "../../../client/ranking/actions/index";
-import mockResponse from "../mockFetch";
+import {fetchSolvedProblemsRatio} from "../../../client/ranking/actions";
+import mockResponse from "../../mockFetch";
 
 const middlewares = [thunk];
 const mockStore = createMockStore(middlewares);

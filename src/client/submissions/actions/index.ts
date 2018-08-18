@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
 
 import * as types from "../../constants/ActionTypes"
-import {setErrorMessage} from "../../common/actions/index";
 import {ProblemSubmissionRatio} from "../domain/ProblemSubmissionRatio";
 import {Submission} from "../domain/Submission";
 
@@ -11,6 +10,7 @@ interface Action {
     submissions?: Array<Submission>
     status?: string
     stats?: Array<{}>
+    error?: string
 }
 
 export function fetchSubmissions(userId: string | null, token: string | null) {
@@ -70,6 +70,13 @@ export function fetchSubmissionStats() {
                 }
             })
             .catch((error) => console.log(`[err] GET /api/submissions/api/submissions/stats: ` + error));
+    };
+}
+
+function setErrorMessage(error: string): Action {
+    return {
+        type: types.SET_ERROR_MESSAGE,
+        error: error,
     };
 }
 

@@ -60,14 +60,13 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                include: path.resolve(__dirname, "src", "client"),
                 use: {
                     loader: "babel-loader"
                 }
             },
             {
                 enforce: "pre",
-                test: "/\.jsx?$/",
+                test: "/\.js$/",
                 loader: "source-map-loader"
             },
             {

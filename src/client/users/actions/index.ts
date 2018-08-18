@@ -1,17 +1,16 @@
 import {Dispatch} from "redux";
 
-import {fetchSubmissions, fetchSubmissionStats} from '../../submissions/actions/index';
+import {fetchSubmissions, fetchSubmissionStats} from '../../submissions/actions';
 import * as types from '../../constants/ActionTypes';
-import {setErrorMessage} from '../../common/actions/index';
 import {User} from '../domain/User';
 import {push} from 'connected-react-router';
-import {fetchRanking} from '../../ranking/actions/index';
+import {fetchRanking} from '../../ranking/actions';
 
 interface Action {
-    type: string;
-    error?: string;
-    user?: User;
-    users?: User[];
+    type: string
+    error?: string
+    user?: User
+    users?: User[]
 }
 
 export function startSignup(): Action {
@@ -215,5 +214,12 @@ function logoutSuccess(): Action {
 export function navigatedAwayFromAuthFormPage(): Action {
     return {
         type: types.NAVIGATE_AWAY_FROM_AUTH_FORM,
+    };
+}
+
+function setErrorMessage(error: string): Action {
+    return {
+        type: types.SET_ERROR_MESSAGE,
+        error: error,
     };
 }

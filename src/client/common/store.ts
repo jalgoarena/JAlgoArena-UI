@@ -1,17 +1,8 @@
-import {rootReducer} from './reducers/index';
+import {rootReducer} from './reducers';
 import {applyMiddleware, createStore, compose} from 'redux';
 import thunk from 'redux-thunk';
-
 import {createHashHistory} from 'history';
-
 import {connectRouter, routerMiddleware} from 'connected-react-router';
-
-
-import {checkSessionStatus, fetchUsers} from "../users/actions/index";
-import {fetchProblems, startFetchingProblems} from "../problems/actions/index"
-import {fetchRanking, fetchRankingStartDate} from "../ranking/actions/index";
-import {updateConfig, websocketInit} from "./actions/index";
-import {fetchSubmissionStats} from "../submissions/actions/index";
 
 const history = createHashHistory();
 
@@ -30,15 +21,5 @@ const store = createStore(
         )
     )
 );
-
-websocketInit();
-store.dispatch<any>(updateConfig());
-store.dispatch(startFetchingProblems());
-store.dispatch<any>(fetchProblems());
-store.dispatch<any>(fetchUsers());
-store.dispatch<any>(fetchSubmissionStats());
-store.dispatch<any>(fetchRanking());
-store.dispatch<any>(fetchRankingStartDate());
-store.dispatch<any>(checkSessionStatus());
 
 export {store, history};

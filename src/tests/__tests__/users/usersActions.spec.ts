@@ -3,19 +3,19 @@ import * as actions from "../../../client/users/actions/index";
 
 jest.mock('sockjs-client');
 
-window.localStorage = {
-    removeItem: function (key) {
-        if (key !== "jwtToken") {
-            throw Error("Wrong key");
-        }
-    },
-    getItem: function (key) {
-        if (key === "jwtToken")
-            return "dummy_value";
-        else
-            throw Error("Wrong key");
-    },
-};
+// window.localStorage = {
+//     removeItem: function (key) {
+//         if (key !== "jwtToken") {
+//             throw Error("Wrong key");
+//         }
+//     },
+//     getItem: function (key) {
+//         if (key === "jwtToken")
+//             return "dummy_value";
+//         else
+//             throw Error("Wrong key");
+//     },
+// };
 
 describe("actions", () => {
     it("creates an action to start signup", () => {

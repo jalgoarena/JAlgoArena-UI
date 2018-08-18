@@ -6,7 +6,7 @@ import * as actions from "../../../client/problems/actions/index"
 
 import {Submission} from "../../../client/problems/domain/Submission";
 import Problem from "../../../client/problems/domain/Problem";
-import {mockResponse} from "../mockFetch"
+import mockResponse from "../../mockFetch"
 
 jest.mock('sockjs-client');
 
