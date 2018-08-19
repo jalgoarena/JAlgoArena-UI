@@ -6,11 +6,11 @@ import {Transition, TransitionGroup} from 'react-transition-group';
 
 import ProblemDetails from '../components/ProblemDetails';
 import ProblemsFilter from '../components/ProblemsFilter';
-import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions/index";
-import {fetchSolvedProblemsRatio} from "../../ranking/actions/index";
+import {setProblemsDifficultyVisibilityFilter, hideDoneProblems} from "../actions";
+import {fetchSolvedProblemsRatio} from "../../ranking/actions";
 import {Submission} from "../../submissions/domain/Submission";
 import NumberOfProblems from "../components/NumberOfProblems";
-import {AppState} from "../../common/reducers/index";
+import {AppState} from "../../common/reducers";
 import Problem from "../domain/Problem";
 import {Dispatch} from "redux";
 
@@ -80,21 +80,23 @@ class Problems extends React.Component<ProblemsProps, ProblemsState> {
         let problemNodes = _.orderBy(problems, ['solutionsCount'], ['desc'])
             .map((problem, idx) => {
 
-                let acceptedSubmissions = _.filter(submissions,
+                let acceptedSubmissions = submissions.filter(
                     (submission: Submission) => submission.statusCode === 'ACCEPTED'
                 );
-                let failedSubmissions = _.filter(submissions,
+                let failedSubmissions = submissions.filter(
                     (submission: Submission) => submission.statusCode !== 'ACCEPTED'
                 );
 
-                let submittedAcceptedProblems = _.map(acceptedSubmissions, (submission) => submission.problemId);
-                let submittedFailedProblems = _.map(failedSubmissions, (submission) => submission.problemId);
+                let submittedAcceptedProblems = acceptedSubmissions.map((submission) => submission.problemId);
+                let submittedFailedProblems = failedSubmissions.map((submission) => submission.problemId);
 
-                const isSuccess = _.includes(submittedAcceptedProblems, problem.id);
-                const isFailure = _.includes(submittedFailedProblems, problem.id);
+                const isSuccess = submittedAcceptedProblems.indexOf(problem.id) !== -1;
+                const isFailure = submittedFailedProblems.indexOf(problem.id) !== -1;
 
-                if (hideDoneProblems && isSuccess) return null;
-                if (problemsFilter !== 0 && problem.level !== problemsFilter) return null;
+                if (hideDoneProblems && isSuccess)
+                    return null;
+                if (problemsFilter !== 0 && problem.level !== problemsFilter)
+                    return null;
 
                 return <Transition in timeout={duration} key={idx}>
                     {(state) => {
@@ -131,9 +133,9 @@ class Problems extends React.Component<ProblemsProps, ProblemsState> {
             <NumberOfProblems
                 show={this.state.showNumberOfProblems}
                 onHide={this.hideNumberOfProblems.bind(this)}
-                easy={_.filter(problems, problem => problem.level === 1).length}
-                medium={_.filter(problems, problem => problem.level === 2).length}
-                hard={_.filter(problems, problem => problem.level === 3).length}
+                easy={problems.filter(problem => problem.level === 1).length}
+                medium={problems.filter(problem => problem.level === 2).length}
+                hard={problems.filter(problem => problem.level === 3).length}
             />
         </Grid>;
     }

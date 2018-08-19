@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as _ from 'lodash';
 import {PageHeader, Button} from 'react-bootstrap';
 
 import FontAwesome from '../../common/components/FontAwesome';
@@ -13,18 +12,18 @@ interface ProblemTitleProps {
 }
 
 const ProblemTitle = (props: ProblemTitleProps) => {
-    let acceptedSubmissions = _.filter(props.submissions,
+    let acceptedSubmissions = props.submissions.filter(
         (submission: Submission) => submission.statusCode === 'ACCEPTED'
     );
-    let failedSubmissions = _.filter(props.submissions,
+    let failedSubmissions = props.submissions.filter(
         (submission: Submission) => submission.statusCode !== 'ACCEPTED'
     );
 
-    let submittedAcceptedProblems = _.map(acceptedSubmissions, (submission) => submission.problemId);
-    let submittedFailedProblems = _.map(failedSubmissions, (submission) => submission.problemId);
+    let submittedAcceptedProblems = acceptedSubmissions.map((submission) => submission.problemId);
+    let submittedFailedProblems = failedSubmissions.map((submission) => submission.problemId);
 
-    const isSuccess = _.includes(submittedAcceptedProblems, props.problem.id);
-    const isFailure = _.includes(submittedFailedProblems, props.problem.id);
+    const isSuccess = submittedAcceptedProblems.indexOf(props.problem.id) !== -1;
+    const isFailure = submittedFailedProblems.indexOf(props.problem.id) !== -1;
 
     let doneCheck = isSuccess
         ? <FontAwesome prefix="fas" name="check-circle"/>

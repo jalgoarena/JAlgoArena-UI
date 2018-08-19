@@ -1,5 +1,4 @@
 import {RankingEntry} from "./RankingEntry";
-import * as _ from "lodash";
 
 interface PreviousRankEntry extends RankingEntry {
     place: number
@@ -61,7 +60,7 @@ export class RankingWithChange implements CalculateRanking {
     }
 
     private findPreviousRankEntryFor(previousRankingData: Array<PreviousRankEntry>, hacker: string) {
-        return _.find(previousRankingData,
+        return previousRankingData.find(
             (prevRankEntry: PreviousRankEntry) => prevRankEntry.hacker === hacker
         );
     }

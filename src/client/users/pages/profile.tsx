@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import * as _ from "lodash";
 import {User} from "../domain/User";
 import {fetchSubmissionStats} from "../../submissions/actions";
 import {fetchUsers} from "../actions";
@@ -54,15 +53,15 @@ class Profile extends React.Component<ProfileProps, {}> {
 
     private scoreFor(user: User) {
         let userRankEntry =
-            _.find(this.props.ranking, (it: RankingEntry) => it.hacker === user.username);
+            this.props.ranking.find((it: RankingEntry) => it.hacker === user.username);
 
         return userRankEntry ? userRankEntry.score : 0;
     }
 
     private findUser() {
-        return _.find(this.props.users,
+        return this.props.users ? this.props.users.find(
             (user: User) => user.username === this.props.match.params.username
-        );
+        ) : null;
     }
 
     private static endDate() {
