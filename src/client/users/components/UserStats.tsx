@@ -49,7 +49,7 @@ let solvedProblems = (user: User, userStats: { solved: Array<string> } | null | 
 let highchartSolvedProblems = (user: User, userStats: any, rankingStartDate: string) => {
     let rankingStartDateParts = rankingStartDate.split('-');
     let solvedProblemsCountPerDay = [
-        [Date.UTC(parseInt(rankingStartDateParts[0]), parseInt(rankingStartDateParts[1]) - 1, parseInt(rankingStartDateParts[2])), 0]
+        [Date.UTC(Number(rankingStartDateParts[0]), Number(rankingStartDateParts[1]) - 1, Number(rankingStartDateParts[2])), 0]
     ];
 
     if (userStats) {
@@ -58,7 +58,7 @@ let highchartSolvedProblems = (user: User, userStats: any, rankingStartDate: str
             let count = userStats.solvedProblemsPerDay[date].length;
             let dateParts: Array<string> = date.split("-");
             solvedProblemsCountPerDay.push(
-                [Date.UTC(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2])), count + sum]
+                [Date.UTC(Number(dateParts[0]), Number(dateParts[1]) - 1, Number(dateParts[2])), count + sum]
             );
             sum += count;
         });

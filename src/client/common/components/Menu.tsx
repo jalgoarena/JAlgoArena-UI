@@ -73,7 +73,7 @@ const mapStateToProps = (state: MenuState) => {
         state.submissions.stats[state.auth.user.username] &&
         state.submissions.stats[state.auth.user.username].solved
     ) {
-        let solved = parseInt(state.submissions.stats[state.auth.user.username].solved.length);
+        let solved = Number(state.submissions.stats[state.auth.user.username].solved.length);
         progress = solved / state.problems.items.length * 100;
     }
 
