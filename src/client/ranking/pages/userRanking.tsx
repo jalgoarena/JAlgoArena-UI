@@ -1,29 +1,20 @@
 import * as React from 'react';
-import * as _ from "lodash";
 import {Grid, Col, PageHeader} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import {connect} from 'react-redux';
-
-import {fetchRanking, fetchRankingStartDate} from "../actions/index";
-import {RankingEntry} from "../domain/RankingEntry";
 import {Link} from "react-router-dom";
-import FontAwesome from "../../common/components/FontAwesome";
 import {Dispatch} from "redux";
-import {AppState} from "../../common/reducers/index";
+
+import {fetchRanking, fetchRankingStartDate} from "../actions";
+import {RankingEntry} from "../domain/RankingEntry";
+import FontAwesome from "../../common/components/FontAwesome";
+import {AppState} from "../../common/reducers";
+import {RankingWithChange} from "../domain/RankingWithChange";
 
 interface UserRankingProps {
     ranking: Array<RankingEntry>
     previousRanking: Array<RankingEntry>
     onLoad: () => void
-}
-
-interface PreviousRankEntry extends RankingEntry {
-    place: number
-    hacker: string;
-    score: number;
-    region: string;
-    team: string;
-    solvedCount: number
 }
 
 class UserRanking extends React.Component<UserRankingProps, {}> {
@@ -59,41 +50,9 @@ class UserRanking extends React.Component<UserRankingProps, {}> {
 
     render() {
         const {ranking, previousRanking} = this.props;
-        const NEW_USER = -10000;
 
-        let previousRankingData: Array<PreviousRankEntry> = previousRanking.map((rankEntry: RankingEntry, idx: number) => {
-
-            return {
-                place: idx + 1,
-                hacker: rankEntry.hacker,
-                score: rankEntry.score,
-                region: rankEntry.region,
-                team: rankEntry.team,
-                solvedCount: rankEntry.solvedProblems.length
-            } as PreviousRankEntry
-        });
-
-        let rankingData = ranking.map((rankEntry: RankingEntry, idx: number) => {
-
-            let previousRankEntry =
-                _.find(previousRankingData, (prevRankEntry: PreviousRankEntry) => prevRankEntry.hacker === rankEntry.hacker);
-
-            let place = idx + 1;
-
-            let change = previousRankEntry && previousRankEntry.score !== 0
-                ? (previousRankEntry.place - place)
-                : NEW_USER;
-
-            return {
-                place,
-                hacker: rankEntry.hacker,
-                score: rankEntry.score,
-                region: rankEntry.region,
-                team: rankEntry.team,
-                solvedCount: rankEntry.solvedProblems.length,
-                change
-            }
-        });
+        let rankingData = new RankingWithChange(ranking, previousRanking)
+            .calculate();
 
         return <Grid>
             <Col>
