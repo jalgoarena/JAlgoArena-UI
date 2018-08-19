@@ -1,6 +1,6 @@
 export class ProblemSubmissionRatio {
-    problemId: string;
-    solutionsCount: number;
+    public readonly problemId: string;
+    public readonly solutionsCount: number;
 
     constructor(problemId: string,
                 solutionsCount: number) {

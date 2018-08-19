@@ -11,9 +11,10 @@ import FontAwesome from '../../common/components/FontAwesome';
 import {fetchSubmissions} from "../actions";
 import * as moment from "moment";
 import {AuthState} from "../../users/reducers";
-import {StatusCode, Submission} from "../domain/Submission";
+import {Submission} from "../domain/Submission";
 import {AppState} from "../../common/reducers";
 import {Dispatch} from "redux";
+import {StatusCode} from "../domain/StatusCode";
 
 interface SubmissionsProps {
     auth: AuthState

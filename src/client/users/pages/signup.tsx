@@ -8,13 +8,13 @@ import FontAwesome from '../../common/components/FontAwesome';
 import FieldGroup from '../../common/components/FieldGroup';
 
 import {validateEmail, validatePassword, validateUserName} from '../utilities/RegexValidators';
-import {attemptSignUp, fetchUsers, navigatedAwayFromAuthFormPage, startSignup} from "../actions/index";
+import {attemptSignUp, fetchUsers, navigatedAwayFromAuthFormPage, startSignup} from "../actions";
 import ErrorLabel from "../components/ErrorLabel";
 
-import {fetchSubmissionStats} from "../../submissions/actions/index";
+import {fetchSubmissionStats} from "../../submissions/actions";
 import {Dispatch} from "redux";
-import {AppState, Config} from "../../common/reducers/index";
-import {AuthState} from "../reducers/index";
+import {AppState, Config} from "../../common/reducers";
+import {AuthState} from "../reducers";
 
 const initialFormState = {
     errorMessage:  null,

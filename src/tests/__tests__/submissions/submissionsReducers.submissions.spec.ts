@@ -1,7 +1,8 @@
 import * as reducer from '../../../client/submissions/reducers/index';
 import * as types from '../../../client/constants/ActionTypes';
-import {StatusCode, Submission} from "../../../client/submissions/domain/Submission";
+import {Submission} from "../../../client/submissions/domain/Submission";
 import {ProblemSubmissionRatio} from "../../../client/submissions/domain/ProblemSubmissionRatio";
+import {StatusCode} from "../../../client/submissions/domain/StatusCode";
 
 let defaultState = {
     items: [],

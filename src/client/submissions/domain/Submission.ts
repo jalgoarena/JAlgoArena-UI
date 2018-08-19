@@ -1,3 +1,5 @@
+import {StatusCode} from "./StatusCode";
+
 export class Submission {
     public readonly problemId: string;
     public readonly elapsedTime: number;
@@ -41,11 +43,3 @@ export class Submission {
     }
 }
 
-export enum StatusCode {
-    Accepted = "ACCEPTED",
-    WrongAnswer = "WRONG_ANSWER",
-    CompileError = "COMPILE_ERROR",
-    RuntimeError = "RUNTIME_ERROR",
-    TimeLimitExceeded = "TIME_LIMIT_EXCEEDED",
-    MemoryLimitExceeded = "MEMORY_LIMIT_EXCEEDED"
-}

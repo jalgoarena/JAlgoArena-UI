@@ -1,9 +1,9 @@
 export class RankingEntry {
-    hacker: string;
-    score: number;
-    solvedProblems: Array<string>;
-    region: string;
-    team: string;
+    public readonly hacker: string;
+    public readonly score: number;
+    public readonly solvedProblems: Array<string>;
+    public readonly region: string;
+    public readonly team: string;
 
     constructor(
         hacker: string,
