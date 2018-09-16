@@ -1,5 +1,6 @@
 import {updateConfig, websocketInit} from "./common/actions";
 
+import "@babel/polyfill";
 require('es6-promise').polyfill();
 
 import 'isomorphic-fetch';
