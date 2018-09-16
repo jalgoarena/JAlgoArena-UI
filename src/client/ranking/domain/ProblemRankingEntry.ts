@@ -1,7 +1,7 @@
 export class ProblemRankingEntry {
-    hacker: string;
-    score: number;
-    elapsedTime: number;
+    public readonly hacker: string;
+    public readonly score: number;
+    public readonly elapsedTime: number;
 
     constructor(
         hacker: string,

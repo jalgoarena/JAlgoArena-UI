@@ -1,7 +1,7 @@
 import * as reducer from '../../../client/problems/reducers/index';
 import * as types from '../../../client/constants/ActionTypes'
 import {Submission} from "../../../client/problems/domain/Submission";
-import {StatusCode} from "../../../client/submissions/domain/Submission";
+import {StatusCode} from "../../../client/submissions/domain/StatusCode";
 
 let defaultEditorState = {
     sourceCode: null,

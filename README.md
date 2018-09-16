@@ -13,6 +13,7 @@ JAlgoArena UI is frontent for JAlgoArena services.
 
 ## Technology
 
+- TypeScript - front end part and unit tests of JAlgoArena-UI are written entirely in [TypeScript](https://www.typescriptlang.org/) additionally using Babel for translation to ES5
 - Nomad for scheduling
 - npm, as build and running script, dependency management
 - Webpack to build JavaScript bundle script

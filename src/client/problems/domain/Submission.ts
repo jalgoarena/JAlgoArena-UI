@@ -1,4 +1,4 @@
-import {StatusCode} from "../../submissions/domain/Submission";
+import {StatusCode} from "../../submissions/domain/StatusCode";
 
 export class Submission {
   public readonly sourceCode: string;

@@ -7,7 +7,7 @@ import * as actions from "../../../client/problems/actions/index"
 import {Submission} from "../../../client/problems/domain/Submission";
 import Problem from "../../../client/problems/domain/Problem";
 import * as fetchMock from "fetch-mock";
-import {StatusCode} from "../../../client/submissions/domain/Submission";
+import {StatusCode} from "../../../client/submissions/domain/StatusCode";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
