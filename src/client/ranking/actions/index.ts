@@ -95,7 +95,7 @@ function setRanking(ranking: RankingEntry[]): Action {
     };
 }
 
-function fetchPreviousRanking(date: string) {
+function fetchPreviousRanking() {
     const options = {
         headers: {
             Accept: 'application/json',
@@ -104,13 +104,8 @@ function fetchPreviousRanking(date: string) {
         method: 'get',
     };
 
-    let daysFromStart = moment().dayOfYear() - moment(date).dayOfYear();
-
     let previousRankingDate = moment().subtract(1, 'days');
 
-    if (daysFromStart > 7) {
-        previousRankingDate = moment().subtract(7, 'days');
-    }
     let dateToFetch = previousRankingDate.format('YYYY-MM-DD');
 
     return (dispatch: Dispatch<Action>) => {
@@ -123,7 +118,7 @@ function fetchPreviousRanking(date: string) {
                     dispatch(setPreviousRanking(json as RankingEntry[]));
                 }
             })
-            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/${date}:` + error));
+            .catch((error) => console.log(`[err] GET /api/ranking/api/ranking/${dateToFetch}:` + error));
     };
 }
 
@@ -149,7 +144,7 @@ export function fetchRankingStartDate() {
             .then((date) => {
                 if (/\d\d\d\d-\d\d-\d\d/.test(date)) {
                     dispatch(setRankingStartDate(date as string));
-                    dispatch<any>(fetchPreviousRanking(date));
+                    dispatch<any>(fetchPreviousRanking());
                 } else {
                     dispatch(setErrorMessage('Incorrect format of a date: ' + date));
                 }
