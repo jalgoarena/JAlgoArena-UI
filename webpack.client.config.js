@@ -19,7 +19,7 @@ module.exports = {
     },
     entry: {
         vendors: "./src/client/vendors",
-        index: "./src/client/index"
+        index: ["@babel/polyfill", "./src/client/index"]
     },
     output: {
         path: path.resolve(__dirname, outputDirectory),
