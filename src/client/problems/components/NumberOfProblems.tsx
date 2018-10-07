@@ -38,22 +38,22 @@ const NumberOfProblems = (props: NumberOfProblemsProps) => (
                 <tr>
                     <td>Easy</td>
                     <td>{props.easy}</td>
-                    <td>{props.easy * 10 + props.easy}</td>
+                    <td>{props.easy * 10}</td>
                 </tr>
                 <tr>
                     <td>Medium</td>
                     <td>{props.medium}</td>
-                    <td>{props.medium * 30 + props.medium}</td>
+                    <td>{props.medium * 30}</td>
                 </tr>
                 <tr>
                     <td>Hard</td>
                     <td>{props.hard}</td>
-                    <td>{props.hard * 50 + props.hard}</td>
+                    <td>{props.hard * 50}</td>
                 </tr>
                 <tr>
                     <td> </td>
                     <td>{props.easy + props.medium + props.hard}</td>
-                    <td>{props.easy * 10 + props.easy + props.medium * 30 + props.medium + props.hard * 50 + props.hard}</td>
+                    <td>{props.easy * 10 + props.medium * 30 + props.hard * 50}</td>
                 </tr>
                 </tbody>
             </Table>
