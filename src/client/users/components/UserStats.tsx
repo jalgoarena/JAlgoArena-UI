@@ -127,10 +127,6 @@ interface UserStatsProps {
 
 const UserStats = (props: UserStatsProps) => {
     return <Col md={9}>
-        <h4>Solved Problems</h4>
-        <hr/>
-        {solvedProblems(props.user, props.userStats)}
-        <br/><br/>
         <h4>Rating</h4>
         <hr/>
         {highchartSolvedProblems(props.user, props.userStats, props.rankingStartDate)}
@@ -145,6 +141,10 @@ const UserStats = (props: UserStatsProps) => {
             titleForValue={titleForValue}
             tooltipDataAttrs={{'data-toggle': 'tooltip'}}
         />
+        <br/><br/>
+        <h4>Solved Problems</h4>
+        <hr/>
+        {solvedProblems(props.user, props.userStats)}
     </Col>
 };
 
